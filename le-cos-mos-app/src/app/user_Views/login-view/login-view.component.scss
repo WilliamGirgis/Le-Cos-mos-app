@@ -1,0 +1,65 @@
+#login {
+    background-color: rgb(68, 108, 153);
+width: 20vw; //Ne doit pas dépasser 35vw (width du #rightSide)
+height: 50px;
+box-shadow: 3px 3px 5px black;
+border-radius: 25px;
+min-width: fit-content;
+color: rgb(255, 255, 255);
+font-size: 150%;
+}
+
+#rightSide {
+    display: flex;
+    height: 85vh;
+    width: 35vw;
+align-items: flex-end;
+//border: 1px solid rgb(179, 37, 37);
+border-radius: 0px 25px 25px 0px;
+background-color: wheat;
+
+}
+.example-form-field {
+    color: rgb(255, 0, 0);
+    width: 200px;
+  }
+
+  input {
+    color: rgb(255, 255, 255);
+
+  }
+
+  #oublier {
+    margin-bottom: 20px;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    margin: auto auto auto auto;
+    justify-items: center;
+    align-items: center;
+    justify-content: space-evenly;
+    //border: 1px solid black;
+    height: 90%;
+    width: 85%;
+  }
+
+
+  mat-label {
+    color: rgb(68, 108, 153);
+font-size: 125%;
+  }
+
+  mat-card-title {
+    mat-label {
+    font-size: 175%;
+      }
+
+  }
+
+
+
+

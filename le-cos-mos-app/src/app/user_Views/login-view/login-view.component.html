@@ -1,0 +1,30 @@
+
+<div id="rightSide">
+
+
+    <form (submit)="sendLoginForm(value)">
+<mat-card-title>
+    <mat-label>Ravie de vous revoir !</mat-label>
+
+</mat-card-title>
+        <mat-form-field class="example-form-field">
+            <mat-label>Mail</mat-label>
+            <input  matInput type="text" [(ngModel)]="value" name="mail">
+            <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+
+          <mat-form-field class="example-form-field">
+            <mat-label>Mot de passe</mat-label>
+            <input  matInput type="text" [(ngModel)]="psw" name="psw">
+            <button *ngIf="psw" matSuffix mat-icon-button aria-label="Clear" (click)="psw=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+
+          <mat-label id="oublier">Mot de passe oublié</mat-label>
+
+<button id="login" type="submit" mat-button>Connexion</button>
+</form>
+</div>
