@@ -2,10 +2,7 @@
 ////// Vous devez d'abord installer le gestionaire de node js (npm) sur votre ordi (.exe disponible pour Mac et Windows sur internet) //////
 
 ////// On télécharge le Client d'Angular d'abord : ////// 
-npm install -g @angular/cli
-
-////// Installation du module form-field : un champ d'input pré-fabriquer par les équipes d'Angular (très jolie) : //////
-npm install @material/form-field 
+npm install -g @angular/cli 
 
 ////// Créer une nouvelle app Angular vide : //////
 ng new my-app
@@ -18,3 +15,9 @@ nodemon server
 
 ////// Créer un composant //////
 ng g c my-component
+
+////// Installation du module Angular Material (=~bootstrap)  //////
+ng add @angular/material
+
+////// Installation du module form-field : un champ d'input pré-fabriquer par les équipes d'Angular (très jolie) : //////
+npm install @material/form-field
