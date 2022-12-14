@@ -1,0 +1,32 @@
+
+////// Vous devez d'abord installer le gestionaire de node js (npm) sur votre ordi (.exe disponible pour Mac et Windows sur internet) //////
+
+////// Une fois la variable d'environement ajoutée à votre OS, rentrer dans votre dossier de travail puis lancer la commande suivante pour installer tous les modules node js : //////
+npm install
+
+////// On télécharge le Client d'Angular d'abord : ////// 
+npm install -g @angular/cli 
+
+////// Créer une nouvelle app Angular vide : //////
+ng new my-app
+
+////// Lancer Angular en localhost (sans le back-end) : //////
+ng serve
+
+////// Installation du module node js nodemon, qui permet the lancer l'application sur node js (incluant le back-end) //////
+npm install -g nodemon
+
+////// Lancer Angular en localhost (avec le back-end) : //////
+nodemon server
+
+////// Créer un composant //////
+ng g c my-component
+
+////// Installation du module Angular Material (=~bootstrap)  //////
+ng add @angular/material
+
+////// Installation du module form-field : un champ d'input pré-fabriquer par les équipes d'Angular (très jolie) : //////
+npm install @material/form-field
+
+////// Rajout d'extension web pour que les icones Angular s'affiches correctement : (à placer dans le <head> du index.html) //////
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
