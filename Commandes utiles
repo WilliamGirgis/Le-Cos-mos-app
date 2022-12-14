@@ -1,6 +1,9 @@
 
 ////// Vous devez d'abord installer le gestionaire de node js (npm) sur votre ordi (.exe disponible pour Mac et Windows sur internet) //////
 
+////// Une fois la variable d'environement ajoutée à votre OS, rentrer dans votre dossier de travail puis lancer la commande suivante pour installer tous les modules node js : //////
+npm install
+
 ////// On télécharge le Client d'Angular d'abord : ////// 
 npm install -g @angular/cli 
 
@@ -9,6 +12,9 @@ ng new my-app
 
 ////// Lancer Angular en localhost (sans le back-end) : //////
 ng serve
+
+////// Installation du module node js nodemon, qui permet the lancer l'application sur node js (incluant le back-end) //////
+npm install -g nodemon
 
 ////// Lancer Angular en localhost (avec le back-end) : //////
 nodemon server
