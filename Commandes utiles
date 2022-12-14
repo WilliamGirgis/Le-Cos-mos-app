@@ -27,3 +27,6 @@ ng add @angular/material
 
 ////// Installation du module form-field : un champ d'input pré-fabriquer par les équipes d'Angular (très jolie) : //////
 npm install @material/form-field
+
+////// Rajout d'extension web pour que les icones Angular s'affiches correctement : (à placer dans le <head> du index.html) //////
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
