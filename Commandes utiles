@@ -4,8 +4,6 @@
 ////// On télécharge le Client d'Angular d'abord : ////// 
 npm install -g @angular/cli
 
-
-
 ////// Installation du module form-field : un champ d'input pré-fabriquer par les équipes d'Angular (très jolie) : //////
 npm install @material/form-field 
 
