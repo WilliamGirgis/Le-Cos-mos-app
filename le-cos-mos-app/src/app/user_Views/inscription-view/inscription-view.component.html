@@ -1,24 +1,57 @@
 <div id="wrapper" fxLayout="row">
-<div id="leftSide" fxLayout="column" >
-    <form>
-        <mat-form-field>
-            <input matInput>
-            <input matInput>
+<div  fxFlex="50" id="leftSide" fxLayout="column" >
+    <h1>C'est parti !</h1>
+    <form fxLayoutAlign="space-evenly start" fxLayoutGap="10"  fxLayout="column">
+<div fxFill fxFlex="25" fxLayout="row" fxLayoutGap="20"  fxLayoutAlign="space-evenly center" id="fname-lname">
+        <mat-form-field fxFlex="47"  id="mff1">
+            <mat-label>Nom</mat-label>
+            <input matInput [(ngModel)]="lastname" name="lastname">
+            <button *ngIf="lastname" matSuffix mat-icon-button aria-label="Clear" (click)="lastname=''">
+                <mat-icon style="font-size:140%;" >close</mat-icon>
+              </button>
+        </mat-form-field>
+        <mat-form-field fxFlex="47"   id="mff2">
+            <mat-label>Prénom</mat-label>
+            <input matInput [(ngModel)]="firstname" name="firstname">
+            <button *ngIf="firstname" matSuffix mat-icon-button aria-label="Clear" (click)="firstname=''">
+                <mat-icon style="font-size:140%;" >close</mat-icon>
+              </button>
+        </mat-form-field>
+    </div>
+        <mat-form-field fxFill fxFlex="25" id="mff3">
+            <mat-label>E-mail</mat-label>
+            <input matInput [(ngModel)]="email" name="email">
+            <button *ngIf="email" matSuffix mat-icon-button aria-label="Clear" (click)="email=''">
+                <mat-icon style="font-size:140%;" >close</mat-icon>
+              </button>
         </mat-form-field>
 
-        <mat-form-field>
-            <input matInput>
+        <mat-form-field fxFill fxFlex="25" id="mff4">
+            <mat-label>Mot de passe</mat-label>
+            <input matInput [(ngModel)]="psw1" name="psw1">
+            <button *ngIf="psw1" matSuffix mat-icon-button aria-label="Clear" (click)="psw1=''">
+                <mat-icon style="font-size:140%;" >close</mat-icon>
+              </button>
         </mat-form-field>
 
-        <mat-form-field>
-            <input matInput>
+        <mat-form-field fxFill fxFlex="25" id="mff5">
+            <mat-label>Confirmer le mot de passe</mat-label>
+            <input matInput [(ngModel)]="psw2" name="psw2">
+            <button *ngIf="psw2" matSuffix mat-icon-button aria-label="Clear" (click)="psw2=''">
+                <mat-icon style="font-size:140%;" >close</mat-icon>
+              </button>
         </mat-form-field>
 
-        <mat-form-field>
-            <input matInput>
-        </mat-form-field>
-
+<button id="register-button" type="submit" mat-button>Confirmer</button>
     </form>
+    <div id="copyright">
+        <p style="font-weight:bold;font-size: 135%;">Le Cosm'os propulsé par</p> <img>
+        <p style="font-style: italic;font-size: 85%;">@ Copyright 2022 - Tous droits réservés</p>
+        </div>
 </div>
-<div id="rightSide" fxLayout="column"></div>
+<div fxFlex="50" id="rightSide" fxLayout="column">
+    <h1>Vous possédez déjà un compte ?</h1>
+    <h2>N'hésitez pas à vous connecter</h2>
+    <button   id="redirect-register-btn" routerLink="../login" mat-button>Connectez-vous</button>
+</div>
 </div>

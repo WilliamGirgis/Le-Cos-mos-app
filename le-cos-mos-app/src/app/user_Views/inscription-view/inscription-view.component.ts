@@ -7,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InscriptionViewComponent implements OnInit {
 
+  firstname=""
+  lastname=""
+  email=""
+  psw1=""
+  psw2=""
+
   constructor() { }
 
   ngOnInit(): void {

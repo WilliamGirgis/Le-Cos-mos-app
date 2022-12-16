@@ -1,16 +1,70 @@
+#wrapper {
+    width: 75vw;
+    box-shadow: 3px 3px 15px black;
+    border-radius: 25px;
+}
+
+// Coté droit
 #rightSide {
     display: flex;
     height: 85vh;
     width: 50%;
     min-width: 50%;
-justify-content: center;
+justify-content: flex-start;
 border-radius: 0px 25px 25px 0px;
-background-color: var(--white-them-color);
+background-color: var(--blue-them-color);
 
+
+h1 {
+    color: var(--white-them-color) ;
+    max-width: 100%;
+    align-self: left;
+    margin-left: 50px;
+    font-size: 250%;
+    margin-bottom: 0;
+}
+
+h2 {
+    margin-left: 50px;
+    color: var(--white-them-color) ;
+}
+
+#redirect-register-btn {
+    display: flex;
+    background-color: var(--white-them-color)  ;
+    width: 15vw; //Ne doit pas dépasser 35vw (width du #rightSide)
+    height: 40px;
+    min-width: fit-content;
+color: var(--blue-them-color)  ;
+font-size: 125%;
+box-shadow: 3px 3px 5px black;
+border-radius: 25px;
+margin-bottom: 30px;
+margin-right: 35px;
+justify-content: center;
+align-self: flex-end;
+&::after {
+    position: absolute;
+    width: 0vw;
+    height: 2px;
+    content: " ";
+    background-color: var(--blue-them-color);
+bottom: 7px;
+transition:  ease-in-out 200ms;
 
 }
 
+&:hover {
+    &::after {
+        width:  70%;
+    }
+}
+  }
+}
 
+
+
+// Coté gauche
 #leftSide {
     width: 50%;
     min-width: 50%;
@@ -18,4 +72,55 @@ background-color: var(--white-them-color);
     display: flex;
     align-items: center;
     justify-items: center;
+    background-color: var(--white-them-color);
+    border-radius: 25px 0px 0px 25px;
+    color: var(--blue-them-color);
+
+
+    h1 {
+font-size: 250%;
+    }
+
+    mat-label {
+        color: var(--blue-them-color);
+    }
+
+    #register-button {
+        background-color:var(--blue-them-color);
+        color: var(--white-them-color);;
+        border-radius: 25px;
+        align-self: center;
+        font-size: 150%;
+        min-width: fit-content;
+        width: 60%;
+        height: 40px;
+        box-shadow: 3px 3px 5px black;
+    }
   }
+
+  #copyright {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--blue-them-color);
+    margin: 0 auto auto auto;
+    font-size: 110%;
+    letter-spacing: 2px;
+
+     :first-child {
+        margin: 0 0 0 0;
+     }
+
+     :last-child {
+        margin: 0 0 0 0;
+     }
+
+}
+
+  form {
+    margin: auto;
+    align-items: center;
+width: 70%;
+  }
+
+
