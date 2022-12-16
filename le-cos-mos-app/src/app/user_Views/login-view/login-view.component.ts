@@ -10,8 +10,17 @@ export class LoginViewComponent implements OnInit {
   constructor() { }
   value = '';
   psw ='';
-  sendLoginForm(mail:string) {
+  sendLoginForm(mail:string,psw:string) {
 
+  }
+  type = 'text'
+  showHidePassword() {
+
+    if(this.type === 'password') {
+      this.type = 'text'
+    } else {
+    this.type = 'password'
+    }
   }
 
   ngOnInit(): void {

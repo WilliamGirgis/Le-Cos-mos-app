@@ -1,30 +1,50 @@
+<div id="wrapper" fxLayout="row">
 
-<div id="rightSide">
+<div fxLayout="column"  id="leftSide" fxLayoutGap="30">
+   <div id="title">
+    <h1>LE COSM'OS</h1>
+<h2>Apprenons ensemble !</h2>
+</div>
+<div id="welcome">
+    <h2>Bienvenue sur la plateforme</h2>
+    <mat-label id="notRegistered">Vous n'avez pas encore de compte ?</mat-label>
+</div>
+    <button   id="redirect-register-btn" routerLink="../register" mat-button>Inscrivez vous</button>
+</div>
 
+<div  fxLayout="column" fxFlex="2 1 0" id="rightSide">
+    <img id="logo" height="75px" width="75px" src="../../../assets/images/college-15-BLUE.svg">
+    <h1 id="ravie">Ravis de vous revoir !</h1>
+    <form fxLayout="column" fxFlex="50" fxLayoutAlign="space-between scretch"   (submit)="sendLoginForm(value,psw)">
 
-    <form (submit)="sendLoginForm(value)">
-<mat-card-title>
-    <mat-label>Ravie de vous revoir !</mat-label>
-
-</mat-card-title>
-        <mat-form-field class="example-form-field">
-            <mat-label>Mail</mat-label>
+<div fxLayout="column" fxLayoutGap="15" id="inputWrapper">
+        <mat-form-field fxFill fxFlex="2 1 0" class="example-form-field">
+            <mat-label>E-mail</mat-label>
+            <div style="height: 20px;"></div>
             <input  matInput type="text" [(ngModel)]="value" name="mail">
             <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-              <mat-icon>close</mat-icon>
+              <mat-icon style="font-size:140%;" >close</mat-icon>
             </button>
           </mat-form-field>
 
-          <mat-form-field class="example-form-field">
+          <mat-form-field fxFill fxFlex="2 1 0"   class="example-form-field">
             <mat-label>Mot de passe</mat-label>
-            <input  matInput type="text" [(ngModel)]="psw" name="psw">
-            <button *ngIf="psw" matSuffix mat-icon-button aria-label="Clear" (click)="psw=''">
-              <mat-icon>close</mat-icon>
+                <input matInput type="{{type}}" [(ngModel)]="psw" name="psw">
+            <button  *ngIf="psw"  mat-icon-button aria-label="Clear password">
+              <mat-icon style="font-size:150%;"   (click)="psw=''">close</mat-icon>
             </button>
+            <button fxFlex="7"  mat-icon-button><mat-icon style="font-size:150%;" (click)="showHidePassword()">remove_red_eye</mat-icon></button>
           </mat-form-field>
+        </div>
+        <mat-label id="oublier">Mot de passe oublié</mat-label>
 
-          <mat-label id="oublier">Mot de passe oublié</mat-label>
-
-<button id="login" type="submit" mat-button>Connexion</button>
+<button id="login-button" type="submit" mat-button>Connexion</button>
 </form>
+<div id="copyright">
+<p style="font-weight:bold;font-size: 135%;">Le Cosm'os propulsé par</p> <img>
+<p style="font-style: italic;font-size: 85%;">@ Copyright 2022 - Tous droits réservés</p>
+</div>
+</div>
+
+
 </div>

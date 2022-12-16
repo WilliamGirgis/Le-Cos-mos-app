@@ -1,38 +1,89 @@
-#login {
-    background-color: rgb(68, 108, 153);
-width: 20vw; //Ne doit pas dépasser 35vw (width du #rightSide)
-height: 50px;
+#wrapper {
+    border-radius: 25px;
+    width: 75vw;
+    box-shadow: 3px 3px 15px black;
+}
+
+
+
+//Block de droite
+
+#login-button {
+    background-color: var(--blue-them-color);
+width: 60%; //Ne doit pas dépasser 35vw (width du #rightSide)
+height: 45px;
+
 box-shadow: 3px 3px 5px black;
 border-radius: 25px;
 min-width: fit-content;
 color: rgb(255, 255, 255);
 font-size: 150%;
+align-self: center;
+
 }
 
 #rightSide {
     display: flex;
     height: 85vh;
-    width: 35vw;
-align-items: flex-end;
-//border: 1px solid rgb(179, 37, 37);
+    width: 50%;
+    min-width: 50%;
+justify-content: center;
 border-radius: 0px 25px 25px 0px;
-background-color: wheat;
+/*background: url("../../assets/images/college-15-BLUE.svg") no-repeat top;// Je sais pas ocmment j'ai fais
+background-size: 50px 50px;*/
+background-color: var(--white-them-color);
+
+h1 {
+    margin:auto auto auto auto;
+    color: var(--blue-them-color);
+    font-size: 230%;
+    font-weight: 20px;
+
+  }
+
+  #logo {
+    align-self: center;
+    margin-top: 15px;
+  }
+
+}
+
+#copyright {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--blue-them-color);
+    margin: 0 auto auto auto;
+    font-size: 110%;
+    letter-spacing: 2px;
+
+     :first-child {
+        margin: 0 0 5px 0;
+     }
+
+     :last-child {
+        margin: 0 0 0 0;
+     }
 
 }
 .example-form-field {
-    color: rgb(255, 0, 0);
+    color: var(--blue-them-color);
     width: 200px;
   }
 
   input {
-    color: rgb(255, 255, 255);
-
+    color: var(--blue-them-color);
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-decoration: none;
   }
 
+
   #oublier {
-    margin-bottom: 20px;
     text-decoration: underline;
     cursor: pointer;
+    font-size: 120%;
+    margin: 5px auto 10px auto;
   }
 
   form {
@@ -41,25 +92,121 @@ background-color: wheat;
     margin: auto auto auto auto;
     justify-items: center;
     align-items: center;
-    justify-content: space-evenly;
-    //border: 1px solid black;
+
     height: 90%;
     width: 85%;
   }
 
-
   mat-label {
-    color: rgb(68, 108, 153);
-font-size: 125%;
+    color: var(--blue-them-color);
+text-align: center;
+font-size: 130%;
   }
 
-  mat-card-title {
-    mat-label {
-    font-size: 175%;
+
+
+    #ravie {
+    min-width: max-content; // Maintenir le texte sur la même ligne (+ responsive)
+    color: var(--blue-them-color);
+    align-self: center;
+    justify-self: center;
+    margin: auto auto auto auto;
+    letter-spacing: 2px;
+      }
+
+  #inputWrapper {
+width: 80%;
+align-self: center;
+  }
+
+  //Block de gauche
+
+  #leftSide {
+    width: 50%;
+    min-width: 50%;
+    height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    border-radius: 25px 0px 0px 25px;
+    background: url("../../../assets/images/college-15-WHITE.svg") no-repeat center;// Je sais pas ocmment j'ai fais
+    background-size: 200px 200px;
+
+    h1 {
+        margin:auto auto auto auto;
+        color: var(--white-them-color)  ;
+        font-size: 280%;
+        font-weight: 20px;
       }
 
   }
 
+  #redirect-register-btn {
+    display: flex;
+    background-color: var(--white-them-color)  ;
+    width: 15vw; //Ne doit pas dépasser 35vw (width du #rightSide)
+    height: 40px;
+    min-width: fit-content;
+color: var(--blue-them-color)  ;
+font-size: 125%;
+box-shadow: 3px 3px 5px black;
+border-radius: 25px;
+margin-bottom: 30px;
+margin-right: 35px;
+justify-content: center;
+align-self: flex-end;
+&::after {
+    position: absolute;
+    width: 0vw;
+    height: 2px;
+    content: " ";
+    background-color: var(--blue-them-color);
+bottom: 7px;
+transition:  ease-in-out 200ms;
+
+}
+
+&:hover {
+    &::after {
+        width:  60%;
+    }
+}
+  }
 
 
 
+
+  h2 {
+    color: var(--white-them-color)  ;
+    align-self: flex-start;
+    margin:auto auto auto auto;
+  }
+
+  #title {
+    align-self: center;
+    margin: 5% auto auto 10%;
+    letter-spacing: 2px;
+  }
+
+  #welcome {
+    margin: auto auto auto 10%;
+    letter-spacing: 2px;
+   }
+
+   #notRegistered {
+    color: var(--white-them-color);
+min-width: max-content;
+letter-spacing: 2px;
+   }
+
+
+
+
+
+   @media (max-width: 480px) {
+
+  }
+
+  @media (max-width: 980px) {
+
+  }
