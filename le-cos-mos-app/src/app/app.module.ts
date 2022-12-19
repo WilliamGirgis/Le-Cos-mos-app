@@ -10,7 +10,7 @@ import {RouterModule, Routes } from '@angular/router';
 import {FlexLayoutModule } from '@angular/flex-layout';
 import {FlexModule } from '@angular/flex-layout';
 //Materials
-import {MatButtonToggleModule,MatButtonModule,MatInputModule,MatCardModule,MatIconModule,MatListModule, MatFormFieldModule, MatProgressSpinnerModule, MatRadioModule, MatTableModule, MatToolbarModule,MatMenuModule, MatDialogModule } from '@angular/material';
+import {MatButtonToggleModule,MatButtonModule,MatInputModule,MatCardModule,MatIconModule,MatListModule, MatFormFieldModule, MatProgressSpinnerModule, MatRadioModule, MatTableModule, MatToolbarModule,MatMenuModule, MatDialogModule, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material';
 
 import {CommonModule } from '@angular/common';
 import {FormsModule,ReactiveFormsModule} from '@angular/forms';
@@ -53,7 +53,7 @@ const routes: Routes = [
         LoginViewComponent
 
     ],
-    providers: [],
+    providers: [{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}}], //Mettre par default tous les input en "outline"
     bootstrap: [AppComponent],
     imports: [
         BrowserModule,

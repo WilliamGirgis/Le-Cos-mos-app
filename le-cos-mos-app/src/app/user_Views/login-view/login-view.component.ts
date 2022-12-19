@@ -13,7 +13,7 @@ export class LoginViewComponent implements OnInit {
   sendLoginForm(mail:string,psw:string) {
 
   }
-  type = 'text'
+  type = 'password'
   showHidePassword() {
 
     if(this.type === 'password') {

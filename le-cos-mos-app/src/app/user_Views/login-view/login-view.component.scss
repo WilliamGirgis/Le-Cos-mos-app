@@ -1,5 +1,5 @@
 #wrapper {
-    border-radius: 25px;
+    border-radius: 10px;
     width: 75vw;
     box-shadow: 3px 3px 15px black;
 }
@@ -7,6 +7,7 @@
 
 
 //Block de droite
+
 
 #login-button {
     background-color: var(--blue-them-color);
@@ -24,17 +25,16 @@ align-self: center;
 
 #rightSide {
     display: flex;
-    height: 85vh;
+    align-items: center;
+    justify-items: flex-start;
+    height: 90vh;
     width: 50%;
     min-width: 50%;
-justify-content: center;
-border-radius: 0px 25px 25px 0px;
-/*background: url("../../assets/images/college-15-BLUE.svg") no-repeat top;// Je sais pas ocmment j'ai fais
-background-size: 50px 50px;*/
+justify-content: flex-start;
+border-radius: 0px 10px 10px 0px;
 background-color: var(--white-them-color);
 
 h1 {
-    margin:auto auto auto auto;
     color: var(--blue-them-color);
     font-size: 230%;
     font-weight: 20px;
@@ -48,13 +48,21 @@ h1 {
 
 }
 
+#mff-psw {
+display: flex;
+width: 100%;
+position: absolute;
+justify-content: flex-end;
+top: 0;
+}
+
 #copyright {
     display: flex;
     flex-direction: column;
     align-items: center;
     color: var(--blue-them-color);
     margin: 0 auto auto auto;
-    font-size: 110%;
+    font-size: 100%;
     letter-spacing: 2px;
 
      :first-child {
@@ -68,14 +76,13 @@ h1 {
 }
 .example-form-field {
     color: var(--blue-them-color);
-    width: 200px;
+
   }
 
   input {
     color: var(--blue-them-color);
-    font-weight: bold;
+
     letter-spacing: 2px;
-    text-decoration: none;
   }
 
 
@@ -83,24 +90,22 @@ h1 {
     text-decoration: underline;
     cursor: pointer;
     font-size: 120%;
-    margin: 5px auto 10px auto;
+    margin: auto auto auto auto;
   }
 
   form {
-    display: flex;
-    flex-direction: column;
-    margin: auto auto auto auto;
-    justify-items: center;
+    margin: auto;
     align-items: center;
-
-    height: 90%;
-    width: 85%;
+width: 75%;
+letter-spacing: 2px;
   }
 
   mat-label {
     color: var(--blue-them-color);
 text-align: center;
-font-size: 130%;
+  }
+  mat-form-field {
+    height: 10px;
   }
 
 
@@ -115,7 +120,7 @@ font-size: 130%;
       }
 
   #inputWrapper {
-width: 80%;
+width: 100%;
 align-self: center;
   }
 
@@ -124,11 +129,11 @@ align-self: center;
   #leftSide {
     width: 50%;
     min-width: 50%;
-    height: 85vh;
+    height: 90vh;
     display: flex;
     align-items: center;
     justify-items: center;
-    border-radius: 25px 0px 0px 25px;
+    border-radius: 10px 0px 0px 10px;
     background: url("../../../assets/images/college-15-WHITE.svg") no-repeat center;// Je sais pas ocmment j'ai fais
     background-size: 200px 200px;
 

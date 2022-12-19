@@ -15,6 +15,17 @@ export class InscriptionViewComponent implements OnInit {
 
   constructor() { }
 
+  type = 'text'
+  showHidePassword() {
+
+    if(this.type === 'password') {
+      this.type = 'text'
+    } else {
+    this.type = 'password'
+    }
+  }
+
+
   ngOnInit(): void {
   }
 

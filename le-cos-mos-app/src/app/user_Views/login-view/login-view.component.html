@@ -1,6 +1,6 @@
 <div id="wrapper" fxLayout="row">
 
-<div fxLayout="column"  id="leftSide" fxLayoutGap="30">
+<div fxLayout="column"  id="leftSide" fxLayoutGap="20">
    <div id="title">
     <h1>LE COSM'OS</h1>
 <h2>Apprenons ensemble !</h2>
@@ -12,29 +12,30 @@
     <button id="redirect-register-btn" routerLink="../register" mat-button>Inscrivez-vous</button>
 </div>
 
-<div  fxLayout="column" fxFlex="2 1 0" id="rightSide">
+<div  fxLayout="column"  id="rightSide">
     <img id="logo" height="75px" width="75px" src="../../../assets/images/college-15-BLUE.svg">
     <h1 id="ravie">Ravis de vous revoir !</h1>
-    <form fxLayout="column" fxFlex="50" fxLayoutAlign="space-between scretch"   (submit)="sendLoginForm(value,psw)">
+    <form fxLayout="column" fxFlex="55" fxLayoutAlign="space-between scretch"   (submit)="sendLoginForm(value,psw)">
 
 <div fxLayout="column" fxLayoutGap="15" id="inputWrapper">
-        <mat-form-field fxFill fxFlex="2 1 0" class="example-form-field">
+        <mat-form-field [floatLabel]="'always'"  fxFill fxFlex="2 1 0" class="example-form-field">
             <mat-label>E-mail</mat-label>
-            <div style="height: 20px;"></div>
             <input  matInput type="text" [(ngModel)]="value" name="mail">
             <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
               <mat-icon style="font-size:140%;" >close</mat-icon>
             </button>
           </mat-form-field>
 
-          <mat-form-field fxFill fxFlex="2 1 0"   class="example-form-field">
+          <mat-form-field [floatLabel]="'always'"  fxFill fxFlex="100" class="example-form-field">
             <mat-label>Mot de passe</mat-label>
                 <input matInput type="{{type}}" [(ngModel)]="psw" name="psw">
-            <button  *ngIf="psw"  mat-icon-button aria-label="Clear password">
+                <div id="mff-psw">
+            <button matSuffix  *ngIf="psw"  mat-icon-button aria-label="Clear password">
               <mat-icon style="font-size:150%;"   (click)="psw=''">close</mat-icon>
             </button>
-            <button fxFlex="7"  mat-icon-button><mat-icon style="font-size:150%;" (click)="showHidePassword()">remove_red_eye</mat-icon></button>
-          </mat-form-field>
+            <button matSuffix fxFlex="7"  mat-icon-button><mat-icon style="font-size:150%;" (click)="showHidePassword()">remove_red_eye</mat-icon></button>
+        </div>
+        </mat-form-field>
         </div>
         <mat-label id="oublier">Mot de passe oublié</mat-label>
 

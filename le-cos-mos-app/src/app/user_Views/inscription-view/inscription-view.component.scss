@@ -1,19 +1,21 @@
 #wrapper {
     width: 75vw;
     box-shadow: 3px 3px 15px black;
-    border-radius: 25px;
+    border-radius: 10px;
 }
 
 // Coté droit
 #rightSide {
     display: flex;
-    height: 85vh;
+    height: 90vh;
     width: 50%;
     min-width: 50%;
 justify-content: flex-start;
-border-radius: 0px 25px 25px 0px;
+border-radius: 0px 10px 10px 0px;
 background-color: var(--blue-them-color);
-
+background: url("../../../assets/images/stethoscope.svg") no-repeat;
+background-position: 90% 0%;
+background-size: 135% 135%;
 
 h1 {
     color: var(--white-them-color) ;
@@ -22,14 +24,17 @@ h1 {
     margin-left: 50px;
     font-size: 250%;
     margin-bottom: 0;
+    margin-top: 20px;
+
 }
 
 h2 {
     margin-left: 50px;
     color: var(--white-them-color) ;
+    font-weight: bold;
 }
 
-#redirect-register-btn {
+#redirect-login-btn {
     display: flex;
     background-color: var(--white-them-color)  ;
     width: 15vw; //Ne doit pas dépasser 35vw (width du #rightSide)
@@ -68,17 +73,18 @@ transition:  ease-in-out 200ms;
 #leftSide {
     width: 50%;
     min-width: 50%;
-    height: 85vh;
+    height: 90vh;
     display: flex;
     align-items: center;
-    justify-items: center;
+    justify-items: flex-start;
     background-color: var(--white-them-color);
-    border-radius: 25px 0px 0px 25px;
+    border-radius: 10px 0px 0px 10px;
     color: var(--blue-them-color);
-
-
+    justify-content: flex-start;
     h1 {
 font-size: 250%;
+margin-bottom: 0;
+margin-top: 20px;
     }
 
     mat-label {
@@ -95,6 +101,7 @@ font-size: 250%;
         width: 60%;
         height: 40px;
         box-shadow: 3px 3px 5px black;
+        margin-top: 5vh;
     }
   }
 
@@ -104,11 +111,11 @@ font-size: 250%;
     align-items: center;
     color: var(--blue-them-color);
     margin: 0 auto auto auto;
-    font-size: 110%;
+    font-size: 100%;
     letter-spacing: 2px;
 
-     :first-child {
-        margin: 0 0 0 0;
+    :first-child {
+        margin: 0 0 5px 0;
      }
 
      :last-child {
@@ -120,7 +127,17 @@ font-size: 250%;
   form {
     margin: auto;
     align-items: center;
-width: 70%;
+width: 75%;
+letter-spacing: 2px;
   }
+
+  #mff-psw {
+    display: flex;
+    width: 100%;
+    position: absolute;
+    justify-content: flex-end;
+    top: 0;
+    }
+
 
 
