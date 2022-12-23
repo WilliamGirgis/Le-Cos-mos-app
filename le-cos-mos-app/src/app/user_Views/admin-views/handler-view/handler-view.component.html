@@ -1,0 +1,23 @@
+<div  id="wrapper">
+  <mat-list fxLayout="column" fxLayoutAlign="space-between center">
+    <mat-list-item routerLinkActive="active-link" routerLink="./home" fxLayoutAlign="center center">Accueil</mat-list-item>
+    <mat-list-item routerLinkActive="active-link" routerLink="./planning" fxLayoutAlign="center center">Planning</mat-list-item>
+    <mat-list-item routerLinkActive="active-link" routerLink="./supports" fxLayoutAlign="center center">Supports</mat-list-item>
+    <mat-list-item routerLinkActive="active-link" routerLink="./examens" fxLayoutAlign="center center">Examens</mat-list-item>
+    <mat-list-item routerLinkActive="active-link" routerLink="./messagerie" fxLayoutAlign="center center">Messagerie</mat-list-item>
+    <mat-list-item routerLinkActive="active-link" routerLink="./statistiques" fxLayoutAlign="center center">Statistiques</mat-list-item>
+    <mat-list-item routerLinkActive="active-link" routerLink="./gestion" fxLayoutAlign="center center">Gestion</mat-list-item>
+  </mat-list>
+
+  <mat-card [@routeAnimations]="prepareRoute(outlet)" id="white-window">
+    <div fxLayout="row" fxLayoutGap="1.5vw" fxLayoutAlign="end flex-end" id="top-but-set">
+   <img (click)="logout()" style="cursor:pointer" id="power" width="30px" height="30px" src="../../../../assets/images/power.svg">
+   <img style="cursor:pointer" id="power" width="30px" height="30px" src="../../../../assets/images/gear-fill.svg">
+  </div>
+      <router-outlet #outlet="outlet"></router-outlet>
+
+
+
+  </mat-card>
+
+</div>

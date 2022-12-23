@@ -2,7 +2,7 @@
 @import "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css";
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
 
-// Modification du them de l'applcation en modifiant les variables ci-dessous
+// Modification du theme de l'applcation en modifiant les variables ci-dessous
 :root{
   --blue-them-color:rgb(91, 171, 210);
   --white-them-color:white;
@@ -55,26 +55,20 @@ justify-items: center;
 
   }
 
-  .mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-start,
-.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-end,
-.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-gap {
-    border-width: 2px 2px 2px 2px !important ;
-    color: var(--blue-them-color);
-}
-
 .mat-form-field-outline-end {
   border: var(--outline-input-width) solid; // Placer le "!important" pour forcer le changement de la bordure
-  border-left: 0 !important;
+  border-left: 0 ;
   color: var(--outline-input-color);
 }
 .mat-form-field-outline-start {
   border: var(--outline-input-width) solid;  // Placer le "!important" pour forcer le changement de la bordure
-  border-right: 0 !important;
+  border-right: 0 ;
   color: var(--outline-input-color);
 }
 .mat-form-field-outline-gap {
-  border: var(--outline-input-width) solid var(--outline-input-color) ;  // Placer le "!important" pour forcer le changement de la bordure
-  border-right: 0 !important;
-  border-left: 0 !important;
+  border: var(--outline-input-width) solid  ;  // Placer le "!important" pour forcer le changement de la bordure
+  border-right: 0 ;
+  border-left: 0 ;
   color: var(--outline-input-color);
+
 }

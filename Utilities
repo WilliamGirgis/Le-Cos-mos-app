@@ -31,3 +31,6 @@ npm install @material/form-field
 ////// Rajout d'extension web pour que les icones Angular s'affiches correctement : (à placer dans le <head> du index.html) //////
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+
+Angular custom validator : https://angular.io/guide/form-validation
+

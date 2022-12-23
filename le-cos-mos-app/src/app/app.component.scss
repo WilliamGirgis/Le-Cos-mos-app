@@ -2,13 +2,11 @@
 
 div {
     display: flex;
-    background-color: var(--blue-them-color);
-   height: 90vh;
+   height: 100vh;
    min-width: max-content;
 border-radius: 10px;
 justify-content: center;
 align-content: center;
+align-items: center;
    // width : 90vw;
 }
-
-

@@ -9,29 +9,31 @@
     <h2>Bienvenue sur la plateforme</h2>
     <mat-label id="notRegistered">Vous n'avez pas encore de compte ?</mat-label>
 </div>
-    <button id="redirect-register-btn" routerLink="../register" mat-button>Inscrivez-vous</button>
+    <button id="redirect-register-btn" routerLink="/register" mat-button>Inscrivez-vous</button>
 </div>
 
 <div  fxLayout="column"  id="rightSide">
     <img id="logo" height="75px" width="75px" src="../../../assets/images/college-15-BLUE.svg">
     <h1 id="ravie">Ravis de vous revoir !</h1>
-    <form fxLayout="column" fxFlex="55" fxLayoutAlign="space-between scretch"   (submit)="sendLoginForm(value,psw)">
+    <form novalidate [formGroup]="loginForm" fxLayout="column" fxFlex="55" fxLayoutAlign="space-between scretch"   (submit)="loginUser()">
 
 <div fxLayout="column" fxLayoutGap="15" id="inputWrapper">
         <mat-form-field [floatLabel]="'always'"  fxFill fxFlex="2 1 0" class="example-form-field">
             <mat-label>E-mail</mat-label>
-            <input  matInput type="text" [(ngModel)]="value" name="mail">
-            <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+            <input formControlName="email"  matInput type="text" #mail>
+            <mat-error>{{formErrors.email}}</mat-error>
+            <button *ngIf="mail.value" matSuffix mat-icon-button aria-label="Clear" (click)="mail.value=''">
               <mat-icon style="font-size:140%;" >close</mat-icon>
             </button>
           </mat-form-field>
 
           <mat-form-field [floatLabel]="'always'"  fxFill fxFlex="100" class="example-form-field">
             <mat-label>Mot de passe</mat-label>
-                <input matInput type="{{type}}" [(ngModel)]="psw" name="psw">
+                <input formControlName="password" matInput type="{{type}}" #psw>
+                <mat-error>{{formErrors.password}}</mat-error>
                 <div id="mff-psw">
-            <button matSuffix  *ngIf="psw"  mat-icon-button aria-label="Clear password">
-              <mat-icon style="font-size:150%;"   (click)="psw=''">close</mat-icon>
+            <button matSuffix  *ngIf="psw.value"  mat-icon-button aria-label="Clear password">
+              <mat-icon style="font-size:150%;"   (click)="psw.value = ''">close</mat-icon>
             </button>
             <button matSuffix fxFlex="7"  mat-icon-button><mat-icon style="font-size:150%;" (click)="showHidePassword()">remove_red_eye</mat-icon></button>
         </div>

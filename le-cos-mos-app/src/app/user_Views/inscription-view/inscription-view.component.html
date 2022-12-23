@@ -1,38 +1,42 @@
 <div id="wrapper" fxLayout="row">
 <div  fxFlex="50" id="leftSide" fxLayout="column" >
     <h1>C'est parti !</h1>
-    <form fxLayoutAlign="space-evenly start"   fxLayout="column">
+    <form novalidate [formGroup]="subscribeForm" (submit)="register()" fxLayoutAlign="space-evenly start"   fxLayout="column">
 <div fxFill fxFlex="20" fxLayout="row" fxLayoutGap="15"  fxLayoutAlign="space-evenly center" id="fname-lname">
         <mat-form-field [floatLabel]="'always'"  fxFlex="47"  id="mff1">
             <mat-label>Nom</mat-label>
-            <input  matInput [(ngModel)]="lastname" name="lastname">
-            <button *ngIf="lastname" matSuffix mat-icon-button aria-label="Clear" (click)="lastname=''">
+            <input formControlName="lastname"  matInput #lname>
+            <mat-error>{{formErrors.lastname}}</mat-error>
+            <button *ngIf="lname.value" matSuffix mat-icon-button aria-label="Clear" (click)="lname.value = ''">
                 <mat-icon style="font-size:140%;" >close</mat-icon>
               </button>
         </mat-form-field>
         <mat-form-field [floatLabel]="'always'" fxFlex="47"   id="mff2">
             <mat-label>Prénom</mat-label>
 
-            <input matInput [(ngModel)]="firstname" name="firstname">
-            <button *ngIf="firstname" matSuffix mat-icon-button aria-label="Clear" (click)="firstname=''">
+            <input formControlName="firstname" matInput #fname>
+            <mat-error>{{formErrors.firstname}}</mat-error>
+            <button *ngIf="fname.value" matSuffix mat-icon-button aria-label="Clear" (click)="fname.value =''">
                 <mat-icon style="font-size:140%;" >close</mat-icon>
               </button>
         </mat-form-field>
     </div>
         <mat-form-field [floatLabel]="'always'" fxFill fxFlex="20" id="mff3">
             <mat-label>E-mail</mat-label>
-            <input matInput [(ngModel)]="email" name="email">
-            <button *ngIf="email" matSuffix mat-icon-button aria-label="Clear" (click)="email=''">
+            <input formControlName="email" matInput #email>
+            <mat-error>{{formErrors.email}}</mat-error>
+            <button *ngIf="email.value" matSuffix mat-icon-button aria-label="Clear" (click)="email.value=''">
                 <mat-icon style="font-size:140%;" >close</mat-icon>
               </button>
         </mat-form-field>
 
-        <mat-form-field [floatLabel]="'always'" fxFill fxFlex="20" id="mff4">
+        <mat-form-field color="red"  [floatLabel]="'always'" fxFill fxFlex="20" id="mff4">
             <mat-label>Mot de passe</mat-label>
-            <input type="{{type}}" matInput [(ngModel)]="psw1" name="psw1">
+            <input formControlName="password" type="{{type}}" matInput #psw1>
+            <mat-error>{{formErrors.password}}</mat-error>
             <div id="mff-psw">
-            <button *ngIf="psw1"  mat-icon-button aria-label="Clear" (click)="psw1=''">
-                <mat-icon style="font-size:140%;" >close</mat-icon>
+            <button *ngIf="psw1.value"  mat-icon-button aria-label="Clear" (click)="psw1.value = ''">
+                <mat-icon tabindex="0" style="font-size:140%;" >close</mat-icon>
               </button>
               <button fxFlex="7"  mat-icon-button><mat-icon style="font-size:150%;" (click)="showHidePassword()">remove_red_eye</mat-icon></button>
             </div>
@@ -40,10 +44,11 @@
 
         <mat-form-field [floatLabel]="'always'" fxFill fxFlex="20" id="mff5">
             <mat-label>Confirmer le mot de passe</mat-label>
-            <input type="{{type}}" matInput [(ngModel)]="psw2" name="psw2">
+            <input formControlName="confirmPsw" type="{{type}}" matInput #psw2>
+            <mat-error>{{formErrors.confirmPsw}}</mat-error>
             <div id="mff-psw">
-            <button *ngIf="psw2" mat-icon-button aria-label="Clear" (click)="psw2=''">
-                <mat-icon style="font-size:140%;" >close</mat-icon>
+            <button *ngIf="psw2.value" mat-icon-button aria-label="Clear" (click)="psw2.value =''">
+                <mat-icon tabindex="0" style="font-size:140%;" >close</mat-icon>
               </button>
               <button fxFlex="7" mat-icon-button><mat-icon style="font-size:150%;" (click)="showHidePassword()">remove_red_eye</mat-icon></button>
             </div>
@@ -59,7 +64,7 @@
 <div fxFlex="50" id="rightSide" fxLayout="column">
     <h1>Vous possédez déjà un compte ?</h1>
     <h2>N'hésitez pas à vous connecter</h2>
-    <button  id="redirect-login-btn" routerLink="../login" mat-button>Connectez-vous</button>
+    <button  id="redirect-login-btn" routerLink="/login" mat-button>Connectez-vous</button>
 
 </div>
 </div>

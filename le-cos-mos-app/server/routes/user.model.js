@@ -12,12 +12,20 @@ mongoose.connect('mongodb+srv://test:Samsam123@cluster0.pcin2.mongodb.net/myFirs
 
 // Definir la table User ici
 const userSchema = new mongoose.Schema({
-    id: {
+    email: {
         type:String,
         required:true,
         minLength: 1,
         trim:true,
         unique:true
+    },
+    firstname: {
+      type:String,
+      required:true,
+    },
+    lastname: {
+      type:String,
+      required:true,
     },
 
     password: {
@@ -37,6 +45,12 @@ const userSchema = new mongoose.Schema({
 
         }]
 })
+
+// Definir la table Cour ici
+
+// Definir la table Discipline ici
+
+// Definir la table Conversation ici
 
 
 
@@ -103,9 +117,10 @@ userSchema.statics.getJWTSecret = () => {
 return jwtScret;
 }
 
-userSchema.statics.findByCredentials = function(id,password) {
+userSchema.statics.findByCredentials = function(email,password) {
     let User = this;
-return User.findOne({id}).then((user) => {
+return User.findOne({email}).then((user) => {
+  console.log(user)
   if(!user) return Promise.reject();
   return new Promise((resolve,reject)=> {
       bcrypt.compare(password,user.password,(err,res) => {
@@ -113,7 +128,7 @@ return User.findOne({id}).then((user) => {
               resolve(user);
             }
           else {
-              reject(err + "USER NOT FOUND USING CREDENTIALS");
+              reject(err + " USER NOT FOUND USING CREDENTIALS");
           }
       })
   })

@@ -1,9 +1,13 @@
 #wrapper {
     border-radius: 10px;
     width: 75vw;
-    box-shadow: 3px 3px 15px black;
+    height: 90vh;
+    background-color: var(--blue-them-color);
 }
 
+mat-error {
+ color: var(--blue-them-color);
+}
 
 
 //Block de droite
@@ -13,8 +17,6 @@
     background-color: var(--blue-them-color);
 width: 60%; //Ne doit pas dépasser 35vw (width du #rightSide)
 height: 40px;
-
-box-shadow: 3px 3px 5px black;
 border-radius: 25px;
 min-width: fit-content;
 color: rgb(255, 255, 255);
@@ -96,7 +98,7 @@ top: 0;
   form {
     margin: auto;
     align-items: center;
-width: 75%;
+width: 80%;
 letter-spacing: 2px;
   }
 
@@ -154,7 +156,6 @@ align-self: center;
     min-width: fit-content;
 color: var(--blue-them-color)  ;
 font-size: 125%;
-box-shadow: 3px 3px 5px black;
 border-radius: 25px;
 margin-bottom: 30px;
 margin-right: 35px;

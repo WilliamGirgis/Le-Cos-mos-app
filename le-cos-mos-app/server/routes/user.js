@@ -84,8 +84,8 @@ router.post("/users", (req, res) => {
         return { accessToken, refreshToken };
       });
     })
-    .then((authToken) => {
-      /* Created diretory with the '_id'*/
+    /*.then((authToken) => {
+      /* Created diretory with the '_id'
       fs.mkdir(path.join(folder, newUser._id.toString()), (err) => {
         if (err) {
           return console.error(err);
@@ -95,16 +95,17 @@ router.post("/users", (req, res) => {
         .header("x-refresh-token", authToken.refreshToken)
         .header("x-access-token", authToken.accessToken)
         .send(newUser);
-    })
+    })*/
     .catch((e) => {
+      console.log(e)
       res.status(400).send(e);
     });
 });
 
 router.post("/users/login", (req, res) => {
-  let id = req.body.id;
+  let email = req.body.email;
   let password = req.body.password;
-  User.findByCredentials(id, password).then((user) => {
+  User.findByCredentials(email, password).then((user) => {
     if(!user) {
       return res.status(400).send();
     }

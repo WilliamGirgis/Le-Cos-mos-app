@@ -1,8 +1,10 @@
 #wrapper {
     width: 75vw;
-    box-shadow: 3px 3px 15px black;
+    background-color: var(--blue-them-color);
     border-radius: 10px;
 }
+
+
 
 // Coté droit
 #rightSide {
@@ -42,7 +44,6 @@ h2 {
     min-width: fit-content;
 color: var(--blue-them-color)  ;
 font-size: 125%;
-box-shadow: 3px 3px 5px black;
 border-radius: 25px;
 margin-bottom: 30px;
 margin-right: 35px;
@@ -100,7 +101,7 @@ margin-top: 20px;
         min-width: fit-content;
         width: 60%;
         height: 40px;
-        box-shadow: 3px 3px 5px black;
+
         margin-top: 5vh;
     }
   }
@@ -127,7 +128,7 @@ margin-top: 20px;
   form {
     margin: auto;
     align-items: center;
-width: 75%;
+width: 80%;
 letter-spacing: 2px;
   }
 
@@ -138,6 +139,22 @@ letter-spacing: 2px;
     justify-content: flex-end;
     top: 0;
     }
+
+
+    // Global styles
+
+    mat-error {
+      min-width: max-content;
+      letter-spacing: 1.1px;
+      color: var(--blue-them-color);
+    }
+
+    /*.ng-invalid:not(mat-form-field-appearance-outline)  {
+      border-left: 1px solid #a94442;
+    }*/
+
+
+
 
 
 
