@@ -1,0 +1,30 @@
+<button id="leave" mat-button mat-dialog-close>
+  <img width="20px" height="20px" src="../../../../../assets/images/x-lg.svg">
+ </button>
+<div id ="wrapper">
+  <h1  mat-dialog-title >Ajouter une nouvelle publication</h1>
+  <form class="addPublication" novalidate [formGroup]="publicationForm" (submit)="newPublication()">
+  <mat-form-field class="post" [ngStyle]="{color:'var(--blue-them-color)'}" [floatLabel]="'always'" color="accent">
+    <mat-label>Title</mat-label>
+    <input formControlName="title" #title matInput>
+    <mat-error>{{formErrors.email}}</mat-error>
+    <button *ngIf="title.value" matSuffix mat-icon-button aria-label="Clear" (click)="title.value=''">
+       <mat-icon style="font-size:140%;" >close</mat-icon>
+     </button>
+  </mat-form-field>
+
+  <mat-form-field class="post" [ngStyle]="{color:'var(--blue-them-color)'}"  [floatLabel]="'always'">
+         <mat-label>Content</mat-label>
+    <textarea formControlName="content" [ngStyle]="{resize:'none'}"  #content matInput></textarea>
+    <mat-error>{{formErrors.email}}</mat-error>
+    <button *ngIf="content.value" matSuffix mat-icon-button aria-label="Clear" (click)="content.value=''">
+       <mat-icon style="font-size:140%;" >close</mat-icon>
+     </button>
+  </mat-form-field>
+
+<button type="submit" mat-button>
+  Enregistrer
+</button>
+  </form>
+
+  </div>

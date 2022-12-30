@@ -1,0 +1,55 @@
+
+
+#wrapper {
+color: black;
+width: 100%;
+height: 100%;
+text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+mat-label {
+  color: var(--blue-them-color);
+text-align: center;
+}
+
+mat-form-field {
+  width: 75%;
+}
+
+textarea {
+  //resize: none; This doesn't work since i used matInput decorator. Needed to use it on [ngStyle]
+  width: 30vw;
+  height: 40vh;
+}
+
+input {
+
+  width: 20vw;
+}
+
+button {
+color: var(--white-them-color);
+font-weight: bolder;
+background-color: rgb(91, 171, 210);
+}
+
+#leave {
+text-align: center;
+  margin-right: 0;
+  width: fit-content;
+  height: fit-content;
+  justify-self: right;
+}
+
+h1 {
+  color: var(--blue-them-color);
+}
+
+
+

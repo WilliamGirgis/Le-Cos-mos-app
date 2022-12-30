@@ -149,6 +149,26 @@ letter-spacing: 2px;
       color: var(--blue-them-color);
     }
 
+
+    .mat-form-field-outline-end {
+      border: var(--outline-input-width) solid; // Placer le "!important" pour forcer le changement de la bordure
+      border-left: 0 ;
+      color: var(--blue-them-color);
+    }
+    .mat-form-field-outline-start {
+      border: var(--outline-input-width) solid;  // Placer le "!important" pour forcer le changement de la bordure
+      border-right: 0 ;
+      color: var(--blue-them-color);
+    }
+    .mat-form-field-outline-gap {
+      border: var(--outline-input-width) solid  ;  // Placer le "!important" pour forcer le changement de la bordure
+      border-right: 0 ;
+      border-left: 0 ;
+      color:var(--blue-them-color);
+
+    }
+
+
     /*.ng-invalid:not(mat-form-field-appearance-outline)  {
       border-left: 1px solid #a94442;
     }*/

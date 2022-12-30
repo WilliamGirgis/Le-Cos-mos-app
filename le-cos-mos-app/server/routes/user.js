@@ -142,16 +142,16 @@ router.get("/users/me/access-Token", verify, (req, res) => {
 });
 
 router.get("/users/id",authenticate, (req, res) => {
-  let id = req.query.id;
+  let regex = req.query.id;
   let users = [];
-  User.find({ id: { $regex: id, $options: "i" } })
+  User.find({ id: { $regex: regex, $options: "i" } })
     .then((users2) => {
       users2.forEach((user) => {
         if(user.id !== 'Admin') {
-          users.push(user.id);
+          users.push({firstname:user.firstname,lastname:user.lastname,email:user.email});
         }
       });
-      return res.send(users.toString());
+      return res.send(users);
     })
     .catch((e) => {
       return res.send(e);

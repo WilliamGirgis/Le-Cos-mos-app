@@ -17,7 +17,7 @@
     <h1 id="ravie">Ravis de vous revoir !</h1>
     <form novalidate [formGroup]="loginForm" fxLayout="column" fxFlex="55" fxLayoutAlign="space-between scretch"   (submit)="loginUser()">
 
-<div fxLayout="column" fxLayoutGap="15" id="inputWrapper">
+<div fxLayout="column" fxLayoutGap="15" id="inputWrapper" class="form-register">
         <mat-form-field [floatLabel]="'always'"  fxFill fxFlex="2 1 0" class="example-form-field">
             <mat-label>E-mail</mat-label>
             <input formControlName="email"  matInput type="text" #mail>
@@ -27,7 +27,7 @@
             </button>
           </mat-form-field>
 
-          <mat-form-field [floatLabel]="'always'"  fxFill fxFlex="100" class="example-form-field">
+          <mat-form-field class="login-register" [floatLabel]="'always'"  fxFill fxFlex="100" class="example-form-field">
             <mat-label>Mot de passe</mat-label>
                 <input formControlName="password" matInput type="{{type}}" #psw>
                 <mat-error>{{formErrors.password}}</mat-error>

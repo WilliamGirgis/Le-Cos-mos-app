@@ -1,1 +1,27 @@
-<p>home-view works!</p>
+<div id="btn-wrapper">
+  <button (click)="openSavePostForm()" mat-button>Ajouter</button>
+<button mat-button>Tout supprimer</button>
+</div>
+<router-outlet></router-outlet>
+<div id="wrapper">
+    <div *ngFor="let item of publicationList;index as i" class="blocks">
+      <div id="img-wrp">
+        <img (click)="deletePost(i)" width="25px" height="25px" src="../../../../assets/images/trash3-fill.svg">
+        <img src="../../../../assets/images/pencil-fill.svg">
+      </div>
+      <div width="25px" height="25px" id="content-block">
+    <div id="content">
+
+      <h1>
+        {{item.title}}
+      </h1>
+      <h2>
+        {{item.date}}
+      </h2>
+      {{item.content}}
+    </div>
+  </div>
+      </div>
+
+    </div>
+

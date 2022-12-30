@@ -11,7 +11,23 @@ import {FlexLayoutModule } from '@angular/flex-layout';
 import {FlexModule } from '@angular/flex-layout';
 
 //Materials
-import {MatButtonToggleModule,MatButtonModule,MatInputModule,MatCardModule,MatIconModule,MatListModule, MatFormFieldModule, MatProgressSpinnerModule, MatRadioModule, MatTableModule, MatToolbarModule,MatMenuModule, MatDialogModule, MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldDefaultOptions } from '@angular/material';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import {MatButtonToggleModule} from  '@angular/material/button-toggle';
+import {MatButtonModule} from  '@angular/material/button'
+import {MatInputModule} from  '@angular/material/input';
+import {MatCardModule} from  '@angular/material/card/';
+import {MatIconModule} from  '@angular/material/icon/';
+import {MatListModule} from  '@angular/material/list/';
+import {MatFormFieldModule} from  '@angular/material/form-field';
+import {MatProgressSpinnerModule} from  '@angular/material/progress-spinner';
+import {MatRadioModule} from  '@angular/material/radio/';
+import {MatTableModule} from  '@angular/material/table';
+import {MatPaginatorModule} from  '@angular/material/paginator';
+import {MatToolbarModule} from  '@angular/material/toolbar';
+import {MatMenuModule} from  '@angular/material/menu/';
+import {MatDialogModule} from  '@angular/material/dialog/';
+import {MatFormFieldDefaultOptions} from  '@angular/material/form-field';
+
 
 import {CommonModule } from '@angular/common';
 import {FormsModule,ReactiveFormsModule} from '@angular/forms';
@@ -29,7 +45,8 @@ import { StatistiquesViewComponent } from './user_Views/admin-views/statistiques
 import { GestionViewComponent } from './user_Views/admin-views/gestion-view/gestion-view.component';
 import { HandlerViewComponent } from './user_Views/admin-views/handler-view/handler-view.component';
 import { AuthGuard } from './guards/authguard';
-import { QuitComponent } from './static_Components/quit/quit.component';
+import { AddPublicationComponent } from './user_Views/admin-views/home-view/add-publication-view/add-publication.component';
+
 
 const appearance: MatFormFieldDefaultOptions = {
   appearance: 'outline'
@@ -55,12 +72,18 @@ const routes: Routes = [
     path: 'handler',
     component: HandlerViewComponent ,
     data: { animation: 'Handler' },
-    canActivate :[AuthGuard],
+    canActivate :[AuthGuard]
+    ,
     children: [
       {
         path: 'home',
         component: HomeViewComponent ,
         data: { animation: 'Home' },
+       /* children:[
+          {path:'addPublications',
+          component: AddPublicationComponent
+        }
+        ]*/
         },
       {
         path: 'planning',
@@ -111,7 +134,7 @@ const routes: Routes = [
         StatistiquesViewComponent,
         GestionViewComponent,
         HandlerViewComponent,
-        QuitComponent
+        AddPublicationComponent
 
     ],
     providers: [HttpService,{provide:HTTP_INTERCEPTORS,useClass:WebReqInterceptorService,multi:true},{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: appearance},AuthGuard], //Mettre par default tous les input en "outline"
@@ -122,10 +145,11 @@ const routes: Routes = [
         BrowserAnimationsModule,
         RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
         CommonModule,
-        MatButtonModule,
+        //MatButtonToggle,
         MatInputModule,
         MatButtonToggleModule,
         FlexLayoutModule,
+        MatButtonModule,
         FlexModule,
         MatCardModule,
         FormsModule,
@@ -141,7 +165,8 @@ const routes: Routes = [
         MatTableModule,
         MatRadioModule,
         FormsModule,
-        FlexModule
+        FlexModule,
+        MatPaginatorModule
     ]
 })
 

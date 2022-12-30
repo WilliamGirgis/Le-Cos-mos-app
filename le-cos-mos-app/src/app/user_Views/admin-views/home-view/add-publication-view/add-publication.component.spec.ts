@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { QuitComponent } from './quit.component';
+import { AddPublicationComponent } from './add-publication.component';
 
-describe('QuitComponent', () => {
-  let component: QuitComponent;
-  let fixture: ComponentFixture<QuitComponent>;
+describe('AddPublicationComponent', () => {
+  let component: AddPublicationComponent;
+  let fixture: ComponentFixture<AddPublicationComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ QuitComponent ]
+      declarations: [ AddPublicationComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(QuitComponent);
+    fixture = TestBed.createComponent(AddPublicationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

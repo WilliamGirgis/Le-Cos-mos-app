@@ -5,8 +5,8 @@
 // Modification du theme de l'applcation en modifiant les variables ci-dessous
 :root{
   --blue-them-color:rgb(91, 171, 210);
+  --light-blue-them-color:rgba(91, 171, 210,0.7) ;
   --white-them-color:white;
-  --outline-input-color:rgb(91, 171, 210);
   --outline-input-width:2px;
   }
 
@@ -55,20 +55,67 @@ justify-items: center;
 
   }
 
-.mat-form-field-outline-end {
+  // Style pour les input des vues "login" et "register"
+.form-register .mat-form-field-outline-end {
   border: var(--outline-input-width) solid; // Placer le "!important" pour forcer le changement de la bordure
   border-left: 0 ;
-  color: var(--outline-input-color);
+  color: var(--blue-them-color);
 }
-.mat-form-field-outline-start {
+.form-register .mat-form-field-outline-start  {
   border: var(--outline-input-width) solid;  // Placer le "!important" pour forcer le changement de la bordure
   border-right: 0 ;
-  color: var(--outline-input-color);
+  color: var(--blue-them-color);
 }
-.mat-form-field-outline-gap {
-  border: var(--outline-input-width) solid  ;  // Placer le "!important" pour forcer le changement de la bordure
+.form-register .mat-form-field-outline-gap  {
+  border: var(--outline-input-width) solid ;  // Placer le "!important" pour forcer le changement de la bordure
   border-right: 0 ;
   border-left: 0 ;
-  color: var(--outline-input-color);
+  border-top: 0;
+  color:var(--blue-them-color);
 
 }
+
+
+  // Style pour les input de la vue 'add publlication'
+.search .mat-form-field-outline-end {
+  border: var(--outline-input-width) solid; // Placer le "!important" pour forcer le changement de la bordure
+  border-left: 0 ;
+  color: var(--blue-them-color);
+}
+.search .mat-form-field-outline-start  {
+  border: var(--outline-input-width) solid;  // Placer le "!important" pour forcer le changement de la bordure
+  border-right: 0 ;
+  color: var(--blue-them-color);
+}
+.search .mat-form-field-outline-gap  {
+  border: var(--outline-input-width) solid ;  // Placer le "!important" pour forcer le changement de la bordure
+  border-right: 0 ;
+  border-left: 0 ;
+  border-top: 0;
+  color:var(--blue-them-color);
+
+}
+
+
+  // Style pour les input de la vue 'gestion'
+  .post .mat-form-field-outline-end {
+    border: var(--outline-input-width) solid; // Placer le "!important" pour forcer le changement de la bordure
+    border-left: 0 ;
+    color: var(--blue-them-color);
+  }
+  .post .mat-form-field-outline-start  {
+    border: var(--outline-input-width) solid;  // Placer le "!important" pour forcer le changement de la bordure
+    border-right: 0 ;
+    color: var(--blue-them-color);
+  }
+  .post .mat-form-field-outline-gap  {
+    border: var(--outline-input-width) solid ;  // Placer le "!important" pour forcer le changement de la bordure
+    border-right: 0 ;
+    border-left: 0 ;
+    border-top: 0;
+    color:var(--blue-them-color);
+
+  }
+
+
+

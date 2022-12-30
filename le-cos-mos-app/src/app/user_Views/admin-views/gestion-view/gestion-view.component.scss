@@ -1,0 +1,254 @@
+#wrapper {
+  margin: auto;
+  max-height: 70vh;
+}
+
+
+table, th, td {
+  border: 1px solid var(--white-them-color);
+}
+table {
+  max-height: 70vh;
+  overflow-y: scroll;
+}
+
+#details {
+  height: fit-content;
+  padding: 5px 0 5px 0;
+  min-height: fit-content;
+}
+
+td {
+background-color: var(--white-them-color);
+
+
+&:first-of-type {
+
+  border-left: 1px  var(--white-them-color);
+
+}
+
+  &:last-of-type {
+    border-color: var(--white-them-color);
+  }
+
+  &:nth-of-type(4n) {
+    border-right: var(--white-them-color) 1px;
+  }
+}
+
+
+#expandee {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+border-radius: 10px;
+border: 0;
+}
+#expandeeItems {
+  justify-content: center;
+  border: 0;
+
+  max-height: 100px;
+  a {
+      text-decoration: none;
+      color: white;
+  }
+}
+
+
+
+tr.example-detail-row {
+  height: 5vh; // Space between rows
+  //display: none;
+  border: 0;
+  background-color: transparent;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+
+  cursor: pointer;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  cursor: pointer;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+
+}
+
+.search {
+  width: 25%;
+}
+
+#search {
+  display: flex;
+  margin: auto 5vw auto auto;
+  justify-content: right;
+  align-items: center;
+  align-content: center;
+  align-self: center;
+  width: fit-content;
+  height: 11vh;
+  padding-top: 2.5vh;
+  }
+
+  mat-form-field {
+
+    width: 20vw;
+    color: var(--blue-them-color);
+
+  }
+
+
+
+table {
+  height: fit-content;
+}
+
+.notransition {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -o-transition: none !important;
+  transition: none !important;
+}
+
+th {
+  font-weight: bold;
+  font-size: 105%;
+}
+
+.form {
+box-shadow: none;
+background-color: var(--white-them-color);
+border: none;
+ border-collapse: collapse;
+}
+
+.example-element-row {
+  border: 0;
+
+}
+
+.example-element-row {
+  height: 0vh;
+}
+
+
+
+.example-element-row td {
+
+  border-bottom-width: 0;
+  border-top-width: 0;
+  color: white;
+  font-size: 107%;
+z-index: 1;
+  cursor: pointer;
+  margin: auto auto auto auto;
+  &:first-of-type {
+    border-radius: 10px 0 0 10px;
+  }
+
+  &:nth-child(4n) {
+    border-radius: 0 10px 10px 0;
+    padding: 0 0 0 0;
+    &.blue {
+      background-color: var(--blue-them-color);
+    }
+    &.white {
+      background-color: var(--white-them-color);
+    }
+  }
+
+  &:last-child {
+    border-radius: 0 10px 10px 0;
+    background-color: var(--white-them-color);
+    padding: 0 0 0 0;
+
+  }
+}
+
+
+#header-search {
+  text-align: right;
+}
+
+.deleteUser {
+
+ margin: auto 5vw auto auto;
+}
+
+.del-wrp-btn {
+  justify-content: center;
+  align-content: center;
+margin: auto auto auto auto;
+display: flex;
+padding-top: 2.5vh;
+height: fit-content;
+
+
+}
+form {
+  border-radius: 20px;
+  border: 0 solid black;
+}
+
+
+
+/*/*
+<div fxFlex="100" fxLayout="column" id="wrapper">
+
+  <div class="search">
+  <mat-form-field>
+
+    <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
+  </mat-form-field>
+</div>
+<table fxFlex="100" mat-table
+       [dataSource]="dataSource" multiTemplateDataRows
+       class="mat-elevation-z8">
+  <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+    <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+    <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+
+  </ng-container>
+
+
+
+
+  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+  <ng-container matColumnDef="expandedDetail">
+    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+      <div class="example-element-detail"
+           [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+        <div class="example-element-diagram">
+          <div class="example-element-position"> {{element.ID}} </div>
+          <div class="example-element-symbol"> {{element.firstname}} </div>
+          <div class="example-element-name"> {{element.lastname}} </div>
+          <div class="example-element-weight"> {{element.email}} </div>
+        </div>
+      </div>
+    </td>
+  </ng-container>
+
+  <ng-container  matColumnDef="Search">
+
+    <td fxLayoutAlign="center center" mat-cell *matCellDef="let element"><button   (click)="deleteUser(element.id +1)"  mat-raised-button >Delete</button></td>
+
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
+      class="example-element-row"
+      [class.example-expanded-row]="expandedElement === element"
+      (click)="expandedElement = expandedElement === element ? null : element">
+  </tr>
+  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+</table>
+
+</div>
+
+*/

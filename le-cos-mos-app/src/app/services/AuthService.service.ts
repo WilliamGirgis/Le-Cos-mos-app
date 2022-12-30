@@ -74,7 +74,7 @@ import {
           }),
           catchError((err: any) => {
             this.logout();
-            window.location.reload();
+        //    window.location.reload();
             return err;
           })
         );

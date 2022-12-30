@@ -17,7 +17,7 @@ export class InscriptionViewComponent implements OnInit {
      email:['',[Validators.required,Validators.email]],
      firstname : ['',[Validators.required]],
      lastname: ['', [Validators.required]],
-     password: ['',[Validators.required,Validators.minLength(12)]],
+     password: ['',[Validators.required,Validators.minLength(2)]],
      confirmPsw: ['',[Validators.required,this.isEqual()]] // Problème du "undefined" lorsque l'on rajoute le Validators.required
 
 
