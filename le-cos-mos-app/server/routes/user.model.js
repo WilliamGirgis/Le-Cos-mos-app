@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const lod = require('lodash');
 const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
+const { defaults } = require('lodash');
 const jwtScret = "363926530498868229847hzerjherjeerverjyu51780120711262069gegerherher26"
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb+srv://test:Samsam123@cluster0.pcin2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',{useNewUrlParser:true,useUnifiedTopology:true}).then(()=>{
@@ -12,6 +13,11 @@ mongoose.connect('mongodb+srv://test:Samsam123@cluster0.pcin2.mongodb.net/myFirs
 
 // Definir la table User ici
 const userSchema = new mongoose.Schema({
+
+  userType :{
+      type: String,
+      required:true
+  },
     email: {
         type:String,
         required:true,
@@ -32,6 +38,7 @@ const userSchema = new mongoose.Schema({
             type:String,
             required:true,
             minLength:2
+
     },
     session: [{
             token: {
@@ -179,7 +186,7 @@ let saveSession = (user,refreshToken) => {
 
 let generateRefreshTokenExpiryTime = () => {
   //  let daysUntilExpired = "10";
-    let secondsUntilExpire = 3600; // 1 hour before the user must reconnect to generate a new refresh token
+    let secondsUntilExpire = 3600*10; // 1 hour before the user must reconnect to generate a new refresh token
     return ((Date.now()/1000) + secondsUntilExpire);
 }
 

@@ -1,26 +1,26 @@
 <div id="btn-wrapper">
   <button (click)="openSavePostForm()" mat-button>Ajouter</button>
-<button mat-button>Tout supprimer</button>
 </div>
 <router-outlet></router-outlet>
 <div id="wrapper">
-    <div *ngFor="let item of publicationList;index as i" class="blocks">
+    <div *ngFor="let publication of publicationListTest;index as i" class="blocks">
+        <h1 [innerHTML]="publication.title">
+      </h1>
+
+
       <div id="img-wrp">
         <img (click)="deletePost(i)" width="25px" height="25px" src="../../../../assets/images/trash3-fill.svg">
         <img src="../../../../assets/images/pencil-fill.svg">
       </div>
-      <div width="25px" height="25px" id="content-block">
-    <div id="content">
+      <div (click)="openPublicationView(publication,publication.imgLink)" width="25px" height="25px" id="content-block">
 
-      <h1>
-        {{item.title}}
-      </h1>
-      <h2>
-        {{item.date}}
-      </h2>
-      {{item.content}}
-    </div>
+      <p id="content" [innerHTML]="publication.content"></p>
+
   </div>
+  <div>
+    <h4 id="footer" [innerHTML]="'Publication du : ' + publication.date">
+  </h4>
+</div>
       </div>
 
     </div>

@@ -12,6 +12,25 @@
        <mat-icon style="font-size:140%;" >close</mat-icon>
      </button>
   </mat-form-field>
+  <input
+  type="file"
+  id="fileUpload"
+  ng2FileSelect
+  accept=".png,.jpg,.jpeg,.pdf"
+  [uploader]="uploader"
+  />
+
+
+    <div *ngFor="let item of uploader.queue">
+      <div>
+        <button mat-button type="button" (click)="item.upload()">Upload</button>
+        <button mat-button type="button" (click)="item.remove()">Retirer</button>
+        <div id="uploadAll" type="button" (click)="uploader.uploadAll()">UPLOAD ALL</div>
+      </div>
+    </div>
+
+
+
 
   <mat-form-field class="post" [ngStyle]="{color:'var(--blue-them-color)'}"  [floatLabel]="'always'">
          <mat-label>Content</mat-label>

@@ -15,7 +15,7 @@ const User = require("./user.model");
 
 /* MIDLLEWARE */
 const verify = (req, res, next) => {
-  let refreshToken = req.header("x-refresh-token");
+  let refreshToken = req.header("x-refresh-token");//
   let _id = req.header("_id");
   User.findByIdAndToken(_id, refreshToken)
     .then((user) => {
@@ -73,7 +73,6 @@ let authenticate = (req,res,next) => {  /* MIDDLEWARE for checking if the access
 router.post("/users", (req, res) => {
   let body = req.body;
   let newUser = new User(body);
-  console.log(body);
   newUser
     .save()
     .then(() => {
@@ -120,7 +119,6 @@ router.post("/users/login", (req, res) => {
         res
           .header("x-refresh-token", authToken.refreshToken)
           .header("x-access-token", authToken.accessToken)
-          //.send(user.session[user.session.length - 1]);
           .send(user);
       })
       .catch((e) => {
@@ -148,7 +146,7 @@ router.get("/users/id",authenticate, (req, res) => {
     .then((users2) => {
       users2.forEach((user) => {
         if(user.id !== 'Admin') {
-          users.push({firstname:user.firstname,lastname:user.lastname,email:user.email});
+          users.push({userType:user.userType,firstname:user.firstname,lastname:user.lastname,email:user.email,_id:user._id});
         }
       });
       return res.send(users);
@@ -170,18 +168,19 @@ router.get("/users/_id",authenticate, (req, res) => {
 });
 
 router.get("/users/del",authenticate, (req, res) => {
-  let id = req.query.id;
+  let email = req.query.email;
 
-  User.findOneAndDelete({ id: id })
+  console.log(email)
+  User.findOneAndDelete({ email: email })
     .then((user) => {
-      fs.rmdir(folder + "/" + user._id, { recursive: true }, (err, suc) => {
+      /*fs.rmdir(folder + "/" + user._id, { recursive: true }, (err, suc) => {
         console.log(user._id);
         if (err) {
           console.log("ERROR");
         } else {
           console.log("Folder deleted successfuly");
         }
-      });
+      });*/
       res.send(user);
     })
     .catch((e) => {
@@ -191,10 +190,23 @@ router.get("/users/del",authenticate, (req, res) => {
 
 router.post("/users/modify",authenticate, (req, res) => {
 
-  let oldId = req.body.oldId;
-  let newId = req.body.newId;
-  let newPsw = req.body.newPsw;
-  bcrypt.genSalt(10, (err, salt) => {
+  let newUser = req.body;
+  console.log("New user = " + JSON.stringify(newUser))
+  let id = req.body._id;
+  User.findOne({ id }).then((user) => {
+    console.log("USER FOUND : " + user)
+
+    User.updateOne(
+      { _id: id },
+      { $set: {userType:newUser.userType,email:newUser.email,firstname:newUser.firstname,lastname:newUser.lastname } }
+    ).then((user) => {
+    });
+    return res.status(200).send(user._id.toString());
+  }).catch((e) => {
+
+    return res.send("ERROR")
+  });
+  /*bcrypt.genSalt(10, (err, salt) => {
     bcrypt.hash(newPsw, salt, (err, hash) => {
       newPsw = hash;
       User.updateOne(
@@ -204,7 +216,7 @@ router.post("/users/modify",authenticate, (req, res) => {
         res.send(user);
       });
     });
-  });
+  });*/
 });
 
 module.exports = router;

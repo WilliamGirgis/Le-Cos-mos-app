@@ -8,7 +8,7 @@ import { RouterOutlet } from '@angular/router';
 export const slide =
 //De droite à gauche
   trigger('routeAnimations', [
-    transition('Register => Login', [
+    transition('Login => Register', [
       style({ position: 'relative' }),
       query(':enter, :leave', [
         style({
@@ -34,7 +34,7 @@ export const slide =
     ]),
 
     // De gauche à droite
-    transition('Login => Register', [
+    transition('Register => Login', [
       style({ position: 'relative' }),
       query(':enter, :leave', [
         style({

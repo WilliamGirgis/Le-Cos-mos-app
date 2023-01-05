@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs/internal/operators/map';
 import { AddPublicationComponent } from './add-publication-view/add-publication.component';
 import { PublicationModel } from './add-publication-view/publication-model';
+import { ViewPublicationComponent } from './view-publication/view-publication.component';
 //import * as data from '../publications/posts.json';
 
 @Component({
@@ -20,10 +21,43 @@ export class HomeViewComponent implements OnInit {
     })
   }
   publicationList: PublicationModel[] = [];
+  publicationListTest:PublicationModel[] = [  {
+    "title": "idt-",
+    "date": "2-1-2023",
+    "content": "oie-(oi(e-"
+  },
+  {
+    "title": "kyukyu",
+    "date": "2-1-2023",
+    "content": "lyulyulyu"
+  },
+  {
+    "title": "Hello",
+    "date": "2-1-2023",
+    "content": "verqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeq"
+  },
+  {
+    "title": "This is again a test",
+    "date": "2-1-2023",
+    "content": "verqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeq\ngrehyrezherh"
+  },
+  {
+    "title": "This is again a test",
+    "date": "2-1-2023",
+    "content": "verqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeq\ngrehyrezherh"
+  },
+  {
+    "title": "This is again a test",
+    "date": "2-1-2023",
+    "content": "verqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeqverqheqhjeqtjeq\ngrehyrezherh"
+  }]
 
 
   openSavePostForm() {
     this.dialog.open(AddPublicationComponent, {width:'70vw',height:'max-content'})
+  }
+  openPublicationView(publication:PublicationModel,imgLink?:string) {
+    this.dialog.open(ViewPublicationComponent, {width:'90vw',height:'95vh',maxWidth:'none',data: {publication,imgLink:imgLink} })
   }
   getPublication() {
     this.http

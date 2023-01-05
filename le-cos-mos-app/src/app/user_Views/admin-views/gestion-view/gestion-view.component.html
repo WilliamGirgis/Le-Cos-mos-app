@@ -1,4 +1,4 @@
-<div fxFlex="80" fxLayout="column" id="wrapper">
+<div id="wrapper">
 
 
 <table  fxFlex="75" [ngClass]="'form'" mat-table
@@ -9,14 +9,17 @@
     <th class="search" mat-header-cell *matHeaderCellDef>
       <mat-form-field [floatLabel]="'auto'" id="search">
         <input matInput (keyup)="applyFilter($event)" #input>
-        <mat-label>Search</mat-label>
+        <mat-label>Rechercher un utilisateur</mat-label>
       </mat-form-field>
   </th>
     <td class="del-wrp-btn" mat-cell *matCellDef="let element">
 
-      <button class="deleteUser"  (click)="deleteUser(element.id +1)"  mat-raised-button ><img src="../../../../assets/images/trash3-fill.svg">
+      <button class="deleteUser"  (click)="deleteUser(element.ID)"  mat-button ><img width="20px" height="20px" src="../../../../assets/images/trash3-fill.svg">
     </button>
-    <button class="modifyUser"  (click)="modifyUser(element.id +1)"  mat-raised-button ><img src="../../../../assets/images/pencil-fill.svg">
+    <button  (click)="setModifyView();expandedElement = areTextAreasEditable == false ? null : element;userType = expandedElement.userType" class="modifyUser" mat-button ><img width="20px" height="20px" src="../../../../assets/images/pencil-fill.svg">
+    </button>
+
+    <button [style]="{'border': expandedElement == element ? '1px solid var(--dblue-them-color)' : 'none'}"  (click)="expandedElement = expandedElement === element ? null : element;setUserType(expandedElement.userType)" class="info" mat-button ><img width="20px" height="20px" src="../../../../assets/images/info-circle.svg">
     </button>
     </td>
 
@@ -24,32 +27,26 @@
 
   <ng-container matColumnDef="ID">
     <th mat-header-cell *matHeaderCellDef> ID </th>
-    <td [ngStyle]="{'background-color': element.ID % 2 === 0 ? 'var(--white-them-color)':'var(--blue-them-color)','color':element.ID % 2 !== 0 ? 'var(--white-them-color)':'var(--blue-them-color)','border-color': element.ID % 2 === 0 ? 'var(--white-them-color)':'var(--blue-them-color)'}"  mat-cell *matCellDef="let element">
+    <td [style]="switchColorStyle(element.ID)"  mat-cell *matCellDef="let element">
       {{element.ID}}
     </td>
 
   </ng-container>
   <ng-container matColumnDef="firstname">
-    <th mat-header-cell *matHeaderCellDef> firstname </th>
-    <td [ngStyle]="{'background-color': element.ID % 2 === 0 ? 'var(--white-them-color)':'var(--blue-them-color)','color':element.ID % 2 !== 0 ? 'var(--white-them-color)':'var(--blue-them-color)','border-color': element.ID % 2 === 0 ? 'var(--white-them-color)':'var(--blue-them-color)'}"  mat-cell *matCellDef="let element">
+    <th mat-header-cell *matHeaderCellDef> Prénom </th>
+    <td [style]="switchColorStyle(element.ID)"  mat-cell *matCellDef="let element">
       {{element.firstname}}
     </td>
 
   </ng-container>
   <ng-container matColumnDef="lastname">
-    <th mat-header-cell *matHeaderCellDef> Lastname </th>
-    <td [ngStyle]="{'background-color': element.ID % 2 === 0 ? 'var(--white-them-color)':'var(--blue-them-color)','color':element.ID % 2 !== 0 ? 'var(--white-them-color)':'var(--blue-them-color)','border-color': element.ID % 2 === 0 ? 'var(--white-them-color)':'var(--blue-them-color)'}"  mat-cell *matCellDef="let element">
+    <th mat-header-cell *matHeaderCellDef> Nom </th>
+    <td [style]="switchColorStyle(element.ID)"  mat-cell *matCellDef="let element">
       {{element.lastname}}
     </td>
 
   </ng-container>
-  <ng-container matColumnDef="email">
-    <th mat-header-cell *matHeaderCellDef> Email </th>
-    <td [ngStyle]="{'background-color': element.ID % 2 === 0 ? 'var(--white-them-color)':'var(--blue-them-color)','color':element.ID % 2 !== 0 ? 'var(--white-them-color)':'var(--blue-them-color)','border-color': element.ID % 2 === 0 ? 'var(--white-them-color)':'var(--blue-them-color)'}"  mat-cell *matCellDef="let element">
-      {{element.email}}
-    </td>
 
-  </ng-container>
 
   <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
   <ng-container matColumnDef="expandedDetail">
@@ -57,25 +54,37 @@
       <div class="example-element-detail"
            [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
         <div class="example-element-diagram">
-          <p>+ HELLO MR.{{element.firstname}}</p>
-          <div id="details" class="example-element-weight"> {{element.email}}</div>
-        </div>
+          <div class="t-area-wrp">Prénom : <textarea [style]="'resize:none'" matInput #fname readonly>{{element.firstname}}</textarea></div>
+          <div class="t-area-wrp">Nom : <textarea [style]="'resize:none'" matInput #lname readonly>{{element.lastname}}</textarea></div>
+          <div class="t-area-wrp">Email : <textarea [style]="'resize:none'" matInput #email readonly>{{element.email}}</textarea></div>
+          <div class="t-area-wrp">Type d'utilisateur : {{userType}}</div>
+          <mat-radio-group *ngIf="areTextAreasEditable" [(ngModel)]="userType"  aria-label="Type d'utilisateur">
+            <mat-radio-button name="Etudiant"  value="Etudiant">Etudiant</mat-radio-button>
+            <mat-radio-button name="Professeur" value="Professeur">Professeur</mat-radio-button>
+          </mat-radio-group>
+          <span id="success">{{successMsgSaved}}</span>
+        <div id="btn-grp">
+        <button *ngIf="areTextAreasEditable" (click)="setModifyView()" mat-button>Annuler</button>
+        <button *ngIf="areTextAreasEditable" (click)="modifyUser(fname.value,lname.value,email.value,element.ID)" mat-button>Enregistrer les modifications</button>
+      </div>
+
+    </div>
       </div>
     </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-  <tr  mat-row *matRowDef="let element; columns: columnsToDisplay;"
+  <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
       class="example-element-row"
       [class.example-expanded-row]="expandedElement === element"
-      (click)="expandedElement = expandedElement === element ? null : element">
+      >
   </tr>
   <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
 </table>
+
+</div>
 
 <mat-paginator [pageSizeOptions]="[5, 10, 15]"
 showFirstLastButtons
 aria-label="Select page of periodic elements">
 </mat-paginator>
-
-</div>

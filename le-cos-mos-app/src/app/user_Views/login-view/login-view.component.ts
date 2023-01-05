@@ -79,7 +79,7 @@ export class LoginViewComponent implements OnInit {
       .login(email, password)
       .pipe(
         map((data) => {
-          this.router.navigate(['handler']);
+          this.router.navigate(['app']);
           })
       )
       .subscribe((res:any) => {// Suppression tu type ": HttpResponse<any>" et remplacé par 'any'

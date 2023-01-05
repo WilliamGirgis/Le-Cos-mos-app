@@ -27,6 +27,7 @@ import {MatToolbarModule} from  '@angular/material/toolbar';
 import {MatMenuModule} from  '@angular/material/menu/';
 import {MatDialogModule} from  '@angular/material/dialog/';
 import {MatFormFieldDefaultOptions} from  '@angular/material/form-field';
+import {MatProgressBarModule} from  '@angular/material/progress-bar';
 
 
 import {CommonModule } from '@angular/common';
@@ -46,6 +47,17 @@ import { GestionViewComponent } from './user_Views/admin-views/gestion-view/gest
 import { HandlerViewComponent } from './user_Views/admin-views/handler-view/handler-view.component';
 import { AuthGuard } from './guards/authguard';
 import { AddPublicationComponent } from './user_Views/admin-views/home-view/add-publication-view/add-publication.component';
+import { ViewPublicationComponent } from './user_Views/admin-views/home-view/view-publication/view-publication.component';
+import { FileUploadModule } from 'ng2-file-upload';
+
+
+// Récupérer depuis localstorage
+/*function userType() {
+  return 'admin' | 'etudiant' | 'prof';
+
+
+}*/
+
 
 
 const appearance: MatFormFieldDefaultOptions = {
@@ -54,10 +66,13 @@ const appearance: MatFormFieldDefaultOptions = {
 
 const routes: Routes = [
   {
-    path: '',
+    path: '*',
     redirectTo: 'login',
     pathMatch: 'full',
   },
+  /*{ path: JSON.toString(), component: (() => {
+    return LoginViewComponent
+  })() },*/
   {
   path: 'login',
   component: LoginViewComponent,
@@ -69,16 +84,16 @@ const routes: Routes = [
   data: { animation: 'Register' },
   },
   {
-    path: 'handler',
+    path: 'app',
     component: HandlerViewComponent ,
-    data: { animation: 'Handler' },
+    data: { animation: 'App' },
     canActivate :[AuthGuard]
     ,
     children: [
       {
         path: 'home',
         component: HomeViewComponent ,
-        data: { animation: 'Home' },
+        data: { animation: 'Accueil' },
        /* children:[
           {path:'addPublications',
           component: AddPublicationComponent
@@ -134,7 +149,8 @@ const routes: Routes = [
         StatistiquesViewComponent,
         GestionViewComponent,
         HandlerViewComponent,
-        AddPublicationComponent
+        AddPublicationComponent,
+        ViewPublicationComponent
 
     ],
     providers: [HttpService,{provide:HTTP_INTERCEPTORS,useClass:WebReqInterceptorService,multi:true},{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: appearance},AuthGuard], //Mettre par default tous les input en "outline"
@@ -166,7 +182,9 @@ const routes: Routes = [
         MatRadioModule,
         FormsModule,
         FlexModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        MatProgressBarModule,
+        FileUploadModule
     ]
 })
 

@@ -1,10 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
 import { formErrors } from 'src/app/interface&classe/interfaces';
 import { PublicationModel } from './publication-model';
+import { FileUploader } from 'ng2-file-upload';
 
 @Component({
   selector: 'app-add-publication',
@@ -15,7 +17,24 @@ export class AddPublicationComponent implements OnInit {
 
   publicationList: PublicationModel[] = [];
 
-  constructor(public dialogRef:MatDialogRef<AddPublicationComponent>,private formBuilder:FormBuilder,private http:HttpClient) { }
+
+readonly endpointUploadFile = "http://localhost:4200/file/upload"
+uploader: FileUploader = new FileUploader({ url: this.endpointUploadFile});
+  constructor(public dialogRef:MatDialogRef<AddPublicationComponent>,private formBuilder:FormBuilder,private http:HttpClient) {
+    /*this.uploader.onCompleteAll = () => {
+      // When the upload queue is completely done, we refresh the page to output it correctly
+      console.log("All Uploaded to : " + this.uploader.options.url)
+
+    };*/
+
+    /*this.uploader.onCompleteItem = (file) => {
+      console.log("FILE = " + file)
+      this.uploader.removeFromQueue(file)
+      if(this.uploader.queue.length == 0) {
+
+      }
+    };*/
+  }
 
   publicationForm:FormGroup = this.formBuilder.group({
 
@@ -46,31 +65,7 @@ export class AddPublicationComponent implements OnInit {
       .subscribe((response) => {});
   }
 
-  /*getPublication() {
-    this.http
-      .get('http://localhost:4200/publication/publishGet', {
-        responseType: 'json',
 
-      })
-      .toPromise()
-      .then((data) => {
-        if(data === null) {// if the post.json is empty
-          this.publicationList = []
-          return console.error("No Posts")
-        }
-        this.publicationList = JSON.parse(JSON.stringify(data));
-        /*this.onPickPublication(
-          this.publicationList[this.publicationList.length - 1],
-          JSON.stringify(this.publicationList.length - 1)
-        );
-      });
-  }*/
-  /*onPickPublication(post: PublicationModel, index: string) {
-    this.pickedPost = post;
-    this.pickedPostIndex = index;
-
-      this.router.navigate(['admin/postPublication/' + this.pickedPost.title]);
-  }*/
 
   ngOnInit(): void {
   }

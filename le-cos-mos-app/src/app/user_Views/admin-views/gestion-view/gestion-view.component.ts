@@ -6,11 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/internal/operators/map';
 import { User } from 'src/app/shared/user';
 import {MatPaginator} from '@angular/material/paginator';
-export interface PeriodicElement {
-lastname:string,
-firstname:string,
-email:string
-}
+
 
 @Component({
   selector: 'app-gestion-view',
@@ -25,54 +21,66 @@ email:string
   ]
 })
 export class GestionViewComponent implements OnInit,AfterViewInit {
-  userListTest:User[] = [{ID:1,firstname:'test',lastname:'testL',email:'HEY'},{ID:2,firstname:'test',lastname:'testL',email:'HEY'},{ID:3,firstname:'test',lastname:'testL',email:'HEY'},{ID:4,firstname:'test',lastname:'testL',email:'HEY'},{ID:5,firstname:'test',lastname:'testL',email:'HEY'}]
+  userListTest:User[] = [{ID:1,userType:'Etudiant',firstname:'test',lastname:'testL',email:'HEY'},{ID:2,userType:'Etudiant',firstname:'test',lastname:'testL',email:'HEY'},{ID:3,userType:'Etudiant',firstname:'test',lastname:'testL',email:'HEY'},{ID:4,userType:'Professeur',firstname:'test',lastname:'testL',email:'HEY'},{ID:5,userType:'Professeur',firstname:'test',lastname:'testL',email:'HEY'},{ID:6,userType:'Etudiant',firstname:'test',lastname:'testL',email:'HEY'},{ID:7,userType:'Etudiant',firstname:'test',lastname:'testL',email:'HEY'},{ID:8,userType:'Etudiant',firstname:'test',lastname:'testL',email:'HEY'},{ID:9,userType:'Etudiant',firstname:'test',lastname:'testL',email:'HEY'},{ID:10,userType:'Etudiant',firstname:'test',lastname:'testL',email:'HEY'},{ID:11,userType:'Etudiant',firstname:'test',lastname:'testL',email:'HEY'}]
   userList: User[] = [];
   noUser?:boolean = false
-  userSelected:User | undefined | string
-  global_ID: string | undefined;
+  expandedElement: any;
+  userType?: string;
+  successMsgSaved?:string
+isSuccess?:boolean
+user_IDList:string [] = []
   readonly getUserIdULR = 'http://localhost:4200/user/users/id';
-  readonly getUser_IdULR = 'http://localhost:4200/user/users/_id';
   readonly delUserURL = 'http://localhost:4200/user/users/del';
+  readonly modifyUserURL = 'http://localhost:4200/user/users/modify';
 
 
-  dataSource = new MatTableDataSource(this.userListTest)
+  dataSource = new MatTableDataSource(this.userList)
 
 
-expandedElement:PeriodicElement| any;
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator | null;
 
-modifyUser(id:string) {
+modifyUser(newFname:string,newLname:string,newEmail:string,id:number) {
+
+        //let user = this.userList[id - 1].email! // Uncomment to set test mode
+  //let user = this.userListTest[id - 1]! // Comment to unset test mode
+  let newUser:User = {ID:id,userType:this.userType,firstname:newFname,lastname:newLname,email:newEmail,_id:this.user_IDList[id-1]}
+  if(!window.confirm("Are you sure you wanna modify the user n°" + id  +  '?')) {
+    return
+      }
+  return this.http
+    .post(this.modifyUserURL, newUser)
+    .pipe(
+      map((data) => {
+       this.successMsgSaved =  "User updated successfuly !"
+       this.isSuccess = true
+       this.setModifyView()
+       this.getUsers(' ');
+      })
+    )
+    .subscribe((result) => {});
 
 }
 
-whiteNBlueClass() {
+  constructor(private http: HttpClient, private route: ActivatedRoute,private router:Router) {
 
-
-  /*if() {
-
-  } else {
-
-  }*/
-}
-
-  constructor(private http: HttpClient, private route: ActivatedRoute,private router:Router) { }
+   }
   ngAfterViewInit(): void { /* comment for test mode*/
     this.dataSource.paginator = this.paginator;
   }
-  deleteUser(id:string) {
-    if(!window.confirm("Are you sure you wanna delete " + id + " ?")) {
+  deleteUser(id:number) {
+
+    if(!window.confirm("Are you sure you wanna delete " + id  + " ?")) {
+
       return
         }
-    const querParam = new HttpParams().set('email', id);
-    console.log(id)
-    //this.router.navigate(['/clientUpload'])
+        let em = this.userList[id - 1].email!
+    const querParam = new HttpParams().set('email', em);
     this.http
       .get(this.delUserURL, { params: querParam, responseType: 'text' })
       .pipe(
         map((data) => {
-        console.log("User deleted :" + data )
         this.getUsers(' ')
         })
       )
@@ -87,6 +95,29 @@ whiteNBlueClass() {
   }
 
 
+  setUserType(userType:any) {
+
+    this.userType = userType
+  }
+
+  areTextAreasEditable?:boolean = false
+  setModifyView() {
+
+    if(this.areTextAreasEditable == false) {
+      for(let i = 0; i< document.getElementsByTagName('textarea').length;i++) {
+        document.getElementsByTagName('textarea')[i].removeAttribute('readonly')
+        document.getElementsByTagName('textarea')[i].style.border = "1px"
+      }
+      this.areTextAreasEditable = true
+    } else {
+      for(let i = 0; i< document.getElementsByTagName('textarea').length;i++) {
+        document.getElementsByTagName('textarea')[i].setAttribute('readonly','')
+        document.getElementsByTagName('textarea')[i].style.border = "none"
+      }
+      this.areTextAreasEditable = false
+    }
+
+  }
 
   async getUsers(input: string) {
     this.userList = []
@@ -95,54 +126,32 @@ whiteNBlueClass() {
       .get(this.getUserIdULR, { params: querParam, responseType: 'text' })
       .pipe(
         map((data) => {
-          console.log("DATA = " + data)
          var parsed = JSON.parse(data) // Transformation en json, puis placement dans la var "parsed"
-         console.log("Parsed = " + parsed)
          for(var i = 0;i < parsed.length;i++) {
-          console.log("ID = " + i )
          //this.userList.push(JSON.parse({ID:parsed[i].id,firstname:parsed[i].firstname,lastname:parsed[i].lastname,email:parsed[i].email}))
-       let usertemp:User ={ID:i+ 1,firstname:parsed[i].firstname,lastname:parsed[i].lastname,email:parsed[i].email}
+       let usertemp:User ={ID:i+ 1,userType:parsed[i].userType,firstname:parsed[i].firstname,lastname:parsed[i].lastname,email:parsed[i].email}
         this.userList.push(usertemp)
+        this.user_IDList.push(parsed[i]._id)
       }
-
          this.dataSource = new MatTableDataSource(this.userList)
          this.dataSource.paginator = this.paginator;
-         console.log('this.dataSource = ' + this.dataSource)
         })
       )
       .subscribe((result) => {});
   }
 
-
-   getuser_ID(id: string):Promise<any> {
-
-    const querParam = new HttpParams().set('id', id);
-     return this.http
-      .get(this.getUser_IdULR, { params: querParam, responseType: 'text' })
-      .pipe(
-        map((data) => {
-
-this.global_ID = data
-console.log("data got for getuser_ID = " + this.global_ID)
-        })
-      )
-      .toPromise();
+  switchColorStyle(id:number) {
+    if(id % 2 === 0) {
+     return {'background-color': 'var(--white-them-color)' ,'color': 'var(--dblue-them-color)','border-top': '1px solid var(--blue-them-color)','border-bottom': '1px solid var(--blue-them-color)'}
+    } else {
+      return {'background-color': 'var(--blue-them-color)' ,'color': 'var(--white-them-color)','border-color': 'var(--blue-them-color)','border-right':'none'}
+    }
   }
 
-  isOverDeleteButton = false
-  unsetDataRowAnimation() {
-    console.log("IN")
-this.isOverDeleteButton = true
-
-  }
-  setDataRownAnimation() {
-    this.isOverDeleteButton = false
-    console.log("OUT")
-  }
-
-  columnsToDisplay = ['ID', 'firstname', 'lastname','email','Search'];
+  columnsToDisplay = ['ID', 'firstname', 'lastname','Search'];
 
   ngOnInit(): void {
+
     this.dataSource.paginator = this.paginator;
     this.getUsers(' ')
 
