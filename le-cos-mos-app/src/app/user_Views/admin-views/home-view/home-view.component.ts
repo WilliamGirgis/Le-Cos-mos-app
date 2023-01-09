@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs/internal/operators/map';
 import { AddPublicationComponent } from './add-publication-view/add-publication.component';
 import { PublicationModel } from './add-publication-view/publication-model';
+import { ModifyPublicationViewComponent } from './modify-publication-view/modify-publication-view.component';
 import { ViewPublicationComponent } from './view-publication/view-publication.component';
 //import * as data from '../publications/posts.json';
 
@@ -24,7 +25,8 @@ export class HomeViewComponent implements OnInit {
   publicationListTest:PublicationModel[] = [  {
     "title": "idt-",
     "date": "2-1-2023",
-    "content": "oie-(oi(e-"
+    "content": "oie-(oi(e-",
+    "imgLink":"http://localhost:4200/assets/images/tqt.png"
   },
   {
     "title": "kyukyu",
@@ -59,6 +61,11 @@ export class HomeViewComponent implements OnInit {
   openPublicationView(publication:PublicationModel,imgLink?:string) {
     this.dialog.open(ViewPublicationComponent, {width:'90vw',height:'95vh',maxWidth:'none',data: {publication,imgLink:imgLink} })
   }
+  openModifyPublicationView(publication:PublicationModel,imgLink?:string,i?:number) {
+    const index = i! - 1
+    this.dialog.open(ModifyPublicationViewComponent, {width:'90vw',height:'95vh',maxWidth:'none',data: {publication,imgLink:imgLink,i} })
+  }
+
   getPublication() {
     this.http
       .get('http://localhost:4200/publication/publishGet', {

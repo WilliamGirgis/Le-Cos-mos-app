@@ -48,7 +48,8 @@ import { HandlerViewComponent } from './user_Views/admin-views/handler-view/hand
 import { AuthGuard } from './guards/authguard';
 import { AddPublicationComponent } from './user_Views/admin-views/home-view/add-publication-view/add-publication.component';
 import { ViewPublicationComponent } from './user_Views/admin-views/home-view/view-publication/view-publication.component';
-import { FileUploadModule } from 'ng2-file-upload';
+import { FileUploadModule,FileDropDirective } from 'ng2-file-upload';
+import { ModifyPublicationViewComponent } from './user_Views/admin-views/home-view/modify-publication-view/modify-publication-view.component';
 
 
 // Récupérer depuis localstorage
@@ -150,7 +151,8 @@ const routes: Routes = [
         GestionViewComponent,
         HandlerViewComponent,
         AddPublicationComponent,
-        ViewPublicationComponent
+        ViewPublicationComponent,
+        ModifyPublicationViewComponent
 
     ],
     providers: [HttpService,{provide:HTTP_INTERCEPTORS,useClass:WebReqInterceptorService,multi:true},{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: appearance},AuthGuard], //Mettre par default tous les input en "outline"

@@ -17,6 +17,8 @@ export class ViewPublicationComponent implements OnInit {
   pub:PublicationModel = this.data.publication
 
   ngOnInit(): void {
+
+
   }
 
 }

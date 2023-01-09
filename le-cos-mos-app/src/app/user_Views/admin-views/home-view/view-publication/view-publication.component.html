@@ -1,12 +1,13 @@
 <div id="wrapper">
   <button id="leave" mat-button mat-dialog-close>
-    <img  width="20px" height="20px" src="../../../../../assets/images/x-lg.svg">
+    <img id="img" width="20px" height="20px" src="../../../../../assets/images/x-lg.svg">
    </button>
 <h1>
   {{pub.title}}
 </h1>
 
-<img *ngIf="imgLink == undefined" src="../../../../../app/user_Views/admin-views/home-view/publications/images/{{imgLink}}" >
+<img *ngIf="imgLink !== undefined" [src]="imgLink">
+
 
 <h4>
   {{pub.date}}

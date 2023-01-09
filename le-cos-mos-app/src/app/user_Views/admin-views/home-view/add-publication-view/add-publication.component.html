@@ -12,22 +12,30 @@
        <mat-icon style="font-size:140%;" >close</mat-icon>
      </button>
   </mat-form-field>
-  <input
-  type="file"
-  id="fileUpload"
-  ng2FileSelect
-  accept=".png,.jpg,.jpeg,.pdf"
-  [uploader]="uploader"
-  />
 
 
-    <div *ngFor="let item of uploader.queue">
-      <div>
-        <button mat-button type="button" (click)="item.upload()">Upload</button>
-        <button mat-button type="button" (click)="item.remove()">Retirer</button>
-        <div id="uploadAll" type="button" (click)="uploader.uploadAll()">UPLOAD ALL</div>
+  {{filename || "No file uploaded yet."}}
+
+<button style="cursor: pointer;" mat-mini-fab color="primary" class="upload-btn"
+
+>   <mat-icon>attach_file</mat-icon>
+<input
+type="file"
+id="fileUpload"
+ng2FileSelect
+accept=".pdf,.jpg,.png,.jpeg"
+[uploader]="uploader!"
+/>
+</button>
+
+      <div *ngFor="let item of uploader!.queue;index as i">
+        <div *ngIf="uploader?.queue?.length! > 0">
+          <button mat-button type="button" (click)="uploader!.removeFromQueue(item);filename = undefined">Retirer</button>
+        </div>
       </div>
-    </div>
+
+
+
 
 
 

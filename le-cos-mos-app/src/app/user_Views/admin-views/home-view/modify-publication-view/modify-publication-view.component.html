@@ -1,0 +1,54 @@
+<div id="wrapper">
+  <button id="leave" mat-button mat-dialog-close>
+    <img id="img" width="20px" height="20px" src="../../../../../assets/images/x-lg.svg">
+   </button>
+
+
+   <mat-form-field class="modifyPub" [floatLabel]="'always'">
+    <input #title matInput value="{{pub.title}}">
+    <mat-label>Nouveau titre</mat-label>
+   </mat-form-field>
+
+
+<img *ngIf="imgLink !== undefined" [src]="imgLink">
+
+{{filename || "No file uploaded yet."}}
+<button style="cursor: pointer;" mat-mini-fab color="primary" class="upload-btn"
+
+>   <mat-icon>attach_file</mat-icon>
+<input
+type="file"
+id="fileUpload"
+ng2FileSelect
+accept=".pdf,.jpg,.png,.jpeg"
+[uploader]="uploader!"
+/>
+</button>
+<div *ngFor="let item of uploader!.queue;index as i">
+  <div *ngIf="uploader?.queue?.length! > 0">
+    <button mat-button type="button" (click)="uploader!.removeFromQueue(item);filename = undefined">Retirer</button>
+  </div>
+</div>
+
+<mat-form-field class="modifyPub" [floatLabel]="'always'">
+  <input #date matInput value="{{pub.date}}">
+  <mat-label>Nouvelle date</mat-label>
+</mat-form-field>
+
+
+
+
+
+
+  <mat-form-field class="modifyPub" [floatLabel]="'always'">
+    <input #content matInput value="{{pub.content}}">
+    <mat-label>Nouveau contenu</mat-label>
+  </mat-form-field>
+
+
+
+
+<button (click)="modifyPost(title.value,date.value,content.value)" mat-button>Enregistrer les modifications</button>
+
+
+</div>

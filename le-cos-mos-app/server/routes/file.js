@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const multer = require("multer");
-const folder = "src/app/user_Views/admin_views/home_view/publications/images";
+const folder = "src/assets/images";
+
 module.exports = router;
 const path = require("path");
 const fs = require("fs");
@@ -23,7 +24,7 @@ let authenticate = (req,res,next) => {
   })
 }
 
-const getFiles = router.get("/dir/:_id",authenticate, function (req, res, next) {
+/*const getFiles = router.get("/dir/:_id",authenticate, function (req, res, next) {
     // API used in adminview.component.ts
     const id = req.params.id; // The localstorage _id given by client-files.component
     fs.readdir(folder + "/" + id, (err, files) => {
@@ -36,7 +37,7 @@ const getFiles = router.get("/dir/:_id",authenticate, function (req, res, next) 
       });
       return res.send(allFiles);
     });
-  });
+  });*/
 
 
     //Storing on disk realted API - MiddleWare
@@ -46,15 +47,16 @@ const getFiles = router.get("/dir/:_id",authenticate, function (req, res, next) 
           cb(null, folder);
         },
         filename: function (req, file, cb) {
+          console.log(file)
           var today = new Date();
           cb(
             null,
-            today.getDate() +
+            /*today.getDate() +
               "-" +
               (today.getUTCMonth() + 1) +
               "-" +
               today.getFullYear() +
-              "." +
+              "." +*/
               file.originalname
           );
         },
@@ -63,11 +65,9 @@ const getFiles = router.get("/dir/:_id",authenticate, function (req, res, next) 
 
       var upload = multer({ storage: store }).single("file");
       router.post("/upload", function (req, res, next) { // include "authenticate" middleware, but jwt provided
-        //('/upload/:id',function(req,res,next)
-        console.log(req.files)
         upload(req, res, function (err) {
           if (err) {
-            console.log(err)
+
             return res.status(501).json({ error: err });
           }
           return res.json({
