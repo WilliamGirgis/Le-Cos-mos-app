@@ -1,12 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const multer = require("multer");
-const folder = "src/assets/images";
-
+const folder = "src/assets/images/uploaded";
+const jwt = require('jsonwebtoken');
 module.exports = router;
 const path = require("path");
 const fs = require("fs");
-
+const User = require("./user.model");
+const Blob = require('node:buffer').Blob
+//const readJsonFile = require("jsonfile");
+const publicationFolder =
+  "src/assets/images/uploaded/";
 let authenticate = (req,res,next) => {
   let token = req.header('x-access-token')
 
@@ -24,20 +28,35 @@ let authenticate = (req,res,next) => {
   })
 }
 
-/*const getFiles = router.get("/dir/:_id",authenticate, function (req, res, next) {
+const getImages = router.get("/images",authenticate, function (req, res, next) {
     // API used in adminview.component.ts
-    const id = req.params.id; // The localstorage _id given by client-files.component
-    fs.readdir(folder + "/" + id, (err, files) => {
-      if (files === undefined) {
+    const filename = req.query.imageName; // The localstorage _id given by client-files.component
+
+    fs.readdir(folder, (err, filesName) => {
+      if (filesName === undefined) {
         return res.send("No Files");
       }
+      console.log("Files name are = " + filesName)
       const allFiles = []; // This variable should stay here in order to be deleted after each request performed, (otherwise we accumlate the files in json)
-      files.forEach((file) => {
-        allFiles.push(file);
+      filesName.forEach((filename) => {
+       // const fileBlob = reader.()
+        allFiles.push(filename);
       });
-      return res.send(allFiles);
+
+
+    return res.sendFile("src/assets/images/uploaded/" + filename,
+    { root: "C:/Users/William/Desktop/Le Cosm'os app/Le-Cos-mos-app/Le-Cos-mos-app/le-cos-mos-app" },
+    function (err) {
+      if (err) {
+        next(err);
+      } else {
+        console.log("Sent:", publicationFolder);
+      }
+    }
+  );
+});
     });
-  });*/
+
 
 
     //Storing on disk realted API - MiddleWare

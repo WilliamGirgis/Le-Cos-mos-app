@@ -26,7 +26,7 @@ export class HomeViewComponent implements OnInit {
     "title": "idt-",
     "date": "2-1-2023",
     "content": "oie-(oi(e-",
-    "imgLink":"http://localhost:4200/assets/images/tqt.png"
+    "imgName":"http://localhost:4200/assets/images/RIB.png"
   },
   {
     "title": "kyukyu",
@@ -102,7 +102,11 @@ export class HomeViewComponent implements OnInit {
   }
 
 
+
+
+
   ngOnInit(): void {
+
 this.getPublication()
   }
 

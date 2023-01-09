@@ -17,7 +17,6 @@ let setPublication = router.post("/publish", function (req, res, next) {
   file = readJsonFile.readFileSync(publicationFolder);
   file.push(JsonPublication);
   fs.writeFile(publicationFolder, JSON.stringify(file), function (data) {});
-  console.log(file);
   return res.send().status(200);
 });
 
@@ -47,7 +46,6 @@ let delPublication = router.post("/publish/del", function (req, res, next) {
     return res.send().status(200);
   }
   fs.writeFile(publicationFolder, newJson, function (data) {});
-  console.log(file.length);
   return res.send().status(200);
 });
 
@@ -65,8 +63,6 @@ let modifyPublication = router.post(
     post[index].content = newContent;
 
     fs.writeFile(publicationFolder, JSON.stringify(post), function (data) {});
-
-    console.log(post);
     return res.send().status(200);
   }
 );

@@ -9,9 +9,9 @@
 
       <div id="img-wrp">
         <img (click)="deletePost(i)" width="25px" height="25px" src="../../../../assets/images/trash3-fill.svg">
-        <img (click)="openModifyPublicationView(publication,publication.imgLink,i)" src="../../../../assets/images/pencil-fill.svg">
+        <img (click)="openModifyPublicationView(publication,publication.imgName,i)" src="../../../../assets/images/pencil-fill.svg">
       </div>
-      <div (click)="openPublicationView(publication,publication.imgLink)" width="25px" height="25px" id="content-block">
+      <div (click)="openPublicationView(publication,publication.imgName)" width="25px" height="25px" id="content-block">
 
       <p id="content" [innerHTML]="publication.content"></p>
 

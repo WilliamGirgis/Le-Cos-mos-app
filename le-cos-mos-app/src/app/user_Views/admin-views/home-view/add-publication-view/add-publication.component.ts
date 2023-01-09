@@ -19,6 +19,18 @@ export class AddPublicationComponent implements OnInit {
 
   publicationList: PublicationModel[] = [];
 
+  imageToShow: any;
+
+createImageFromBlob(image: Blob) {
+       let reader = new FileReader();
+       reader.addEventListener("load", () => {
+          this.imageToShow = reader.result;
+       }, false);
+
+       if (image) {
+          reader.readAsDataURL(image);
+       }
+}
 
 
 
@@ -93,10 +105,9 @@ filename?:string
 
     await Promise.resolve(this.uploader.uploadAll()).then((response) =>{
 
-      console.log("FILE SAVED, Go next .. " + response)
+
     }) // Encapsuler en promesse pour être sûr que la mise en ligne se réalise ne premier
-    console.log("IMG Link =" + imgLink)
-    let publication: PublicationModel = { title, date: '', content,imgLink:imgLink };
+    let publication: PublicationModel = { title, date: '', content,imgName:this.filename };
     this.http
       .post('http://localhost:4200/publication/publish', publication, {
         responseType: 'json',
