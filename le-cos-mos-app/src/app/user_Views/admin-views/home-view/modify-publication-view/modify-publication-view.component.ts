@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FileUploader } from 'ng2-file-upload';
 import { map } from 'rxjs';
@@ -17,6 +18,8 @@ const endpointUploadFile = "http://localhost:4200/file/upload"
 export class ModifyPublicationViewComponent implements OnInit {
   readonly getImagesURL = "http://localhost:4200/file/images"
   readonly deleteImagesURL = "http://localhost:4200/file/images/del"
+  modifyPostOrigin?:string
+
   imgFile:any
   getImages(imageName?:string) {
     const querParam = new HttpParams().set('imageName',imageName!);
@@ -25,7 +28,7 @@ export class ModifyPublicationViewComponent implements OnInit {
       .pipe(
         map((data) => {
           // Les données renvoyer par le back-end sont sous forme Blob
-          this.imgFile = new File([data], "test.png" ); // On transform le Blob en fichier
+          this.imgFile = new File([data], imageName! ); // On transform le Blob en fichier
           let fr = new FileReader(); // On li le fichier et stock le nouveau format
           fr.readAsDataURL(this.imgFile)
           fr.onload = () =>{
@@ -34,19 +37,26 @@ export class ModifyPublicationViewComponent implements OnInit {
             this.imgFile=fr.result
 
           }
-
-
         })
       )
       .subscribe((result) => {});
   }
 
+  pub:PublicationModel = this.data.publication
+  publicationForm:FormGroup = this.formBuilder.group({
 
-  constructor(public dialogRef:MatDialogRef<ModifyPublicationViewComponent>,@Inject(MAT_DIALOG_DATA) public data:{publication:PublicationModel,imgLink:string,i:number},private http:HttpClient) {
+    title:[this.pub.title,[Validators.required]],
+    date:[this.pub.date,[Validators.required]],
+    content: [this.pub.content,[Validators.required]],
+   }
+   );
+
+
+  constructor(public dialogRef:MatDialogRef<ModifyPublicationViewComponent>,@Inject(MAT_DIALOG_DATA) public data:{publication:PublicationModel,imgLink:string,i:number},private formBuilder:FormBuilder,private http:HttpClient) {
 
     this.dialogRef.afterOpened().pipe().subscribe((res) => {
 
-
+     this.modifyPostOrigin = undefined
      if(this.imgLink != undefined) {
       this.getImages(this.imgLink)
      }
@@ -68,7 +78,6 @@ export class ModifyPublicationViewComponent implements OnInit {
     this.uploader!.onAfterAddingFile = async (file) => {
       this.imgLink = file._file.name
       await Promise.resolve(this.uploader.uploadAll()).then((response) =>{
-
         this.getImages(this.imgLink)
       })
     }
@@ -77,7 +86,7 @@ export class ModifyPublicationViewComponent implements OnInit {
   imgLink?:string = this.data.imgLink
   index?:number = this.data.i
 
-  pub:PublicationModel = this.data.publication
+
   deleteImage() {
     console.log("Inside deleteImage(), imgLink = " + this.imgLink)
     if(!window.confirm("Are you sure you wanna delete " +  this.imgLink! + " ?")) {
@@ -90,7 +99,7 @@ export class ModifyPublicationViewComponent implements OnInit {
       .pipe(
         map((data) => {
           this.imgLink = undefined
-          this.modifyPost(this.pub.title,this.pub.date,this.pub.content,false)
+          this.modifyPost()
         })
       )
       .subscribe((result) => {});
@@ -104,9 +113,12 @@ public uploader: FileUploader = new FileUploader({
 
 
 
-async modifyPost(title: string, date: string, content: string,closDialog?:boolean) {
+async modifyPost() {
   console.log("Inside modifyPost(), imgLink = " + this.imgLink)
   let publication: PublicationModel
+  let title = this.publicationForm.get('title')!.value
+  let date = this.publicationForm.get('date')!.value
+  let content = this.publicationForm.get('content')!.value
 
   if(  this.imgLink != undefined) {
     publication = { title, date, content,imgName: this.imgLink };
@@ -125,7 +137,10 @@ async modifyPost(title: string, date: string, content: string,closDialog?:boolea
     .pipe(
       map((data) => {
 
-          this.getImages(this.imgLink)
+if(this.modifyPostOrigin == "Submit") {
+  this.dialogRef.close()
+}
+
 
 
       })

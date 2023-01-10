@@ -27,6 +27,7 @@ let authenticate = (req,res,next) => {
 const getImages = router.get("/images",authenticate, function (req, res, next) {
     // API used in adminview.component.ts
     const filename = req.query.imageName;
+    console.log(filename)
 
     fs.readdir(folder, (err, filesName) => {
 
@@ -80,11 +81,11 @@ return
         let filename = req.body.imageName;
 
         console.log(filename)
-        if (filename.indexOf(" ") === 0) {
+       /* if (filename.indexOf(" ") === 0) {
           // In case a file name has a space at the begginin
 
           filename = filename.replace(/ /, "");
-        }
+        }*/
 
         fs.unlink(folder + '/' + filename, (err) => {
           if (err) {

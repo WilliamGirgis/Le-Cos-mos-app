@@ -37,7 +37,7 @@ export class ViewPublicationComponent implements OnInit {
       .pipe(
         map((data) => {
           // Les données renvoyer par le back-end sont sous forme Blob
-          this.imgFile = new File([data], "test.png" ); // On transform le Blob en fichier
+          this.imgFile = new File([data], imageName! ); // On transform le Blob en fichier
           let fr = new FileReader(); // On li le fichier et stock le nouveau format
           fr.readAsDataURL(this.imgFile)
           fr.onload = () =>{
