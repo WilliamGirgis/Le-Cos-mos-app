@@ -28,12 +28,13 @@ export class ModifyPublicationViewComponent implements OnInit {
       .pipe(
         map((data) => {
           // Les données renvoyer par le back-end sont sous forme Blob
-          this.imgFile = new File([data], imageName! ); // On transform le Blob en fichier
+          let img = new File([data], imageName! ); // On transform le Blob en fichier
           let fr = new FileReader(); // On li le fichier et stock le nouveau format
-          fr.readAsDataURL(this.imgFile)
-          fr.onload = () =>{
+          fr.readAsDataURL(img)
+          fr.onload = (eve) =>{
 
             // la donnée à afficher dans le parametre '[src]' de la balise image
+
             this.imgFile=fr.result
 
           }
@@ -71,13 +72,14 @@ export class ModifyPublicationViewComponent implements OnInit {
       this.uploader.clearQueue()
     }
     this.uploader.onCompleteItem  = (file) => {
-      this.imgLink = file._file.name
+      //this.imgLink = file._file.name
     }
 
 
     this.uploader!.onAfterAddingFile = async (file) => {
       this.imgLink = file._file.name
       await Promise.resolve(this.uploader.uploadAll()).then((response) =>{
+        console.log("Image to print : " + this.imgLink)
         this.getImages(this.imgLink)
       })
     }
@@ -88,7 +90,6 @@ export class ModifyPublicationViewComponent implements OnInit {
 
 
   deleteImage() {
-    console.log("Inside deleteImage(), imgLink = " + this.imgLink)
     if(!window.confirm("Are you sure you wanna delete " +  this.imgLink! + " ?")) {
       return
         }
@@ -98,6 +99,8 @@ export class ModifyPublicationViewComponent implements OnInit {
       })
       .pipe(
         map((data) => {
+
+// Une fois l'image supprimer, on enlève le lien dans la publication en appelant modifyPost() et ainsi supprimer son lien dans le fichier post.json
           this.imgLink = undefined
           this.modifyPost()
         })
@@ -114,7 +117,6 @@ public uploader: FileUploader = new FileUploader({
 
 
 async modifyPost() {
-  console.log("Inside modifyPost(), imgLink = " + this.imgLink)
   let publication: PublicationModel
   let title = this.publicationForm.get('title')!.value
   let date = this.publicationForm.get('date')!.value
@@ -137,6 +139,7 @@ async modifyPost() {
     .pipe(
       map((data) => {
 
+        // Si la fonction a été appelé par le button 'Submit', alors on ferme le dialog
 if(this.modifyPostOrigin == "Submit") {
   this.dialogRef.close()
 }
