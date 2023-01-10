@@ -28,25 +28,16 @@ const getImages = router.get("/images",authenticate, function (req, res, next) {
     // API used in adminview.component.ts
     const filename = req.query.imageName;
     console.log(filename)
-
-    fs.readdir(folder, (err, filesName) => {
-
-
-
     return res.sendFile("src/assets/images/uploaded/" + filename,
     { root: "C:/Users/William/Desktop/Le Cosm'os app/Le-Cos-mos-app/Le-Cos-mos-app/le-cos-mos-app" },
     function (err) {
       if (err) {
+        console.log(err)
         next(err);
-      } else {
-return
       }
     }
-  );
-});
+  )
     });
-
-
 
     //Storing on disk realted API - MiddleWare
     var store = multer.diskStorage({

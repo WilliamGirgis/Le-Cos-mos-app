@@ -19,18 +19,6 @@ export class AddPublicationComponent implements OnInit {
 
   publicationList: PublicationModel[] = [];
 
-  imageToShow: any;
-
-createImageFromBlob(image: Blob) {
-       let reader = new FileReader();
-       reader.addEventListener("load", () => {
-          this.imageToShow = reader.result;
-       }, false);
-
-       if (image) {
-          reader.readAsDataURL(image);
-       }
-}
 
 
 

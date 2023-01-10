@@ -26,18 +26,28 @@ export class ModifyPublicationViewComponent implements OnInit {
     return this.http
       .get(this.getImagesURL, { responseType: 'blob',params:querParam})
       .pipe(
-        map((data) => {
+        map(async (data) => {
+
           // Les données renvoyer par le back-end sont sous forme Blob
           let img = new File([data], imageName! ); // On transform le Blob en fichier
+          if(img.size < this.imgSize) { // On check si il n'y a pas eu d'échec lors de l'envoi de donnée, sinon on relance la requête pour le fichier
+             this.getImages(imageName)
+             return
+          }
           let fr = new FileReader(); // On li le fichier et stock le nouveau format
-          fr.readAsDataURL(img)
-          fr.onload = (eve) =>{
+          await Promise.resolve(this.uploader.uploadAll()).then((response) =>{
+            fr.readAsDataURL(img)
+          })
+          fr.onloadend = async (eve) =>{
 
             // la donnée à afficher dans le parametre '[src]' de la balise image
+            await Promise.resolve(this.uploader.uploadAll()).then((response) =>{
+              this.imgFile=fr.result
+            })
 
-            this.imgFile=fr.result
 
           }
+
         })
       )
       .subscribe((result) => {});
@@ -52,6 +62,7 @@ export class ModifyPublicationViewComponent implements OnInit {
    }
    );
 
+   imgSize:any
 
   constructor(public dialogRef:MatDialogRef<ModifyPublicationViewComponent>,@Inject(MAT_DIALOG_DATA) public data:{publication:PublicationModel,imgLink:string,i:number},private formBuilder:FormBuilder,private http:HttpClient) {
 
@@ -67,8 +78,6 @@ export class ModifyPublicationViewComponent implements OnInit {
 
     this.uploader!.onCompleteAll =  () => {
       // When the upload queue is completely done, we refresh the page to output it correctly
-
-
       this.uploader.clearQueue()
     }
     this.uploader.onCompleteItem  = (file) => {
@@ -78,10 +87,10 @@ export class ModifyPublicationViewComponent implements OnInit {
 
     this.uploader!.onAfterAddingFile = async (file) => {
       this.imgLink = file._file.name
+      this.imgSize = file._file.size
       await Promise.resolve(this.uploader.uploadAll()).then((response) =>{
-        console.log("Image to print : " + this.imgLink)
-        this.getImages(this.imgLink)
       })
+      this.getImages(this.imgLink)
     }
   }
 
