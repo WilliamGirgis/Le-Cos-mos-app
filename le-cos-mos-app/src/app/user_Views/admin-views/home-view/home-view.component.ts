@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { map } from 'rxjs/internal/operators/map';
 import { AddPublicationComponent } from './add-publication-view/add-publication.component';
 import { PublicationModel } from './add-publication-view/publication-model';
@@ -16,7 +15,7 @@ import { ViewPublicationComponent } from './view-publication/view-publication.co
 })
 export class HomeViewComponent implements OnInit {
   //posts: any = (data as any).default;
-  constructor(public dialog:MatDialog,private router: Router,private http:HttpClient) {
+  constructor(public dialog:MatDialog,private http:HttpClient) {
     dialog.afterAllClosed.subscribe((res) => {
       this.getPublication()
     })
@@ -59,7 +58,7 @@ export class HomeViewComponent implements OnInit {
     this.dialog.open(AddPublicationComponent, {width:'70vw',height:'max-content'})
   }
   openPublicationView(publication:PublicationModel,imgLink?:string) {
-    this.dialog.open(ViewPublicationComponent, {width:'90vw',height:'95vh',maxWidth:'none',data: {publication,imgLink:imgLink} })
+    this.dialog.open(ViewPublicationComponent, {width:'95vw',height:'96vh',maxWidth:'none',data: {publication,imgLink:imgLink} })
   }
   openModifyPublicationView(publication:PublicationModel,imgLink?:string,i?:number) {
     const index = i! - 1

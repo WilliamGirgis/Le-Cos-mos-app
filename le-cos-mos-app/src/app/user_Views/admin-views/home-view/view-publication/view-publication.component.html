@@ -1,17 +1,17 @@
 <div id="wrapper">
   <button id="leave" mat-button mat-dialog-close>
-    <img id="img" width="20px" height="20px" src="../../../../../assets/images/x-lg.svg">
+    <img width="20px" height="20px" src="../../../../../assets/images/x-lg.svg">
    </button>
 <h1>
   {{pub.title}}
 </h1>
 
-<img *ngIf="imgLink !== undefined" [src]="imgFile">
+<img id="presentation" *ngIf="imgLink !== undefined" [src]="imgFile">
 
 
-<h4>
-  {{pub.date}}
-</h4>
+<h3>
+  Publier le : {{pub.date}}
+</h3>
 
 
 <p>{{pub.content}}</p>

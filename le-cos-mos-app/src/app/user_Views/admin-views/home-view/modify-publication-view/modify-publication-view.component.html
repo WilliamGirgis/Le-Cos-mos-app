@@ -10,10 +10,11 @@
    </mat-form-field>
 
 
-<img *ngIf="imgLink !== undefined" [src]="imgLink">
+<img *ngIf="imgLink !== undefined" [src]="imgFile">
+<button *ngIf="imgLink !== undefined" (click)="deleteImage()" mat-button>Supprimer l'image</button>
 
-{{filename || "No file uploaded yet."}}
-<button style="cursor: pointer;" mat-mini-fab color="primary" class="upload-btn"
+{{imgLink || "No file uploaded yet."}}
+<button style="width: 50px" style="cursor: pointer;" mat-mini-fab color="primary" class="upload-btn"
 
 >   <mat-icon>attach_file</mat-icon>
 <input
@@ -26,7 +27,7 @@ accept=".pdf,.jpg,.png,.jpeg"
 </button>
 <div *ngFor="let item of uploader!.queue;index as i">
   <div *ngIf="uploader?.queue?.length! > 0">
-    <button mat-button type="button" (click)="uploader!.removeFromQueue(item);filename = undefined">Retirer</button>
+    <button mat-button type="button" (click)="uploader!.removeFromQueue(item);this.imgLink = undefined">Retirer</button>
   </div>
 </div>
 

@@ -2,13 +2,6 @@ const express = require("express");
 const router = express.Router();
 
 
-const folder = "src/app/client-files";
-
-const fs = require("fs");
-const bcrypt = require("bcryptjs");
-
-
-const path = require("path")
 
 const User = require("./user.model");
 
@@ -53,7 +46,6 @@ const verify = (req, res, next) => {
 };
 
 const jwt = require('jsonwebtoken');
-const { stringify } = require("querystring");
 
 let authenticate = (req,res,next) => {  /* MIDDLEWARE for checking if the access-token has expired */
   let token = req.header('x-access-token') // We intercept each request, taking the access-Token of the current user logged in
@@ -191,7 +183,6 @@ router.get("/users/del",authenticate, (req, res) => {
 router.post("/users/modify",authenticate, (req, res) => {
 
   let newUser = req.body;
-  console.log("New user = " + JSON.stringify(newUser))
   let id = req.body._id;
   User.findOne({ id }).then((user) => {
     console.log("USER FOUND : " + user)

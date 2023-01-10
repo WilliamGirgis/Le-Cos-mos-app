@@ -4,13 +4,9 @@ const multer = require("multer");
 const folder = "src/assets/images/uploaded";
 const jwt = require('jsonwebtoken');
 module.exports = router;
-const path = require("path");
 const fs = require("fs");
 const User = require("./user.model");
-const Blob = require('node:buffer').Blob
 //const readJsonFile = require("jsonfile");
-const publicationFolder =
-  "src/assets/images/uploaded/";
 let authenticate = (req,res,next) => {
   let token = req.header('x-access-token')
 
@@ -30,18 +26,10 @@ let authenticate = (req,res,next) => {
 
 const getImages = router.get("/images",authenticate, function (req, res, next) {
     // API used in adminview.component.ts
-    const filename = req.query.imageName; // The localstorage _id given by client-files.component
+    const filename = req.query.imageName;
 
     fs.readdir(folder, (err, filesName) => {
-      if (filesName === undefined) {
-        return res.send("No Files");
-      }
-      console.log("Files name are = " + filesName)
-      const allFiles = []; // This variable should stay here in order to be deleted after each request performed, (otherwise we accumlate the files in json)
-      filesName.forEach((filename) => {
-       // const fileBlob = reader.()
-        allFiles.push(filename);
-      });
+
 
 
     return res.sendFile("src/assets/images/uploaded/" + filename,
@@ -50,7 +38,7 @@ const getImages = router.get("/images",authenticate, function (req, res, next) {
       if (err) {
         next(err);
       } else {
-        console.log("Sent:", publicationFolder);
+return
       }
     }
   );
@@ -62,20 +50,11 @@ const getImages = router.get("/images",authenticate, function (req, res, next) {
     //Storing on disk realted API - MiddleWare
     var store = multer.diskStorage({
         destination: function (req, file, cb) {
-          //const id = req.params.id;// (_id) given by localstorage
           cb(null, folder);
         },
         filename: function (req, file, cb) {
-          console.log(file)
-          var today = new Date();
           cb(
             null,
-            /*today.getDate() +
-              "-" +
-              (today.getUTCMonth() + 1) +
-              "-" +
-              today.getFullYear() +
-              "." +*/
               file.originalname
           );
         },
@@ -97,18 +76,17 @@ const getImages = router.get("/images",authenticate, function (req, res, next) {
       });
 
 
-      const delFiles = router.post("/dir/del/:_id/:file",authenticate, function (req, res) {
-        let _id = req.params._id;
-        let file = req.params.file;
+      const delImage = router.post("/images/del",authenticate, function (req, res) {
+        let filename = req.body.imageName;
 
-        if (file.indexOf(" ") === 0) {
+        console.log(filename)
+        if (filename.indexOf(" ") === 0) {
           // In case a file name has a space at the begginin
 
-          file = file.replace(/ /, "");
+          filename = filename.replace(/ /, "");
         }
 
-        console.log("FILE DELETED: " + "id =" + _id + " file =" + file);
-        fs.unlink(folder + "/" + _id + "/" + file, (err) => {
+        fs.unlink(folder + '/' + filename, (err) => {
           if (err) {
             console.log(err);
             return res.send(err);
@@ -117,7 +95,7 @@ const getImages = router.get("/images",authenticate, function (req, res, next) {
         });
       });
 
-      const downFile = router.get(
+      /*const downFile = router.get(
         "/download/:folderID/:file",authenticate,
         function (req, res, next) {
           let folderID = req.params.folderID;
@@ -135,4 +113,4 @@ const getImages = router.get("/images",authenticate, function (req, res, next) {
             }
           );
         }
-      );
+      );*/

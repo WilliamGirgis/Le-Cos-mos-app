@@ -15,23 +15,62 @@ const endpointUploadFile = "http://localhost:4200/file/upload"
   styleUrls: ['./modify-publication-view.component.scss']
 })
 export class ModifyPublicationViewComponent implements OnInit {
+  readonly getImagesURL = "http://localhost:4200/file/images"
+  readonly deleteImagesURL = "http://localhost:4200/file/images/del"
+  imgFile:any
+  getImages(imageName?:string) {
+    const querParam = new HttpParams().set('imageName',imageName!);
+    return this.http
+      .get(this.getImagesURL, { responseType: 'blob',params:querParam})
+      .pipe(
+        map((data) => {
+          // Les données renvoyer par le back-end sont sous forme Blob
+          this.imgFile = new File([data], "test.png" ); // On transform le Blob en fichier
+          let fr = new FileReader(); // On li le fichier et stock le nouveau format
+          fr.readAsDataURL(this.imgFile)
+          fr.onload = () =>{
+
+            // la donnée à afficher dans le parametre '[src]' de la balise image
+            this.imgFile=fr.result
+
+          }
+
+
+        })
+      )
+      .subscribe((result) => {});
+  }
+
 
   constructor(public dialogRef:MatDialogRef<ModifyPublicationViewComponent>,@Inject(MAT_DIALOG_DATA) public data:{publication:PublicationModel,imgLink:string,i:number},private http:HttpClient) {
-    this.uploader!.onCompleteAll = () => {
+
+    this.dialogRef.afterOpened().pipe().subscribe((res) => {
+
+
+     if(this.imgLink != undefined) {
+      this.getImages(this.imgLink)
+     }
+    })
+
+
+
+    this.uploader!.onCompleteAll =  () => {
       // When the upload queue is completely done, we refresh the page to output it correctly
-      console.log("All Uploaded to : " + this.uploader!.options.url)
-      this.filename = undefined
+
+
       this.uploader.clearQueue()
     }
     this.uploader.onCompleteItem  = (file) => {
-
+      this.imgLink = file._file.name
     }
 
 
-    this.uploader!.onAfterAddingFile = (file) => {
-      this.filename = file._file.name
-      console.log("FILE = " + file._file.name)
-      console.log(this.uploader!.queue.length)
+    this.uploader!.onAfterAddingFile = async (file) => {
+      this.imgLink = file._file.name
+      await Promise.resolve(this.uploader.uploadAll()).then((response) =>{
+
+        this.getImages(this.imgLink)
+      })
     }
   }
 
@@ -39,19 +78,44 @@ export class ModifyPublicationViewComponent implements OnInit {
   index?:number = this.data.i
 
   pub:PublicationModel = this.data.publication
-
-
+  deleteImage() {
+    console.log("Inside deleteImage(), imgLink = " + this.imgLink)
+    if(!window.confirm("Are you sure you wanna delete " +  this.imgLink! + " ?")) {
+      return
+        }
+    return this.http
+      .post(this.deleteImagesURL,{imageName:this.imgLink!}, {
+        responseType: 'text'
+      })
+      .pipe(
+        map((data) => {
+          this.imgLink = undefined
+          this.modifyPost(this.pub.title,this.pub.date,this.pub.content,false)
+        })
+      )
+      .subscribe((result) => {});
+  }
 
 public uploader: FileUploader = new FileUploader({
   url: endpointUploadFile,
   queueLimit:1,
   method: 'post'
 });
-filename?:string
 
 
-modifyPost(title: string, date: string, content: string) {
-  let publication: PublicationModel = { title, date, content };
+
+async modifyPost(title: string, date: string, content: string,closDialog?:boolean) {
+  console.log("Inside modifyPost(), imgLink = " + this.imgLink)
+  let publication: PublicationModel
+
+  if(  this.imgLink != undefined) {
+    publication = { title, date, content,imgName: this.imgLink };
+  } else {
+    publication = { title, date, content };
+  }
+
+
+
   const querParam = new HttpParams().set('index', this.index!);
   this.http
     .post('http://localhost:4200/publication/publish/modify', publication, {
@@ -60,7 +124,10 @@ modifyPost(title: string, date: string, content: string) {
     })
     .pipe(
       map((data) => {
-        this.dialogRef.close()
+
+          this.getImages(this.imgLink)
+
+
       })
     )
     .subscribe((response) => {});
@@ -71,8 +138,8 @@ modifyPost(title: string, date: string, content: string) {
 
 
   ngOnInit(): void {
-    console.log(this.index)
-    this.filename = this.imgLink?.replace("http://localhost:4200/assets/images/","")
+
+
   }
 
 }

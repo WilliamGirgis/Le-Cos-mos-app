@@ -1,8 +1,7 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { readFile,read } from 'fs';
 import { map } from 'rxjs';
 import { PublicationModel } from '../add-publication-view/publication-model';
 
@@ -18,7 +17,9 @@ export class ViewPublicationComponent implements OnInit {
 
     this.dialogRef.afterOpened().subscribe((res) => {
 
-      this.getImages(this.imgLink)
+      if(this.imgLink != undefined) {
+        this.getImages(this.imgLink)
+      }
     })
 
    }

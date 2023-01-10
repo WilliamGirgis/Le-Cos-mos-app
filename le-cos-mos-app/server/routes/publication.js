@@ -57,10 +57,17 @@ let modifyPublication = router.post(
     let newTitle = req.body.title;
     let newDate = req.body.date;
     let newContent = req.body.content;
+    let newImageName = "";
+    if(req.body.imgName != undefined) {
+      newImageName = req.body.imgName
+    } else {
+      newImageName = undefined
+    }
     let post = readJsonFile.readFileSync(publicationFolder);
     post[index].title = newTitle;
     post[index].date = newDate;
     post[index].content = newContent;
+    post[index].imgName = newImageName;
 
     fs.writeFile(publicationFolder, JSON.stringify(post), function (data) {});
     return res.send().status(200);
