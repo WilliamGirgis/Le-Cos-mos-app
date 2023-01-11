@@ -40,8 +40,8 @@ view:string = 'Log' // by default
   readonly getLogsUrl = "http://localhost:4200/log/logs"
 
 
-  dataSource = new MatTableDataSource(this.userListTest)
-  dataSourceLog = new MatTableDataSource(this.logListTest)
+  dataSource = new MatTableDataSource(this.userList)
+  dataSourceLog = new MatTableDataSource(this.logList)
 
 
   @ViewChildren(MatPaginator) paginator = new QueryList<MatPaginator>();
