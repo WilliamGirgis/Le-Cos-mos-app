@@ -73,7 +73,7 @@ userSchema.methods.toJSON = function() {
 userSchema.methods.generateAccessToken = function() {
     const user = this;
     return new Promise((resolve,reject) => {
-        jwt.sign({_id:user._id.toHexString()},jwtScret,{expiresIn:"15m"},(error,token) => {
+        jwt.sign({_id:user._id.toHexString()},jwtScret,{expiresIn:"30m"},(error,token) => {
             if(!error) {
                 resolve(token);
             } else {
@@ -127,7 +127,6 @@ return jwtScret;
 userSchema.statics.findByCredentials = function(email,password) {
     let User = this;
 return User.findOne({email}).then((user) => {
-  console.log(user)
   if(!user) return Promise.reject();
   return new Promise((resolve,reject)=> {
       bcrypt.compare(password,user.password,(err,res) => {
@@ -185,9 +184,9 @@ let saveSession = (user,refreshToken) => {
 }
 
 let generateRefreshTokenExpiryTime = () => {
-  //  let daysUntilExpired = "10";
-    let secondsUntilExpire = 1000; // 10 hours before the user must reconnect to generate a new refresh token
-    return ((Date.now()/1000) * secondsUntilExpire);
+    let daysUntilExpired = "10";
+    let secondsUntilExpire = daysUntilExpired * 24 * 60 * 60; // 10 hours before the user must reconnect to generate a new refresh token
+    return ((Date.now()/1000) + secondsUntilExpire);
 }
 
 

@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FileObserverService } from './file-observer.service';
+import { LogSaveService } from './log.save.service';
 
-describe('FileObserverService', () => {
-  let service: FileObserverService;
+describe('LogSaveService', () => {
+  let service: LogSaveService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(FileObserverService);
+    service = TestBed.inject(LogSaveService);
   });
 
   it('should be created', () => {

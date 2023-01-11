@@ -1,4 +1,5 @@
 import { trigger, transition, style, animateChild, group, animate,query } from '@angular/animations';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { AuthService } from 'src/app/services/AuthService.service';
@@ -78,7 +79,7 @@ this.authService.logout()
   ngOnInit(): void {
 
 
-    this.router.navigate(['app/home']); // Navigue vers la vue 'accueil' par default
+    this.router.navigate(['app/gestion']); // Navigue vers la vue 'accueil' par default
   }
 
 }

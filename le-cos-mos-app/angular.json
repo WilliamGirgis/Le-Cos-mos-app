@@ -96,8 +96,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss",
-              {"input":"src/app/global-variables.scss"}
+              "src/styles.scss"
             ],
             "scripts": []
           }

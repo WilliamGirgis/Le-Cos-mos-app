@@ -28,7 +28,7 @@ position: fixed;
     background-color: var(--blue-them-color);
   }
 
-  #presentation {
+  #uploadedImage {
 
     width: 75%;
     height: 62vh;
@@ -62,4 +62,4 @@ position: fixed;
 
 
   // src="../../../../../assets/images/uploaded/RIB.png" -> TESTING
-  // [src]="imgFile" -> Production
+  // [src]="imgFile" -> PRODUCTION

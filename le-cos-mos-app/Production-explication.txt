@@ -1,0 +1,16 @@
+1) Enregistrement des log
+
+   Un service a été crée pour enregistrer les activités des utilisateurs.
+   Ce service s'appel "log.save.services" disponible dans le répertoire app/services.
+
+   L'enregistrement des log ce fait de la sorte :
+    - La function envoi une requête POST au serveur avec un objet de type Log (class décrite dans le dossier "shared" -> log.ts) en parametre.
+    - La function est appeler à différent niveau de l'application (la où l'on souhaite enregistré des logs)
+
+
+Information : l'identifiant de base de donnée enregistré côté front (localstorage.getItem(user-id)) est utilisé pour identifier l'utilisateur
+
+
+
+2) Comment utiliser plusieurs paginator :
+https://stackoverflow.com/questions/50428605/multiple-material-pagination-in-one-component-doesnt-work-in-angular

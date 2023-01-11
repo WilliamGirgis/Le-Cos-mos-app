@@ -3,6 +3,7 @@ const path = require('path');
 const userRoutes = require('./server/routes/user')
 const fileRoutes = require('./server/routes/file')
 const mailRoutes = require('./server/routes/mail')
+const logRoutes = require('./server/routes/log')
 
 const publicationRoutes = require('./server/routes/publication')
 const app = express();
@@ -17,6 +18,7 @@ app.use('/publication',publicationRoutes);
 app.use('/file',fileRoutes);
 app.use('/user',userRoutes);
 app.use('/mail',mailRoutes);
+app.use('/log',logRoutes);
 
 
 app.get('*',(req,res) => { //Catch all others routes request and return  the index

@@ -9,6 +9,7 @@ import {
   import { EMPTY, Observable, throwError } from 'rxjs';
   import { catchError, switchMap, tap } from 'rxjs/operators';
   import { AuthService } from './AuthService.service';
+import { LogSaveService } from './log.save.service';
 
   @Injectable({
     providedIn: 'root',
@@ -16,19 +17,19 @@ import {
   export class WebReqInterceptorService implements HttpInterceptor {
     refreshingAccesstoken: boolean | undefined; // undefnied rajouté
 
-    constructor(private authService: AuthService) {}
+    constructor(private authService: AuthService,private logService:LogSaveService) {}
     intercept(
       req: HttpRequest<any>,
       next: HttpHandler
     ): Observable<HttpEvent<any>> {
       req = this.addAuthHeader(req);
-
       return next.handle(req).pipe(
         catchError((error: HttpErrorResponse) => {
           if (error.status === 401 && !this.refreshingAccesstoken) {
             return this.refreshAccessToken().pipe(
               switchMap(() => {
                 req = this.addAuthHeader(req);
+
                 return next.handle(req);
               }),
               catchError((err: any) => {
