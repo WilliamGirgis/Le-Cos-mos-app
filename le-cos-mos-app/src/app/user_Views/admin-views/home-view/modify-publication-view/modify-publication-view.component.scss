@@ -1,18 +1,52 @@
-#wrapper {
+form {
   text-align: center;
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: 100%;
+  height: 100%;
   margin: auto;
+
 }
 
+#wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 80%;
+}
+#rightSide {
+  display: flex;
+  flex-direction: column;
+  width: 42%;
+  height: 100%;
+  margin: auto 2vw auto auto;
+}
+
+#leftSide {
+  display: flex;
+  flex-direction: column;
+  width: 42%;
+  height: 100%;
+  margin: auto auto auto 2vw;
+}
+
+textarea {
+  height: 33vh;
+}
+
+#uploaded {
+  margin: auto;
+}
 #leave {
+  min-height: max-content;
   text-align: center;
-    margin-right: 0;
+   right: 0;
     width: fit-content;
     height: fit-content;
-    justify-self: right;
-
+margin-right: 0;
+margin-top: -2vh;
+width: fit-content;
+height: fit-content;
     background-color: var(--blue-them-color);
   }
 
@@ -38,3 +72,17 @@ button {
   content: none;
   cursor: pointer;
   }
+
+
+  pdf-viewer {
+    overflow:  hidden;
+:first-child {
+  overflow:  hidden;
+}
+  }
+
+
+
+
+  // [src]="'../../../../../assets/images/uploaded/RIB.png'" -> TESTING
+  // [src]="imgFile" -> PRODUCTION

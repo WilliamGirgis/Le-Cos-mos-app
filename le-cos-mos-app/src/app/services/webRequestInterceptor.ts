@@ -9,7 +9,6 @@ import {
   import { EMPTY, Observable, throwError } from 'rxjs';
   import { catchError, switchMap, tap } from 'rxjs/operators';
   import { AuthService } from './AuthService.service';
-import { LogSaveService } from './log.save.service';
 
   @Injectable({
     providedIn: 'root',
@@ -17,7 +16,7 @@ import { LogSaveService } from './log.save.service';
   export class WebReqInterceptorService implements HttpInterceptor {
     refreshingAccesstoken: boolean | undefined; // undefnied rajouté
 
-    constructor(private authService: AuthService,private logService:LogSaveService) {}
+    constructor(private authService: AuthService) {}
     intercept(
       req: HttpRequest<any>,
       next: HttpHandler

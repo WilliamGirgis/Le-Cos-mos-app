@@ -48,9 +48,10 @@ import { HandlerViewComponent } from './user_Views/admin-views/handler-view/hand
 import { AuthGuard } from './guards/authguard';
 import { AddPublicationComponent } from './user_Views/admin-views/home-view/add-publication-view/add-publication.component';
 import { ViewPublicationComponent } from './user_Views/admin-views/home-view/view-publication/view-publication.component';
-import { FileUploadModule,FileDropDirective } from 'ng2-file-upload';
+import { FileUploadModule } from 'ng2-file-upload';
 import { ModifyPublicationViewComponent } from './user_Views/admin-views/home-view/modify-publication-view/modify-publication-view.component';
-
+import { PdfViewerComponent, PdfViewerModule } from 'ng2-pdf-viewer';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 // Récupérer depuis localstorage
 /*function userType() {
@@ -95,11 +96,11 @@ const routes: Routes = [
         path: 'home',
         component: HomeViewComponent ,
         data: { animation: 'Accueil' },
-       /* children:[
-          {path:'addPublications',
-          component: AddPublicationComponent
-        }
-        ]*/
+        // children:[
+        //   {path:'addPublications',
+        //   component: PdfViewerComponent
+        // }
+        // ]
         },
       {
         path: 'planning',
@@ -186,9 +187,13 @@ const routes: Routes = [
         FlexModule,
         MatPaginatorModule,
         MatProgressBarModule,
-        FileUploadModule
+        FileUploadModule,
+        PdfViewerModule
     ]
 })
 
 
 export class AppModule { }
+platformBrowserDynamic().bootstrapModule(AppModule);
+
+

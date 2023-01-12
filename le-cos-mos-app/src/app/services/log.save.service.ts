@@ -11,11 +11,10 @@ export class LogSaveService {
   constructor(private http:HttpClient) { }
 
 
-  saveLog(log?:Log):Observable<any> {
+  saveLog(action?:string):Observable<any> {
     return this.http.post('http://localhost:4200/log/save', {
-     _id:log?.UserID,
-     action:log?.action,
-     date:log?.date // log
+     _id:localStorage.getItem('user-id')!,
+     action:action // log
     },{
       observe:'response'
     })

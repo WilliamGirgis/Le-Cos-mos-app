@@ -6,6 +6,7 @@ import {
   import { Router } from '@angular/router';
   import { catchError, shareReplay, tap } from 'rxjs/operators';
   import { HttpService } from './http.services';
+import { LogSaveService } from './log.save.service';
 
 
 
@@ -17,7 +18,9 @@ import {
     constructor(
       private http: HttpClient,
       private WebService: HttpService,
-      private router: Router
+      private router: Router,
+      private logService:LogSaveService
+
     ) {}
 
 
@@ -32,6 +35,7 @@ import {
             res.headers.get('x-access-token')! , // '!' rajouté
             res.headers.get('x-refresh-token')! // '!' rajouté
           );
+          this.logService.saveLog("Connexion").subscribe(() => {})
         })
       )
     }
@@ -51,6 +55,7 @@ import {
     }
 
     logout() {
+      this.logService.saveLog("Déconnexion").subscribe(() => {})
       this.removeSession();
       this.router.navigate(['login']);
     }

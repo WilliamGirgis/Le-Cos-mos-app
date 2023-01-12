@@ -20,6 +20,7 @@ export class ModifyPublicationViewComponent implements OnInit {
   readonly deleteImagesURL = "http://localhost:4200/file/images/del"
   modifyPostOrigin?:string
 
+
   imgFile:any
   getImages(imageName?:string) {
     const querParam = new HttpParams().set('imageName',imageName!);
@@ -54,6 +55,7 @@ export class ModifyPublicationViewComponent implements OnInit {
   }
 
   pub:PublicationModel = this.data.publication
+  imgExtension?:string = this.pub.imgExtension
   publicationForm:FormGroup = this.formBuilder.group({
 
     title:[this.pub.title,[Validators.required]],
@@ -131,8 +133,10 @@ async modifyPost() {
   let date = this.publicationForm.get('date')!.value
   let content = this.publicationForm.get('content')!.value
 
+  let ext:string [] = this.imgLink?.split(/\./)!
+
   if(  this.imgLink != undefined) {
-    publication = { title, date, content,imgName: this.imgLink };
+    publication = { title, date, content,imgName: this.imgLink,imgExtension:ext[ext.length - 1] };
   } else {
     publication = { title, date, content };
   }

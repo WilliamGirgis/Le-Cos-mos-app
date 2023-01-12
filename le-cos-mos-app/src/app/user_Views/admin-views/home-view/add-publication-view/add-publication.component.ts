@@ -94,8 +94,11 @@ filename?:string
     await Promise.resolve(this.uploader.uploadAll()).then((response) =>{
 
 
+
+
     }) // Encapsuler en promesse pour être sûr que la mise en ligne se réalise ne premier
-    let publication: PublicationModel = { title, date: '', content,imgName:this.filename };
+    let ext:string [] = this.filename?.split(/\./)!
+    let publication: PublicationModel = { title, date: '', content,imgName:this.filename,imgExtension:ext[ext.length - 1] }; // -> last index ext[ext.length - 1]
     this.http
       .post('http://localhost:4200/publication/publish', publication, {
         responseType: 'json',

@@ -73,13 +73,16 @@ export class HandlerViewComponent implements OnInit {
   }
 
 logout() {
+  if(!window.confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
+    return
+      }
 this.authService.logout()
 }
 
   ngOnInit(): void {
 
 
-    this.router.navigate(['app/gestion']); // Navigue vers la vue 'accueil' par default
+    this.router.navigate(['app/home']); // Navigue vers la vue 'accueil' par default
   }
 
 }

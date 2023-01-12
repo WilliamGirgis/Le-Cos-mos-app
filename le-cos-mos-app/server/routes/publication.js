@@ -57,6 +57,7 @@ let modifyPublication = router.post(
     let newTitle = req.body.title;
     let newDate = req.body.date;
     let newContent = req.body.content;
+    let extension = req.body.imgExtension
     let newImageName = "";
     if(req.body.imgName != undefined) {
       newImageName = req.body.imgName
@@ -68,6 +69,7 @@ let modifyPublication = router.post(
     post[index].date = newDate;
     post[index].content = newContent;
     post[index].imgName = newImageName;
+    post[index].imgExtension = extension;
 
     fs.writeFile(publicationFolder, JSON.stringify(post), function (data) {});
     return res.send().status(200);

@@ -14,7 +14,15 @@ router.post("/save",  (req, res) => {
   }
   let firstname = ''
   let lastname = ''
-  let date = body.date
+  const DateNow = Date.now();
+  let dateObj =  new Date(DateNow)
+  let mois = dateObj.getUTCMonth() + 1
+  mois = mois.toString()
+  let jour = dateObj.getUTCDate().toString()
+  let anne = dateObj.getFullYear().toString()
+  let hour = dateObj.getHours()+":" + dateObj.getMinutes()
+  let modifyMonth = +mois < 10 ? '0'+mois : mois // si moins que 10, alors on affiche avec le 0 dèrrière. le "+" permet de covertir en nombre
+  let date  = jour+ "/" + modifyMonth + "/" + anne + " à " + hour
   let action = body.action
   User.findOne({ _id: user_Id }).then((user) =>{
     firstname = user.firstname

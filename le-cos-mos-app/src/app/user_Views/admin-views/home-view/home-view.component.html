@@ -6,7 +6,6 @@
     <div *ngFor="let publication of publicationList;index as i" class="blocks">
         <h1 [innerHTML]="publication.title">
       </h1>
-
       <div id="img-wrp">
         <img (click)="deletePost(i)" width="25px" height="25px" src="../../../../assets/images/trash3-fill.svg">
         <img (click)="openModifyPublicationView(publication,publication.imgName,i)" src="../../../../assets/images/pencil-fill.svg">
@@ -23,4 +22,5 @@
       </div>
 
     </div>
+
 

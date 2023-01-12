@@ -33,7 +33,7 @@ export class GestionViewComponent implements OnInit,AfterViewInit {
   successMsgSaved?:string
 isSuccess?:boolean
 user_IDList:string [] = []
-view:string = 'Log' // by default
+view:string = 'User' // by default
   readonly getUserIdULR = 'http://localhost:4200/user/users/id';
   readonly delUserURL = 'http://localhost:4200/user/users/del';
   readonly modifyUserURL = 'http://localhost:4200/user/users/modify';
@@ -71,7 +71,7 @@ modifyUser(newFname:string,newLname:string,newEmail:string,id:number) {
 
 }
 
-  constructor(private http: HttpClient, private route: ActivatedRoute,private router:Router) {
+  constructor(private http: HttpClient) {
 
    }
   ngAfterViewInit(): void { /* comment for test mode*/

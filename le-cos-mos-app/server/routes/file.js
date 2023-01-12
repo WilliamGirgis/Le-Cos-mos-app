@@ -27,7 +27,6 @@ let authenticate = (req,res,next) => {
 const getImages = router.get("/images",authenticate, function (req, res, next) {
     // API used in adminview.component.ts
     const filename = req.query.imageName;
-    console.log(filename)
     return res.sendFile("src/assets/images/uploaded/" + filename,
     { root: "C:/Users/William/Desktop/Le Cosm'os app/Le-Cos-mos-app/Le-Cos-mos-app/le-cos-mos-app" },
     function (err) {
@@ -47,9 +46,9 @@ const getImages = router.get("/images",authenticate, function (req, res, next) {
         filename: function (req, file, cb) {
           cb(
             null,
-              file.originalname
+            Buffer.from(file.originalname, 'latin1').toString('utf8') // https://github.com/expressjs/multer/issues/1104 -> Solved this issue
           );
-        },
+        }
       });
 
 
@@ -61,7 +60,7 @@ const getImages = router.get("/images",authenticate, function (req, res, next) {
             return res.status(501).json({ error: err });
           }
           return res.json({
-            originalname: req.file.originalname,
+            originalname: req.file.originalname.toString('utf8'),
             upload: req.file.filename,
           });
         });

@@ -1,17 +1,17 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, inject, Inject, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { map } from 'rxjs';
 import { PublicationModel } from '../add-publication-view/publication-model';
 
+
 @Component({
   selector: 'app-view-publication',
   templateUrl: './view-publication.component.html',
-  styleUrls: ['./view-publication.component.scss']
+  styleUrls: ['./view-publication.component.scss'],
 })
 export class ViewPublicationComponent implements OnInit {
-
   constructor(public dialogRef:MatDialogRef<ViewPublicationComponent>,@Inject(MAT_DIALOG_DATA) public data:{publication:PublicationModel,imgLink:string},private http:HttpClient) {
 
 
@@ -27,6 +27,7 @@ export class ViewPublicationComponent implements OnInit {
   imgLink?:string = this.data.imgLink
 
   pub:PublicationModel = this.data.publication
+  imgExtension?:string = this.pub.imgExtension
 
   readonly getImagesURL = "http://localhost:4200/file/images"
   imgFile:any
@@ -54,8 +55,8 @@ export class ViewPublicationComponent implements OnInit {
   }
 
 
-
   ngOnInit(): void {
+
 
 
 

@@ -25,7 +25,8 @@ export class HomeViewComponent implements OnInit {
     "title": "idt-",
     "date": "2-1-2023",
     "content": "oie-(oi(e-",
-    "imgName":"http://localhost:4200/assets/images/RIB.png"
+    "imgName":"http://localhost:4200/assets/images/RIB.png",
+    "imgExtension":'pdf'
   },
   {
     "title": "kyukyu",
@@ -106,50 +107,8 @@ export class HomeViewComponent implements OnInit {
 
   ngOnInit(): void {
 
-this.getPublication()
+ this.getPublication()
   }
 
 
 }
-
-
-
-/*#btn-wrapper {
-position: absolute;
-top: 5vh;
-right: 15vw;
-color: var(--white-them-color);
-& button {
-  background-color: var(--blue-them-color);
-  font-weight: bolder;
-  border-radius: 10px;
-     &:first-child {
-     margin-right: 20px;
-     }
-     &:last-child {
-      margin-right: 20px;
-     }
-}
-}
-
-#wrapper {
-  width: 100%;
-  height: fit-content;
-  text-align: center;
-  height: 70vh;
-  display: inline-block;
-}
-
-#publication {
-
-  width: 45%;
-  color: rgb(207, 179, 137);
-  height: 100px;
-  margin: auto 10px auto auto;
-  background-color: var(--blue-them-color);
-  display: inline-flex;
-  cursor: pointer;
-  font-size: 90% ;
-  transition: 200ms ease-in-out;
-}
-*/

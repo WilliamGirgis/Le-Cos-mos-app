@@ -1,35 +1,15 @@
-<form novalidate [formGroup]="publicationForm" (submit)="modifyPost()" id="wrapper">
+<form novalidate [formGroup]="publicationForm" (submit)="modifyPost()" >
+  <h1 style="margin: 0;text-align: center;" matDialogTitle>Modifier une publication</h1>
+
   <button id="leave" mat-button mat-dialog-close>
     <img id="img" width="20px" height="20px" src="../../../../../assets/images/x-lg.svg">
    </button>
-
-
+  <div id="wrapper">
+  <div id="leftSide">
    <mat-form-field class="modifyPub" [floatLabel]="'always'">
     <input formControlName="title" #title matInput value="{{pub.title}}">
     <mat-label>Nouveau titre</mat-label>
    </mat-form-field>
-
-
-<img *ngIf="imgLink !== undefined" [src]="imgFile">
-<button *ngIf="imgLink !== undefined" (click)="deleteImage()" mat-button>Supprimer l'image</button>
-
-{{imgLink || "No file uploaded yet."}}
-<button style="width: 50px" style="cursor: pointer;" mat-mini-fab color="primary" class="upload-btn"
-
->   <mat-icon>attach_file</mat-icon>
-<input
-type="file"
-id="fileUpload"
-ng2FileSelect
-accept=".pdf,.jpg,.png,.jpeg"
-[uploader]="uploader!"
-/>
-</button>
-<div *ngFor="let item of uploader!.queue;index as i">
-  <div *ngIf="uploader?.queue?.length! > 0">
-    <button mat-button type="button" (click)="uploader!.removeFromQueue(item);this.imgLink = undefined">Retirer</button>
-  </div>
-</div>
 
 <mat-form-field class="modifyPub" [floatLabel]="'always'">
   <input formControlName="date" #date matInput value="{{pub.date}}">
@@ -37,19 +17,41 @@ accept=".pdf,.jpg,.png,.jpeg"
 </mat-form-field>
 
 
-
-
-
-
   <mat-form-field class="modifyPub" [floatLabel]="'always'">
-    <input formControlName="content" #content matInput value="{{pub.content}}">
+    <textarea [style]="{'resize':'none'}" formControlName="content" #content matInput value="{{pub.content}}"></textarea>
     <mat-label>Nouveau contenu</mat-label>
   </mat-form-field>
+</div>
+  <div id="rightSide">
+
+    <img width="50%" height="50%" id="uploaded" *ngIf="imgLink !== undefined && imgFile != undefined && imgExtension != 'pdf'" [src]="imgFile">
+<pdf-viewer [zoom]="0.6" [fit-to-page]="true" id="uploaded" *ngIf="imgExtension == 'pdf'"  [original-size]="false" style="width: 75%; height: 75%;display: grid;" [src]="imgFile"></pdf-viewer>
+
+    <button *ngIf="imgLink !== undefined" (click)="deleteImage()" mat-button>Supprimer l'image</button>
+
+    {{imgLink || "No file uploaded yet."}}
+    <button style="width: 50px" style="cursor: pointer;" mat-mini-fab color="primary" class="upload-btn"
+
+    >   <mat-icon>attach_file</mat-icon>
+    <input
+    type="file"
+    id="fileUpload"
+    ng2FileSelect
+    accept=".pdf,.jpg,.png,.jpeg"
+    [uploader]="uploader!"
+    />
+    </button>
+    <div *ngFor="let item of uploader!.queue;index as i">
+      <div *ngIf="uploader?.queue?.length! > 0">
+        <button mat-button type="button" (click)="uploader!.removeFromQueue(item);this.imgLink = undefined">Retirer</button>
+      </div>
+    </div></div>
 
 
 
 
+
+</div>
 <button (click)="modifyPostOrigin = 'Submit'" type="submit"  mat-button>Enregistrer les modifications et quitter</button>
-
 
 </form>

@@ -2,19 +2,22 @@
   <button id="leave" mat-button mat-dialog-close>
     <img width="20px" height="20px" src="../../../../../assets/images/x-lg.svg">
    </button>
+  <div id="sub-wrp">
 <h1>
   {{pub.title}}
 </h1>
 
-<img id="uploadedImage" *ngIf="imgLink !== undefined" [src]="imgFile">
+<img id="uploadedImage" *ngIf="imgLink !== undefined && imgFile != undefined && imgExtension != 'pdf'" [src]="imgFile">
+<pdf-viewer [zoom]="0.8" [fit-to-page]="true" id="uploadedImage"  *ngIf="imgExtension == 'pdf'"  [original-size]="false" style="width: 70vw;height: 166vh;" [render-text]="false" [src]="imgFile"></pdf-viewer>
 
-
-<h3>
-  Publier le : {{pub.date}}
-</h3>
 
 
 <p>{{pub.content}}</p>
 
+</div>
 
 </div>
+<h3>
+  Publier le : {{pub.date}}
+</h3>
+

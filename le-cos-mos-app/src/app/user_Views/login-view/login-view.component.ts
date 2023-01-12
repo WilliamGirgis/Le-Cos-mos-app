@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { catchError, map } from 'rxjs';
+import { map } from 'rxjs';
 import { errorMessages, formErrors } from 'src/app/interface&classe/interfaces';
 import { AuthService } from 'src/app/services/AuthService.service';
 import { LogSaveService } from 'src/app/services/log.save.service';
@@ -81,12 +81,10 @@ export class LoginViewComponent implements OnInit {
       .login(email, password)
       .pipe(
         map((data) => {
-          const log:Log = {UserID:localStorage.getItem('user-id')!,action:"Logged in",date:Date.now().toString()}
-          this.logService.saveLog(log).subscribe(() => {})
           this.router.navigate(['app']);
           })
       )
-      .subscribe((res:any) => {// Suppression tu type ": HttpResponse<any>" et remplacé par 'any'
+      .subscribe((res:any) => {
         this.msg = res.body
 
       });
@@ -105,6 +103,7 @@ export class LoginViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
 }
