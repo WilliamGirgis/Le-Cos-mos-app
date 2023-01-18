@@ -1,1 +1,24 @@
-<p>messagerie-view works!</p>
+
+<div id="wrapper">
+  <div id="leftwrp">
+    <h1>DISCUSSIONS</h1>
+  <div id="leftSide">
+    <mat-card class="group-card" *ngFor="let group of groupsDiscussions">
+
+      <mat-label>{{group}}</mat-label>
+      <button  mat-button><img  width="25px" height="25px" src="../../../../assets/images/trash3-fill.svg"></button>
+<button mat-button><img  src="../../../../assets/images/pencil-fill.svg"></button>
+
+    </mat-card>
+  </div>
+</div>
+  <div id="rightSide">
+
+    <mat-card class="user-card" *ngFor="let user of userList">
+      <mat-label>     {{user}}</mat-label>
+      <button mat-button><img width="20vw" height="100%" src="../../../../assets/images/trash3-fill.svg"></button>
+<button mat-button><img width="20vw" height="100%" src="../../../../assets/images/pencil-fill.svg"></button>
+    </mat-card>
+  </div>
+
+</div>

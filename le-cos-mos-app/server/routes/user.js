@@ -7,7 +7,6 @@ const User = require("./user.model");
 
 
 /* MIDLLEWARE */
-const saveLog = (req, res, next) => {}
 
 
 
@@ -137,9 +136,12 @@ router.get("/users/me/access-Token", verify, (req, res) => {
 
 router.get("/users/id",authenticate, (req, res) => {
   let regex = req.query.id;
+  console.log(regex)
   let users = [];
-  User.find({ id: { $regex: regex, $options: "i" } })
+  if(regex == "" || regex == " ") {
+    User.find({$regex:regex,$options:"i"})
     .then((users2) => {
+
       users2.forEach((user) => {
         if(user.id !== 'Admin') {
           users.push({userType:user.userType,firstname:user.firstname,lastname:user.lastname,email:user.email,_id:user._id});
@@ -150,6 +152,23 @@ router.get("/users/id",authenticate, (req, res) => {
     .catch((e) => {
       return res.send(e);
     });
+
+  } else {
+    User.find({$or:[{lastname: {$regex:regex,$options:"i"}},{firstname:{$regex:regex,$options:"i"}},{email:{$regex:regex,$options:"i"}}]})
+    .then((users2) => {
+      users2.forEach((user) => {
+        if(user.id !== 'Admin') {
+          users.push({userType:user.userType,firstname:user.firstname,lastname:user.lastname,email:user.email,_id:user._id});
+        }
+      });
+
+      return res.send(users);
+    })
+    .catch((e) => {
+      return res.send(e);
+    });
+  }
+
 });
 
 router.get("/users/_id",authenticate, (req, res) => {

@@ -40,8 +40,8 @@ view:string = 'User' // by default
   readonly getLogsUrl = "http://localhost:4200/log/logs"
 
 
-  dataSource = new MatTableDataSource(this.userList)
-  dataSourceLog = new MatTableDataSource(this.logList)
+  dataSource = new MatTableDataSource(this.userList.length == 0 ? this.userListTest:this.userList) // Si le tableau de production des utilisateurs n'est pas définit on affiche le test
+  dataSourceLog = new MatTableDataSource(this.logList.length == 0 ? this.logListTest:this.logList)
 
 
   @ViewChildren(MatPaginator) paginator = new QueryList<MatPaginator>();
@@ -150,9 +150,8 @@ if(this.view == 'User') {
          //this.userList.push(JSON.parse({ID:parsed[i].id,firstname:parsed[i].firstname,lastname:parsed[i].lastname,email:parsed[i].email}))
        let logTemp:Log ={ID:i+ 1,UserID:'',firstname:parsed[i].firstname,lastname:parsed[i].lastname,date:parsed[i].date,action:parsed[i].action}
         this.logList.push(logTemp)
-        console.log(logTemp)
+
       }
-      console.log(this.logList)
       this.dataSourceLog = new MatTableDataSource(this.logList)
       this.dataSourceLog.paginator = this.paginator.toArray()[0];
       this.dataSourceLog.sort = this.sort.toArray()[0];

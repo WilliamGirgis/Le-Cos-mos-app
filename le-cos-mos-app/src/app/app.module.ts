@@ -52,6 +52,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { ModifyPublicationViewComponent } from './user_Views/admin-views/home-view/modify-publication-view/modify-publication-view.component';
 import { PdfViewerComponent, PdfViewerModule } from 'ng2-pdf-viewer';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { AddUserDialogComponent } from './user_Views/admin-views/messagerie-view/add-user-dialog/add-user-dialog.component';
 
 // Récupérer depuis localstorage
 /*function userType() {
@@ -153,7 +154,8 @@ const routes: Routes = [
         HandlerViewComponent,
         AddPublicationComponent,
         ViewPublicationComponent,
-        ModifyPublicationViewComponent
+        ModifyPublicationViewComponent,
+        AddUserDialogComponent
 
     ],
     providers: [HttpService,{provide:HTTP_INTERCEPTORS,useClass:WebReqInterceptorService,multi:true},{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: appearance},AuthGuard], //Mettre par default tous les input en "outline"
