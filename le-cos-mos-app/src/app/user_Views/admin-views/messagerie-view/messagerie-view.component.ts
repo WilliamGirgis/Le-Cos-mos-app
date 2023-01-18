@@ -15,10 +15,12 @@ import { AddUserDialogComponent } from './add-user-dialog/add-user-dialog.compon
 })
 export class MessagerieViewComponent implements OnInit {
   readonly getGroupeDiscussionRoute = "http://localhost:4200/chat/discussion"
+  readonly modifyGroupeDiscussionRoute = "http://localhost:4200/chat/discussion/modify"
   readonly createGroupeDiscussionRoute = "http://localhost:4200/chat/create"
   readonly delUserUrlRoute = "http://localhost:4200/chat/user/del"
+  readonly delDiscussionUrlRoute = "http://localhost:4200/chat/discussion/del"
 
-  groupsDiscussionsTest?:GroupDefinission[] = [{ID:0,name:'TEST',user_list:[{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:'',lastname:''}]},{ID:1,name:'TEST',user_list:[]}]
+  groupsDiscussionsTest?:GroupDefinission[] = [{ID:0,name:'TEST',user_list:[{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''}]},{ID:1,name:'TEST',user_list:[]}]
   groupsDiscussions:GroupDefinission[] = []
   userList:User[] = []
 
@@ -38,9 +40,9 @@ export class MessagerieViewComponent implements OnInit {
 
 
 
-  suppressReadOnly(i:number) {
+  suppressReadOnly(i:number,text:string) {
     this.readonly = !this.readonly
-
+    let oldName = document.getElementsByName('groups')[i].innerHTML
     if(!this.readonly) {
       document.getElementsByName('groups')[i].removeAttribute('readonly')
       document.getElementsByName('groups')[i].style.backgroundColor = 'var(--white-them-color)'
@@ -50,6 +52,15 @@ export class MessagerieViewComponent implements OnInit {
       document.getElementsByName('groups')[i].setAttribute('readonly','')
       document.getElementsByName('groups')[i].style.backgroundColor = 'var(--blue-them-color)'
       document.getElementsByName('groups')[i].style.color = 'var(--white-them-color)'
+
+       this.http.post(this.modifyGroupeDiscussionRoute,{newName:text,oldName:oldName,responseType:'text'}).pipe(map(async (data) =>{
+
+
+        await this.getGroupDiscussions(' ')
+
+      })).subscribe((res) => {
+
+      })
      // document.getElementsByName('stylo')[i].style.transform = 'scale(0)'
     }
 
@@ -100,6 +111,24 @@ export class MessagerieViewComponent implements OnInit {
     })).subscribe((res) => {
 
     })
+
+  }
+
+
+  delDiscussionGroup(index:number) {
+    if(!window.confirm("Are you sure you wanna delete the group " + this.groupsDiscussions[index].name  + " ?")) {
+
+      return
+        }
+
+    return this.http.post(this.delDiscussionUrlRoute,{groupName:this.groupsDiscussions[index].name,responseType:'text'}).pipe(map(async (data) =>{
+
+
+      this.getGroupDiscussions(' ')
+
+   })).subscribe((res) => {
+
+   })
 
   }
 

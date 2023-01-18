@@ -3,22 +3,27 @@
   <div id="leftwrp">
     <h1>DISCUSSIONS</h1>
   <div id="leftSide">
-    <mat-card class="group-card" *ngFor="let group of groupsDiscussions">
+    <mat-card [style]="{'opacity': globalIndex == i ? '1' : '0.7'}" (click)="selectGroup(i)"  class="group-card" *ngFor="let group of groupsDiscussions;index as i">
 
-      <mat-label>{{group}}</mat-label>
-      <button  mat-button><img  width="25px" height="25px" src="../../../../assets/images/trash3-fill.svg"></button>
-<button mat-button><img  src="../../../../assets/images/pencil-fill.svg"></button>
+<textarea class="addGroup" name="groups" #text>{{group.name}}</textarea>
+
+      <button (click)="delDiscussionGroup(i)"  mat-button><img  width="25px" height="25px" src="../../../../assets/images/trash3-fill.svg"></button>
+<button (click)="suppressReadOnly(i,text.value)" mat-button><img  src="../../../../assets/images/pencil-fill.svg"></button>
 
     </mat-card>
   </div>
+  <img class="add" (click)="createDiscussionGroup()"  width="50px" height="50px" src="../../../../assets/images/plus-square-fill.svg">
 </div>
+
+<div id="rightWrp">
   <div id="rightSide">
 
     <mat-card class="user-card" *ngFor="let user of userList">
-      <mat-label>     {{user}}</mat-label>
-      <button mat-button><img width="20vw" height="100%" src="../../../../assets/images/trash3-fill.svg"></button>
-<button mat-button><img width="20vw" height="100%" src="../../../../assets/images/pencil-fill.svg"></button>
+      <mat-label>{{user.firstname}}</mat-label>
+      <button (click)="deletUser(user)"  mat-button><img width="20vw" height="100%" src="../../../../assets/images/trash3-fill.svg"></button>
     </mat-card>
   </div>
+<img class="add" (click)="openSaveUserPostForm()" width="50px" height="50px" src="../../../../assets/images/plus-square-fill.svg">
+</div>
 
 </div>

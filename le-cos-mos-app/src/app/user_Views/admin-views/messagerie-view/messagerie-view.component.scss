@@ -47,7 +47,7 @@ mat-label {
 .group-card {
 display: flex;
   height: 8vh;
-  opacity: 0.7;
+
   z-index: 1;
   margin: auto auto 5vh auto;
   cursor: pointer;
@@ -64,7 +64,6 @@ display: flex;
   margin: auto;
 overflow-y: scroll;
 margin-top: 11vh;
-text-align: center;
 
 
 }
@@ -88,7 +87,7 @@ text-align: center;
 
 
 #leftwrp {
-width: 33%;
+width: 37%;
 min-height: max-content;
 height: 80%;
 text-align: center;
@@ -100,6 +99,10 @@ text-align: center;
     transform: scale(1.2);
   }
 }
+
+
+
+
 }
 
 #leftSide {
@@ -108,7 +111,6 @@ text-align: center;
   overflow-y: scroll;
   text-align: center;
 }
-
 
 .addGroup {
   height: 100%;
@@ -120,6 +122,7 @@ text-align: center;
   color: var(--white-them-color);
   outline: none;
   resize: none;
+  cursor: pointer;
 
 }
 

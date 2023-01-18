@@ -63,14 +63,11 @@ export class AddUserDialogComponent implements OnInit {
       selectUser(index:number) {
 
         this.userToAdd_Temp.push(this.userList[index])
-        console.log(this.userToAdd_Temp)
         // if(this.userToAdd_Temp.indexOf(this.userList[index])) {
         //   document.getElementsByName('li')[index].style.backgroundColor = 'var(--blue-them-color)'
         // } else {
         //   document.getElementsByName('li')[index].style.backgroundColor = 'var(--light-blue-them-color)'
         // }
-
-
       }
 
 

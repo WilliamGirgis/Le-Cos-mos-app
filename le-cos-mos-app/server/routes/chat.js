@@ -37,6 +37,26 @@ groupList = group
 })
 
 
+router.post("/discussion/modify",authenticate, async function (req, res, next) {
+let newName = req.body.newName
+let oldName = req.body.oldName
+console.log("New name : " + newName)
+console.log("Old name : " + oldName)
+if(oldName === newName) {
+  return
+}
+Group.findOneAndUpdate({name:oldName},{ $set: {name:newName}}).then((data) => {})
+})
+
+router.post("/discussion/del",authenticate, async function (req, res, next) {
+  let name = req.body.groupName
+  console.log(name)
+
+  Group.findOneAndDelete({name:name}).then((data) => {})
+
+  return res.status(200).send()
+  })
+
 
 
 
@@ -46,7 +66,7 @@ groupList = group
     let name = body.name
 
     console.log("Name = " + name)
-    name = 'HEY7'
+    name = 'HEY9'
 
     let newDiscussion = new Group({name:name})
 
@@ -86,6 +106,8 @@ return res.status(200).send()
 
 
    })
+
+
 
 
 

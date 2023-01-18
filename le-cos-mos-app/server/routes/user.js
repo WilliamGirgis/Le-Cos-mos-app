@@ -154,7 +154,7 @@ router.get("/users/id",authenticate, (req, res) => {
     });
 
   } else {
-    User.find({$or:[{lastname: {$regex:regex,$options:"i"}},{firstname:{$regex:regex,$options:"i"}},{email:{$regex:regex,$options:"i"}}]})
+    User.find({$or:[{lastname: {$regex:regex,$options:"i"}},{firstname:{$regex:regex,$options:"i"}},{email:{$regex:regex,$options:"i"}},{userType:{$regex:regex,$options:"i"}}]})
     .then((users2) => {
       users2.forEach((user) => {
         if(user.id !== 'Admin') {
