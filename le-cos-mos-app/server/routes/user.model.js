@@ -50,7 +50,35 @@ const userSchema = new mongoose.Schema({
                 required:true
             }
 
-        }]
+        }],
+
+        planning :
+          {
+            seance :[
+             {
+               matiere: {
+                 type:String,
+                 required:true
+               },
+               day: {
+                 type:String,
+                 required:true
+               },
+               creneau: {
+                 type:String,
+                 required:true
+               }
+             }
+           ],
+            startDate:{
+             type:String,
+             required:true,
+            },
+            endDate: {
+             type:String,
+             required:true,
+              },
+           }
 })
 
 // Definir la table Cour ici

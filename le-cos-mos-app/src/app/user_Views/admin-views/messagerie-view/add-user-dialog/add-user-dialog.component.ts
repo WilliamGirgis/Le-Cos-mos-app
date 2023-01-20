@@ -62,22 +62,13 @@ export class AddUserDialogComponent implements OnInit {
 
       async selectUser(users:User) {
         let index:number = this.userToAdd_Temp.lastIndexOf(users)
-        console.log(index)
-        console.log(users)
         if(this.userToAdd_Temp.includes(users)) {
-         let deleted =  this.userToAdd_Temp.splice(index, 1); // 2nd parameter means remove one item only
-          console.log("After delete" + this.userToAdd_Temp)
-          console.log("deleted = " + JSON.stringify(deleted))
+         this.userToAdd_Temp.splice(index, 1); // 2nd parameter means remove one item only
 
         } else {
           await Promise.resolve(this.userToAdd_Temp.push(users))
           console.log(this.userToAdd_Temp)
         }
-        // if(this.userToAdd_Temp.indexOf(this.userList[index])) {
-        //   document.getElementsByName('li')[index].style.backgroundColor = 'var(--blue-them-color)'
-        // } else {
-        //   document.getElementsByName('li')[index].style.backgroundColor = 'var(--light-blue-them-color)'
-        // }
       }
 
 

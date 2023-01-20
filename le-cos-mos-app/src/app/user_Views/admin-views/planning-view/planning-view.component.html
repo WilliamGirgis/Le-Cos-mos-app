@@ -1,1 +1,75 @@
-<p>planning-view works!</p>
+<div id="wrapper" fxLayout="column"  fxFlex="100" fxLayoutAlign="center end">
+<div id="subWrp" fxLayoutAlign="end center" >
+
+<table   fxFlex="100" mat-table
+[dataSource]="dataSource" multiTemplateDataRows
+>
+
+<ng-container  *ngFor="let column of columnsToDisplay" matColumnDef="{{column}}">
+  <div *ngIf="column == ' '">
+    <td  id="header" *matCellDef="let element;let i = dataIndex ">
+
+        {{element.heure}}
+
+      </td>
+  </div>
+
+<th  *matHeaderCellDef> {{column}} </th>
+
+  <td    *matCellDef="let element;let i = dataIndex">
+    <div [style]="{'background-color' : getColor(creneaux_slotTest[i][0].type) ,'color':getColor2(creneaux_slotTest[i][0].type), 'border':getColor3(creneaux_slotTest[i][0].type)}"   [ngClass]="creneaux_slotTest[i][0].type != ''  || creneaux_slotTest[i][0].matiere != '' ? 'value' : 'noValue'"  *ngIf="i < creneaux_slotTest.length && creneaux_slotTest[i][0].day == column && creneaux_slotTest[i][0].type != '' && creneaux_slotTest[i][0].heure == creneaux[i].heure">
+      <label>{{creneaux_slotTest[i][0].matiere}}</label>
+  <label>    {{creneaux_slotTest[i][0].type}}</label>
+
+    </div>
+    <div [style]="{'background-color' : getColor(creneaux_slotTest[i][1].type),'color':getColor2(creneaux_slotTest[i][1].type),'border':getColor3(creneaux_slotTest[i][1].type)}" [ngClass]="creneaux_slotTest[i][1].type != ''  || creneaux_slotTest[i][1].matiere != '' ? 'value' : 'noValue'"  *ngIf="i < creneaux_slotTest.length && creneaux_slotTest[i][1].day == column && creneaux_slotTest[i][1].type != '' && creneaux_slotTest[i][1].heure == creneaux[i].heure">
+      {{creneaux_slotTest[i][1].matiere}}
+      <label>    {{creneaux_slotTest[i][1].type}}</label>
+
+    </div>
+    <div [style]="{'background-color' : getColor(creneaux_slotTest[i][2].type),'color':getColor2(creneaux_slotTest[i][2].type),'border':getColor3(creneaux_slotTest[i][2].type)}" [ngClass]="creneaux_slotTest[i][2].type != '' || creneaux_slotTest[i][2].matiere != '' ? 'value' : 'noValue'"  *ngIf="i < creneaux_slotTest.length && creneaux_slotTest[i][2].day == column && creneaux_slotTest[i][2].type != '' && creneaux_slotTest[i][2].heure == creneaux[i].heure">
+      {{creneaux_slotTest[i][2].matiere}}
+      <label>    {{creneaux_slotTest[i][2].type}}</label>
+
+    </div>
+    <div [style]="{'background-color' : getColor(creneaux_slotTest[i][3].type),'color':getColor2(creneaux_slotTest[i][3].type),'border':getColor3(creneaux_slotTest[i][3].type)}" [ngClass]="creneaux_slotTest[i][3].type != '' || creneaux_slotTest[i][3].matiere != ''  ? 'value' : 'noValue'"  *ngIf="i < creneaux_slotTest.length && creneaux_slotTest[i][3].day == column && creneaux_slotTest[i][3].type != '' && creneaux_slotTest[i][3].heure == creneaux[i].heure">
+      {{creneaux_slotTest[i][3].matiere}}
+      <label>    {{creneaux_slotTest[i][3].type}}</label>
+
+    </div>
+    <div [style]="{'background-color' : getColor(creneaux_slotTest[i][4].type),'color':getColor2(creneaux_slotTest[i][4].type),'border':getColor3(creneaux_slotTest[i][4].type)}" [ngClass]="creneaux_slotTest[i][4].type != '' || creneaux_slotTest[i][4].matiere != '' ? 'value' : 'noValue'"  *ngIf="i < creneaux_slotTest.length && creneaux_slotTest[i][4].day == column && creneaux_slotTest[i][4].type != '' && creneaux_slotTest[i][4].heure == creneaux[i].heure">
+      {{creneaux_slotTest[i][4].matiere}}
+      <label>{{creneaux_slotTest[i][4].type}}</label>
+
+        </div>
+    <div [style]="{'background-color' : getColor(creneaux_slotTest[i][5].type),'color':getColor2(creneaux_slotTest[i][5].type),'border':getColor3(creneaux_slotTest[i][5].type)}" [ngClass]="creneaux_slotTest[i][5].type != '' || creneaux_slotTest[i][5].matiere != ''  ? 'value' : 'noValue'"  *ngIf="i < creneaux_slotTest.length && creneaux_slotTest[i][5].day == column && creneaux_slotTest[i][5].type != '' && creneaux_slotTest[i][5].heure == creneaux[i].heure">
+
+      {{creneaux_slotTest[i][5].matiere}}
+      <label>    {{creneaux_slotTest[i][5].type}}</label>
+
+    </div>
+    <div [style]="{'background-color' : getColor(creneaux_slotTest[i][6].type),'color':getColor2(creneaux_slotTest[i][6].type),'border':getColor3(creneaux_slotTest[i][6].type)}" [ngClass]="creneaux_slotTest[i][6].type != '' || creneaux_slotTest[i][6].matiere != ''  ? 'value' : 'noValue'"  *ngIf="i < creneaux_slotTest.length && creneaux_slotTest[i][6].day == column && creneaux_slotTest[i][6].type != '' && creneaux_slotTest[i][6].heure == creneaux[i].heure">
+      {{creneaux_slotTest[i][6].matiere}}
+      <label>    {{creneaux_slotTest[i][6].type}}</label>
+    </div>
+
+
+  </td>
+
+
+</ng-container>
+
+
+<tr class="header-row" mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+<tr class="row" mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+</table>
+</div>
+
+<span>
+<img width="50vw" src="../../../../assets/images/arrow-left.svg" id="left">
+<h2>  {{semaine}}</h2>
+  <img width="50vw" src="../../../../assets/images/arrow-right.svg" id="right">
+</span>
+
+
+</div>

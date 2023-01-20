@@ -1,8 +1,7 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { AfterViewInit, Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/internal/operators/map';
 import { User } from 'src/app/shared/user';
 import { Log } from 'src/app/shared/log';
