@@ -54,29 +54,30 @@ const userSchema = new mongoose.Schema({
 
         planning :
           {
+            required:false,
             seance :[
              {
                matiere: {
                  type:String,
-                 required:true
+                 required:false
                },
                day: {
                  type:String,
-                 required:true
+                 required:false
                },
                creneau: {
                  type:String,
-                 required:true
+                 required:false
                }
              }
            ],
             startDate:{
              type:String,
-             required:true,
+             required:false,
             },
             endDate: {
              type:String,
-             required:true,
+             required:false,
               },
            }
 })

@@ -1,0 +1,156 @@
+#wrapper {
+  text-align: center;
+  min-width: max-content;
+  justify-content: center;
+  h1 {
+    cursor: pointer;
+display: flex;
+    text-align: center;
+    margin: -7vh auto 1vh 3vw;
+color: var(--dblue-them-color);
+align-items: center;
+&:hover {
+  img {
+    transform: translateX(-2vw);
+  }
+    }
+  }
+}
+
+img {
+  margin-right: 2vw;
+  width: 55px;
+  transition: 300ms ease-in-out;
+}
+
+
+span {
+  width: 66%;
+  margin-right: 5vw;
+  margin-top: 3vh;
+  align-content: center;
+  align-items: center;
+display: flex;
+flex-direction: row;
+text-align: center;
+justify-content: center;
+column-gap: 5vw;
+color: var(--dblue-them-color);
+img {
+  transition: 200ms ease-in-out;
+  &:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+}
+h2 {
+  font-size: 120%;
+  margin-right: 5vw;
+  margin-left: 5vw;
+
+}
+}
+#subWrp {
+
+  overflow: auto;
+margin-right: 5vw;
+border-radius: 10px 10px 10px 10px;
+width: 66%;
+min-width: max-content;
+}
+
+table {
+  box-shadow: none;
+}
+
+
+th {
+  width: max-content;
+  text-align: center;
+  color: var(--white-them-color);
+  background-color: var(--blue-them-color);
+  border:  2px solid var(--white-them-color);
+  border-bottom: 3px solid var(--white-them-color);
+  font-weight: bold;
+  &:first-of-type {
+    border-radius: 10px 0 0 0;
+  }
+  &:last-of-type {
+    border-radius: 0 10px 0 0;
+  }
+}
+tr.row{
+  height: 4.3vh ;
+  background-color: transparent;
+}
+.header-row {
+  height: 5vh;
+}
+
+.value {
+  background-color: var(--blue-them-color);
+  color: var(--white-them-color);
+  min-height: 4.3vh;
+  max-height: 4.3vh;
+  align-items: center;
+align-content: center;
+display: flex;
+justify-content: center;
+justify-items: center;
+margin: -2px -2px -2px -2px;// Margin de 1px se trouve par défault dans l'element
+&:hover {
+  border: 1px solid var(--blue-them-color);
+}
+}
+
+td {
+  color: var(--white-them-color);
+  text-align: center;
+  width: 10%;
+  min-width: fit-content;
+transition: 250ms ease-in-out;
+border: var(--white-them-color) 2px solid;
+cursor: pointer;
+&:hover {
+  cursor: pointer;
+  background-color: var(--blue-them-color);
+}
+background-color: rgb(212, 240, 253);
+
+&:first-of-type {
+  font-size: 80%;
+  background-color: var(--blue-them-color);
+  font-weight: bold;
+  width: 5%;
+  min-width: max-content;
+  cursor: auto;
+  border: var(--white-them-color) 1px solid;
+  &:hover {
+    background-color: var(--blue-them-color);
+    color: var(--white-them-color);
+  }
+
+}
+
+
+div {
+  display: grid;
+  flex-direction: column;
+
+  :first-child {
+    font-size: 80%;
+
+  }
+
+  :last-child {
+    font-size: 70%;
+    margin-top: -2px;
+  }
+}
+
+
+}
+
+label {
+  cursor: pointer;
+}

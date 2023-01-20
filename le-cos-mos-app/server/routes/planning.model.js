@@ -8,7 +8,7 @@ mongoose.connect('mongodb+srv://test:Samsam123@cluster0.pcin2.mongodb.net/myFirs
 
 const planningSchema = new mongoose.Schema({
 
-   groupName: {
+   name: {
     type:String,
     required:true,
     unique:true
@@ -30,15 +30,7 @@ const planningSchema = new mongoose.Schema({
 
     }
   ],
-   startDate:{
-    type:String,
-    required:true,
-   },
-   endDate: {
-    type:String,
-    required:true,
-     },
-   userList: [
+  user_list: [
     {
       firstname: {
         type:String,

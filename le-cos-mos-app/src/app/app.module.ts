@@ -53,6 +53,9 @@ import { ModifyPublicationViewComponent } from './user_Views/admin-views/home-vi
 import { PdfViewerComponent, PdfViewerModule } from 'ng2-pdf-viewer';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AddUserDialogComponent } from './user_Views/admin-views/messagerie-view/add-user-dialog/add-user-dialog.component';
+import { GroupComponent } from './user_Views/admin-views/planning-view/group/group.component';
+import { GroupPlanningComponent } from './user_Views/admin-views/planning-view/group-planning/group-planning.component';
+import { AddUserToGroupComponent } from './user_Views/admin-views/planning-view/group/add-user-to-group/add-user-to-group.component';
 
 // Récupérer depuis localstorage
 /*function userType() {
@@ -107,6 +110,16 @@ const routes: Routes = [
         path: 'planning',
         component: PlanningViewComponent ,
         data: { animation: 'Planning' },
+        children: [
+      {
+        path:'group',
+        component:GroupComponent
+      },
+      {
+        path:':id',
+        component:GroupPlanningComponent
+      }
+        ]
       },
       {
         path: 'supports',
@@ -155,7 +168,10 @@ const routes: Routes = [
         AddPublicationComponent,
         ViewPublicationComponent,
         ModifyPublicationViewComponent,
-        AddUserDialogComponent
+        AddUserDialogComponent,
+        GroupComponent,
+        GroupPlanningComponent,
+        AddUserToGroupComponent
 
     ],
     providers: [HttpService,{provide:HTTP_INTERCEPTORS,useClass:WebReqInterceptorService,multi:true},{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: appearance},AuthGuard], //Mettre par default tous les input en "outline"
