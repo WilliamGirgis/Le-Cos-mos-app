@@ -15,7 +15,7 @@ export class GroupPlanningComponent implements OnInit {
   heureIndex:number = 0
   dayIndex:number= 0
   constructor(private http:HttpClient,private route: ActivatedRoute) {
-
+    this.getSeanceItems()
   }
 
 
@@ -60,7 +60,7 @@ export class GroupPlanningComponent implements OnInit {
   semaine:string = 'Semaine du 19/01'
   groupName = this.route.snapshot.paramMap.get('id')
 
-  seanceListAvailable:Seance[] = []
+  seanceListAvailable:any[] = []
 
   seanceListAvailableTest:any[] = [
     ['','Cour','MATH',''],
@@ -72,12 +72,11 @@ export class GroupPlanningComponent implements OnInit {
 
 
   addItemToList(name:string,type:string) {
-
     if(name != '') {
       this.newSeance(name,type)
     }
-
   }
+
   isOut:boolean = true
   containerIndex:number = 0
   drop(event: CdkDragDrop<string[]>) {
@@ -112,7 +111,11 @@ export class GroupPlanningComponent implements OnInit {
           this.seanceListAvailable = []
           return console.error("No Posts")
         }
-        this.seanceListAvailable = JSON.parse(JSON.stringify(data));
+
+
+
+       this.seanceListAvailable = JSON.parse(JSON.stringify(data));
+        console.log(this.seanceListAvailable)
       });
   }
 
@@ -133,7 +136,7 @@ isOnDrag:boolean = false
        .post(this.delSeanceUrl, { index: index, })
        .pipe(
          map((data) => {
-           this.getSeanceItems();
+          this.getSeanceItems()
          })
        )
        .subscribe((response) => {});
@@ -142,7 +145,7 @@ isOnDrag:boolean = false
 
    async newSeance(name:string,type:string) {
 
-    let seance: Seance = {type:type,day:'',heure:'',matiere:name}; // -> last index ext[ext.length - 1]
+    let seance: string[] = ['',type,name,'']; // -> last index ext[ext.length - 1]
 
 
     this.http
@@ -466,6 +469,7 @@ isOnDrag:boolean = false
 
   getColor(type:string) {
 
+    if (type != undefined) {
     if(type == 'Examen') {
       return 'var(--white-them-color)'
     } else if(type == 'Cour') {
@@ -475,6 +479,8 @@ isOnDrag:boolean = false
     } else {
       return ''
     }
+  }
+  return
   }
   getColor2(type:string) {
     if(type == 'Examen') {
@@ -498,7 +504,6 @@ isOnDrag:boolean = false
 
 
   ngOnInit(): void {
-    this.getSeanceItems()
   }
 
 }

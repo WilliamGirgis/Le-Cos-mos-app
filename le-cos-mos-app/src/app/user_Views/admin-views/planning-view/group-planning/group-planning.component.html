@@ -1,12 +1,12 @@
 <div fxLayout="column" >
   <h1 routerLink="../group"><img src="../../../../../assets/images/arrow-left.svg"> Group {{groupName}}</h1>
 <div id="wrapper" fxLayout="row"  fxFlex="100" fxLayoutAlign="center start">
-<div id="leftWrp">
+<div  id="leftWrp">
 
-  <div (cdkDropListDropped)="drop($event)"  [cdkDropListData]="seanceListAvailableTest[containerIndex]"  [cdkDropListConnectedTo]="[day]" #seanceItemList="cdkDropList" cdkDropList id="seanceWrp">
-  <div class="seanceBtnWrp" *ngFor="let seance of seanceListAvailableTest;index as i">
+  <div  (cdkDropListDropped)="drop($event)"  [cdkDropListData]="seanceListAvailable[containerIndex]"  [cdkDropListConnectedTo]="[day]" #seanceItemList="cdkDropList" cdkDropList id="seanceWrp">
+  <div class="seanceBtnWrp" *ngFor="let seance of seanceListAvailable;index as i">
 
-    <button (mouseenter)="enter(i)" [cdkDragData]="seanceListAvailableTest[i]" cdkDropList #event="cdkDropList" (cdkDragStarted)="onDragStart($event)" cdkDrag style="cursor: pointer;"  [matMenuTriggerFor]="menu"  [style]="{'background-color': getColor(seance[1]),'color':getColor2(seance[1]),'border':getColor3(seance[1])}" class="seanceBtn" mat-button>
+    <button (mouseenter)="enter(i)" [cdkDragData]="seanceListAvailable[i]" cdkDropList #event="cdkDropList" (cdkDragStarted)="onDragStart($event)" cdkDrag style="cursor: pointer;"  [matMenuTriggerFor]="menu"  [style]="{'background-color': getColor(seance[1]),'color':getColor2(seance[1]),'border':getColor3(seance[1])}" class="seanceBtn" mat-button>
 
   {{seance[1]}}
 
@@ -81,7 +81,7 @@
   <th
    *matHeaderCellDef> {{column}} </th>
 
-    <td cdkDrag (mouseleave)="isOut = !isOut" (mouseenter)="heureIndex = i;dayIndex = day - 1;isOut = !isOut"    *matCellDef="let element;let i = dataIndex">
+    <td  (mouseleave)="isOut = !isOut" (mouseenter)="heureIndex = i;dayIndex = day - 1;isOut = !isOut"    *matCellDef="let element;let i = dataIndex">
 
       <div [matMenuTriggerFor]="menu" [style]="{'background-color' : getColor(semaineJours[0][i][2]) ,'color':getColor2(semaineJours[0][i][2]), 'border':getColor3(semaineJours[0][i][2])}"   [ngClass]="semaineJours[0][i][1] != ''  || semaineJours[0][i][2] != '' ? 'value' : 'noValue'"  *ngIf="i < creneaux_slot.length && semaineJours[0][i][3] == column && semaineJours[0][i][1] != '' && semaineJours[0][i][0] == creneaux[i]">
 

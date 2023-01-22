@@ -28,17 +28,20 @@ const setSeance = router.post("/add", function (req, res, next) {
 
 
 //https://stackoverflow.com/questions/23774231/how-do-i-remove-all-null-and-empty-string-values-from-an-object
-const delSeance = router.post("/del", function (req, res, next) {
+const delSeance = router.post("/del", async function (req, res, next) {
   let index = req.body.index;
   let file = readJsonFile.readFileSync(publicationFolder);
-  delete file[index];
+console.log(index)
+
+ await Promise.resolve(delete file[index]).then(() =>{
+  file.splice(index,1)
 
   newJson = JSON.stringify(
-    file,
-    (k, v) =>
-      Array.isArray(v) && !(v = v.filter((e) => e)).length ? void 0 : v,
-    2
+    file
   );
+ });
+
+
   if (newJson === undefined) {
     //Triggered when 1 element left in the JSON file
     fs.writeFile(publicationFolder, "[]", function (data) {});
