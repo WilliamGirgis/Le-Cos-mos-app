@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
 import { Seance } from 'src/app/shared/seance';
-import {CdkDragDrop,moveItemInArray,transferArrayItem} from '@angular/cdk/drag-drop';
+import {CdkDragDrop,transferArrayItem} from '@angular/cdk/drag-drop';
 @Component({
   selector: 'app-group-planning',
   templateUrl: './group-planning.component.html',
@@ -61,12 +61,13 @@ export class GroupPlanningComponent implements OnInit {
   groupName = this.route.snapshot.paramMap.get('id')
 
   seanceListAvailable:Seance[] = []
-  matiere:string [] = ['Cour','Examen','RDV']
+
   seanceListAvailableTest:any[] = [
-    ['Cour','MATH'],
-    ['Examen','SVT'],
-    ['Cour','MATH'],
-    ['Examen','SVT']
+    ['','Cour','MATH',''],
+    ['','Examen','SVT',''],
+    ['','Cour','MATH',''],
+    ['','Examen','SVT',''],
+    ['','RDV','Daniel','']
   ]
 
 
@@ -77,8 +78,6 @@ export class GroupPlanningComponent implements OnInit {
     }
 
   }
-
-
   isOut:boolean = true
   containerIndex:number = 0
   drop(event: CdkDragDrop<string[]>) {
@@ -87,7 +86,7 @@ export class GroupPlanningComponent implements OnInit {
       if(this.isOut) {
         return
       }
-      this.semaineJours[this.dayIndex!][this.heureIndex!][1] = event.container.data[0]
+      this.semaineJours[this.dayIndex!][this.heureIndex!][1] = event.container.data[2]
       this.semaineJours[this.dayIndex!][this.heureIndex!][2] = event.container.data[1]
       console.log(this.semaineJours[this.dayIndex!][this.heureIndex!])
       console.log(" Container data = " + event.container.data)
@@ -173,7 +172,7 @@ isOnDrag:boolean = false
     '20h','21h'
   ]
 
-  lundi = [
+  lundi:string[][] = [
 
 
     ['8h','SVT','Cour','Lundi'],
@@ -255,7 +254,7 @@ isOnDrag:boolean = false
     ['14h','','','Vendredi'],
     ['15h','','','Vendredi'],
     ['16h','','','Vendredi'],
-    ['17h','rdv','Yassine','Vendredi'],
+    ['17h','Yassine','rdv','Vendredi'],
     ['18h','','','Vendredi'],
     ['19h','','','Vendredi'],
     ['20h','','','Vendredi'],
