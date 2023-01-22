@@ -1,0 +1,11 @@
+[
+  {"type":"rdv","day":"","heure":"","matiere":"Daniel Akgul"}
+  ,{"type":"Cour","day":"","heure":"","matiere":"Mathematique"}
+  ,{"type":"Examen","day":"","heure":"","matiere":"Informatique"}
+  ,{"type":"Examen","day":"","heure":"","matiere":"Science de la vie et de la terre"}
+  ,{"type":"Examen","day":"","heure":"","matiere":"Mathematique"}
+  ,{"type":"rdv","day":"","heure":"","matiere":"Antoine Shube"},
+  {"type":"Examen","day":"","heure":"","matiere":"Sport"},
+  {"type":"rdv","day":"","heure":"","matiere":"Antoine Shube"},
+  {"type":"Cour","day":"","heure":"","matiere":"Mathematique"}
+]

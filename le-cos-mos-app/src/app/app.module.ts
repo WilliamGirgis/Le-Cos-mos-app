@@ -50,13 +50,13 @@ import { AddPublicationComponent } from './user_Views/admin-views/home-view/add-
 import { ViewPublicationComponent } from './user_Views/admin-views/home-view/view-publication/view-publication.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { ModifyPublicationViewComponent } from './user_Views/admin-views/home-view/modify-publication-view/modify-publication-view.component';
-import { PdfViewerComponent, PdfViewerModule } from 'ng2-pdf-viewer';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AddUserDialogComponent } from './user_Views/admin-views/messagerie-view/add-user-dialog/add-user-dialog.component';
 import { GroupComponent } from './user_Views/admin-views/planning-view/group/group.component';
 import { GroupPlanningComponent } from './user_Views/admin-views/planning-view/group-planning/group-planning.component';
 import { AddUserToGroupComponent } from './user_Views/admin-views/planning-view/group/add-user-to-group/add-user-to-group.component';
-
+import {DragDropModule} from '@angular/cdk/drag-drop'
 // Récupérer depuis localstorage
 /*function userType() {
   return 'admin' | 'etudiant' | 'prof';
@@ -206,7 +206,10 @@ const routes: Routes = [
         MatPaginatorModule,
         MatProgressBarModule,
         FileUploadModule,
-        PdfViewerModule
+        PdfViewerModule,
+        MatMenuModule,
+        DragDropModule
+
     ]
 })
 

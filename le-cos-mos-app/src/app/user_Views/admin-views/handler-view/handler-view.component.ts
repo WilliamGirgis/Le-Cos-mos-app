@@ -82,7 +82,7 @@ this.authService.logout()
   ngOnInit(): void {
 
 
-    this.router.navigate(['app/planning/group']); // Navigue vers la vue 'accueil' par default
+    this.router.navigate(['app/planning/test']); // Navigue vers la vue 'accueil' par default
   }
 
 }

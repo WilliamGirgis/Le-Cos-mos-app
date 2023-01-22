@@ -42,6 +42,7 @@ router.get("/get",authenticate, async function (req, res, next) {
  await Planning.find({id:{$regex: groupName, $options: "i" }}).then((group) => {
 groupList = group
  })
+
  return res.send(groupList).status(200)
 
 })
@@ -96,6 +97,23 @@ for(let i = 0;i < userList.length;i++) {
 }
 return res.status(200).send()
    })
+
+
+   const addSeance = router.post("/seance/add",/*authenticate,*/ function (req, res, next) {
+
+    let groupName = req.body.name
+    let seance = req.body.seance
+console.log(seance)
+
+for(let i = 0;i < seance.length;i++) {
+Planning.updateOne({name:groupName},{$push:{seance:seance[i]}}).then((group) => {
+
+})
+}
+return res.status(200).send()
+ })
+
+
 
 
 

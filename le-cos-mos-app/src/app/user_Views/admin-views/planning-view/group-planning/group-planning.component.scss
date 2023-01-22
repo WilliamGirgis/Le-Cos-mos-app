@@ -1,33 +1,84 @@
-#wrapper {
-  text-align: center;
-  min-width: max-content;
+
+#leftWrp {
+  width: 25%;
+  height: 77vh;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  h1 {
-    cursor: pointer;
+  align-content: center;
+  align-items: center;
+}
+
+#rightWrp {
+width: 75%;
+}
+
+#borderTableWrp {
+  overflow: auto;
+margin-right: 5vw;
+border-radius: 10px 10px 10px 10px;
+width: 100%;
+min-width: max-content;
+}
+
+
+#seanceWrp {
+  overflow-y:scroll;
+  height: 55vh;
+  width: 75%;
+  text-align: center;
+}
+
+.seanceBtn {
+  background-color: var(--blue-them-color);
+  color: var(--white-them-color);
+  margin: 5px;
+width: 50%;
+border-radius: 15px;
+}
+
+
+
+h1 {
+  cursor: pointer;
 display: flex;
-    text-align: center;
-    margin: -7vh auto 1vh 3vw;
+  text-align: center;
+  margin: -7vh auto 1vh 3vw;
 color: var(--dblue-them-color);
 align-items: center;
 &:hover {
-  img {
-    transform: translateX(-2vw);
-  }
-    }
-  }
+img {
+  transform: translateX(-2vw);
 }
-
+  }
 img {
   margin-right: 2vw;
   width: 55px;
   transition: 300ms ease-in-out;
 }
+}
+
+#addSeanceImg {
+width: 50px;
+bottom: 5vh;
+position: absolute;
+cursor: pointer;
+transition: 250ms ease-in-out;
+
+img {
+  width: 50px;
+}
+
+&:hover {
+  transform: scale(1.2);
+}
+    }
+
 
 
 span {
   width: 66%;
-  margin-right: 5vw;
-  margin-top: 3vh;
+  margin: 2vh auto auto auto;
   align-content: center;
   align-items: center;
 display: flex;
@@ -38,8 +89,9 @@ column-gap: 5vw;
 color: var(--dblue-them-color);
 img {
   transition: 200ms ease-in-out;
+  margin-right: auto;
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.2);
     cursor: pointer;
   }
 }
@@ -49,14 +101,6 @@ h2 {
   margin-left: 5vw;
 
 }
-}
-#subWrp {
-
-  overflow: auto;
-margin-right: 5vw;
-border-radius: 10px 10px 10px 10px;
-width: 66%;
-min-width: max-content;
 }
 
 table {
@@ -112,7 +156,6 @@ transition: 250ms ease-in-out;
 border: var(--white-them-color) 2px solid;
 cursor: pointer;
 &:hover {
-  cursor: pointer;
   background-color: var(--blue-them-color);
 }
 background-color: rgb(212, 240, 253);
@@ -154,3 +197,160 @@ div {
 label {
   cursor: pointer;
 }
+
+  /* width */
+  ::-webkit-scrollbar {
+    width: 10px;
+
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: rgb(199, 205, 207);
+    border-radius: 5px 5px 5px 5px;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: var(--blue-them-color);
+    border-radius: 5px 5px 5px 5px;
+
+  }
+
+
+  /* creneaux_slot:any = [ // chaque tableau dans le tableau correspond à un créneaux
+    [         // L'ordre des jours n'a pas d'importance
+              // Si plusieurs même élements sont présent dans le tableau (exemple un jour avec Jeudi) alors les deux valeurs sont utilisées pour afficher la donné
+              // La taille des tableaux doivent être inférieur ou égale à 7 ( index commencent par 0 et fini par 6) sinon les données ne s'afficheront pas
+       // Chaque tableau correspond à un creaneaux avec creneaux_slot[0] = 8h00 et  creneaux_slot[11] = 21h00
+// Chaque element dans les tableaux correspondent à un jour dans la semaine avec creneaux_slot[x][0] = Lundi et creneaux_slot[x][6] = Dimanche
+
+              {heure:'8h',type:'',day:'Lundi',matiere:''},
+      {heure:'8h',type:'',day:'Mardi',matiere:''},
+      {heure:'8h',type:'',day:'Mercredi',matiere:''},
+      {heure:'8h',type:'Cour',day:'Jeudi',matiere:'SVT'},
+      {heure:'8h',type:'',day:'Vendredi',matiere:''},
+      {heure:'8h',type:'',day:'Samedi',matiere:''},
+      {heure:'8h',type:'',day:'Dimanche',matiere:''},
+  ],
+    [
+      {heure:'9h',type:'',day:'Lundi',matiere:''},
+      {heure:'9h',type:'',day:'Mardi',matiere:''},
+      {heure:'9h',type:'',day:'Mercredi',matiere:''},
+      {heure:'9h',type:'',day:'Jeudi',matiere:''},
+      {heure:'9h',type:'',day:'Vendredi',matiere:''},
+      {heure:'9h',type:'',day:'Samedi',matiere:''},
+      {heure:'9h',type:'',day:'Dimanche',matiere:''}
+    ],
+    [
+      {heure:'10h',type:'',day:'Lundi',matiere:''},
+    {heure:'10h',type:'',day:'Mardi',matiere:''},
+    {heure:'10h',type:'',day:'Mercredi',matiere:''},
+    {heure:'10h',type:'',day:'Jeudi',matiere:''},
+    {heure:'10h',type:'',day:'Vendredi',matiere:''},
+    {heure:'10h',type:'',day:'Samedi',matiere:''},
+    {heure:'10h',type:'',day:'Dimanche',matiere:''}
+  ],
+    [
+      {heure:'11h',type:'',day:'Lundi',matiere:''},
+    {heure:'11h',type:'',day:'Mardi',matiere:''},
+    {heure:'11h',type:'',day:'Mercredi',matiere:''},
+    {heure:'11h',type:'',day:'Jeudi',matiere:''},
+    {heure:'11h',type:'',day:'Vendredi',matiere:''},
+    {heure:'11h',type:'',day:'Samedi',matiere:''},
+    {heure:'11h',type:'',day:'Dimanche',matiere:''}
+    ],
+    [
+      {heure:'12h',type:'',day:'Lundi',matiere:''},
+    {heure:'12h',type:'',day:'Mardi',matiere:''},
+    {heure:'12h',type:'',day:'Mercredi',matiere:''},
+    {heure:'12h',type:'',day:'Jeudi',matiere:''},
+    {heure:'12h',type:'',day:'Vendredi',matiere:''},
+    {heure:'12h',type:'',day:'Samedi',matiere:''},
+    {heure:'12h',type:'',day:'Dimanche',matiere:''}
+    ],
+    [
+      {heure:'13h',type:'',day:'Lundi',matiere:''},
+    {heure:'13h',type:'',day:'Mardi',matiere:''},
+    {heure:'13h',type:'',day:'Mercredi',matiere:''},
+    {heure:'13h',type:'',day:'Jeudi',matiere:''},
+    {heure:'13h',type:'',day:'Vendredi',matiere:''},
+    {heure:'13h',type:'',day:'Samedi',matiere:''},
+    {heure:'13h',type:'',day:'Dimanche',matiere:''}
+    ],
+    [
+      {heure:'14h',type:'',day:'Lundi',matiere:''},
+    {heure:'14h',type:'',day:'Mardi',matiere:''},
+    {heure:'14h',type:'',day:'Mercredi',matiere:''},
+    {heure:'14h',type:'',day:'Jeudi',matiere:''},
+    {heure:'14h',type:'',day:'Vendredi',matiere:''},
+    {heure:'14h',type:'',day:'Samedi',matiere:''},
+    {heure:'14h',type:'',day:'Dimanche',matiere:''}
+    ],
+    [
+      {heure:'15h',type:'',day:'Lundi',matiere:''},
+    {heure:'15h',type:'',day:'Mardi',matiere:''},
+    {heure:'15h',type:'',day:'Mercredi',matiere:''},
+    {heure:'15h',type:'',day:'Jeudi',matiere:''},
+    {heure:'15h',type:'',day:'Vendredi',matiere:''},
+    {heure:'15h',type:'',day:'Samedi',matiere:''},
+    {heure:'15h',type:'',day:'Dimanche',matiere:''}
+    ],
+
+    [
+      {heure:'16h',type:'',day:'Lundi',matiere:''},
+    {heure:'16h',type:'',day:'Mardi',matiere:''},
+    {heure:'16h',type:'',day:'Mercredi',matiere:''},
+    {heure:'16h',type:'',day:'Jeudi',matiere:''},
+    {heure:'16h',type:'',day:'Vendredi',matiere:''},
+    {heure:'16h',type:'',day:'Samedi',matiere:''},
+    {heure:'16h',type:'',day:'Dimanche',matiere:''}
+    ],
+    [
+      {heure:'17h',type:'',day:'Lundi',matiere:''},
+    {heure:'17h',type:'',day:'Mardi',matiere:''},
+    {heure:'17h',type:'',day:'Mercredi',matiere:''},
+    {heure:'17h',type:'',day:'Jeudi',matiere:''},
+    {heure:'17h',type:'',day:'Vendredi',matiere:''},
+    {heure:'17h',type:'',day:'Samedi',matiere:''},
+    {heure:'17h',type:'',day:'Dimanche',matiere:''}
+    ],
+    [
+    {heure:'18h',type:'Examen',day:'Lundi',matiere:'Math'},
+    {heure:'18h',type:'Examen',day:'Mardi',matiere:'Philo'},
+    {heure:'18h',type:'Examen',day:'Mercredi',matiere:'TEZ'},
+    {heure:'18h',type:'',day:'Jeudi',matiere:''},
+    {heure:'18h',type:'',day:'Vendredi',matiere:''},
+    {heure:'18h',type:'',day:'Samedi',matiere:''},
+    {heure:'18h',type:'',day:'Dimanche',matiere:''}
+    ],
+    [
+      {heure:'19h',type:'',day:'Lundi',matiere:''},
+    {heure:'19h',type:'',day:'Mardi',matiere:''},
+    {heure:'19h',type:'',day:'Mercredi',matiere:''},
+    {heure:'19h',type:'',day:'Jeudi',matiere:''},
+    {heure:'19h',type:'',day:'Vendredi',matiere:''},
+    {heure:'19h',type:'',day:'Samedi',matiere:''},
+    {heure:'19h',type:'',day:'Dimanche',matiere:''}
+    ],
+    [
+      {heure:'20h',type:'',day:'Lundi',matiere:''},
+    {heure:'20h',type:'',day:'Mardi',matiere:''},
+    {heure:'20h',type:'',day:'Mercredi',matiere:''},
+    {heure:'20h',type:'Cour',day:'Jeudi',matiere:''},
+    {heure:'20h',type:'',day:'Vendredi',matiere:''},
+    {heure:'20h',type:'',day:'Samedi',matiere:''},
+    {heure:'20h',type:'Examen',day:'Dimanche',matiere:''}
+    ],
+    [
+      {heure:'21h',type:'rdv',day:'Lundi',matiere:''},
+    {heure:'21h',type:'',day:'Mardi',matiere:''},
+    {heure:'21h',type:'',day:'Mercredi',matiere:''},
+    {heure:'21h',type:'',day:'Jeudi',matiere:''},
+    {heure:'21h',type:'rdv',day:'Vendredi',matiere:''},
+    {heure:'21h',type:'',day:'Samedi',matiere:''},
+    {heure:'21h',type:'',day:'Dimanche',matiere:''}
+    ]
+
+  ]*/
+
