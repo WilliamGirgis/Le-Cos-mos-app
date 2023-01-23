@@ -83,6 +83,7 @@ export class ModifyPublicationViewComponent implements OnInit {
       this.uploader.clearQueue()
     }
     this.uploader.onCompleteItem  = (file) => {
+      this.imgExtension = file._file.name.split(/\./)[1]
       //this.imgLink = file._file.name
     }
 
@@ -113,6 +114,7 @@ export class ModifyPublicationViewComponent implements OnInit {
 
 // Une fois l'image supprimer, on enlève le lien dans la publication en appelant modifyPost() et ainsi supprimer son lien dans le fichier post.json
           this.imgLink = undefined
+          this.imgExtension = undefined
           this.modifyPost()
         })
       )
@@ -140,9 +142,6 @@ async modifyPost() {
   } else {
     publication = { title, date, content };
   }
-
-
-
   const querParam = new HttpParams().set('index', this.index!);
   this.http
     .post('http://localhost:4200/publication/publish/modify', publication, {

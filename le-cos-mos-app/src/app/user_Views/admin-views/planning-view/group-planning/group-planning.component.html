@@ -16,7 +16,7 @@
     </button>
     <mat-menu style="cursor: pointer;text-align: center;" #menu="matMenu">
       <mat-label  mat-menu-item>{{seance[2] || "Aucune matière n'est associée"}}</mat-label>
-      <button style="color:red" (click)="deleteSeanceItem(i)" mat-menu-item>Supprimer l'element</button>
+      <button class="deleteElement" (click)="deleteSeanceItemFromAvailableList(i)" mat-menu-item>Supprimer l'element</button>
     </mat-menu>
 
   </div>
@@ -87,7 +87,8 @@
 
     <label>    {{semaineJours[0][i][2]}}</label>
     <mat-menu style="cursor: pointer;text-align: center;" #menu="matMenu">
-      <mat-label  mat-menu-item>{{semaineJours[0][i][1] || "Aucune matière n'est associée"}}</mat-label>
+      <mat-label mat-menu-item>{{semaineJours[0][i][1] || "Aucune matière n'est associée"}}</mat-label>
+      <button (click)="deleteItemFromCalendar(0,i)"   class="deleteElement" mat-button>Supprimer l'element</button>
     </mat-menu>
       </div>
 
@@ -95,6 +96,7 @@
         <label>{{semaineJours[1][i][2]}}</label>
         <mat-menu style="cursor: pointer;text-align: center;" #menu="matMenu">
           <mat-label  mat-menu-item>{{semaineJours[1][i][1] || "Aucune matière n'est associée"}}</mat-label>
+          <button (click)="deleteItemFromCalendar(1,i)"  class="deleteElement" mat-button>Supprimer l'element</button>
         </mat-menu>
       </div>
 
@@ -103,6 +105,7 @@
         <label>    {{semaineJours[2][i][2]}}</label>
         <mat-menu style="cursor: pointer;text-align: center;" #menu="matMenu">
           <mat-label  mat-menu-item>{{semaineJours[2][i][1] || "Aucune matière n'est associée"}}</mat-label>
+          <button (click)="deleteItemFromCalendar(2,i)" class="deleteElement" mat-button>Supprimer l'element</button>
         </mat-menu>
       </div>
 
@@ -111,6 +114,7 @@
         <label>    {{semaineJours[3][i][2]}}</label>
         <mat-menu style="cursor: pointer;text-align: center;" #menu="matMenu">
           <mat-label  mat-menu-item>{{semaineJours[3][i][1] || "Aucune matière n'est associée"}}</mat-label>
+          <button (click)="deleteItemFromCalendar(3,i)" class="deleteElement" mat-button>Supprimer l'element</button>
         </mat-menu>
       </div>
 
@@ -119,6 +123,7 @@
         <label>{{semaineJours[4][i][2]}}</label>
         <mat-menu style="cursor: pointer;text-align: center;" #menu="matMenu">
           <mat-label  mat-menu-item>{{semaineJours[4][i][1] || "Aucune matière n'est associée"}}</mat-label>
+          <button (click)="deleteItemFromCalendar(4,i)" class="deleteElement" mat-button>Supprimer l'element</button>
         </mat-menu>
           </div>
 
@@ -127,6 +132,7 @@
         <label>    {{semaineJours[5][i][2]}}</label>
         <mat-menu style="cursor: pointer;text-align: center;" #menu="matMenu">
           <mat-label  mat-menu-item>{{semaineJours[5][i][1] || "Aucune matière n'est associée"}}</mat-label>
+          <button (click)="deleteItemFromCalendar(5,i)" class="deleteElement" mat-button>Supprimer l'element</button>
         </mat-menu>
       </div>
 
@@ -135,6 +141,7 @@
         <label>    {{semaineJours[6][i][2]}}</label>
         <mat-menu style="cursor: pointer;text-align: center;" #menu="matMenu">
           <mat-label  mat-menu-item>{{semaineJours[6][i][1] || "Aucune matière n'est associée"}}</mat-label>
+          <button (click)="deleteItemFromCalendar(6,i)" class="deleteElement" mat-button>Supprimer l'element</button>
         </mat-menu>
       </div>
 

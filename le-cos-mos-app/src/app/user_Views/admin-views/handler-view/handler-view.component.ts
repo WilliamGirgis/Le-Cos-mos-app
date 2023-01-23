@@ -82,7 +82,7 @@ this.authService.logout()
   ngOnInit(): void {
 
 
-    this.router.navigate(['app/messagerie']); // Navigue vers la vue 'accueil' par default
+    this.router.navigate(['app/planning/hey']); // Navigue vers la vue 'accueil' par default
   }
 
 }

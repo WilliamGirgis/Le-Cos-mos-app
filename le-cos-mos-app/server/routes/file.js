@@ -56,7 +56,7 @@ const getImages = router.get("/images",authenticate, function (req, res, next) {
       router.post("/upload", function (req, res, next) { // include "authenticate" middleware, but jwt provided
         upload(req, res, function (err) {
           if (err) {
-
+            console.log(req.file.filename)
             return res.status(501).json({ error: err });
           }
           return res.json({

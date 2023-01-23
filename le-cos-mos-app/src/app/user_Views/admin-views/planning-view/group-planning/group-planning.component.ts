@@ -79,8 +79,10 @@ export class GroupPlanningComponent implements OnInit {
 
   isOut:boolean = true
   containerIndex:number = 0
+
   drop(event: CdkDragDrop<string[]>) {
     this.isOnDrag = false
+
     if (event.previousContainer === event.container) {
       if(this.isOut) {
         return
@@ -111,9 +113,6 @@ export class GroupPlanningComponent implements OnInit {
           this.seanceListAvailable = []
           return console.error("No Posts")
         }
-
-
-
        this.seanceListAvailable = JSON.parse(JSON.stringify(data));
         console.log(this.seanceListAvailable)
       });
@@ -123,11 +122,13 @@ export class GroupPlanningComponent implements OnInit {
 isOnDrag:boolean = false
  onDragStart($event:any) {
   this.isOnDrag = true
-
-
   }
 
-  deleteSeanceItem(index:number) {
+  deleteItemFromCalendar(day:number,creneau:number) {
+this.semaineJours[day][creneau] = []
+  }
+
+  deleteSeanceItemFromAvailableList(index:number) {
     let ind = index +1
      if(!window.confirm("Are you sure you wanna delete the publication number " + ind + " ?")) {
        return

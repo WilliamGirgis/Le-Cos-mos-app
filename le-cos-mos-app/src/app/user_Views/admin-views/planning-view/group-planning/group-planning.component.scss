@@ -124,13 +124,17 @@ th {
   }
 }
 tr.row{
-  height: 4.3vh ;
+  height: 4.3vh;
+  max-height: 4.3vh ;
   background-color: transparent;
 }
 .header-row {
   height: 5vh;
 }
 
+.deleteElement {
+  color: red;
+}
 .value {
   background-color: var(--blue-them-color);
   color: var(--white-them-color);
@@ -146,6 +150,8 @@ margin: -2px -2px -2px -2px;// Margin de 1px se trouve par défault dans l'eleme
   border: 1px solid var(--blue-them-color);
 }
 }
+
+
 
 td {
   color: var(--white-them-color);

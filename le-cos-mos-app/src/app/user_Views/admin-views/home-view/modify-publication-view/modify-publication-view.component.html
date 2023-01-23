@@ -24,7 +24,7 @@
 </div>
   <div id="rightSide">
 
-    <img width="50%" height="50%" id="uploaded" *ngIf="imgLink !== undefined && imgFile != undefined && imgExtension != 'pdf'" [src]="imgFile">
+    <img width="50%" height="50%" id="uploaded" *ngIf="imgLink !== undefined && imgFile != undefined && imgExtension != 'pdf' && imgExtension != undefined " [src]="imgFile">
 <pdf-viewer [zoom]="0.6" [fit-to-page]="true" id="uploaded" *ngIf="imgExtension == 'pdf'"  [original-size]="false" style="width: 75%; height: 75%;display: grid;" [src]="imgFile"></pdf-viewer>
 
     <button *ngIf="imgLink !== undefined" (click)="deleteImage()" mat-button>Supprimer l'image</button>
