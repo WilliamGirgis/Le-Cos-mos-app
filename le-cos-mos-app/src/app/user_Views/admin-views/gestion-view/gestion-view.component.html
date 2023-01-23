@@ -20,10 +20,10 @@
 
       <button class="deleteUser"  (click)="deleteUser(element.ID)"  mat-button ><img width="20px" height="20px" src="../../../../assets/images/trash3-fill.svg">
     </button>
-    <button  (click)="setModifyView();expandedElement = areTextAreasEditable == false ? null : element;userType = expandedElement.userType" class="modifyUser" mat-button ><img width="20px" height="20px" src="../../../../assets/images/pencil-fill.svg">
+    <button  (click)="setModifyView();expandedElement = areTextAreasEditable == false ? null : element;userType = element.userType" class="modifyUser" mat-button ><img width="20px" height="20px" src="../../../../assets/images/pencil-fill.svg">
     </button>
 
-    <button [style]="{'border': expandedElement == element ? '1px solid var(--dblue-them-color)' : 'none'}"  (click)="expandedElement = expandedElement === element ? null : element;setUserType(expandedElement.userType)" class="info" mat-button ><img width="20px" height="20px" src="../../../../assets/images/info-circle.svg">
+    <button [style]="{'border': expandedElement == element ? '1px solid var(--dblue-them-color)' : 'none'}"  (click)="expandedElement = expandedElement === element ? null : element;setUserType(element.userType)" class="info" mat-button ><img width="20px" height="20px" src="../../../../assets/images/info-circle.svg">
     </button>
     </td>
 

@@ -58,7 +58,7 @@ export class GroupComponent implements OnInit {
 
 
   openSaveUserPostForm() {
-    this.dialog.open(AddUserToGroupComponent, {width:'50vw',height:'80vh',data:{globalIndex:this.globalIndex,name:this.groups[this.globalIndex].name}})
+    this.dialog.open(AddUserToGroupComponent, {width:'50vw',height:'80vh',data:{globalIndex:this.globalIndex,name:this.groups[this.globalIndex].name,userList:this.userList}})
   }
 
 

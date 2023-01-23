@@ -20,13 +20,14 @@ export class MessagerieViewComponent implements OnInit {
   readonly delUserUrlRoute = "http://localhost:4200/chat/user/del"
   readonly delDiscussionUrlRoute = "http://localhost:4200/chat/discussion/del"
 
-  groupsDiscussionsTest?:GroupDefinission[] = [{ID:0,name:'TEST',user_list:[{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''}]},{ID:1,name:'TEST',user_list:[]}]
+  groupsDiscussionsTest?:GroupDefinission[] = [{ID:0,name:'TEST',user_list:[{email:'Will@gmail.com',firstname:'Willy',ID:0,lastname:'Girgis'},{email:'DanielAkgul@gmail.com',firstname:'Daniel',ID:1,lastname:'Akgul'}]},{ID:2,name:'TEST',user_list:[]}]
   groupsDiscussions:GroupDefinission[] = []
   userList:User[] = []
 
   readonly:boolean = true
   groupName?: string = 'New group'
   globalIndex:number = 0
+
   userListTest?:User[] = this.groupsDiscussionsTest![this.globalIndex].user_list
 
   constructor(private http: HttpClient,public dialog:MatDialog) {
@@ -35,7 +36,7 @@ export class MessagerieViewComponent implements OnInit {
   }
 
   openSaveUserPostForm() {
-    this.dialog.open(AddUserDialogComponent, {width:'50vw',height:'80vh',data:{globalIndex:this.globalIndex,name:this.groupsDiscussions[this.globalIndex].name}})
+    this.dialog.open(AddUserDialogComponent, {width:'50vw',height:'80vh',data:{globalIndex:this.globalIndex,name:this.groupsDiscussions[this.globalIndex].name,userList:this.userList}})
   }
 
 
@@ -85,10 +86,15 @@ export class MessagerieViewComponent implements OnInit {
     const querParam = new HttpParams().set('groupName', groupName);
    return  this.http.get(this.getGroupeDiscussionRoute,{params:querParam,responseType:'text'}).pipe(map((data) => {
       this.groupsDiscussions = JSON.parse(data)
-      this.userList = JSON.parse(data)[this.globalIndex].user_list!
-      console.log("groupsDiscussions = "+this.groupsDiscussions)
-      console.log("user list = "+this.userList)
 
+      // console.log("groupsDiscussions = "+this.groupsDiscussions)
+       console.log("user list = "+ this.userList as string)
+
+
+
+
+
+       this.userList = this.groupsDiscussions[this.globalIndex].user_list!
     })).subscribe(res =>{})
   }
 

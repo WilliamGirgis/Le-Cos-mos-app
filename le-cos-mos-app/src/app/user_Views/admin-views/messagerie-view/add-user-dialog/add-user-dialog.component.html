@@ -5,7 +5,7 @@
 </mat-form-field>
 <div *ngFor="let user of userList;index as i">
   <li (click)="selectUser(user)" name="li" [style]="{'background-color':this.userToAdd_Temp.includes(user) ? 'var(--blue-them-color)' : 'var(--light-blue-them-color)'}"  id="wrapper">
-    <ul>ID : {{user.ID}}</ul>
+    <ul>ID : {{i + 1}}</ul>
     <ul>Prénom : {{user.firstname}}</ul>
     <ul>Nom : {{user.lastname}}</ul>
     <ul>Type d'utilisateur : {{user.userType}}</ul>

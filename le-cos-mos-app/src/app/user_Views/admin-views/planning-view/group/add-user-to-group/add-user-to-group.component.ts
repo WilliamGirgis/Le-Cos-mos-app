@@ -11,7 +11,7 @@ import { User } from 'src/app/shared/user';
 })
 export class AddUserToGroupComponent implements OnInit {
   readonly addUserToGroupRoute = "http://localhost:4200/planning/user/add"
-  constructor(public dialogRef:MatDialogRef<AddUserToGroupComponent>,@Inject(MAT_DIALOG_DATA) public data:{globalIndex:number,name?:string},private http:HttpClient) {
+  constructor(public dialogRef:MatDialogRef<AddUserToGroupComponent>,@Inject(MAT_DIALOG_DATA) public data:{globalIndex:number,name?:string,userList:User[]},private http:HttpClient) {
 
 
 
@@ -54,7 +54,21 @@ export class AddUserToGroupComponent implements OnInit {
 
       const querParam = new HttpParams().set('id', userName!);
    this.http.get(this.getUserListRoute,{params:querParam,responseType:'text'}).pipe(map((data) => {
-    this.userList = JSON.parse(data)
+    let userListResult = JSON.parse(data)
+    this.userList = []
+// Delete all occurence from the User array from parent component, and then assign the new array to the userList to print
+let isDoubled:boolean = false
+for(let userResponseIndex = 0;userResponseIndex < userListResult.length;userResponseIndex++) {
+  isDoubled = false
+  for(let dataIndex = 0;dataIndex < this.data.userList.length;dataIndex++) {
+    if(this.data.userList[dataIndex]._id == userListResult[userResponseIndex]._id) {
+      isDoubled = true
+    }
+  }
+   if(!isDoubled) {
+    this.userList.push(userListResult[userResponseIndex])
+  }
+}
 
    })).subscribe(res => {})
       }

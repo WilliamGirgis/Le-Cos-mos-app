@@ -147,9 +147,9 @@ router.get("/users/id",authenticate, (req, res) => {
           users.push({userType:user.userType,firstname:user.firstname,lastname:user.lastname,email:user.email,_id:user._id});
         }
       });
-      return res.send(users);
-    })
-    .catch((e) => {
+      return res.status(200).send(users);
+    }).catch((e) => {
+
       return res.send(e);
     });
 
@@ -161,8 +161,7 @@ router.get("/users/id",authenticate, (req, res) => {
           users.push({userType:user.userType,firstname:user.firstname,lastname:user.lastname,email:user.email,_id:user._id});
         }
       });
-
-      return res.send(users);
+      return res.status(200).send(users);
     })
     .catch((e) => {
       return res.send(e);
@@ -207,19 +206,17 @@ router.post("/users/modify",authenticate, (req, res) => {
 
   let newUser = req.body;
   let id = req.body._id;
-  User.findOne({ id }).then((user) => {
-    console.log("USER FOUND : " + user)
+  console.log(newUser)
+  console.log(id)
 
-    User.updateOne(
+    User.findOneAndUpdate(
       { _id: id },
       { $set: {userType:newUser.userType,email:newUser.email,firstname:newUser.firstname,lastname:newUser.lastname } }
     ).then((user) => {
+      console.log("USER FOUND = " + user)
+      return res.status(200).send();
     });
-    return res.status(200).send(user._id.toString());
-  }).catch((e) => {
 
-    return res.send("ERROR")
-  });
   /*bcrypt.genSalt(10, (err, salt) => {
     bcrypt.hash(newPsw, salt, (err, hash) => {
       newPsw = hash;
