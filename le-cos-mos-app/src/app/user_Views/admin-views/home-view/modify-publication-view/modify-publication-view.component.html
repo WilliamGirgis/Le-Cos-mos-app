@@ -43,7 +43,7 @@
     </button>
     <div *ngFor="let item of uploader!.queue;index as i">
       <div *ngIf="uploader?.queue?.length! > 0">
-        <button mat-button type="button" (click)="uploader!.removeFromQueue(item);this.imgLink = undefined">Retirer</button>
+        <button mat-button type="button"  (click)="uploader!.removeFromQueue(item);this.imgLink = undefined;modifyPostOrigin = undefined">Retirer</button>
       </div>
     </div></div>
 

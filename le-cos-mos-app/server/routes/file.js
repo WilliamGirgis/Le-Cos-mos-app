@@ -27,6 +27,7 @@ let authenticate = (req,res,next) => {
 const getImages = router.get("/images",authenticate, function (req, res, next) {
     // API used in adminview.component.ts
     const filename = req.query.imageName;
+    console.log(filename)
     return res.sendFile("src/assets/images/uploaded/" + filename,
     { root: "C:/Users/William/Desktop/Le Cosm'os app/Le-Cos-mos-app/Le-Cos-mos-app/le-cos-mos-app" },
     function (err) {
@@ -56,7 +57,6 @@ const getImages = router.get("/images",authenticate, function (req, res, next) {
       router.post("/upload", function (req, res, next) { // include "authenticate" middleware, but jwt provided
         upload(req, res, function (err) {
           if (err) {
-            console.log(req.file.filename)
             return res.status(501).json({ error: err });
           }
           return res.json({
@@ -69,14 +69,6 @@ const getImages = router.get("/images",authenticate, function (req, res, next) {
 
       const delImage = router.post("/images/del",authenticate, function (req, res) {
         let filename = req.body.imageName;
-
-        console.log(filename)
-       /* if (filename.indexOf(" ") === 0) {
-          // In case a file name has a space at the begginin
-
-          filename = filename.replace(/ /, "");
-        }*/
-
         fs.unlink(folder + '/' + filename, (err) => {
           if (err) {
             console.log(err);

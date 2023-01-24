@@ -98,7 +98,19 @@ filename?:string
 
     }) // Encapsuler en promesse pour être sûr que la mise en ligne se réalise ne premier
     let ext:string [] = this.filename?.split(/\./)!
-    let publication: PublicationModel = { title, date: '', content,imgName:this.filename,imgExtension:ext[ext.length - 1] }; // -> last index ext[ext.length - 1]
+    let extension
+    let index:number = 0
+    this.filename?.split(/\./)!.forEach((splitedArray) => {
+      if(splitedArray == 'pdf' || splitedArray ==   'png' || splitedArray ==  'jpg' || splitedArray ==  'jpeg') {
+        extension = splitedArray
+      }
+      else {
+        extension = ext[ext.length - 1]
+      }
+      console.log()
+      index++
+    })
+    let publication: PublicationModel = { title, date: '', content,imgName:this.filename,imgExtension:extension}; // -> last index ext[ext.length - 1]
     this.http
       .post('http://localhost:4200/publication/publish', publication, {
         responseType: 'json',

@@ -82,8 +82,15 @@ export class ModifyPublicationViewComponent implements OnInit {
       // When the upload queue is completely done, we refresh the page to output it correctly
       this.uploader.clearQueue()
     }
+
     this.uploader.onCompleteItem  = (file) => {
       this.imgExtension = file._file.name.split(/\./)[1]
+      this.modifyPostOrigin = undefined
+      this.imgLink?.split(/\./)!.forEach((splitedArray) => {
+        if(splitedArray == 'pdf' || splitedArray ==   'png' || splitedArray ==  'jpg' || splitedArray ==  'jpeg') {
+          this.imgExtension = splitedArray
+        }
+      })
       //this.imgLink = file._file.name
     }
 
@@ -129,16 +136,27 @@ public uploader: FileUploader = new FileUploader({
 
 
 
-async modifyPost() {
+async modifyPost(deltedFromClearQueue?:boolean) {
   let publication: PublicationModel
   let title = this.publicationForm.get('title')!.value
   let date = this.publicationForm.get('date')!.value
   let content = this.publicationForm.get('content')!.value
 
   let ext:string [] = this.imgLink?.split(/\./)!
+  let extension
+  let index:number = 0
+  this.imgLink?.split(/\./)!.forEach((splitedArray) => {
+    if(splitedArray == 'pdf' || splitedArray ==   'png' || splitedArray ==  'jpg' || splitedArray ==  'jpeg') {
+      extension = splitedArray
+    }
+    else {
+      extension = ext[ext.length - 1]
+    }
+    index++
+  })
 
   if(  this.imgLink != undefined) {
-    publication = { title, date, content,imgName: this.imgLink,imgExtension:ext[ext.length - 1] };
+    publication = { title, date, content,imgName: this.imgLink,imgExtension:extension };
   } else {
     publication = { title, date, content };
   }

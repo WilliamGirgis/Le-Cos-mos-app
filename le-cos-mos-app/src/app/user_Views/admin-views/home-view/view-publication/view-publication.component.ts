@@ -57,10 +57,6 @@ export class ViewPublicationComponent implements OnInit {
 
   ngOnInit(): void {
 
-
-
-
-
   }
 
 }

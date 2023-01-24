@@ -68,6 +68,7 @@ for(let userResponseIndex = 0;userResponseIndex < userListResult.length;userResp
     }
   }
   if(userListResult[userResponseIndex].planningNameGroupBelonging != '' && userListResult[userResponseIndex].planningNameGroupBelonging != undefined) {
+    // Si le contenu est n'est pas vide ou indéfinie, alors il appartient à un groupe et donc interdit de rajouter dans la list, sinon on passe
     alreadyInaGroup = true
   }
    if(!isDoubled && !alreadyInaGroup) {
