@@ -6,12 +6,19 @@ mongoose.connect('mongodb+srv://test:Samsam123@cluster0.pcin2.mongodb.net/myFirs
 
 })
 
+// Créer Planning.pre('save',function() => {
+
+// })
 const planningSchema = new mongoose.Schema({
 
-   name: {
+   groupName: { // If type = Enseignant, groupName = Enseignant.first + Enseignant.lastname
     type:String,
-    required:true,
-    unique:true
+    required:true
+   },
+
+   type:{
+    type:String,
+    required:false
    },
    seance :[
     {
@@ -55,5 +62,12 @@ const planningSchema = new mongoose.Schema({
 
 
 
+  planningSchema.pre('save', function(next) {
+    let user = this;
+    console.log(user)
+    next()
+
+  }
+  )
 const Planning = mongoose.model('Planning',planningSchema);
 module.exports = Planning

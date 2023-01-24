@@ -28,7 +28,9 @@ router.post("/group/modify",authenticate, async function (req, res, next) {
   if(oldName === newName) {
     return
   }
-  Planning.findOneAndUpdate({name:oldName},{ $set: {name:newName}}).then((data) => {})
+  Planning.findOneAndUpdate({groupName:oldName},{ $set: {groupName:newName}}).then((data) => {
+    return res.status(200).send()
+  })
   })
 
 
@@ -40,10 +42,10 @@ router.get("/get",authenticate, async function (req, res, next) {
 
 
  await Planning.find({id:{$regex: groupName, $options: "i" }}).then((group) => {
-groupList = group
- })
 
- return res.send(groupList).status(200)
+
+  return res.status(200).send(group)
+ })
 
 })
 
@@ -56,10 +58,10 @@ router.post("/group/create",authenticate, async function (req, res, next) {
   console.log("Name = " + name)
   name = 'HEY9'
 
-  let newDiscussion = new Planning({name:name})
+  let newDiscussion = new Planning({groupName:name})
 
   const response = await newDiscussion.save();
-  res.status(200).send()
+  return res.status(200).send()
 
 
   });
@@ -68,7 +70,7 @@ router.post("/group/create",authenticate, async function (req, res, next) {
     let user = req.body.user
     let groupName = req.body.groupName
     // console.log(user._id)
-    Planning.updateOne({name:groupName},{ $pull: {user_list: {_id: { $in: [ user._id] }}}}).then(() => {
+    Planning.updateOne({groupName:groupName},{ $pull: {user_list: {_id: { $in: [ user._id] }}}}).then(() => {
 
       return res.status(200).send()
     })
@@ -78,39 +80,39 @@ router.post("/group/create",authenticate, async function (req, res, next) {
     let name = req.body.groupName
     console.log(name)
 
-    Planning.findOneAndDelete({name:name}).then((data) => {})
+    Planning.findOneAndDelete({groupName:name}).then((data) => {
+
 
     return res.status(200).send()
     })
+    })
 
 
-    const setUserInGroup = router.post("/user/add",/*authenticate,*/ function (req, res, next) {
+    const setUserInGroup = router.post("/user/add",/*authenticate,*/ async function (req, res, next) {
 
       let groupName = req.body.name
       let userList = req.body.userList
-console.log(userList)
 
 for(let i = 0;i < userList.length;i++) {
-  Planning.updateOne({name:groupName},{$push:{user_list:userList[i]}}).then((group) => {
-
+   Planning.updateOne({groupName:groupName},{$push:{user_list:userList[i]}}).then((group) => {
   })
 }
 return res.status(200).send()
    })
 
 
-   const addSeance = router.post("/seance/add",/*authenticate,*/ function (req, res, next) {
+   const addSeance = router.post("/seance/add",/*authenticate,*/ async function (req, res, next) {
 
     let groupName = req.body.name
     let seance = req.body.seance
 console.log(seance)
 
 for(let i = 0;i < seance.length;i++) {
-Planning.updateOne({name:groupName},{$push:{seance:seance[i]}}).then((group) => {
-
+await Planning.updateOne({groupName:groupName},{$push:{seance:seance[i]}}).then((group) => {
 })
 }
 return res.status(200).send()
+
  })
 
 

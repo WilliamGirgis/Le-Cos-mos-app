@@ -49,8 +49,11 @@ font-size: 170%;
   }
 
   #wrapper {
-    height: 80%;
+    height: 87%;
     display: flex;
+    width: 90%;
+    margin: -5vh auto auto auto;
+    min-width: max-content;
   }
 
   mat-card {
@@ -81,9 +84,9 @@ font-size: 170%;
   .group-card {
   display: flex;
     height: 8vh;
-
+width: max-content;
     z-index: 1;
-    margin: auto auto 5vh auto;
+    margin: auto 1.5vw 5vh 1.5vw;
     cursor: pointer;
   }
   .user-card {
@@ -123,7 +126,7 @@ font-size: 170%;
   #leftwrp {
   width: 37%;
   min-height: max-content;
-  height: 80%;
+  height: 70%;
   text-align: center;
 
   .add {
@@ -134,6 +137,47 @@ font-size: 170%;
     }
   }
 
+  #switch {
+    text-align: center;
+min-width: max-content;
+margin-bottom: 2vh;
+    #Groupe {
+      border-radius: 10px 0 0 10px;
+      width: 11vw;
+      height: 7vh;
+      border: 1px solid var(--blue-them-color);
+    }
+    #Enseignant {
+        border-radius: 0 10px 10px 0;
+        border-left: 0;
+        width: 11vw;
+        height: 7vh;
+        border: 1px solid var(--blue-them-color);
+    }
+    .Groupe {
+      background-color: var(--blue-them-color);
+      color: var(--white-them-color);
+      border: 1px solid var(--blue-them-color);
+      border-radius: 10px 0 0 10px;
+      border-right: 0;
+      border-left: 0;
+  width: 11vw;
+  height: 7vh;
+    }
+
+    .Enseignant {
+      background-color: var(--blue-them-color);
+      border: 1px solid var(--blue-them-color);
+      color: var(--white-them-color);
+      border-radius: 0 10px 10px 0;
+      border-left: 0;
+      width: 11vw;
+      height: 7vh;
+
+    }
+
+  }
+
 
 
 
@@ -141,13 +185,15 @@ font-size: 170%;
 
   #leftSide {
     height: 100%;
+    min-width: max-content;
     width: 100%;
     overflow-y: scroll;
     text-align: center;
   }
 
-  .addGroup {
-    height: 100%;
+  .planningOwner {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: max-content; // On set le 'height' et non le 'min-height' car le texte peut overflow et créer un scoll
     border: none;
     background-color: var(--blue-them-color);
     -webkit-box-shadow: none;
@@ -156,6 +202,7 @@ font-size: 170%;
     color: var(--white-them-color);
     outline: none;
     resize: none;
+    min-width: max-content;
     cursor: pointer;
 
   }

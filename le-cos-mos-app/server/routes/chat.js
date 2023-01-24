@@ -30,9 +30,8 @@ router.get("/discussion",authenticate, async function (req, res, next) {
 
 
  await Group.find({id:{$regex: groupName, $options: "i" }}).then((group) => {
-groupList = group
+ return res.send(group).status(200)
  })
- return res.send(groupList).status(200)
 
 })
 
@@ -45,7 +44,11 @@ console.log("Old name : " + oldName)
 if(oldName === newName) {
   return
 }
-Group.findOneAndUpdate({name:oldName},{ $set: {name:newName}}).then((data) => {})
+Group.findOneAndUpdate({name:oldName},{ $set: {name:newName}}).then((data) => {
+
+return res.status(200).send()
+})
+
 })
 
 router.post("/discussion/del",authenticate, async function (req, res, next) {
@@ -71,7 +74,7 @@ router.post("/discussion/del",authenticate, async function (req, res, next) {
     let newDiscussion = new Group({name:name})
 
     const response = await newDiscussion.save();
-    res.status(200).send()
+    return res.status(200).send()
 
 
     });

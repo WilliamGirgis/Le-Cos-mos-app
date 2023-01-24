@@ -18,6 +18,11 @@ const userSchema = new mongoose.Schema({
       type: String,
       required:true
   },
+
+  group: {
+    type: String,
+    required:false
+  },
     email: {
         type:String,
         required:true,
@@ -52,8 +57,13 @@ const userSchema = new mongoose.Schema({
 
         }],
 
-        planning :
+        weeklyPlanning :[
           {
+            planningType:String, // Can be a group planning, or a teacher planning
+            week:{
+              type:String,
+              required:false,
+             },
             required:false,
             seance :[
              {
@@ -70,16 +80,8 @@ const userSchema = new mongoose.Schema({
                  required:false
                }
              }
-           ],
-            startDate:{
-             type:String,
-             required:false,
-            },
-            endDate: {
-             type:String,
-             required:false,
-              },
-           }
+           ]
+           }]
 })
 
 // Definir la table Cour ici

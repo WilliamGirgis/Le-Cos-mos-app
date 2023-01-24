@@ -20,10 +20,11 @@ export class GroupComponent implements OnInit {
   readonly delGroupUrlRoute = "http://localhost:4200/planning/group/del"
   readonly:boolean = true
   globalIndex:number = 0
-
+  view:string = 'Groupe'
   userList:User [] = []
+  userListTest:User [] = [{email:'Willy@gmail.com',firstname:'Willy',ID:1,lastname:'Girgis',userType:'Professeur'},{email:'Adrien@gmail.com',firstname:'Adrien',ID:2,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'}]
   groups:PlanningGroup[] = []
-  groupsTest?:PlanningGroup[] = [{ID:0,name:'TEST',user_list:[{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''}]},{ID:1,name:'TEST',user_list:[]}]
+  groupsTest?:PlanningGroup[] = [{ID:0,groupName:'Group Sience de la vie et de la terre',user_list:[{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''}]},{ID:1,groupName:'Group de physique chimie',user_list:[]}]
   groupName?:string | String = 'NoGroup'
 
   constructor(private http:HttpClient,public dialog:MatDialog) {
@@ -37,7 +38,7 @@ export class GroupComponent implements OnInit {
     this.http.get(this.getGroupsURL,{params:querParam,responseType:'text'}).pipe(map((data) =>{
       this.groups = JSON.parse(data)
       this.userList = JSON.parse(data)[this.globalIndex].user_list!
-      this.groupName = this.groups[this.globalIndex].name
+      this.groupName = this.groups[this.globalIndex].groupName
     })).subscribe((res) =>{
 
     })
@@ -58,7 +59,7 @@ export class GroupComponent implements OnInit {
 
 
   openSaveUserPostForm() {
-    this.dialog.open(AddUserToGroupComponent, {width:'50vw',height:'80vh',data:{globalIndex:this.globalIndex,name:this.groups[this.globalIndex].name,userList:this.userList}})
+    this.dialog.open(AddUserToGroupComponent, {width:'50vw',height:'80vh',data:{globalIndex:this.globalIndex,name:this.groups[this.globalIndex].groupName,userList:this.userList}})
   }
 
 
@@ -77,10 +78,7 @@ export class GroupComponent implements OnInit {
       document.getElementsByName('groups')[i].style.color = 'var(--white-them-color)'
 
        this.http.post(this.modifyGroupNameRoute,{newName:text,oldName:oldName,responseType:'text'}).pipe(map(async (data) =>{
-
-
-        await this.getGroups(' ')
-
+         this.getGroups(' ')
       })).subscribe((res) => {
 
       })
@@ -95,7 +93,7 @@ export class GroupComponent implements OnInit {
       return
         }
 
-    return this.http.post(this.delUserUrlRoute,{user:user,groupName:this.groups[this.globalIndex].name,responseType:'text'}).pipe(map(async (data) =>{
+    return this.http.post(this.delUserUrlRoute,{user:user,groupName:this.groups[this.globalIndex].groupName,responseType:'text'}).pipe(map(async (data) =>{
 
 
        this.getGroups(' ')
@@ -108,12 +106,12 @@ export class GroupComponent implements OnInit {
 
 
   delDiscussionGroup(index:number) {
-    if(!window.confirm("Are you sure you wanna delete the group " + this.groups[index].name  + " ?")) {
+    if(!window.confirm("Are you sure you wanna delete the group " + this.groups[index].groupName  + " ?")) {
 
       return
         }
 
-    return this.http.post(this.delGroupUrlRoute,{groupName:this.groups[index].name,responseType:'text'}).pipe(map(async (data) =>{
+    return this.http.post(this.delGroupUrlRoute,{groupName:this.groups[index].groupName,responseType:'text'}).pipe(map(async (data) =>{
 
 
       this.getGroups(' ')
@@ -125,7 +123,7 @@ export class GroupComponent implements OnInit {
   }
   selectGroup(index:number) {
     this.globalIndex = index
-    this.groupName = this.groups[this.globalIndex].name
+    this.groupName = this.groups[this.globalIndex].groupName
     this.userList = this.groups[this.globalIndex].user_list!
   }
   ngOnInit(): void {

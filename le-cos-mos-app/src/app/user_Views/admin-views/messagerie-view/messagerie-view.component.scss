@@ -14,20 +14,22 @@ box-shadow:   5px 7px 10px rgba(255, 255, 255, 0.452);
 }
 
 #wrapper {
-margin-top: -4vh;
-  height: 90%;
+  height: 87%;
   display: flex;
+    width: 90%;
+    margin: -5vh auto auto auto;
+    min-width: max-content;
 }
 
-mat-card {
+mat-card { // The blue rows
   text-align: left;
   border-radius: 12px;
   color: var(--white-them-color);
   background-color: var(--blue-them-color);
-  width: 80%;
   display: flex;
   align-items: center;
     justify-content: right;
+    min-width: max-content;
   button {
     align-self: center;
     justify-self: right;
@@ -35,7 +37,6 @@ mat-card {
     background-color: transparent;
 padding: 0;
 margin: 0;
-
   }
 }
 
@@ -47,9 +48,8 @@ mat-label {
 .group-card {
 display: flex;
   height: 8vh;
-
   z-index: 1;
-  margin: auto auto 5vh auto;
+  margin: auto 1.5vw 5vh 1.5vw;
   cursor: pointer;
 }
 .user-card {
@@ -89,6 +89,7 @@ margin-top: 11vh;
 #leftwrp {
 width: 37%;
 min-height: max-content;
+min-width: max-content;
 height: 80%;
 text-align: center;
 
@@ -107,13 +108,16 @@ text-align: center;
 
 #leftSide {
   height: 100%;
+  min-width: max-content;
   width: 100%;
   overflow-y: scroll;
   text-align: center;
 }
 
 .addGroup {
-  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  height: max-content; // On set le 'height' et non le 'min-height' car le texte peut overflow et créer un scoll
+  min-width: max-content;
   border: none;
   background-color: var(--blue-them-color);
   -webkit-box-shadow: none;
