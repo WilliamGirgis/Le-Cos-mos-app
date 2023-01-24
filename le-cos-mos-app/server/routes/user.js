@@ -144,7 +144,7 @@ router.get("/users/id",authenticate, (req, res) => {
 
       users2.forEach((user) => {
         if(user.id !== 'Admin') {
-          users.push({userType:user.userType,firstname:user.firstname,lastname:user.lastname,email:user.email,_id:user._id});
+          users.push({userType:user.userType,firstname:user.firstname,lastname:user.lastname,email:user.email,_id:user._id,planningNameGroupBelonging:user.planningNameGroupBelonging,groupsNameDiscussionBelonging:user.groupsNameDiscussionBelonging});
         }
       });
       return res.status(200).send(users);

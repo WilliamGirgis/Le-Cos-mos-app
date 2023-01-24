@@ -57,31 +57,43 @@ const userSchema = new mongoose.Schema({
 
         }],
 
-        weeklyPlanning :[
+        planningNameGroupBelonging: {
+          type:String,
+          required:false,
+          unique:true
+        },
+        groupsNameDiscussionBelonging:[
           {
-            planningType:String, // Can be a group planning, or a teacher planning
-            week:{
-              type:String,
-              required:false,
-             },
-            required:false,
-            seance :[
-             {
-               matiere: {
-                 type:String,
-                 required:false
-               },
-               day: {
-                 type:String,
-                 required:false
-               },
-               creneau: {
-                 type:String,
-                 required:false
-               }
-             }
-           ]
-           }]
+          type:String,
+          required:false
+        }
+      ]
+
+        // weeklyPlanning :[
+        //   {
+        //     planningType:String, // Can be a group planning, or a teacher planning
+        //     week:{
+        //       type:String,
+        //       required:false,
+        //      },
+        //     required:false,
+        //     seance :[
+        //      {
+        //        matiere: {
+        //          type:String,
+        //          required:false
+        //        },
+        //        day: {
+        //          type:String,
+        //          required:false
+        //        },
+        //        creneau: {
+        //          type:String,
+        //          required:false
+        //        }
+        //      }
+        //    ]
+        //    }]
 })
 
 // Definir la table Cour ici

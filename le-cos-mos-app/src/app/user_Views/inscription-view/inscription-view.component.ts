@@ -103,7 +103,7 @@ this.subscribeForm.get('confirmPsw')!.updateValueAndValidity()// Nécessaire pou
     let password = this.subscribeForm.get('password')!.value
     let userType = 'Etudiant' // valeur par défault
 
-    let user = {userType:userType,email: email,firstname:firstname,lastname:lastname,password:password};
+    let user = {userType:userType,email: email,firstname:firstname,lastname:lastname,password:password,planningNameGroupBelonging:'',groupsNameDiscussionBelonging:[]};
     console.log(user)
     return this.http
       .post(this.registerUserURL, user)

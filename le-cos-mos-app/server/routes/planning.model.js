@@ -50,7 +50,13 @@ const planningSchema = new mongoose.Schema({
       role: {
         type:String,
         required:true
-      }
+      },
+      planningNameGroupBelonging: {
+        type:String,
+        required:true,
+        unique:true
+      },
+
     }
 
    ]

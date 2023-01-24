@@ -38,11 +38,9 @@ router.get("/get",authenticate, async function (req, res, next) {
 
   //let name = req.body.name
   var groupName = req.query.groupName
-  let groupList = []
 
 
  await Planning.find({id:{$regex: groupName, $options: "i" }}).then((group) => {
-
 
   return res.status(200).send(group)
  })
@@ -72,7 +70,12 @@ router.post("/group/create",authenticate, async function (req, res, next) {
     // console.log(user._id)
     Planning.updateOne({groupName:groupName},{ $pull: {user_list: {_id: { $in: [ user._id] }}}}).then(() => {
 
+
+    User.updateOne({_id:user._id},{$set:{planningNameGroupBelonging:''}}).then((user) => {
       return res.status(200).send()
+    })
+
+
     })
    })
 
@@ -93,8 +96,15 @@ router.post("/group/create",authenticate, async function (req, res, next) {
       let groupName = req.body.name
       let userList = req.body.userList
 
+
 for(let i = 0;i < userList.length;i++) {
-   Planning.updateOne({groupName:groupName},{$push:{user_list:userList[i]}}).then((group) => {
+
+  await User.updateOne({_id:userList[i]._id},{$set:{planningNameGroupBelonging:groupName}}).then((user) => {
+
+  })
+
+  await Planning.updateOne({groupName:groupName},{$push:{user_list:userList[i]}}).then((group) => {
+
   })
 }
 return res.status(200).send()

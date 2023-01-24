@@ -90,6 +90,10 @@ console.log(userList)
 for(let i = 0;i < userList.length;i++) {
   Group.updateOne({name:groupName},{$push:{user_list:userList[i]}}).then((group) => {
 
+    User.updateOne({_id:userList[i]._id},{$set:{groupsNameDiscussionBelonging:groupName}}).then((user) => {
+
+    })
+
   })
 }
 return res.status(200).send()
@@ -102,8 +106,10 @@ return res.status(200).send()
     let groupName = req.body.groupName
     // console.log(user._id)
     Group.updateOne({name:groupName},{ $pull: {user_list: {_id: { $in: [ user._id] }}}}).then(() => {
+      User.updateOne({_id:user._id},{$set:{groupsNameDiscussionBelonging:''}}).then((user) => {
 
-      return res.status(200).send()
+        return res.status(200).send()
+      })
     })
 
 
