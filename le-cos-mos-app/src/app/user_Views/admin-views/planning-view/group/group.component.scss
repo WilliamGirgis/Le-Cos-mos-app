@@ -61,7 +61,7 @@ font-size: 170%;
     border-radius: 12px;
     color: var(--white-them-color);
     background-color: var(--blue-them-color);
-    width: 80%;
+    min-width: max-content;
     display: flex;
     align-items: center;
       justify-content: right;
@@ -88,11 +88,13 @@ width: max-content;
     z-index: 1;
     margin: auto 1.5vw 5vh 1.5vw;
     cursor: pointer;
+    align-content: center;
   }
   .user-card {
     display: flex;
     height: 7vh;
-    margin: auto auto 5vh auto;
+    min-height: max-content;
+    margin: auto 1.5vw 5vh 1.5vw;
   }
 
   #rightSide {
@@ -101,7 +103,6 @@ width: max-content;
     margin: auto;
   overflow-y: scroll;
   margin-top: 11vh;
-
 
   }
 

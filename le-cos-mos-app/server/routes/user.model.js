@@ -104,7 +104,7 @@ userSchema.methods.toJSON = function() {
 userSchema.methods.generateAccessToken = function() {
     const user = this;
     return new Promise((resolve,reject) => {
-        jwt.sign({_id:user._id.toHexString()},jwtScret,{expiresIn:"30m"},(error,token) => {
+        jwt.sign({_id:user._id.toHexString()},jwtScret,{expiresIn:"300m"},(error,token) => { // 5 heures avec de devoir se reconnecter
             if(!error) {
                 resolve(token);
             } else {
@@ -216,7 +216,7 @@ let saveSession = (user,refreshToken) => {
 
 let generateRefreshTokenExpiryTime = () => {
     let daysUntilExpired = "10";
-    let secondsUntilExpire = daysUntilExpired * 24 * 60 * 60; // 10 hours before the user must reconnect to generate a new refresh token
+    let secondsUntilExpire = daysUntilExpired * 24 * 60 * 60; // 10 hours before the user session changes
     return ((Date.now()/1000) + secondsUntilExpire);
 }
 

@@ -51,11 +51,14 @@ display: flex;
   z-index: 1;
   margin: auto 1.5vw 5vh 1.5vw;
   cursor: pointer;
+  align-content: center;
+  align-items: center;
 }
 .user-card {
   display: flex;
   height: 7vh;
-  margin: auto auto 5vh auto;
+  min-height: max-content;
+  margin: auto 1.5vw 5vh 1.5vw;
 }
 
 #rightSide {
