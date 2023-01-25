@@ -17,15 +17,16 @@ let setPublication = router.post("/publish", function (req, res, next) {
   file = readJsonFile.readFileSync(publicationFolder);
   file.push(JsonPublication);
   fs.writeFile(publicationFolder, JSON.stringify(file), function (data) {});
-  return res.send().status(200);
+  return res.status(200).send();
 });
 
 let getPublication = router.get("/publishGet", function (req, res, next) {
+  console.log("HEY")
   result = readJsonFile.readFileSync(publicationFolder);
   if (result.length === 0) {
-    return res.send().status(204);
+    return res.status(204).send()
   }
-  return res.send(readJsonFile.readFileSync(publicationFolder)).status(200);
+  return res.status(200).send(readJsonFile.readFileSync(publicationFolder));
 });
 
 //https://stackoverflow.com/questions/23774231/how-do-i-remove-all-null-and-empty-string-values-from-an-object
@@ -72,6 +73,6 @@ let modifyPublication = router.post(
     post[index].imgExtension = extension;
 
     fs.writeFile(publicationFolder, JSON.stringify(post), function (data) {});
-    return res.send().status(200);
+    return res.status(200).send()
   }
 );

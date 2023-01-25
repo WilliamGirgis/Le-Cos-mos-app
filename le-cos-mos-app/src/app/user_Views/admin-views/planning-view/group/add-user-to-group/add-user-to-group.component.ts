@@ -34,8 +34,6 @@ export class AddUserToGroupComponent implements OnInit {
     return  this.http.post<string>(this.addUserToGroupRoute,{name:this.name,userList:this.userToAdd_Temp,responseType:'text'}).pipe(map( (data) =>{
 
 
-
-
     })).subscribe((res) => {
       this.dialogRef.close()
     })
@@ -44,6 +42,7 @@ export class AddUserToGroupComponent implements OnInit {
   }
 
   applyFilter(event?: Event,name?:string) {
+    let areEtudiant:boolean
     let userName
     if(event == undefined) {
        userName = name
@@ -71,6 +70,7 @@ for(let userResponseIndex = 0;userResponseIndex < userListResult.length;userResp
     // Si le contenu est n'est pas vide ou indéfinie, alors il appartient à un groupe et donc interdit de rajouter dans la list, sinon on passe
     alreadyInaGroup = true
   }
+
    if(!isDoubled && !alreadyInaGroup) {
     this.userList.push(userListResult[userResponseIndex])
   }

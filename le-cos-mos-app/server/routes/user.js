@@ -4,7 +4,7 @@ const router = express.Router();
 
 
 const User = require("./user.model");
-
+const Planning = require("./planning.model")
 
 /* MIDLLEWARE */
 
@@ -70,7 +70,15 @@ router.post("/users", (req, res) => {
   let newUser = new User(body);
   newUser
     .save()
-    .then(() => {
+    .then(async () => {
+      if(body.userType == "Etudiant") {
+        let user = {firstname:body.firstname,lastname:body.lastname,role:body.userType,email:body.email,planningNameGroupBelonging:''}
+
+        await Planning.updateOne({groupName:'Tronc Commun'},{$push:{user_list:user}}).then((group) => {
+
+        })
+      }
+
       return newUser.createSessions();
     })
     .then((refreshToken) => {

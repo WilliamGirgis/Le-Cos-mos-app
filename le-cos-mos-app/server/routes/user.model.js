@@ -59,8 +59,7 @@ const userSchema = new mongoose.Schema({
 
         planningNameGroupBelonging: {
           type:String,
-          required:false,
-          unique:true
+          required:false
         },
         groupsNameDiscussionBelonging:[
           {

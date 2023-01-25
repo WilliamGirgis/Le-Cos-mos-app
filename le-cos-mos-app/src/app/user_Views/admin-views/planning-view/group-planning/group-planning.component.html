@@ -1,20 +1,28 @@
 <div fxLayout="column" >
-  <h1 routerLink="../group"><img src="../../../../../assets/images/arrow-left.svg"> Group {{groupName}}</h1>
+  <h1 routerLink="../group"><img src="../../../../../assets/images/arrow-left.svg"> Group {{groupLink}}</h1>
 <div id="wrapper" fxLayout="row"  fxFlex="100" fxLayoutAlign="center start">
 <div  id="leftWrp">
-
-  <div  (cdkDropListDropped)="drop($event)"  [cdkDropListData]="seanceListAvailable[containerIndex]"  [cdkDropListConnectedTo]="[day]" #seanceItemList="cdkDropList" cdkDropList id="seanceWrp">
-  <div class="seanceBtnWrp" *ngFor="let seance of seanceListAvailable;index as i">
-
-    <button (mouseenter)="enter(i)" [cdkDragData]="seanceListAvailable[i]" cdkDropList #event="cdkDropList" (cdkDragStarted)="onDragStart($event)" cdkDrag style="cursor: pointer;"  [matMenuTriggerFor]="menu"  [style]="{'background-color': getColor(seance[1]),'color':getColor2(seance[1]),'border':getColor3(seance[1])}" class="seanceBtn" mat-button>
-
-  {{seance[1]}}
-
-
-
+  <div id="seanceGroupsDisplayer" [matMenuTriggerFor]="displayGroups"
+  >
+  {{"Seances " + selectedSeanceGroup}}
+  <img src="../../../../../assets/images/arrow-bar-down.svg">
+</div>
+  <mat-menu  #displayGroups="matMenu" id="groupListWrp">
+    <button [style]="{'background-color': seanceItemGroupIndex == i ? 'var(--dblue-them-color)' : 'var(--white-them-color)','color': seanceItemGroupIndex == i ? 'var(--white-them-color)':'var(--dblue-them-color)' }"  (click)="selectGroup(group.groupName,i)" mat-button *ngFor="let group of groupList;index as i">
+      {{"Group " + group.groupName}}
 
     </button>
+
+  </mat-menu>
+  <div  (cdkDropListDropped)="drop($event)"  [cdkDropListData]="seanceListAvailable[containerIndex]"  [cdkDropListConnectedTo]="[day]" #seanceItemList="cdkDropList" cdkDropList id="seanceWrp">
+    <div   class="seanceBtnWrp" *ngFor="let seance of seanceListAvailable;index as i">
+
+
+    <button (mouseenter)="enter(i)"  cdkDropList #event="cdkDropList" (cdkDragStarted)="onDragStart($event)" cdkDrag style="cursor: pointer;"  [matMenuTriggerFor]="menu"  [style]="{'background-color': getBackgroundColor(seance[1]),'color':getTextColor(seance[1]),'border':getBorder(seance[1])}" class="seanceBtn" mat-button>
+  {{seance[1]}}
+    </button>
     <mat-menu style="cursor: pointer;text-align: center;" #menu="matMenu">
+      <mat-label  mat-menu-item>{{seance[4] || "Aucune matière n'est associée"}}</mat-label>
       <mat-label  mat-menu-item>{{seance[2] || "Aucune matière n'est associée"}}</mat-label>
       <button class="deleteElement" (click)="deleteSeanceItemFromAvailableList(i)" mat-menu-item>Supprimer l'element</button>
     </mat-menu>
@@ -24,33 +32,46 @@
 <div id="addSeanceImg">
   <img  [matMenuTriggerFor]="type" src="../../../../../assets/images/plus-square-fill.svg">
 
-  <mat-menu #type="matMenu">
-    <button style="background-color:var(--dblue-them-color);color: var(--white-them-color);" mat-menu-item [matMenuTriggerFor]="courMenu">Cour</button>
-    <button style="color:var(--dblue-them-color);" mat-menu-item [matMenuTriggerFor]="examenMenu">Examen</button>
-    <button style="background-color: var(--blue-them-color);color:var(--white-them-color)" mat-menu-item [matMenuTriggerFor]="profList">Rdv</button>
+  <mat-menu  #type="matMenu">
+    <button (mouseenter)="selectedItem.type = 'Cour'" style="background-color:var(--dblue-them-color);color: var(--white-them-color);" mat-menu-item [matMenuTriggerFor]="courMenu">Cour</button>
+    <button (mouseenter)="selectedItem.type = 'Examen'" style="color:var(--dblue-them-color);" mat-menu-item [matMenuTriggerFor]="examenMenu">Examen</button>
+    <button (mouseenter)="selectedItem.type = 'rdv'"  style="background-color: var(--blue-them-color);color:var(--white-them-color)" mat-menu-item [matMenuTriggerFor]="profList">Rdv</button>
   </mat-menu>
 
 
-  <mat-menu #profList="matMenu">
-    <div *ngFor="let professeur of menuRdv">
-    <button (click)="addItemToList(professeur.name,'rdv')" mat-menu-item >{{professeur.name}}</button>
+  <mat-menu  #profList="matMenu">
+    <div (mouseenter)="selectedItem.name = professeur.name" *ngFor="let professeur of menuRdv">
+    <button mat-menu-item [matMenuTriggerFor]="room">{{professeur.name}}</button>
     </div>
   </mat-menu>
 
-  <mat-menu #courMenu="matMenu">
-    <div *ngFor="let cour of menuCour">
-      <button (click)="addItemToList(cour.name,'Cour')" mat-menu-item >{{cour.name}}</button>
+  <mat-menu  #courMenu="matMenu">
+    <div (mouseenter)="selectedItem.name = cour.name" *ngFor="let cour of menuCour">
+      <button mat-menu-item [matMenuTriggerFor]="room">{{cour.name}}</button>
       </div>
   </mat-menu>
 
-  <mat-menu #examenMenu="matMenu">
-    <div *ngFor="let cour of menuCour">
-      <button (click)="addItemToList(cour.name,'Examen')" mat-menu-item >{{cour.name}}</button>
+  <mat-menu  #examenMenu="matMenu">
+    <div (mouseenter)="selectedItem.name = cour.name" *ngFor="let cour of menuCour">
+      <button   mat-menu-item [matMenuTriggerFor]="room" >{{cour.name}}</button>
       </div>
+  </mat-menu>
+
+  <mat-menu #room="matMenu">
+
+    <mat-form-field (keyup)="selectedItem.room = roomName.value" (click)="$event.stopPropagation()">
+      <mat-label>Entrez le nom de la salle</mat-label>
+      <input #roomName matInput>
+    </mat-form-field>
+    <button (click)="saveItem(roomName.value)" mat-menu-item>Ajouter</button>
+
+
   </mat-menu>
 
 </div>
 </div>
+
+
   <div  id="rightWrp">
 <div id="borderTableWrp" fxLayoutAlign="end center" >
 
@@ -73,9 +94,7 @@
   <ng-container  *ngFor="let column of columnsToDisplay;index as day" matColumnDef="{{column}}">
     <div  *ngIf="column == ' '">
       <td   id="header" *matCellDef="let element;let i = dataIndex ">
-
           {{element}}
-
         </td>
     </div>
   <th
@@ -83,63 +102,69 @@
 
     <td  (mouseleave)="isOut = !isOut" (mouseenter)="heureIndex = i;dayIndex = day - 1;isOut = !isOut"    *matCellDef="let element;let i = dataIndex">
 
-      <div [matMenuTriggerFor]="menu" [style]="{'background-color' : getColor(semaineJours[0][i][2]) ,'color':getColor2(semaineJours[0][i][2]), 'border':getColor3(semaineJours[0][i][2])}"   [ngClass]="semaineJours[0][i][1] != ''  || semaineJours[0][i][2] != '' ? 'value' : 'noValue'"  *ngIf="i < creneaux_slot.length && semaineJours[0][i][3] == column && semaineJours[0][i][1] != '' && semaineJours[0][i][0] == creneaux[i]">
-
+      <div [matMenuTriggerFor]="menu" [style]="{'background-color' : getBackgroundColor(semaineJours[0][i][2]) ,'color':getTextColor(semaineJours[0][i][2]), 'border':getBorder(semaineJours[0][i][2])}"   [ngClass]="semaineJours[0][i][1] != ''  || semaineJours[0][i][2] != '' ? 'value' : 'noValue'"  *ngIf="i < creneaux.length && semaineJours[0][i][3] == column && semaineJours[0][i][1] != '' && semaineJours[0][i][0] == creneaux[i]">
     <label>    {{semaineJours[0][i][2]}}</label>
     <mat-menu style="cursor: pointer;text-align: center;" #menu="matMenu">
+      <mat-label mat-menu-item>{{semaineJours[0][i][4] || "Aucune salle n'est associée"}}</mat-label>
       <mat-label mat-menu-item>{{semaineJours[0][i][1] || "Aucune matière n'est associée"}}</mat-label>
       <button (click)="deleteItemFromCalendar(0,i)"   class="deleteElement" mat-button>Supprimer l'element</button>
     </mat-menu>
       </div>
 
-      <div [matMenuTriggerFor]="menu" [style]="{'background-color' : getColor(semaineJours[1][i][2]),'color':getColor2(semaineJours[1][i][2]),'border':getColor3(semaineJours[1][i][2])}" [ngClass]="semaineJours[1][i][1] != ''  || semaineJours[1][i][2] != '' ? 'value' : 'noValue'"  *ngIf="i < creneaux_slot.length && semaineJours[1][i][3] == column && semaineJours[1][i][1] != '' && semaineJours[1][i][0] == creneaux[i]">
+      <div [matMenuTriggerFor]="menu" [style]="{'background-color' : getBackgroundColor(semaineJours[1][i][2]),'color':getTextColor(semaineJours[1][i][2]),'border':getBorder(semaineJours[1][i][2])}" [ngClass]="semaineJours[1][i][1] != ''  || semaineJours[1][i][2] != '' ? 'value' : 'noValue'"  *ngIf="i < creneaux.length && semaineJours[1][i][3] == column && semaineJours[1][i][1] != '' && semaineJours[1][i][0] == creneaux[i]">
         <label>{{semaineJours[1][i][2]}}</label>
         <mat-menu style="cursor: pointer;text-align: center;" #menu="matMenu">
+          <mat-label mat-menu-item>{{semaineJours[1][i][4] || "Aucune salle n'est associée"}}</mat-label>
           <mat-label  mat-menu-item>{{semaineJours[1][i][1] || "Aucune matière n'est associée"}}</mat-label>
           <button (click)="deleteItemFromCalendar(1,i)"  class="deleteElement" mat-button>Supprimer l'element</button>
         </mat-menu>
       </div>
 
-      <div [matMenuTriggerFor]="menu" [style]="{'background-color' : getColor(semaineJours[2][i][2]),'color':getColor2(semaineJours[2][i][2]),'border':getColor3(semaineJours[2][i][2])}" [ngClass]="semaineJours[2][i][1] != '' || semaineJours[2][i][2] != '' ? 'value' : 'noValue'"  *ngIf="i < creneaux_slot.length && semaineJours[2][i][3] == column && semaineJours[2][i][1] != '' && semaineJours[2][i][0] == creneaux[i]">
+      <div [matMenuTriggerFor]="menu" [style]="{'background-color' : getBackgroundColor(semaineJours[2][i][2]),'color':getTextColor(semaineJours[2][i][2]),'border':getBorder(semaineJours[2][i][2])}" [ngClass]="semaineJours[2][i][1] != '' || semaineJours[2][i][2] != '' ? 'value' : 'noValue'"  *ngIf="i < creneaux.length && semaineJours[2][i][3] == column && semaineJours[2][i][1] != '' && semaineJours[2][i][0] == creneaux[i]">
 
         <label>    {{semaineJours[2][i][2]}}</label>
         <mat-menu style="cursor: pointer;text-align: center;" #menu="matMenu">
+          <mat-label mat-menu-item>{{semaineJours[2][i][4] || "Aucune salle n'est associée"}}</mat-label>
           <mat-label  mat-menu-item>{{semaineJours[2][i][1] || "Aucune matière n'est associée"}}</mat-label>
           <button (click)="deleteItemFromCalendar(2,i)" class="deleteElement" mat-button>Supprimer l'element</button>
         </mat-menu>
       </div>
 
-      <div [matMenuTriggerFor]="menu" [style]="{'background-color' : getColor(semaineJours[3][i][2]),'color':getColor2(semaineJours[3][i][2]),'border':getColor3(semaineJours[3][i][2])}" [ngClass]="semaineJours[3][i][1] != '' || semaineJours[3][i][2] != ''  ? 'value' : 'noValue'"  *ngIf="i < creneaux_slot.length && semaineJours[3][i][3] == column && semaineJours[3][i][1] != '' && semaineJours[3][i][0] == creneaux[i]">
+      <div [matMenuTriggerFor]="menu" [style]="{'background-color' : getBackgroundColor(semaineJours[3][i][2]),'color':getTextColor(semaineJours[3][i][2]),'border':getBorder(semaineJours[3][i][2])}" [ngClass]="semaineJours[3][i][1] != '' || semaineJours[3][i][2] != ''  ? 'value' : 'noValue'"  *ngIf="i < creneaux.length && semaineJours[3][i][3] == column && semaineJours[3][i][1] != '' && semaineJours[3][i][0] == creneaux[i]">
 
         <label>    {{semaineJours[3][i][2]}}</label>
         <mat-menu style="cursor: pointer;text-align: center;" #menu="matMenu">
+          <mat-label mat-menu-item>{{semaineJours[3][i][4] || "Aucune salle n'est associée"}}</mat-label>
           <mat-label  mat-menu-item>{{semaineJours[3][i][1] || "Aucune matière n'est associée"}}</mat-label>
           <button (click)="deleteItemFromCalendar(3,i)" class="deleteElement" mat-button>Supprimer l'element</button>
         </mat-menu>
       </div>
 
-      <div [matMenuTriggerFor]="menu" [style]="{'background-color' : getColor(semaineJours[4][i][2]),'color':getColor2(semaineJours[4][i][2]),'border':getColor3(semaineJours[4][i][2])}" [ngClass]="semaineJours[4][i][1] != '' || semaineJours[4][i][2] != '' ? 'value' : 'noValue'"  *ngIf="i < creneaux_slot.length && semaineJours[4][i][3] == column && semaineJours[4][i][1] != '' && semaineJours[4][i][0] == creneaux[i]">
+      <div [matMenuTriggerFor]="menu" [style]="{'background-color' : getBackgroundColor(semaineJours[4][i][2]),'color':getTextColor(semaineJours[4][i][2]),'border':getBorder(semaineJours[4][i][2])}" [ngClass]="semaineJours[4][i][1] != '' || semaineJours[4][i][2] != '' ? 'value' : 'noValue'"  *ngIf="i < creneaux.length && semaineJours[4][i][3] == column && semaineJours[4][i][1] != '' && semaineJours[4][i][0] == creneaux[i]">
 
         <label>{{semaineJours[4][i][2]}}</label>
         <mat-menu style="cursor: pointer;text-align: center;" #menu="matMenu">
+          <mat-label mat-menu-item>{{semaineJours[4][i][4] || "Aucune salle n'est associée"}}</mat-label>
           <mat-label  mat-menu-item>{{semaineJours[4][i][1] || "Aucune matière n'est associée"}}</mat-label>
           <button (click)="deleteItemFromCalendar(4,i)" class="deleteElement" mat-button>Supprimer l'element</button>
         </mat-menu>
           </div>
 
-      <div [matMenuTriggerFor]="menu" [style]="{'background-color' : getColor(semaineJours[5][i][2]),'color':getColor2(semaineJours[5][i][2]),'border':getColor3(semaineJours[5][i][2])}" [ngClass]="semaineJours[5][i][1] != '' || semaineJours[5][i][2] != ''  ? 'value' : 'noValue'"  *ngIf="i < creneaux_slot.length && semaineJours[5][i][3] == column && semaineJours[5][i][1] != '' && semaineJours[5][i][0] == creneaux[i]">
+      <div [matMenuTriggerFor]="menu" [style]="{'background-color' : getBackgroundColor(semaineJours[5][i][2]),'color':getTextColor(semaineJours[5][i][2]),'border':getBorder(semaineJours[5][i][2])}" [ngClass]="semaineJours[5][i][1] != '' || semaineJours[5][i][2] != ''  ? 'value' : 'noValue'"  *ngIf="i < creneaux.length && semaineJours[5][i][3] == column && semaineJours[5][i][1] != '' && semaineJours[5][i][0] == creneaux[i]">
 
         <label>    {{semaineJours[5][i][2]}}</label>
         <mat-menu style="cursor: pointer;text-align: center;" #menu="matMenu">
+          <mat-label mat-menu-item>{{semaineJours[5][i][4] || "Aucune salle n'est associée"}}</mat-label>
           <mat-label  mat-menu-item>{{semaineJours[5][i][1] || "Aucune matière n'est associée"}}</mat-label>
           <button (click)="deleteItemFromCalendar(5,i)" class="deleteElement" mat-button>Supprimer l'element</button>
         </mat-menu>
       </div>
 
-      <div [matMenuTriggerFor]="menu" [style]="{'background-color' : getColor(semaineJours[6][i][2]),'color':getColor2(semaineJours[6][i][2]),'border':getColor3(semaineJours[6][i][2])}" [ngClass]="semaineJours[6][i][1] != '' || semaineJours[6][i][2] != ''  ? 'value' : 'noValue'"  *ngIf="i < creneaux_slot.length && semaineJours[6][i][3] == column && semaineJours[6][i][1] != '' && semaineJours[6][i][0] == creneaux[i]">
+      <div [matMenuTriggerFor]="menu" [style]="{'background-color' : getBackgroundColor(semaineJours[6][i][2]),'color':getTextColor(semaineJours[6][i][2]),'border':getBorder(semaineJours[6][i][2])}" [ngClass]="semaineJours[6][i][1] != '' || semaineJours[6][i][2] != ''  ? 'value' : 'noValue'"  *ngIf="i < creneaux.length && semaineJours[6][i][3] == column && semaineJours[6][i][1] != '' && semaineJours[6][i][0] == creneaux[i]">
 
         <label>    {{semaineJours[6][i][2]}}</label>
         <mat-menu style="cursor: pointer;text-align: center;" #menu="matMenu">
+          <mat-label mat-menu-item>{{semaineJours[6][i][4] || "Aucune salle n'est associée"}}</mat-label>
           <mat-label  mat-menu-item>{{semaineJours[6][i][1] || "Aucune matière n'est associée"}}</mat-label>
           <button (click)="deleteItemFromCalendar(6,i)" class="deleteElement" mat-button>Supprimer l'element</button>
         </mat-menu>

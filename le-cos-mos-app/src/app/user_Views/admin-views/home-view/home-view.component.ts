@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { map } from 'rxjs/internal/operators/map';
@@ -79,6 +79,17 @@ export class HomeViewComponent implements OnInit {
           return console.error("No Posts")
         }
         this.publicationList = JSON.parse(JSON.stringify(data));
+
+// Init thes images
+        for(let i = 0; i < this.publicationList.length;i++) {
+          this.imgFile[i] = []
+          console.log(this.publicationList[i])
+           this.getImages(i,this.publicationList[i].imgName)
+           if( i == this.publicationList.length -1) {
+            console.log("finished ! " + this.publicationList.length)
+            this.loaded = true
+           }
+        }
         /*this.onPickPublication(
           this.publicationList[this.publicationList.length - 1],
           JSON.stringify(this.publicationList.length - 1)
@@ -104,10 +115,43 @@ export class HomeViewComponent implements OnInit {
 
 
 
+  imgLink?:string
 
-  ngOnInit(): void {
+  pub?:PublicationModel
+  imgExtension?:string
 
- this.getPublication()
+  readonly getImagesURL = "http://localhost:4200/file/images"
+  imgFile:any = []
+  async getImages(index:number,imageName?:string) {
+    const querParam = new HttpParams().set('imageName',imageName!);
+   await Promise.resolve(
+
+     this.http
+      .get(this.getImagesURL, { responseType: 'blob',params:querParam})
+      .toPromise().then((data) => {
+
+                  // Les données renvoyer par le back-end sont sous forme Blob
+                  let img  = new File([data!], imageName! ); // On transform le Blob en fichier
+                  let fr = new FileReader(); // On li le fichier et stock le nouveau format
+                  fr.readAsDataURL(img)
+                  fr.onloadend = () =>{
+                    // la donnée à afficher dans le parametre '[src]' de la balise image
+                    this.imgFile[index]=fr.result
+                    console.log(this.imgFile[index])
+                  }
+      })
+      )
+
+
+
+  }
+
+
+
+
+  loaded:boolean = false
+   ngOnInit(): void {
+      this.getPublication()
   }
 
 

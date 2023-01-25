@@ -3,36 +3,65 @@ const router = express.Router();
 
 module.exports = router;
 
-const publicationFolder =
+let publicationFolder =
   "src/app/user_Views/admin-views/planning-view/group-planning/seances.json";
 const fs = require("fs");
 
 const readJsonFile = require("jsonfile");
 
 
-const getSeance = router.get("/get", function (req, res, next) {
-  result = readJsonFile.readFileSync(publicationFolder);
-  if (result.length === 0) {
-    return res.send().status(204);
+const getSeance = router.get("/get", async function (req, res, next) {
+  var groupName = req.query.groupName
+  var folder = publicationFolder
+  if(groupName.toLowerCase() == 'science de la vie') {
+    folder = "src/app/user_Views/admin-views/planning-view/group-planning/science-de-la-vie.json"
+  } else if(groupName.toLowerCase() == 'physique chimie') {
+    folder = "src/app/user_Views/admin-views/planning-view/group-planning/physique-chimie.json"
+  } else if(groupName.toLowerCase() == 'math') {
+    folder = "src/app/user_Views/admin-views/planning-view/group-planning/math.json"
   }
-  return res.send(readJsonFile.readFileSync(publicationFolder)).status(200);
+
+  result = readJsonFile.readFileSync(folder);
+  if (result.length === 0) {
+    return res.status(204).send();
+  }
+  return res.status(200).send(readJsonFile.readFileSync(folder))
 });
 
 const setSeance = router.post("/add", function (req, res, next) {
+  let groupName = req.query.groupName
+  var folder = publicationFolder
+  if(groupName.toLowerCase() == 'science de la vie') {
+    folder = "src/app/user_Views/admin-views/planning-view/group-planning/science-de-la-vie.json"
+  } else if(groupName.toLowerCase() == 'physique chimie') {
+    folder = "src/app/user_Views/admin-views/planning-view/group-planning/physique-chimie.json"
+  } else if(groupName.toLowerCase() == 'math') {
+    folder = "src/app/user_Views/admin-views/planning-view/group-planning/math.json"
+  }
+
   let JsonPublication = req.body;
-  file = readJsonFile.readFileSync(publicationFolder);
+  file = readJsonFile.readFileSync(folder);
   file.push(JsonPublication);
-  fs.writeFile(publicationFolder, JSON.stringify(file), function (data) {});
-  return res.send().status(200);
+  fs.writeFile(folder, JSON.stringify(file), function (data) {});
+  return res.status(200).send()
 });
 
 
 //https://stackoverflow.com/questions/23774231/how-do-i-remove-all-null-and-empty-string-values-from-an-object
 const delSeance = router.post("/del", async function (req, res, next) {
   let index = req.body.index;
-  let file = readJsonFile.readFileSync(publicationFolder);
+  let groupName = req.body.groupName
+  console.log(groupName)
+  var folder = publicationFolder
+  if(groupName.toLowerCase() == 'science de la vie') {
+    folder = "src/app/user_Views/admin-views/planning-view/group-planning/science-de-la-vie.json"
+  } else if(groupName.toLowerCase() == 'physique chimie') {
+    folder = "src/app/user_Views/admin-views/planning-view/group-planning/physique-chimie.json"
+  } else if(groupName.toLowerCase() == 'math') {
+    folder = "src/app/user_Views/admin-views/planning-view/group-planning/math.json"
+  }
 console.log(index)
-
+let file = readJsonFile.readFileSync(folder);
  await Promise.resolve(delete file[index]).then(() =>{
   file.splice(index,1)
 
@@ -44,11 +73,11 @@ console.log(index)
 
   if (newJson === undefined) {
     //Triggered when 1 element left in the JSON file
-    fs.writeFile(publicationFolder, "[]", function (data) {});
-    return res.send().status(200);
+    fs.writeFile(folder, "[]", function (data) {});
+    return res.status(200).send()
   }
-  fs.writeFile(publicationFolder, newJson, function (data) {});
-  return res.send().status(200);
+  fs.writeFile(folder, newJson, function (data) {});
+  return res.status(200).send()
 });
 
 const modifySeance = router.post(
@@ -74,6 +103,6 @@ const modifySeance = router.post(
     post[index].imgExtension = extension;
 
     fs.writeFile(publicationFolder, JSON.stringify(post), function (data) {});
-    return res.send().status(200);
+    return res.status(200).send()
   }
 );

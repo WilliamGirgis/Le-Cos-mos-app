@@ -52,11 +52,11 @@ router.post("/group/create",authenticate, async function (req, res, next) {
 
   let body = req.body;
   let name = body.groupName
-
+ let isTronCommun = false
   console.log("Name = " + name)
   name = 'HEY9'
 
-  let newDiscussion = new Planning({groupName:name})
+  let newDiscussion = new Planning({groupName:name,istronCommun:isTronCommun})
 
   const response = await newDiscussion.save();
   return res.status(200).send()
@@ -69,13 +69,9 @@ router.post("/group/create",authenticate, async function (req, res, next) {
     let groupName = req.body.groupName
     // console.log(user._id)
     Planning.updateOne({groupName:groupName},{ $pull: {user_list: {_id: { $in: [ user._id] }}}}).then(() => {
-
-
     User.updateOne({_id:user._id},{$set:{planningNameGroupBelonging:''}}).then((user) => {
       return res.status(200).send()
     })
-
-
     })
    })
 

@@ -2,7 +2,7 @@
   <div id="leftwrp">
     <h1>Gestion des plannings</h1>
     <div id="switch">
-      <button [ngClass]="view == 'Groupe' ? 'Groupe' : ''" id="Groupe" (click)="view = 'Groupe'" mat-button>Groupe</button>
+      <button [ngClass]="view == 'Groupe' ? 'Groupe' : ''" id="Groupe" (click)="view = 'Groupe'" mat-button>Etudiant</button>
       <button [ngClass]="view == 'Enseignant' ? 'Enseignant' : ''" id="Enseignant" (click)="view = 'Enseignant'" mat-button>Enseignant</button>
     </div>
   <div id="leftSide">
@@ -10,8 +10,8 @@
 
 <textarea readonly class="planningOwner" name="groups" #text>{{group.groupName}}</textarea>
 
-      <button (click)="delDiscussionGroup(i)"  mat-button><img  width="25px" height="25px" src="../../../../assets/images/trash3-fill.svg"></button>
-<button (click)="suppressReadOnly(i,text.value)"  mat-button><img  src="../../../../assets/images/pencil-fill.svg"></button>
+      <button *ngIf="!(group.groupName == 'Tronc Commun')" (click)="delDiscussionGroup(i)"  mat-button><img  width="25px" height="25px" src="../../../../assets/images/trash3-fill.svg"></button>
+<button *ngIf="!(group.groupName == 'Tronc Commun')" (click)="suppressReadOnly(i,text.value)"  mat-button><img  src="../../../../assets/images/pencil-fill.svg"></button>
 
     </mat-card>
   </div>
@@ -23,14 +23,16 @@
 
     <mat-card class="user-card" *ngFor="let user of userList">
       <mat-label>{{user.firstname}}</mat-label>
-      <button (click)="deletUser(user)" mat-button><img width="20vw" height="100%" src="../../../../assets/images/trash3-fill.svg"></button>
+      <button *ngIf="!(groupName == 'Tronc Commun')" (click)="deletUser(user)" mat-button><img width="20vw" height="100%" src="../../../../assets/images/trash3-fill.svg"></button>
     </mat-card>
       </div>
+
       <div id="planning-wrp" routerLink="../{{groupName}}">
         <span>Gérer le planning {{groupName}} </span>
         <img id="planning" src="../../../../../assets/images/arrow-right.svg" >
       </div>
 <img (click)="openSaveUserPostForm()"  class="add" width="50px" height="50px" src="../../../../assets/images/plus-square-fill.svg">
+
 </div>
 
 </div>

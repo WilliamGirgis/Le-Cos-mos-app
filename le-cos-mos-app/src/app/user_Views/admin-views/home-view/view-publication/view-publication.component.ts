@@ -42,13 +42,9 @@ export class ViewPublicationComponent implements OnInit {
           let fr = new FileReader(); // On li le fichier et stock le nouveau format
           fr.readAsDataURL(img)
           fr.onloadend = () =>{
-
             // la donnée à afficher dans le parametre '[src]' de la balise image
             this.imgFile=fr.result
-
           }
-
-
         })
       )
       .subscribe((result) => {});

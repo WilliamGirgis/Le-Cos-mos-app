@@ -54,22 +54,48 @@ margin: 7px 2vw auto auto;
 
 #content-block {
   border-radius: 15px;
-  border: 1px solid var(--blue-them-color);
+//  border: 1px solid var(--blue-them-color);
   justify-content: center;
   margin: auto auto auto auto;
 min-width: 100%;
   max-width: 100%;
   height: 33vh;
-  letter-spacing: 1.5px;
+
   cursor: pointer;
   display: -webkit-box;
   overflow: hidden;
     -webkit-line-clamp: 11;
     -webkit-box-orient: vertical;
+    display: flex;
+text-align: center;
+
   &:hover {
     filter: blur(0.9px);
   }
   transition: 0.2s ease-in-out;
+
+
+    p {
+      word-wrap: break-word; // https://stackoverflow.com/questions/20565201/how-to-make-the-long-text-to-fit-inside-a-small-div
+      max-width: 100%;
+      display: block;
+      flex-direction: column;
+      height: 31vh;
+      min-width: 17.5vw;
+      padding: 0 1.5vw 2.5vh 1.5vw;
+   margin: auto auto auto auto;
+   overflow: hidden;
+   font-size: 75%;
+    }
+
+  #imgWrp {
+min-width: 17.5vw;
+max-width: 17.5vw;
+
+img {
+  width: 100%;
+}
+  }
 }
 
 #img-wrp {

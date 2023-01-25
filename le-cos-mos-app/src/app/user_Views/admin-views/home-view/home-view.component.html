@@ -11,10 +11,12 @@
         <img (click)="openModifyPublicationView(publication,publication.imgName,i)" src="../../../../assets/images/pencil-fill.svg">
       </div>
       <div (click)="openPublicationView(publication,publication.imgName)" width="25px" height="25px" id="content-block">
-
-      <p id="content" [innerHTML]="publication.content"></p>
-
-  </div>
+          <p id="content" [innerHTML]="publication.content"></p>
+      <div *ngIf="loaded" id="imgWrp">
+      <img *ngIf="publication.imgName != undefined && publication.imgExtension != 'pdf' && publication.imgExtension != undefined" id="uploadedImage" [src]="imgFile[i]">
+      <pdf-viewer [zoom]="0.6" [fit-to-page]="true" id="uploadedImage" [original-size]="true" style="width: 100%;height: 100%;" [render-text]="false" *ngIf="publication.imgExtension == 'pdf'" [src]="imgFile[i]"></pdf-viewer>
+    </div>
+    </div>
   <div>
     <h4 id="footer" [innerHTML]="'Publier le : ' + publication.date">
   </h4>

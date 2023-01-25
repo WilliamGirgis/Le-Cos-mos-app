@@ -22,47 +22,33 @@ export class GroupComponent implements OnInit {
   globalIndex:number = 0
   view:string = 'Groupe'
   userList:User [] = []
-  userListTest:User [] = [{email:'Willy@gmail.com',firstname:'Willy',ID:1,lastname:'Girgis',userType:'Professeur'},{email:'Adrien@gmail.com',firstname:'Adrien',ID:2,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'}]
+  userListTest:User [] = [{email:'Willy@gmail.com',firstname:'Willy',ID:1,lastname:'Girgis',userType:'Professeur'},{email:'Adrien@gmail.com',firstname:'Adrien',ID:2,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'}]
   groups:PlanningGroup[] = []
-  groupsTest?:PlanningGroup[] = [{ID:0,groupName:'Group Sience de la vie et de la terre',user_list:[{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''}]},{ID:1,groupName:'Group de physique chimie',user_list:[]}]
+  groupsTest?:PlanningGroup[] = [{ID:0,groupName:'Tronc Commun',user_list:[{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''},{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''},{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''},{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''},{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''}]},{ID:1,groupName:'Group de physique chimie',user_list:[]}]
   groupName?:string | String = 'NoGroup'
 
   constructor(private http:HttpClient,public dialog:MatDialog) {
     this.dialog.afterAllClosed.pipe(map((data) => {this.getGroups(' ')})).subscribe(res => {})
-
   }
 
   getGroups(groupName:string) {
-
     const querParam = new HttpParams().set('groupName', groupName);
     this.http.get(this.getGroupsURL,{params:querParam,responseType:'text'}).pipe(map((data) =>{
       this.groups = JSON.parse(data)
       this.userList = JSON.parse(data)[this.globalIndex].user_list!
       this.groupName = this.groups[this.globalIndex].groupName
-    })).subscribe((res) =>{
-
-    })
-
+    })).subscribe((res) =>{})
   }
+
   createGroup(){
-
-
     return this.http.post(this.createGroupRoute,{name:this.groupName,responseType:'text'}).pipe(map(async (data) =>{
-
-
       await this.getGroups(' ')
-
-    })).subscribe((res) => {
-
-    })
+    })).subscribe((res) => {})
   }
-
 
   openSaveUserPostForm() {
     this.dialog.open(AddUserToGroupComponent, {width:'50vw',height:'80vh',data:{globalIndex:this.globalIndex,name:this.groups[this.globalIndex].groupName,userList:this.userList}})
   }
-
-
 
   suppressReadOnly(i:number,text:string) {
     this.readonly = !this.readonly
@@ -89,43 +75,29 @@ export class GroupComponent implements OnInit {
 
   deletUser(user:User) {
     if(!window.confirm("Are you sure you wanna delete the user " + user.firstname  + " ?")) {
-
       return
         }
-
     return this.http.post(this.delUserUrlRoute,{user:user,groupName:this.groups[this.globalIndex].groupName,responseType:'text'}).pipe(map(async (data) =>{
-
-
        this.getGroups(' ')
 
-    })).subscribe((res) => {
-
-    })
-
+    })).subscribe((res) => {})
   }
-
 
   delDiscussionGroup(index:number) {
     if(!window.confirm("Are you sure you wanna delete the group " + this.groups[index].groupName  + " ?")) {
-
       return
         }
-
     return this.http.post(this.delGroupUrlRoute,{groupName:this.groups[index].groupName,responseType:'text'}).pipe(map(async (data) =>{
-
-
       this.getGroups(' ')
-
-   })).subscribe((res) => {
-
-   })
-
+   })).subscribe((res) => {})
   }
+
   selectGroup(index:number) {
     this.globalIndex = index
     this.groupName = this.groups[this.globalIndex].groupName
     this.userList = this.groups[this.globalIndex].user_list!
   }
+
   ngOnInit(): void {
     this.getGroups(' ')
   }

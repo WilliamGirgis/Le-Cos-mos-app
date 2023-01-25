@@ -15,27 +15,42 @@ const planningSchema = new mongoose.Schema({
     type:String,
     required:true
    },
+   istronCommun:{
+type:Boolean,
+required:true
+},
+   week: [{
+    weekDate: {
+     type:String,
+     required:false
+    },
+    seance :[
 
-   type:{
-    type:String,
-    required:false
-   },
-   seance :[
-    {
-      matiere: {
-        type:String,
-        required:true
-      },
-      day: {
-        type:String,
-        required:true
-      },
-      creneau: {
-        type:String,
-        required:true
+      { // 7 Jours par semaine
+        matiere: {
+          type:String,
+          required:true
+        },
+        day: {
+          type:String,
+          required:true
+        },
+        type:{
+          type:String,
+          required:true
+        },
+        creneau: {
+          type:String,
+          required:true
+        },
+        room: {
+          type:String,
+          required:true
+        }
+
       }
-
-    }
+    ]
+   }
   ],
   user_list: [
     {
@@ -44,6 +59,10 @@ const planningSchema = new mongoose.Schema({
         required:true,
       },
       lastname: {
+        type:String,
+        required:true,
+      },
+      email : {
         type:String,
         required:true,
       },
