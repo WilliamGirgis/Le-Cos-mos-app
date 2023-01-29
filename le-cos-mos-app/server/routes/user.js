@@ -65,10 +65,10 @@ let authenticate = (req,res,next) => {  /* MIDDLEWARE for checking if the access
 
 /* MIDDLEWARE-END */
 
-router.post("/users", (req, res) => {
+router.post("/users", async (req, res) => {
   let body = req.body;
   let newUser = new User(body);
-  newUser
+  await newUser
     .save()
     .then(async () => {
       if(body.userType == "Etudiant") {
@@ -144,17 +144,18 @@ router.get("/users/me/access-Token", verify, (req, res) => {
 
 router.get("/users/id",authenticate, (req, res) => {
   let regex = req.query.id;
-  console.log(regex)
   let users = [];
   if(regex == "" || regex == " ") {
     User.find({$regex:regex,$options:"i"})
     .then((users2) => {
 
       users2.forEach((user) => {
-        if(user.id !== 'Admin') {
+
           users.push({userType:user.userType,firstname:user.firstname,lastname:user.lastname,email:user.email,_id:user._id,planningNameGroupBelonging:user.planningNameGroupBelonging,groupsNameDiscussionBelonging:user.groupsNameDiscussionBelonging});
-        }
+
+
       });
+      console.log(users)
       return res.status(200).send(users);
     }).catch((e) => {
 
@@ -191,8 +192,6 @@ router.get("/users/_id",authenticate, (req, res) => {
 
 router.get("/users/del",authenticate, (req, res) => {
   let email = req.query.email;
-
-  console.log(email)
   User.findOneAndDelete({ email: email })
     .then((user) => {
       /*fs.rmdir(folder + "/" + user._id, { recursive: true }, (err, suc) => {
@@ -211,17 +210,12 @@ router.get("/users/del",authenticate, (req, res) => {
 });
 
 router.post("/users/modify",authenticate, (req, res) => {
-
   let newUser = req.body;
   let id = req.body._id;
-  console.log(newUser)
-  console.log(id)
-
     User.findOneAndUpdate(
       { _id: id },
       { $set: {userType:newUser.userType,email:newUser.email,firstname:newUser.firstname,lastname:newUser.lastname } }
     ).then((user) => {
-      console.log("USER FOUND = " + user)
       return res.status(200).send();
     });
 

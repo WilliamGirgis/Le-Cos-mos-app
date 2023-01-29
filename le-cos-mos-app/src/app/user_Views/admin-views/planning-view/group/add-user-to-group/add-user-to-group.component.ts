@@ -24,10 +24,6 @@ export class AddUserToGroupComponent implements OnInit {
 
   userToAdd_Temp:User [] = []
 
-
-
-
-
    addUserToGroup(){
 
 
@@ -42,18 +38,17 @@ export class AddUserToGroupComponent implements OnInit {
   }
 
   applyFilter(event?: Event,name?:string) {
-    let areEtudiant:boolean
     let userName
     if(event == undefined) {
        userName = name
     } else {
       userName = (event!.target as HTMLInputElement).value;
     }
-      console.log(userName)
 
       const querParam = new HttpParams().set('id', userName!);
    this.http.get(this.getUserListRoute,{params:querParam,responseType:'text'}).pipe(map((data) => {
     let userListResult = JSON.parse(data)
+    console.log(this.data.userList)
     this.userList = []
 // Delete all occurence from the User array from parent component, and then assign the new array to the userList to print
 let isDoubled:boolean = false

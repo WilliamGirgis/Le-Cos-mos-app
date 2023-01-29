@@ -13,25 +13,32 @@ const planningSchema = new mongoose.Schema({
 
    groupName: { // If type = Enseignant, groupName = Enseignant.first + Enseignant.lastname
     type:String,
-    required:true
+    required:true,
+    unique:true
    },
    istronCommun:{
 type:Boolean,
 required:true
 },
+type:{
+ type:String,
+ required:true
+
+},
    week: [{
     weekDate: {
      type:String,
-     required:false
+     required:true
     },
     seance :[
 
       { // 7 Jours par semaine
-        matiere: {
+
+        creneau: {
           type:String,
           required:true
         },
-        day: {
+        matiere: {
           type:String,
           required:true
         },
@@ -39,13 +46,13 @@ required:true
           type:String,
           required:true
         },
-        creneau: {
+        day: {
           type:String,
           required:true
         },
         room: {
           type:String,
-          required:true
+          required:false
         }
 
       }
@@ -73,7 +80,7 @@ required:true
       planningNameGroupBelonging: {
         type:String,
         required:true,
-        unique:true
+        unique:false
       },
 
     }

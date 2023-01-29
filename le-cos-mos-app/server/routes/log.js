@@ -26,7 +26,12 @@ router.post("/save",  (req, res) => {
   let modifyMonth = +mois < 10 ? '0'+mois : mois // si moins que 10, alors on affiche avec le 0 dèrrière. le "+" permet de covertir en nombre
   let date  = jour+ "/" + modifyMonth + "/" + anne + " à " + modifyHour
   let action = body.action
-  User.findOne({ _id: user_Id }).then((user) =>{
+  User.findOne({ _id: user_Id }).then(async (user) =>{
+    console.log(user)
+
+    if(user.matchedCount == 0) {
+      return
+    }
     firstname = user.firstname
     lastname = user.lastname
 

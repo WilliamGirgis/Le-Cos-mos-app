@@ -11,12 +11,29 @@ import {CdkDragDrop} from '@angular/cdk/drag-drop';
   styleUrls: ['./group-planning.component.scss']
 })
 export class GroupPlanningComponent implements OnInit {
+
+
+  readonly getGroupsURL = "http://localhost:4200/planning/get"
+  readonly getSeanceUrl = "http://localhost:4200/seance/get"
+  readonly setSeanceUrl = "http://localhost:4200/seance/add"
+  readonly delSeanceUrl = "http://localhost:4200/seance/del"
+  readonly modifySeanceUrl = "http://localhost:4200/seance/modify"
+  readonly savePlanningUrl = "http://localhost:4200/planning/set"
+
   heureIndex:number = 0
   dayIndex:number= 0
+  touched:boolean = false
+
+  week:string = '19/01/2023'
+  groupLink = this.route.snapshot.paramMap.get('id')
+
+  selectedSeanceGroup = 'Science de la vie'
   constructor(private http:HttpClient,private route: ActivatedRoute) {
     this.getGroups(this.groupLink!)
     this.getSeanceItems()
   }
+
+
 
   @Input('cdkDragStarted') started?:CdkDragDrop<Event>
   seanceItemGroupIndex:number = 0
@@ -57,17 +74,8 @@ export class GroupPlanningComponent implements OnInit {
     this.containerIndex = i
   }
 
-  readonly getGroupsURL = "http://localhost:4200/planning/get"
-  readonly getSeanceUrl = "http://localhost:4200/seance/get"
-  readonly setSeanceUrl = "http://localhost:4200/seance/add"
-  readonly delSeanceUrl = "http://localhost:4200/seance/del"
-  readonly modifySeanceUrl = "http://localhost:4200/seance/modify"
 
-  semaine:string = 'Semaine du 19/01'
-  groupLink = this.route.snapshot.paramMap.get('id')
-
-  selectedSeanceGroup = !!this.groupLink ? this.groupLink : 'Tronc Commun'
-  groupList?:any []
+  groupList?:any [] = []
 
   seanceListAvailable:any[] = []
 
@@ -94,6 +102,7 @@ export class GroupPlanningComponent implements OnInit {
       if(this.isOut) {
         return
       }
+      this.touched = true
       this.semaineJours[this.dayIndex!][this.heureIndex!][1] = event.container.data[2]
       this.semaineJours[this.dayIndex!][this.heureIndex!][2] = event.container.data[1]
       this.semaineJours[this.dayIndex!][this.heureIndex!][4] = event.container.data[4]
@@ -152,6 +161,38 @@ export class GroupPlanningComponent implements OnInit {
       .subscribe((response) => {});
   }
 
+  selectGroup(groupName:string,index?:number) {
+    this.seanceItemGroupIndex = index!
+    this.selectedSeanceGroup = groupName
+    for(let i = 0; i < this.groupList!.length;i++) {
+
+      if(groupName.toLowerCase() == this.groupList![i].groupName.toLowerCase()) {
+
+        this.selectedSeanceGroup = groupName
+        break
+       } else {
+         this.selectedSeanceGroup = "seance"
+       }
+
+    }
+  this.getSeanceItems()
+  }
+
+  getGroups(groupName:string) {
+    const querParam = new HttpParams().set('groupName', groupName);
+    this.http.get(this.getGroupsURL,{params:querParam,responseType:'text'}).pipe(map((data) =>{
+
+      let tempArray = JSON.parse(data)
+      tempArray.forEach((element:any) => {
+        if(element.type === 'Group') {
+          this.groupList!.push(element)
+        }
+
+      });
+    })).subscribe((res) =>{
+    })
+  }
+
   creneaux = [
     '8h','9h'
     ,'10h','11h',
@@ -171,18 +212,18 @@ export class GroupPlanningComponent implements OnInit {
 // Chaque element dans les tableaux correspondent à un jour dans la semaine avec creneaux_slot[x][0] = lundi et creneaux_slot[x][6] = dimanche
 
   lundi:string[][] = [
-    ['8h','SVT','Cour','lundi',''],
-    ['9h','SVT','Examen','lundi',''],
+    ['8h','','','lundi',''],
+    ['9h','','','lundi',''],
     ['10h','','','lundi',''],
     ['11h','','','lundi',''],
     ['12h','','','lundi',''],
-    ['13h','Math','Examen','lundi',''],
+    ['13h','','','lundi',''],
     ['14h','','','lundi',''],
     ['15h','','','lundi',''],
     ['16h','','','lundi',''],
     ['17h','','','lundi',''],
     ['18h','','','lundi',''],
-    ['19h','Philo','Cour','lundi',''],
+    ['19h','','','lundi',''],
     ['20h','','','lundi',''],
     ['21h','','','lundi','']
   ]
@@ -193,13 +234,13 @@ export class GroupPlanningComponent implements OnInit {
     ['10h','','','mardi',''],
     ['11h','','','mardi',''],
     ['12h','','','mardi',''],
-    ['13h','Daniel','rdv','mardi',''],
+    ['13h','','','mardi',''],
     ['14h','','','mardi',''],
     ['15h','','','mardi',''],
     ['16h','','','mardi',''],
     ['17h','','','mardi',''],
     ['18h','','','mardi',''],
-    ['19h','Français','Cour','mardi',''],
+    ['19h','','','mardi',''],
     ['20h','','','mardi',''],
     ['21h','','','mardi','']
   ]
@@ -214,7 +255,7 @@ export class GroupPlanningComponent implements OnInit {
     ['15h','','','mercredi',''],
     ['16h','','','mercredi',''],
     ['17h','','','mercredi',''],
-    ['18h','Français','Examen','mercredi',''],
+    ['18h','','','mercredi',''],
     ['19h','','','mercredi',''],
     ['20h','','','mercredi',''],
     ['21h','','','mercredi','']
@@ -245,7 +286,7 @@ export class GroupPlanningComponent implements OnInit {
     ['14h','','','vendredi',''],
     ['15h','','','vendredi',''],
     ['16h','','','vendredi',''],
-    ['17h','Yassine','rdv','vendredi',''],
+    ['17h','','','vendredi',''],
     ['18h','','','vendredi',''],
     ['19h','','','vendredi',''],
     ['20h','','','vendredi',''],
@@ -263,7 +304,7 @@ export class GroupPlanningComponent implements OnInit {
     ['16h','','','samedi',''],
     ['17h','','','samedi',''],
     ['18h','','','samedi',''],
-    ['19h','informatique','Examen','samedi',''],
+    ['19h','','','samedi',''],
     ['20h','','','samedi',''],
     ['21h','','','samedi','']
   ]
@@ -278,7 +319,7 @@ export class GroupPlanningComponent implements OnInit {
     ['15h','','','dimanche',''],
     ['16h','','','dimanche',''],
     ['17h','','','dimanche',''],
-    ['18h','Math','Examen','dimanche',''],
+    ['18h','','','dimanche',''],
     ['19h','','','dimanche',''],
     ['20h','','','dimanche',''],
     ['21h','','','dimanche','']
@@ -294,31 +335,16 @@ export class GroupPlanningComponent implements OnInit {
     this.dimanche
   ]
 
+  validatePlanning() {
+    this.http.post(this.savePlanningUrl,{planning:this.semaineJours,planningOwner:this.groupLink,week:this.week}).pipe(map((data) => {
+      this.touched = !this.touched
+    })).subscribe((res) => {
 
-  selectGroup(groupName:string,index?:number) {
-    this.seanceItemGroupIndex = index!
-    this.selectedSeanceGroup = groupName
-    for(let i = 0; i < this.groupList!.length;i++) {
-
-      if(groupName.toLowerCase() == this.groupList![i].groupName.toLowerCase()) {
-
-        this.selectedSeanceGroup = groupName
-        break
-       } else {
-         this.selectedSeanceGroup = "seance"
-       }
-
-    }
-  this.getSeanceItems()
-  }
-
-  getGroups(groupName:string) {
-    const querParam = new HttpParams().set('groupName', groupName);
-    this.http.get(this.getGroupsURL,{params:querParam,responseType:'text'}).pipe(map((data) =>{
-      this.groupList = JSON.parse(data)
-    })).subscribe((res) =>{
     })
+
   }
+
+
 
   getBackgroundColor(type:string) {
 

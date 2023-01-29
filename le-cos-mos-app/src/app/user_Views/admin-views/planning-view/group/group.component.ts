@@ -2,7 +2,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { map } from 'rxjs';
-import { PlanningGroup } from 'src/app/shared/planning-group';
 import { User } from 'src/app/shared/user';
 import { AddUserToGroupComponent } from './add-user-to-group/add-user-to-group.component';
 
@@ -18,14 +17,17 @@ export class GroupComponent implements OnInit {
   readonly modifyGroupNameRoute = "http://localhost:4200/planning/group/modify"
   readonly delUserUrlRoute = "http://localhost:4200/planning/user/del"
   readonly delGroupUrlRoute = "http://localhost:4200/planning/group/del"
+  readonly getUserListRoute = "http://localhost:4200/user/users/id"
   readonly:boolean = true
   globalIndex:number = 0
-  view:string = 'Groupe'
+  view:string = 'Group'
   userList:User [] = []
   userListTest:User [] = [{email:'Willy@gmail.com',firstname:'Willy',ID:1,lastname:'Girgis',userType:'Professeur'},{email:'Adrien@gmail.com',firstname:'Adrien',ID:2,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'}]
-  groups:PlanningGroup[] = []
-  groupsTest?:PlanningGroup[] = [{ID:0,groupName:'Tronc Commun',user_list:[{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''},{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''},{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''},{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''},{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''}]},{ID:1,groupName:'Group de physique chimie',user_list:[]}]
-  groupName?:string | String = 'NoGroup'
+
+  groups:any[] = []
+  groupsTest?:any[] = [{ID:0,groupName:'Tronc Commun',firstname:'HEY',lastname:'HEYLN',user_list:[{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''},{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''},{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''},{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''},{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''}]},{ID:1,groupName:'Group de physique chimie',firstname:'HEY2',lastname:'HEY2LN',user_list:[]}]
+
+  selectedLeftItem?:string | String = 'NoGroup'
 
   constructor(private http:HttpClient,public dialog:MatDialog) {
     this.dialog.afterAllClosed.pipe(map((data) => {this.getGroups(' ')})).subscribe(res => {})
@@ -33,16 +35,26 @@ export class GroupComponent implements OnInit {
 
   getGroups(groupName:string) {
     const querParam = new HttpParams().set('groupName', groupName);
-    this.http.get(this.getGroupsURL,{params:querParam,responseType:'text'}).pipe(map((data) =>{
-      this.groups = JSON.parse(data)
-      this.userList = JSON.parse(data)[this.globalIndex].user_list!
-      this.groupName = this.groups[this.globalIndex].groupName
+    this.http.get(this.getGroupsURL,{params:querParam,responseType:'text'}).pipe(map(async (data) =>{
+      this.groups = [] // Remettre à zero, car on push les elements dans le tableau
+     let tempArray = JSON.parse(data)
+      // console.log(this.groups)
+
+     await tempArray.forEach((element:any) => {
+        if(element.type === 'Group') {
+          console.log(element)
+          this.groups.push(element)
+        }
+      });
+
+      this.userList = this.groups[this.globalIndex].user_list!
+      this.selectedLeftItem = this.groups[this.globalIndex].groupName
     })).subscribe((res) =>{})
   }
 
   createGroup(){
-    return this.http.post(this.createGroupRoute,{name:this.groupName,responseType:'text'}).pipe(map(async (data) =>{
-      await this.getGroups(' ')
+    return this.http.post(this.createGroupRoute,{name:this.selectedLeftItem,responseType:'text'}).pipe(map(async (data) =>{
+       this.getGroups(' ')
     })).subscribe((res) => {})
   }
 
@@ -92,11 +104,30 @@ export class GroupComponent implements OnInit {
    })).subscribe((res) => {})
   }
 
-  selectGroup(index:number) {
+  enseignantList:User[] = []
+  selectLeftItem(index:number) {
     this.globalIndex = index
-    this.groupName = this.groups[this.globalIndex].groupName
-    this.userList = this.groups[this.globalIndex].user_list!
+    if(this.view == 'Group') {
+      this.selectedLeftItem = this.groups[this.globalIndex].groupName
+      this.userList = this.groups[this.globalIndex].user_list!
+    } else if(this.view == 'Enseignant') {
+      this.selectedLeftItem = this.groups[this.globalIndex].firstname + ' ' +  this.groups[this.globalIndex].lastname
+    }
   }
+
+  getEnseignant(userName:string) {
+    const querParam = new HttpParams().set('id', userName);
+    this.http.get(this.getUserListRoute,{params:querParam,responseType:'text'}).pipe(map((data) => {
+      this.groups = JSON.parse(data)
+      this.userList = []
+      this.globalIndex = 0
+      this.selectedLeftItem = " de " + this.groups[this.globalIndex].firstname + ' ' +  this.groups[this.globalIndex].lastname
+    })).subscribe((response) => {
+
+    })
+
+  }
+
 
   ngOnInit(): void {
     this.getGroups(' ')

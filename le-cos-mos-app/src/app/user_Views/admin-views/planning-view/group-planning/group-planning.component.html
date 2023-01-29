@@ -1,5 +1,5 @@
 <div fxLayout="column" >
-  <h1 routerLink="../group"><img src="../../../../../assets/images/arrow-left.svg"> Group {{groupLink}}</h1>
+  <h1 routerLink="../group"><img src="../../../../../assets/images/arrow-left.svg"> Planning {{groupLink}}</h1>
 <div id="wrapper" fxLayout="row"  fxFlex="100" fxLayoutAlign="center start">
 <div  id="leftWrp">
   <div id="seanceGroupsDisplayer" [matMenuTriggerFor]="displayGroups"
@@ -9,7 +9,7 @@
 </div>
   <mat-menu  #displayGroups="matMenu" id="groupListWrp">
     <button [style]="{'background-color': seanceItemGroupIndex == i ? 'var(--dblue-them-color)' : 'var(--white-them-color)','color': seanceItemGroupIndex == i ? 'var(--white-them-color)':'var(--dblue-them-color)' }"  (click)="selectGroup(group.groupName,i)" mat-button *ngFor="let group of groupList;index as i">
-      {{"Group " + group.groupName}}
+      {{"Seances group " + group.groupName}}
 
     </button>
 
@@ -73,6 +73,10 @@
 
 
   <div  id="rightWrp">
+    <div id="validateBtnWrp">
+    <button (click)="validatePlanning()" mat-button>Valider le planning</button>
+    <img *ngIf="!touched" src="../../../../../assets/images/check-lg.svg">
+  </div>
 <div id="borderTableWrp" fxLayoutAlign="end center" >
 
   <table
@@ -187,7 +191,7 @@
 
   <span>
   <img width="50vw" src="../../../../assets/images/arrow-left.svg" id="left">
-  <h2>  {{semaine}}</h2>
+  <h2>Semaine du {{week}}</h2>
     <img width="50vw" src="../../../../assets/images/arrow-right.svg" id="right">
   </span>
 </div>

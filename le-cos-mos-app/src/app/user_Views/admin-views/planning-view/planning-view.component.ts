@@ -1,4 +1,3 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -9,12 +8,12 @@ import { Router } from '@angular/router';
 })
 export class PlanningViewComponent implements OnInit {
   constructor(private router: Router) {
-    this.router.navigate(['app/planning/group']); // Navigue vers la vue 'accueil' par default
 
   }
 
 
   ngOnInit(): void {
+    this.router.navigate(['app/planning/william']); // Navigue vers la vue 'accueil' par default
 
   }
 

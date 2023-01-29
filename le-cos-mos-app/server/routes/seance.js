@@ -4,64 +4,60 @@ const router = express.Router();
 module.exports = router;
 
 let publicationFolder =
-  "src/app/user_Views/admin-views/planning-view/group-planning/seances.json";
+  "src/app/user_Views/admin-views/planning-view/group-planning/seances";
 const fs = require("fs");
 
 const readJsonFile = require("jsonfile");
 
 
 const getSeance = router.get("/get", async function (req, res, next) {
-  var groupName = req.query.groupName
   var folder = publicationFolder
-  if(groupName.toLowerCase() == 'science de la vie') {
-    folder = "src/app/user_Views/admin-views/planning-view/group-planning/science-de-la-vie.json"
-  } else if(groupName.toLowerCase() == 'physique chimie') {
-    folder = "src/app/user_Views/admin-views/planning-view/group-planning/physique-chimie.json"
-  } else if(groupName.toLowerCase() == 'math') {
-    folder = "src/app/user_Views/admin-views/planning-view/group-planning/math.json"
-  }
+  var groupName = req.query.groupName.replace(/ /g,'_')
+  let result = []
+let index = 0
+let funded = false
+   fs.readdir(folder, async (err, files) => {
+     files.forEach(async file => {
+      index++
+      if(file.search(`${groupName}.json`) == 0) {
+        funded = true
+        console.log("File Found ! ")
+        result = await readJsonFile.readFileSync(folder + '/' + groupName + '.json');
+          if (result.length === 0) {
+        return res.status(204).send();
+             }
+        return res.status(200).send(result)
+     } else if(index == files.length && !funded) {
+      console.log("File Written !")
+    result =  fs.writeFileSync(folder + '/' + groupName + '.json', '[]', async function (data) {
+      return  res.status(200).send(result);
+     });
+     }
+    })
+  });
 
-  result = readJsonFile.readFileSync(folder);
-  if (result.length === 0) {
-    return res.status(204).send();
-  }
-  return res.status(200).send(readJsonFile.readFileSync(folder))
 });
 
-const setSeance = router.post("/add", function (req, res, next) {
-  let groupName = req.query.groupName
+const setSeance = router.post("/add", async function (req, res, next) {
+  var groupName = req.query.groupName.replace(/ /g,'_')
   var folder = publicationFolder
-  if(groupName.toLowerCase() == 'science de la vie') {
-    folder = "src/app/user_Views/admin-views/planning-view/group-planning/science-de-la-vie.json"
-  } else if(groupName.toLowerCase() == 'physique chimie') {
-    folder = "src/app/user_Views/admin-views/planning-view/group-planning/physique-chimie.json"
-  } else if(groupName.toLowerCase() == 'math') {
-    folder = "src/app/user_Views/admin-views/planning-view/group-planning/math.json"
-  }
-
   let JsonPublication = req.body;
-  file = readJsonFile.readFileSync(folder);
+  file = await readJsonFile.readFileSync(folder + '/' + groupName + '.json');
   file.push(JsonPublication);
-  fs.writeFile(folder, JSON.stringify(file), function (data) {});
-  return res.status(200).send()
-});
+  fs.writeFile(folder + '/' + groupName + '.json', JSON.stringify(file), function (data) {
+    return res.status(200).send()
 
+  });
+});
+ //folder + '/' + groupName + '.json', `[${JSON.stringify(file)}]`
 
 //https://stackoverflow.com/questions/23774231/how-do-i-remove-all-null-and-empty-string-values-from-an-object
 const delSeance = router.post("/del", async function (req, res, next) {
   let index = req.body.index;
-  let groupName = req.body.groupName
+  let groupName = req.body.groupName.replace(/ /g,'_')
   console.log(groupName)
   var folder = publicationFolder
-  if(groupName.toLowerCase() == 'science de la vie') {
-    folder = "src/app/user_Views/admin-views/planning-view/group-planning/science-de-la-vie.json"
-  } else if(groupName.toLowerCase() == 'physique chimie') {
-    folder = "src/app/user_Views/admin-views/planning-view/group-planning/physique-chimie.json"
-  } else if(groupName.toLowerCase() == 'math') {
-    folder = "src/app/user_Views/admin-views/planning-view/group-planning/math.json"
-  }
-console.log(index)
-let file = readJsonFile.readFileSync(folder);
+let file = readJsonFile.readFileSync(folder + '/' + groupName + '.json');
  await Promise.resolve(delete file[index]).then(() =>{
   file.splice(index,1)
 
@@ -73,10 +69,10 @@ let file = readJsonFile.readFileSync(folder);
 
   if (newJson === undefined) {
     //Triggered when 1 element left in the JSON file
-    fs.writeFile(folder, "[]", function (data) {});
+    fs.writeFile(folder + '/' + groupName + '.json', "[]", function (data) {});
     return res.status(200).send()
   }
-  fs.writeFile(folder, newJson, function (data) {});
+  fs.writeFile(folder + '/' + groupName + '.json', newJson, function (data) {});
   return res.status(200).send()
 });
 
