@@ -34,7 +34,7 @@ router.post("/group/modify",authenticate, async function (req, res, next) {
   })
   })
 
-
+//
 router.get("/get",authenticate, async function (req, res, next) {
   var groupName = req.query.groupName
  await Planning.find({id:{$regex: groupName, $options: "i" }}).then((group) => {
@@ -57,13 +57,9 @@ transformedarray.push({creneau:planning[i][j][0],matiere:planning[i][j][1],type:
       }
     }
   }
-  // console.log(transformedarray)
-// Planning.find({groupName:owner}).then((res) => {
-// console.log(res)
-// })
 
 await Planning.updateOne({groupName:owner},{$set:{week:{weekDate:week,seance:transformedarray}}}).then(async (res) =>{
-    console.log(res)
+    //console.log(res)
     if(res.matchedCount == 0) {
       let newGroup = new Planning({groupName:owner,istronCommun:false,week:{weekDate:week,seance:transformedarray},type:'User'})
       const response = await newGroup.save();
@@ -118,6 +114,26 @@ router.post("/group/create",authenticate, async function (req, res, next) {
       return res.status(200).send()
     })
     })
+   })
+
+   const getPlanning = router.get("/group/planning",/*authenticate,*/ function (req, res, next) {
+    let planningOwner = req.query.groupName
+    let weekSelected = req.query.week
+    Planning.findOne({groupName:planningOwner}).then((group) => {
+      // console.log(group[0].week)
+      group.week.forEach((week) => {
+        console.log(week)
+        if(week.weekDate == weekSelected) {
+          return res.status(200).send(week)
+        } else {
+          Planning.findOneAndUpdate({groupName:planningOwner},{$push:{week:{weekName:weekSelected}}}).then((group) =>{
+           return res.status(200).send(group.week)
+          })
+        }
+
+      })
+    })
+
    })
 
    router.post("/group/del",authenticate, async function (req, res, next) {

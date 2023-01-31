@@ -27,7 +27,7 @@ let funded = false
         return res.status(204).send();
              }
         return res.status(200).send(result)
-     } else if(index == files.length && !funded) {
+     } else if(index == files.length && !funded) { // If we reached the end of the list, and that no file has been found, we create one with the corresponding group_name
       console.log("File Written !")
     result =  fs.writeFileSync(folder + '/' + groupName + '.json', '[]', async function (data) {
       return  res.status(200).send(result);

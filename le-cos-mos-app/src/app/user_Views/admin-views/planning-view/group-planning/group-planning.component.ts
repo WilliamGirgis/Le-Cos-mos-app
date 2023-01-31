@@ -17,8 +17,8 @@ export class GroupPlanningComponent implements OnInit {
   readonly getSeanceUrl = "http://localhost:4200/seance/get"
   readonly setSeanceUrl = "http://localhost:4200/seance/add"
   readonly delSeanceUrl = "http://localhost:4200/seance/del"
-  readonly modifySeanceUrl = "http://localhost:4200/seance/modify"
   readonly savePlanningUrl = "http://localhost:4200/planning/set"
+  readonly getPlanningURL = "http://localhost:4200/planning/group/planning"
 
   heureIndex:number = 0
   dayIndex:number= 0
@@ -61,7 +61,6 @@ export class GroupPlanningComponent implements OnInit {
   }
 
   saveItem(room:string) {
-    console.log(this.selectedItem)
     if(this.selectedItem.name != '') {
       this.newSeance(this.selectedItem.name,this.selectedItem.type,room)
     }
@@ -126,7 +125,6 @@ export class GroupPlanningComponent implements OnInit {
           return console.error("No Posts")
         } else {
           this.seanceListAvailable = JSON.parse(JSON.stringify(data));
-          console.log(this.seanceListAvailable)
         }
       })).subscribe((result) => {})
   }
@@ -180,15 +178,16 @@ export class GroupPlanningComponent implements OnInit {
 
   getGroups(groupName:string) {
     const querParam = new HttpParams().set('groupName', groupName);
-    this.http.get(this.getGroupsURL,{params:querParam,responseType:'text'}).pipe(map((data) =>{
+    this.http.get(this.getGroupsURL,{params:querParam,responseType:'text'}).pipe(map(async (data) =>{
 
       let tempArray = JSON.parse(data)
-      tempArray.forEach((element:any) => {
+     await tempArray.forEach((element:any) => {
         if(element.type === 'Group') {
           this.groupList!.push(element)
         }
 
       });
+      this.getPlanning()
     })).subscribe((res) =>{
     })
   }
@@ -338,10 +337,130 @@ export class GroupPlanningComponent implements OnInit {
   validatePlanning() {
     this.http.post(this.savePlanningUrl,{planning:this.semaineJours,planningOwner:this.groupLink,week:this.week}).pipe(map((data) => {
       this.touched = !this.touched
+      this.getPlanning()
     })).subscribe((res) => {
 
     })
 
+  }
+
+
+  checkCreneau(seance:any) {
+    let res
+    switch(seance) {
+      case '8h':
+       res =  0
+       break
+        case '9h':
+          res =  1
+          break
+          case '10h':
+            res = 2
+            break
+            case '11h':
+              res = 3
+              break
+              case '12h':
+                res = 4
+                break
+                case '13h':
+                  res = 5
+                  break
+                  case '14h':
+                    res = 6
+                    break
+                    case '15h':
+                      res = 7
+                      break
+                      case '16h':
+                        res = 8
+                        break
+                        case '17h':
+                          res = 9
+                          break
+                          case '18h':
+                            res = 10
+                            break
+                            case '19h':
+                              res = 11
+                              break
+                              case '20h':
+                                res = 12
+                                break
+                                case '21h':
+                                  res = 13
+                                  break
+                                  default:
+                                    return null
+
+
+    }
+
+    return res
+  }
+
+  getPlanning() {
+    const querParam = new HttpParams().set('groupName', this.groupLink!).set('week',this.week);
+this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(map((data) => {
+  let planningSeance = JSON.parse(data)
+  this.week = planningSeance.weekDate
+  for(let i = 0; i < planningSeance.seance.length;i++) {
+    switch(planningSeance.seance[i].day) {
+
+      case 'lundi':
+      this.semaineJours[0][this.checkCreneau(planningSeance.seance[i].creneau)!][0] = planningSeance.seance[i].creneau
+      this.semaineJours[0][this.checkCreneau(planningSeance.seance[i].creneau)!][1] = planningSeance.seance[i].matiere
+      this.semaineJours[0][this.checkCreneau(planningSeance.seance[i].creneau)!][2] = planningSeance.seance[i].type
+      this.semaineJours[0][this.checkCreneau(planningSeance.seance[i].creneau)!][3] = planningSeance.seance[i].day
+      this.semaineJours[0][this.checkCreneau(planningSeance.seance[i].creneau)!][4] = planningSeance.seance[i].room
+      break;
+        case 'mardi':
+        this.semaineJours[1][this.checkCreneau(planningSeance.seance[i].creneau)!][0] = planningSeance.seance[i].creneau
+        this.semaineJours[1][this.checkCreneau(planningSeance.seance[i].creneau)!][1] = planningSeance.seance[i].matiere
+        this.semaineJours[1][this.checkCreneau(planningSeance.seance[i].creneau)!][2] = planningSeance.seance[i].type
+        this.semaineJours[1][this.checkCreneau(planningSeance.seance[i].creneau)!][3] = planningSeance.seance[i].day
+        this.semaineJours[1][this.checkCreneau(planningSeance.seance[i].creneau)!][4] = planningSeance.seance[i].room
+        break;
+          case 'mercredi':
+          this.semaineJours[2][this.checkCreneau(planningSeance.seance[i].creneau)!][0] = planningSeance.seance[i].creneau
+          this.semaineJours[2][this.checkCreneau(planningSeance.seance[i].creneau)!][1] = planningSeance.seance[i].matiere
+          this.semaineJours[2][this.checkCreneau(planningSeance.seance[i].creneau)!][2] = planningSeance.seance[i].type
+          this.semaineJours[2][this.checkCreneau(planningSeance.seance[i].creneau)!][3] = planningSeance.seance[i].day
+          this.semaineJours[2][this.checkCreneau(planningSeance.seance[i].creneau)!][4] = planningSeance.seance[i].room
+          break;
+            case 'jeudi':
+            this.semaineJours[3][this.checkCreneau(planningSeance.seance[i].creneau)!][0] = planningSeance.seance[i].creneau
+            this.semaineJours[3][this.checkCreneau(planningSeance.seance[i].creneau)!][1] = planningSeance.seance[i].matiere
+            this.semaineJours[3][this.checkCreneau(planningSeance.seance[i].creneau)!][2] = planningSeance.seance[i].type
+            this.semaineJours[3][this.checkCreneau(planningSeance.seance[i].creneau)!][3] = planningSeance.seance[i].day
+            this.semaineJours[3][this.checkCreneau(planningSeance.seance[i].creneau)!][4] = planningSeance.seance[i].room
+            break;
+              case 'vendredi':
+              this.semaineJours[4][this.checkCreneau(planningSeance.seance[i].creneau)!][0] = planningSeance.seance[i].creneau
+              this.semaineJours[4][this.checkCreneau(planningSeance.seance[i].creneau)!][1] = planningSeance.seance[i].matiere
+              this.semaineJours[4][this.checkCreneau(planningSeance.seance[i].creneau)!][2] = planningSeance.seance[i].type
+              this.semaineJours[4][this.checkCreneau(planningSeance.seance[i].creneau)!][3] = planningSeance.seance[i].day
+              this.semaineJours[4][this.checkCreneau(planningSeance.seance[i].creneau)!][4] = planningSeance.seance[i].room
+              break;
+                case 'samedi':
+                this.semaineJours[5][this.checkCreneau(planningSeance.seance[i].creneau)!][0] = planningSeance.seance[i].creneau
+                this.semaineJours[5][this.checkCreneau(planningSeance.seance[i].creneau)!][1] = planningSeance.seance[i].matiere
+                this.semaineJours[5][this.checkCreneau(planningSeance.seance[i].creneau)!][2] = planningSeance.seance[i].type
+                this.semaineJours[5][this.checkCreneau(planningSeance.seance[i].creneau)!][3] = planningSeance.seance[i].day
+                this.semaineJours[5][this.checkCreneau(planningSeance.seance[i].creneau)!][4] = planningSeance.seance[i].room
+                break;
+                  case 'dimanche':
+                  this.semaineJours[6][this.checkCreneau(planningSeance.seance[i].creneau)!][0] = planningSeance.seance[i].creneau
+                  this.semaineJours[6][this.checkCreneau(planningSeance.seance[i].creneau)!][1] = planningSeance.seance[i].matiere
+                  this.semaineJours[6][this.checkCreneau(planningSeance.seance[i].creneau)!][2] = planningSeance.seance[i].type
+                  this.semaineJours[6][this.checkCreneau(planningSeance.seance[i].creneau)!][3] = planningSeance.seance[i].day
+                  this.semaineJours[6][this.checkCreneau(planningSeance.seance[i].creneau)!][4] = planningSeance.seance[i].room
+                  break;
+
+    }
+
+  }
+})).subscribe((res) => {})
   }
 
 
