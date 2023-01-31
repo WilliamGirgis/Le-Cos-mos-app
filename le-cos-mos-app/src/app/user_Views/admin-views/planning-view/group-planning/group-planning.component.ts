@@ -345,116 +345,65 @@ export class GroupPlanningComponent implements OnInit {
   }
 
 
-  checkCreneau(seance:any) {
-    let res
-    switch(seance) {
-      case '8h':
-       res =  0
-       break
-        case '9h':
-          res =  1
-          break
-          case '10h':
-            res = 2
-            break
-            case '11h':
-              res = 3
-              break
-              case '12h':
-                res = 4
-                break
-                case '13h':
-                  res = 5
-                  break
-                  case '14h':
-                    res = 6
-                    break
-                    case '15h':
-                      res = 7
-                      break
-                      case '16h':
-                        res = 8
-                        break
-                        case '17h':
-                          res = 9
-                          break
-                          case '18h':
-                            res = 10
-                            break
-                            case '19h':
-                              res = 11
-                              break
-                              case '20h':
-                                res = 12
-                                break
-                                case '21h':
-                                  res = 13
-                                  break
-                                  default:
-                                    return null
-
-
-    }
-
-    return res
-  }
-
   getPlanning() {
     const querParam = new HttpParams().set('groupName', this.groupLink!).set('week',this.week);
 this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(map((data) => {
   let planningSeance = JSON.parse(data)
   this.week = planningSeance.weekDate
+
   for(let i = 0; i < planningSeance.seance.length;i++) {
+    let x:number = +planningSeance.seance[i].creneau.split('h')[0]
+    console.log(x)
     switch(planningSeance.seance[i].day) {
 
       case 'lundi':
-      this.semaineJours[0][this.checkCreneau(planningSeance.seance[i].creneau)!][0] = planningSeance.seance[i].creneau
-      this.semaineJours[0][this.checkCreneau(planningSeance.seance[i].creneau)!][1] = planningSeance.seance[i].matiere
-      this.semaineJours[0][this.checkCreneau(planningSeance.seance[i].creneau)!][2] = planningSeance.seance[i].type
-      this.semaineJours[0][this.checkCreneau(planningSeance.seance[i].creneau)!][3] = planningSeance.seance[i].day
-      this.semaineJours[0][this.checkCreneau(planningSeance.seance[i].creneau)!][4] = planningSeance.seance[i].room
+      this.semaineJours[0][x -8][0] = planningSeance.seance[i].creneau
+      this.semaineJours[0][x -8][1] = planningSeance.seance[i].matiere
+      this.semaineJours[0][x -8][2] = planningSeance.seance[i].type
+      this.semaineJours[0][x -8][3] = planningSeance.seance[i].day
+      this.semaineJours[0][x -8][4] = planningSeance.seance[i].room
       break;
         case 'mardi':
-        this.semaineJours[1][this.checkCreneau(planningSeance.seance[i].creneau)!][0] = planningSeance.seance[i].creneau
-        this.semaineJours[1][this.checkCreneau(planningSeance.seance[i].creneau)!][1] = planningSeance.seance[i].matiere
-        this.semaineJours[1][this.checkCreneau(planningSeance.seance[i].creneau)!][2] = planningSeance.seance[i].type
-        this.semaineJours[1][this.checkCreneau(planningSeance.seance[i].creneau)!][3] = planningSeance.seance[i].day
-        this.semaineJours[1][this.checkCreneau(planningSeance.seance[i].creneau)!][4] = planningSeance.seance[i].room
+        this.semaineJours[1][x -8][0] = planningSeance.seance[i].creneau
+        this.semaineJours[1][x -8][1] = planningSeance.seance[i].matiere
+        this.semaineJours[1][x -8][2] = planningSeance.seance[i].type
+        this.semaineJours[1][x -8][3] = planningSeance.seance[i].day
+        this.semaineJours[1][x -8][4] = planningSeance.seance[i].room
         break;
           case 'mercredi':
-          this.semaineJours[2][this.checkCreneau(planningSeance.seance[i].creneau)!][0] = planningSeance.seance[i].creneau
-          this.semaineJours[2][this.checkCreneau(planningSeance.seance[i].creneau)!][1] = planningSeance.seance[i].matiere
-          this.semaineJours[2][this.checkCreneau(planningSeance.seance[i].creneau)!][2] = planningSeance.seance[i].type
-          this.semaineJours[2][this.checkCreneau(planningSeance.seance[i].creneau)!][3] = planningSeance.seance[i].day
-          this.semaineJours[2][this.checkCreneau(planningSeance.seance[i].creneau)!][4] = planningSeance.seance[i].room
+          this.semaineJours[2][x -8][0] = planningSeance.seance[i].creneau
+          this.semaineJours[2][x -8][1] = planningSeance.seance[i].matiere
+          this.semaineJours[2][x -8][2] = planningSeance.seance[i].type
+          this.semaineJours[2][x -8][3] = planningSeance.seance[i].day
+          this.semaineJours[2][x -8][4] = planningSeance.seance[i].room
           break;
             case 'jeudi':
-            this.semaineJours[3][this.checkCreneau(planningSeance.seance[i].creneau)!][0] = planningSeance.seance[i].creneau
-            this.semaineJours[3][this.checkCreneau(planningSeance.seance[i].creneau)!][1] = planningSeance.seance[i].matiere
-            this.semaineJours[3][this.checkCreneau(planningSeance.seance[i].creneau)!][2] = planningSeance.seance[i].type
-            this.semaineJours[3][this.checkCreneau(planningSeance.seance[i].creneau)!][3] = planningSeance.seance[i].day
-            this.semaineJours[3][this.checkCreneau(planningSeance.seance[i].creneau)!][4] = planningSeance.seance[i].room
+            this.semaineJours[3][x -8][0] = planningSeance.seance[i].creneau
+            this.semaineJours[3][x -8][1] = planningSeance.seance[i].matiere
+            this.semaineJours[3][x -8][2] = planningSeance.seance[i].type
+            this.semaineJours[3][x -8][3] = planningSeance.seance[i].day
+            this.semaineJours[3][x -8][4] = planningSeance.seance[i].room
             break;
               case 'vendredi':
-              this.semaineJours[4][this.checkCreneau(planningSeance.seance[i].creneau)!][0] = planningSeance.seance[i].creneau
-              this.semaineJours[4][this.checkCreneau(planningSeance.seance[i].creneau)!][1] = planningSeance.seance[i].matiere
-              this.semaineJours[4][this.checkCreneau(planningSeance.seance[i].creneau)!][2] = planningSeance.seance[i].type
-              this.semaineJours[4][this.checkCreneau(planningSeance.seance[i].creneau)!][3] = planningSeance.seance[i].day
-              this.semaineJours[4][this.checkCreneau(planningSeance.seance[i].creneau)!][4] = planningSeance.seance[i].room
+              this.semaineJours[4][x -8][0] = planningSeance.seance[i].creneau
+              this.semaineJours[4][x -8][1] = planningSeance.seance[i].matiere
+              this.semaineJours[4][x -8][2] = planningSeance.seance[i].type
+              this.semaineJours[4][x -8][3] = planningSeance.seance[i].day
+              this.semaineJours[4][x -8][4] = planningSeance.seance[i].room
               break;
                 case 'samedi':
-                this.semaineJours[5][this.checkCreneau(planningSeance.seance[i].creneau)!][0] = planningSeance.seance[i].creneau
-                this.semaineJours[5][this.checkCreneau(planningSeance.seance[i].creneau)!][1] = planningSeance.seance[i].matiere
-                this.semaineJours[5][this.checkCreneau(planningSeance.seance[i].creneau)!][2] = planningSeance.seance[i].type
-                this.semaineJours[5][this.checkCreneau(planningSeance.seance[i].creneau)!][3] = planningSeance.seance[i].day
-                this.semaineJours[5][this.checkCreneau(planningSeance.seance[i].creneau)!][4] = planningSeance.seance[i].room
+                this.semaineJours[5][x -8][0] = planningSeance.seance[i].creneau
+                this.semaineJours[5][x -8][1] = planningSeance.seance[i].matiere
+                this.semaineJours[5][x -8][2] = planningSeance.seance[i].type
+                this.semaineJours[5][x -8][3] = planningSeance.seance[i].day
+                this.semaineJours[5][x -8][4] = planningSeance.seance[i].room
                 break;
                   case 'dimanche':
-                  this.semaineJours[6][this.checkCreneau(planningSeance.seance[i].creneau)!][0] = planningSeance.seance[i].creneau
-                  this.semaineJours[6][this.checkCreneau(planningSeance.seance[i].creneau)!][1] = planningSeance.seance[i].matiere
-                  this.semaineJours[6][this.checkCreneau(planningSeance.seance[i].creneau)!][2] = planningSeance.seance[i].type
-                  this.semaineJours[6][this.checkCreneau(planningSeance.seance[i].creneau)!][3] = planningSeance.seance[i].day
-                  this.semaineJours[6][this.checkCreneau(planningSeance.seance[i].creneau)!][4] = planningSeance.seance[i].room
+                  this.semaineJours[6][x -8][0] = planningSeance.seance[i].creneau
+                  this.semaineJours[6][x -8][1] = planningSeance.seance[i].matiere
+                  this.semaineJours[6][x -8][2] = planningSeance.seance[i].type
+                  this.semaineJours[6][x -8][3] = planningSeance.seance[i].day
+                  this.semaineJours[6][x -8][4] = planningSeance.seance[i].room
                   break;
 
     }
