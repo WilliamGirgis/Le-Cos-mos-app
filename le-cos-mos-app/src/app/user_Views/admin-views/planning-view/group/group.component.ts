@@ -47,8 +47,8 @@ export class GroupComponent implements OnInit {
         }
       });
 
-      this.userList = this.groups[this.globalIndex].user_list!
-      this.selectedLeftItem = this.groups[this.globalIndex].groupName
+      this.userList = this.groups[0].user_list!
+      this.selectedLeftItem = this.groups[0].groupName
     })).subscribe((res) =>{})
   }
 
@@ -101,6 +101,7 @@ export class GroupComponent implements OnInit {
         }
     return this.http.post(this.delGroupUrlRoute,{groupName:this.groups[index].groupName,responseType:'text'}).pipe(map(async (data) =>{
       this.getGroups(' ')
+
    })).subscribe((res) => {})
   }
 

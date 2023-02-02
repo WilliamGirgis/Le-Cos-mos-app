@@ -57,6 +57,9 @@ import { GroupComponent } from './user_Views/admin-views/planning-view/group/gro
 import { GroupPlanningComponent } from './user_Views/admin-views/planning-view/group-planning/group-planning.component';
 import { AddUserToGroupComponent } from './user_Views/admin-views/planning-view/group/add-user-to-group/add-user-to-group.component';
 import {DragDropModule} from '@angular/cdk/drag-drop'
+import { MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
 // Récupérer depuis localstorage
 /*function userType() {
   return 'admin' | 'etudiant' | 'prof';
@@ -208,7 +211,9 @@ const routes: Routes = [
         FileUploadModule,
         PdfViewerModule,
         MatMenuModule,
-        DragDropModule
+        DragDropModule,
+        MatDatepickerModule,
+        MatNativeDateModule
 
     ]
 })

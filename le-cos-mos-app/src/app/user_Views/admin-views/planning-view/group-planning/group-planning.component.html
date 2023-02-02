@@ -72,12 +72,26 @@
 </div>
 
 
-  <div  id="rightWrp">
-    <div id="validateBtnWrp">
+  <div fxLayout="column"  id="rightWrp">
+    <div fxFlex="80"  id="validateBtnWrp">
     <button (click)="validatePlanning()" mat-button>Valider le planning</button>
-    <img *ngIf="!touched" src="../../../../../assets/images/check-lg.svg">
+    <img  [style]="{'width': touched ? '0' : '5vw'}"  src="../../../../../assets/images/check-lg.svg">
+
+    <mat-form-field class="datePicker" [floatLabel]="'always'">
+
+        <mat-label>Enter a date range</mat-label>
+        <mat-date-range-input [dateFilter]="rangeFilter" [rangePicker]="picker">
+          <input disabled #date (dateChange)="getSelectedDate(date.value)" matStartDate placeholder="Start date">
+          <input disabled matEndDate placeholder="End date">
+        </mat-date-range-input>
+        <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker [disabled]="false" #picker></mat-date-range-picker>
+
+
+    </mat-form-field>
   </div>
-<div id="borderTableWrp" fxLayoutAlign="end center" >
+<div  id="borderTableWrp" fxLayoutAlign="end center" fxFill>
 
   <table
   fxFlex="100" mat-table
@@ -190,9 +204,9 @@
   </div>
 
   <span>
-  <img width="50vw" src="../../../../assets/images/arrow-left.svg" id="left">
+  <img width="40vw" src="../../../../assets/images/arrow-left.svg" id="left">
   <h2>Semaine du {{week}}</h2>
-    <img width="50vw" src="../../../../assets/images/arrow-right.svg" id="right">
+    <img width="40vw" src="../../../../assets/images/arrow-right.svg" id="right">
   </span>
 </div>
 

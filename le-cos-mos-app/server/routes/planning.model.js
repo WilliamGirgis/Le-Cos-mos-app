@@ -75,11 +75,11 @@ type:{
       },
       role: {
         type:String,
-        required:true
+        required:false
       },
       planningNameGroupBelonging: {
         type:String,
-        required:true,
+        required:false,
         unique:false
       },
 

@@ -1,14 +1,62 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Component, Input, OnInit, ViewChild,  } from '@angular/core';
+import { Component, Injectable, Input, OnInit, ViewChild,  } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
 import {CdkDragDrop} from '@angular/cdk/drag-drop';
+import { DateAdapter } from '@angular/material/core';
+import { DateFilterFn, DateRange, MatDateRangeSelectionStrategy,MAT_DATE_RANGE_SELECTION_STRATEGY } from '@angular/material/datepicker';
+//https://material.angular.io/components/datepicker/examples
+
+export class DateRangePickerOverviewExample {
+  rangeFilter(date: Date): boolean {
+    return date.getDate() > 20;
+  }
+}
+
+@Injectable()
+export class FiveDayRangeSelectionStrategy<D> implements MatDateRangeSelectionStrategy<D> {
+  constructor(private _dateAdapter: DateAdapter<D>) {
+
+  }
+
+
+  selectionFinished(date: D | null): DateRange<D> {
+    return this._createFiveDayRange(date);
+  }
+
+  createPreview(activeDate: D | null): DateRange<D> {
+    return this._createFiveDayRange(activeDate);
+  }
+
+
+  private _createFiveDayRange(date: D | null): DateRange<D> {
+    if (date) {
+      const start = this._dateAdapter.addCalendarDays(date, 0);
+      const end = this._dateAdapter.addCalendarDays(date, 6);
+
+      console.log(    this._dateAdapter.getDayOfWeek(date))
+      return new DateRange<D>(start, end);
+    }
+
+    return new DateRange<D>(null, null);
+  }
+}
+
+
+
+
 @Component({
   selector: 'app-group-planning',
   templateUrl: './group-planning.component.html',
-  styleUrls: ['./group-planning.component.scss']
+  styleUrls: ['./group-planning.component.scss'],
+  providers:[
+    {
+      provide:MAT_DATE_RANGE_SELECTION_STRATEGY,
+      useClass:FiveDayRangeSelectionStrategy
+    }
+  ]
 })
 export class GroupPlanningComponent implements OnInit {
 
@@ -20,19 +68,43 @@ export class GroupPlanningComponent implements OnInit {
   readonly savePlanningUrl = "http://localhost:4200/planning/set"
   readonly getPlanningURL = "http://localhost:4200/planning/group/planning"
 
+//https://material.angular.io/components/datepicker/examples
+  //https://stackoverflow.com/questions/69322172/angular-material-date-range-date-filter-get-date-date-boolean-is-not-ass?rq=1
+  rangeFilter: DateFilterFn<Date> = (date: Date | null) => { // Filtre pour le datePicker
+    // Implementation
+    return date?.getDay()! == 1 ;
+  };
+
+
   heureIndex:number = 0
   dayIndex:number= 0
   touched:boolean = false
+  DateNow = Date.now();
+  date = new Date(this.DateNow)
+  day = this.date.getUTCDate() < 10 ? '0' + this.date.getUTCDate()  : this.date.getUTCDate()
+  month = +this.date.getUTCMonth() + 1
+  modifiedMois = this.month < 10 ? '0' + this.month : this.month
+  week:string = this.day + '/'+ this.modifiedMois + '/' + this.date.getFullYear()
 
-  week:string = '19/01/2023'
+
   groupLink = this.route.snapshot.paramMap.get('id')
 
   selectedSeanceGroup = 'Science de la vie'
   constructor(private http:HttpClient,private route: ActivatedRoute) {
+    this.semaineJoursEmpty = this.semaineJours
     this.getGroups(this.groupLink!)
     this.getSeanceItems()
   }
 
+  getSelectedDate(date:string) {
+let seperatedDate = date.split('/')
+seperatedDate[1] = +seperatedDate[1] < 10 ? '0' + seperatedDate[1] : seperatedDate[1]
+seperatedDate[0] = +seperatedDate[0] < 10 ? '0' + seperatedDate[0] : seperatedDate[0]
+
+this.week = seperatedDate[1] + '/' + seperatedDate[0] + '/' + seperatedDate[2]
+console.log(this.week)
+this.getPlanning()
+}
 
 
   @Input('cdkDragStarted') started?:CdkDragDrop<Event>
@@ -115,7 +187,7 @@ export class GroupPlanningComponent implements OnInit {
 
   async getSeanceItems() {
     const querParam = new HttpParams().set('link', this.groupLink!).set('groupName',this.selectedSeanceGroup!);
-    this.http
+    return  this.http
       .get(this.getSeanceUrl, {params:querParam,
         responseType: 'json',
       })
@@ -134,11 +206,11 @@ export class GroupPlanningComponent implements OnInit {
      if(!window.confirm("Are you sure you wanna delete the item number " + ind + " ?")) {
        return
          }
-     this.http
+    return this.http
        .post(this.delSeanceUrl, { index: index,groupName:this.selectedSeanceGroup })
        .pipe(
-         map((data) => {
-          this.getSeanceItems()
+         map(async(data) => {
+          await this.getSeanceItems()
          })
        )
        .subscribe((response) => {});
@@ -152,8 +224,8 @@ export class GroupPlanningComponent implements OnInit {
         responseType: 'json',
       })
       .pipe(
-        map((data) => {
-          this.getSeanceItems();
+        map(async (data) => {
+         await this.getSeanceItems();
         })
       )
       .subscribe((response) => {});
@@ -181,11 +253,12 @@ export class GroupPlanningComponent implements OnInit {
     this.http.get(this.getGroupsURL,{params:querParam,responseType:'text'}).pipe(map(async (data) =>{
 
       let tempArray = JSON.parse(data)
-     await tempArray.forEach((element:any) => {
+      let index = 0
+     await tempArray.forEach(async (element:any) => {
+      index++
         if(element.type === 'Group') {
           this.groupList!.push(element)
         }
-
       });
       this.getPlanning()
     })).subscribe((res) =>{
@@ -333,6 +406,7 @@ export class GroupPlanningComponent implements OnInit {
     this.samedi,
     this.dimanche
   ]
+  readonly semaineJoursEmpty?:string[][][]
 
   validatePlanning() {
     this.http.post(this.savePlanningUrl,{planning:this.semaineJours,planningOwner:this.groupLink,week:this.week}).pipe(map((data) => {
@@ -345,11 +419,32 @@ export class GroupPlanningComponent implements OnInit {
   }
 
 
+  makeCalendarEmpty() {
+    for(let i = 0; i < 7;i++) {
+      for(let j = 0;j < 14;j++) {
+          this.semaineJours[i][j][1] = ''
+          this.semaineJours[i][j][2] = ''
+          this.semaineJours[i][j][4] = ''
+      }
+    }
+  }
+
   getPlanning() {
     const querParam = new HttpParams().set('groupName', this.groupLink!).set('week',this.week);
 this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(map((data) => {
+
+
   let planningSeance = JSON.parse(data)
   this.week = planningSeance.weekDate
+  this.makeCalendarEmpty()
+  if(planningSeance.seance.length == 0) {
+
+    console.log("EMPTY !!")
+    this.makeCalendarEmpty()
+
+    return
+  }
+
 
   for(let i = 0; i < planningSeance.seance.length;i++) {
     let x:number = +planningSeance.seance[i].creneau.split('h')[0]
@@ -359,51 +454,51 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
       case 'lundi':
       this.semaineJours[0][x -8][0] = planningSeance.seance[i].creneau
       this.semaineJours[0][x -8][1] = planningSeance.seance[i].matiere
-      this.semaineJours[0][x -8][2] = planningSeance.seance[i].type
+      this.semaineJours[0][x -8][2] =  planningSeance.seance[i].type
       this.semaineJours[0][x -8][3] = planningSeance.seance[i].day
-      this.semaineJours[0][x -8][4] = planningSeance.seance[i].room
+      this.semaineJours[0][x -8][4] =   planningSeance.seance[i].room
       break;
         case 'mardi':
-        this.semaineJours[1][x -8][0] = planningSeance.seance[i].creneau
+        this.semaineJours[1][x -8][0] =  planningSeance.seance[i].creneau
         this.semaineJours[1][x -8][1] = planningSeance.seance[i].matiere
-        this.semaineJours[1][x -8][2] = planningSeance.seance[i].type
-        this.semaineJours[1][x -8][3] = planningSeance.seance[i].day
-        this.semaineJours[1][x -8][4] = planningSeance.seance[i].room
+        this.semaineJours[1][x -8][2] =   planningSeance.seance[i].type
+        this.semaineJours[1][x -8][3] =   planningSeance.seance[i].day
+        this.semaineJours[1][x -8][4] =  planningSeance.seance[i].room
         break;
           case 'mercredi':
-          this.semaineJours[2][x -8][0] = planningSeance.seance[i].creneau
-          this.semaineJours[2][x -8][1] = planningSeance.seance[i].matiere
-          this.semaineJours[2][x -8][2] = planningSeance.seance[i].type
-          this.semaineJours[2][x -8][3] = planningSeance.seance[i].day
-          this.semaineJours[2][x -8][4] = planningSeance.seance[i].room
+          this.semaineJours[2][x -8][0] =  planningSeance.seance[i].creneau
+          this.semaineJours[2][x -8][1] =  planningSeance.seance[i].matiere
+          this.semaineJours[2][x -8][2] =  planningSeance.seance[i].type
+          this.semaineJours[2][x -8][3] =  planningSeance.seance[i].day
+          this.semaineJours[2][x -8][4] =  planningSeance.seance[i].room
           break;
             case 'jeudi':
-            this.semaineJours[3][x -8][0] = planningSeance.seance[i].creneau
-            this.semaineJours[3][x -8][1] = planningSeance.seance[i].matiere
-            this.semaineJours[3][x -8][2] = planningSeance.seance[i].type
-            this.semaineJours[3][x -8][3] = planningSeance.seance[i].day
-            this.semaineJours[3][x -8][4] = planningSeance.seance[i].room
+            this.semaineJours[3][x -8][0] =   planningSeance.seance[i].creneau
+            this.semaineJours[3][x -8][1] =  planningSeance.seance[i].matiere
+            this.semaineJours[3][x -8][2] =  planningSeance.seance[i].type
+            this.semaineJours[3][x -8][3] =  planningSeance.seance[i].day
+            this.semaineJours[3][x -8][4] =  planningSeance.seance[i].room
             break;
               case 'vendredi':
-              this.semaineJours[4][x -8][0] = planningSeance.seance[i].creneau
-              this.semaineJours[4][x -8][1] = planningSeance.seance[i].matiere
-              this.semaineJours[4][x -8][2] = planningSeance.seance[i].type
-              this.semaineJours[4][x -8][3] = planningSeance.seance[i].day
-              this.semaineJours[4][x -8][4] = planningSeance.seance[i].room
+              this.semaineJours[4][x -8][0] =   planningSeance.seance[i].creneau
+              this.semaineJours[4][x -8][1] =   planningSeance.seance[i].matiere
+              this.semaineJours[4][x -8][2] =  planningSeance.seance[i].type
+              this.semaineJours[4][x -8][3] =   planningSeance.seance[i].day
+              this.semaineJours[4][x -8][4] =  planningSeance.seance[i].room
               break;
                 case 'samedi':
-                this.semaineJours[5][x -8][0] = planningSeance.seance[i].creneau
-                this.semaineJours[5][x -8][1] = planningSeance.seance[i].matiere
-                this.semaineJours[5][x -8][2] = planningSeance.seance[i].type
-                this.semaineJours[5][x -8][3] = planningSeance.seance[i].day
-                this.semaineJours[5][x -8][4] = planningSeance.seance[i].room
+                this.semaineJours[5][x -8][0] =   planningSeance.seance[i].creneau
+                this.semaineJours[5][x -8][1] =  planningSeance.seance[i].matiere
+                this.semaineJours[5][x -8][2] =  planningSeance.seance[i].type
+                this.semaineJours[5][x -8][3] =  planningSeance.seance[i].day
+                this.semaineJours[5][x -8][4] =   planningSeance.seance[i].room
                 break;
                   case 'dimanche':
                   this.semaineJours[6][x -8][0] = planningSeance.seance[i].creneau
-                  this.semaineJours[6][x -8][1] = planningSeance.seance[i].matiere
-                  this.semaineJours[6][x -8][2] = planningSeance.seance[i].type
-                  this.semaineJours[6][x -8][3] = planningSeance.seance[i].day
-                  this.semaineJours[6][x -8][4] = planningSeance.seance[i].room
+                  this.semaineJours[6][x -8][1] =   planningSeance.seance[i].matiere
+                  this.semaineJours[6][x -8][2] =   planningSeance.seance[i].type
+                  this.semaineJours[6][x -8][3] =  planningSeance.seance[i].day
+                  this.semaineJours[6][x -8][4] =  planningSeance.seance[i].room
                   break;
 
     }
@@ -448,7 +543,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
 
   }
   ngOnInit(): void {
-
+console.log(this.date)
   }
 
 }

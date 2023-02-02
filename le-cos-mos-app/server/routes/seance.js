@@ -21,17 +21,14 @@ let funded = false
       index++
       if(file.search(`${groupName}.json`) == 0) {
         funded = true
-        console.log("File Found ! ")
         result = await readJsonFile.readFileSync(folder + '/' + groupName + '.json');
           if (result.length === 0) {
         return res.status(204).send();
              }
         return res.status(200).send(result)
      } else if(index == files.length && !funded) { // If we reached the end of the list, and that no file has been found, we create one with the corresponding group_name
-      console.log("File Written !")
-    result =  fs.writeFileSync(folder + '/' + groupName + '.json', '[]', async function (data) {
-      return  res.status(200).send(result);
-     });
+   return  res.status(200).send(fs.writeFileSync(folder + '/' + groupName + '.json', '[]', async function (data) {
+   }))
      }
     })
   });
@@ -55,7 +52,6 @@ const setSeance = router.post("/add", async function (req, res, next) {
 const delSeance = router.post("/del", async function (req, res, next) {
   let index = req.body.index;
   let groupName = req.body.groupName.replace(/ /g,'_')
-  console.log(groupName)
   var folder = publicationFolder
 let file = readJsonFile.readFileSync(folder + '/' + groupName + '.json');
  await Promise.resolve(delete file[index]).then(() =>{
@@ -80,7 +76,6 @@ const modifySeance = router.post(
   "/modify",
   function (req, res, next) {
     let index = req.query.index;
-    console.log(index)
     let newTitle = req.body.title;
     let newDate = req.body.date;
     let newContent = req.body.content;
