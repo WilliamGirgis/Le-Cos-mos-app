@@ -79,15 +79,17 @@
 
     <mat-form-field class="datePicker" [floatLabel]="'always'">
 
-        <mat-label>Enter a date range</mat-label>
+        <mat-label>Choisissez une semaine</mat-label>
+        <div style="display:flex">
         <mat-date-range-input [dateFilter]="rangeFilter" [rangePicker]="picker">
-          <input disabled #date (dateChange)="getSelectedDate(date.value)" matStartDate placeholder="Start date">
-          <input disabled matEndDate placeholder="End date">
+          <input disabled #date (dateChange)="getSelectedDate(date.value)" matStartDate placeholder="Date de début">
+          <input disabled matEndDate placeholder="Date de fin">
         </mat-date-range-input>
-        <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-date-range-picker [disabled]="false" #picker></mat-date-range-picker>
-
+        </div>
+        <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
 
     </mat-form-field>
   </div>

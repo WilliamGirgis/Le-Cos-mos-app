@@ -269,16 +269,21 @@ label {
 // To change the height of the mat-form-field, increase the font size of children elements, and reduce font size of the container 'datePicker'
 .datePicker {
   min-width: max-content;
-  margin-top: -12vh;
-  display: inline-flex;
-  margin-left: 12vh;
-  font-size: 12px;
+  margin-top: -10vh;
+  margin-left: 12vw;
+  font-size: 7px;
+  color: var(--dblue-them-color);
+  mat-date-range-input {
+    color: var(--dblue-them-color);
+    font-size: 12px;
+    margin: auto auto auto 0.5vw;
+    justify-self: center;
+  }
   mat-label {
     color: var(--dblue-them-color);
 
-    align-self: center;
     margin-left: 7px;
-
+    font-size: 175%;
   }
 
   input {
@@ -288,15 +293,13 @@ label {
   }
 
   mat-datepicker-toggle {
-    width: 25px;
-    max-height: 2vh;
     font-size: 80%;
     color: var(--dblue-them-color);
+    margin: auto auto auto auto;
   }
 
   mat-hint {
-    color: var(--dblue-them-color);
-
+    font-size: 10px;
   }
 }
 
