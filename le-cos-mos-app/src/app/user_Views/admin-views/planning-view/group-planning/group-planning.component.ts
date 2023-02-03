@@ -75,16 +75,90 @@ export class GroupPlanningComponent implements OnInit {
     return date?.getDay()! == 1 ;
   };
 
+  getFirstMondayOfTheWeek():string {
+    let now:number = Date.now() * 0.9999485;
+    let date = new Date(now)
+    let stringDateParsed = date.toDateString().split(' ')
+    let daysAfterMonOfTheWeek:number = 0
+    switch(stringDateParsed[0]) {
+      case 'Mon':
+      break
+      case 'Tue':
+        daysAfterMonOfTheWeek = 1
+        break
+        case 'Wed':
+          daysAfterMonOfTheWeek = 2
+          break
+          case 'Thu':
+            daysAfterMonOfTheWeek = 3
+            break
+            case 'Fri':
+              daysAfterMonOfTheWeek = 4
+              break
+              case 'Sat':
+                daysAfterMonOfTheWeek = 5
+                break
+                case 'Sun':
+                  daysAfterMonOfTheWeek = 6
+                  break
+    }
+    for(let i = 0; i < daysAfterMonOfTheWeek;i++) {
+       now *= 0.9999485
+    }
+   date = new Date(now)
+   let parsedDate = date.toDateString().split(' ')
+   let year = parsedDate[3]
+   let day = parsedDate[2]
+   let month = parsedDate[1]
+   switch(month) {
+    case 'Jan':
+      month = "01"
+      break;
+      case 'Feb':
+        month = "02"
+        break;
+        case 'Mar':
+          month = "03"
+          break;
+          case 'Apr':
+            month = "04"
+            break;
+            case 'May':
+              month = "05"
+              break;
+              case 'Jun':
+                month = "06"
+                break;
+                case 'Jul':
+                  month = "07"
+                  break;
+                  case 'Aug':
+                    month = "08"
+                    break;
+                    case 'Sep':
+                      month = "09"
+                      break;
+                      case 'Oct':
+                        month = "10"
+                        break;
+                        case 'Nov':
+                          month = "11"
+                          break;
+                          case 'Dec':
+                            month = "12"
+                            break;
+   }
+   console.log(date.toDateString())
+
+    return day + '/' + month + '/' + year
+
+  }
+
 
   heureIndex:number = 0
   dayIndex:number= 0
   touched:boolean = false
-  DateNow = Date.now();
-  date = new Date(this.DateNow)
-  day = this.date.getUTCDate() < 10 ? '0' + this.date.getUTCDate()  : this.date.getUTCDate()
-  month = +this.date.getUTCMonth() + 1
-  modifiedMois = this.month < 10 ? '0' + this.month : this.month
-  week:string = this.day + '/'+ this.modifiedMois + '/' + this.date.getFullYear()
+  week:string = this.getFirstMondayOfTheWeek()
 
 
   groupLink = this.route.snapshot.paramMap.get('id')
@@ -102,7 +176,6 @@ seperatedDate[1] = +seperatedDate[1] < 10 ? '0' + seperatedDate[1] : seperatedDa
 seperatedDate[0] = +seperatedDate[0] < 10 ? '0' + seperatedDate[0] : seperatedDate[0]
 
 this.week = seperatedDate[1] + '/' + seperatedDate[0] + '/' + seperatedDate[2]
-console.log(this.week)
 this.getPlanning()
 }
 
@@ -180,6 +253,7 @@ this.getPlanning()
     }
   }
   deleteItemFromCalendar(day:number,creneau:number) {
+    this.touched = true
     this.semaineJours[day][creneau][1] = '' // Le nom : Math, Daniel, etc..
     this.semaineJours[day][creneau][2] = '' // Le type : Cour, Examen , Rdv
     this.semaineJours[day][creneau][4] = '' // La salle
@@ -543,7 +617,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
 
   }
   ngOnInit(): void {
-console.log(this.date)
+    this.getFirstMondayOfTheWeek()
   }
 
 }

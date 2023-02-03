@@ -226,9 +226,9 @@ let saveSession = (user,refreshToken) => {
 }
 
 let generateRefreshTokenExpiryTime = () => {
-    let daysUntilExpired = "10";
-    let secondsUntilExpire = daysUntilExpired * 24 * 60 * 60; // 10 hours before the user session changes
-    return ((Date.now()/1000) + secondsUntilExpire);
+    let day = "10";
+    let dayUntilExpires = day * 24 * 60 * 60; // 10 hours before the user session changes
+    return ((Date.now()/1000) + dayUntilExpires);
 }
 
 
