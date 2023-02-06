@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import {trigger, transition, style, animateChild, group, animate,query } from '@angular/animations';
 import { RouterOutlet } from '@angular/router';
+import { HttpService } from './services/http.services';
 
 
 
@@ -71,6 +72,12 @@ export const slide =
 })
 export class AppComponent {
   title = 'le-cos-mos-app';
+  constructor(private httpService:HttpService) {
+    if(localStorage.getItem('user-id')!!) {
+      this.httpService.getUserType()
+
+    }
+  }
 
 
   prepareRoute(outlet: RouterOutlet) {

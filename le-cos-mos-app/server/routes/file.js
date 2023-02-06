@@ -27,12 +27,10 @@ let authenticate = (req,res,next) => {
 const getImages = router.get("/images",authenticate, function (req, res, next) {
     // API used in adminview.component.ts
     const filename = req.query.imageName;
-    console.log(filename)
     return res.sendFile("src/assets/images/uploaded/" + filename,
     { root: "C:/Users/William/Desktop/Le Cosm'os app/Le-Cos-mos-app/Le-Cos-mos-app/le-cos-mos-app" },
     function (err) {
       if (err) {
-        console.log(err)
         next(err);
       }
     }
@@ -71,7 +69,6 @@ const getImages = router.get("/images",authenticate, function (req, res, next) {
         let filename = req.body.imageName;
         fs.unlink(folder + '/' + filename, (err) => {
           if (err) {
-            console.log(err);
             return res.send(err);
           }
           return res.send().status(200);

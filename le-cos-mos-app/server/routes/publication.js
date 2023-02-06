@@ -21,7 +21,6 @@ let setPublication = router.post("/publish", function (req, res, next) {
 });
 
 let getPublication = router.get("/publishGet", function (req, res, next) {
-  console.log("HEY")
   result = readJsonFile.readFileSync(publicationFolder);
   if (result.length === 0) {
     return res.status(204).send()
@@ -54,7 +53,6 @@ let modifyPublication = router.post(
   "/publish/modify",
   function (req, res, next) {
     let index = req.query.index;
-    console.log(index)
     let newTitle = req.body.title;
     let newDate = req.body.date;
     let newContent = req.body.content;

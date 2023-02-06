@@ -34,10 +34,8 @@ const verify = (req, res, next) => {
       });
 
       if (isSessionValid) {
-        console.log("session still valid")
         next();
       } else {
-        console.log("session not valid anymore")
         return Promise.reject({
           error: "The session token has expired or is invalid",
         });
@@ -86,21 +84,8 @@ router.post("/users", async (req, res) => {
         return { accessToken, refreshToken };
       });
     })
-    /*.then((authToken) => {
-      /* Created diretory with the '_id'
-      fs.mkdir(path.join(folder, newUser._id.toString()), (err) => {
-        if (err) {
-          return console.error(err);
-        }
-      });
-      res
-        .header("x-refresh-token", authToken.refreshToken)
-        .header("x-access-token", authToken.accessToken)
-        .send(newUser);
-    })*/
     .catch((e) => {
-      console.log(e)
-      res.status(400).send(e);
+      return res.status(400).send(e);
     });
 });
 
@@ -155,7 +140,6 @@ router.get("/users/id",authenticate, (req, res) => {
 
 
       });
-      console.log(users)
       return res.status(200).send(users);
     }).catch((e) => {
 
@@ -194,14 +178,6 @@ router.get("/users/del",authenticate, (req, res) => {
   let email = req.query.email;
   User.findOneAndDelete({ email: email })
     .then((user) => {
-      /*fs.rmdir(folder + "/" + user._id, { recursive: true }, (err, suc) => {
-        console.log(user._id);
-        if (err) {
-          console.log("ERROR");
-        } else {
-          console.log("Folder deleted successfuly");
-        }
-      });*/
       res.send(user);
     })
     .catch((e) => {

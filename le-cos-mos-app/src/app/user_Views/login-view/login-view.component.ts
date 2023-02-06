@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs';
 import { errorMessages, formErrors } from 'src/app/interface&classe/interfaces';
 import { AuthService } from 'src/app/services/AuthService.service';
-import { LogSaveService } from 'src/app/services/log.save.service';
-import { Log } from 'src/app/shared/log';
+import { HttpService } from 'src/app/services/http.services';
+
 
 @Component({
   selector: 'app-login-view',
@@ -14,7 +14,7 @@ import { Log } from 'src/app/shared/log';
 })
 export class LoginViewComponent implements OnInit {
 
-  constructor(private authService:AuthService,private formBuilder:FormBuilder, private router: Router,private logService:LogSaveService) {
+  constructor(private authService:AuthService,private formBuilder:FormBuilder, private router: Router,private httpService:HttpService) {
     this.loginForm.valueChanges.subscribe((data) => {
       this.isValid = this.loginForm.valid
   const form = this.loginForm
@@ -80,7 +80,8 @@ export class LoginViewComponent implements OnInit {
     this.authService
       .login(email, password)
       .pipe(
-        map((data) => {
+        map(async (data) => {
+          await this.httpService.getUserType()
           this.router.navigate(['app']);
           })
       )
@@ -103,7 +104,7 @@ export class LoginViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.router.navigate(['app/handler']); // Navigue vers la vue 'accueil' par default
   }
 
 }

@@ -83,10 +83,8 @@ export class HomeViewComponent implements OnInit {
 // Init thes images
         for(let i = 0; i < this.publicationList.length;i++) {
           this.imgFile[i] = []
-          console.log(this.publicationList[i])
            this.getImages(i,this.publicationList[i].imgName)
            if( i == this.publicationList.length -1) {
-            console.log("finished ! " + this.publicationList.length)
             this.loaded = true
            }
         }
@@ -111,15 +109,9 @@ export class HomeViewComponent implements OnInit {
       )
       .subscribe((response) => {});
   }
-
-
-
-
   imgLink?:string
-
   pub?:PublicationModel
   imgExtension?:string
-
   readonly getImagesURL = "http://localhost:4200/file/images"
   imgFile:any = []
   async getImages(index:number,imageName?:string) {
@@ -129,7 +121,6 @@ export class HomeViewComponent implements OnInit {
      this.http
       .get(this.getImagesURL, { responseType: 'blob',params:querParam})
       .toPromise().then((data) => {
-
                   // Les données renvoyer par le back-end sont sous forme Blob
                   let img  = new File([data!], imageName! ); // On transform le Blob en fichier
                   let fr = new FileReader(); // On li le fichier et stock le nouveau format
@@ -137,17 +128,10 @@ export class HomeViewComponent implements OnInit {
                   fr.onloadend = () =>{
                     // la donnée à afficher dans le parametre '[src]' de la balise image
                     this.imgFile[index]=fr.result
-                    console.log(this.imgFile[index])
                   }
       })
       )
-
-
-
   }
-
-
-
 
   loaded:boolean = false
    ngOnInit(): void {

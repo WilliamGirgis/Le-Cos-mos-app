@@ -42,7 +42,6 @@ export class GroupComponent implements OnInit {
 
      await tempArray.forEach((element:any) => {
         if(element.type === 'Group') {
-          console.log(element)
           this.groups.push(element)
         }
       });

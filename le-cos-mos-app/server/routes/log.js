@@ -27,7 +27,6 @@ router.post("/save",  (req, res) => {
   let date  = jour+ "/" + modifyMonth + "/" + anne + " à " + modifyHour
   let action = body.action
   User.findOne({ _id: user_Id }).then(async (user) =>{
-    console.log(user)
 
     if(user.matchedCount == 0) {
       return

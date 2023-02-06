@@ -33,18 +33,18 @@ import {MatProgressBarModule} from  '@angular/material/progress-bar';
 import {CommonModule } from '@angular/common';
 import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpParams, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginViewComponent } from './user_Views/login-view/login-view.component';
 import { HttpService } from './services/http.services';
 import { WebReqInterceptorService } from './services/webRequestInterceptor';
 import { HomeViewComponent } from './user_Views/admin-views/home-view/home-view.component';
 import { PlanningViewComponent } from './user_Views/admin-views/planning-view/planning-view.component';
 import { SupportsViewComponent } from './user_Views/admin-views/supports-view/supports-view.component';
-import { ExamensViewComponent } from './user_Views/admin-views/examens-view/examens-view.component';
+import { ExamensViewComponent } from './user_Views/admin-views/examens-view-admin/examens-view.component';
 import { MessagerieViewComponent } from './user_Views/admin-views/messagerie-view/messagerie-view.component';
 import { StatistiquesViewComponent } from './user_Views/admin-views/statistiques-view/statistiques-view.component';
 import { GestionViewComponent } from './user_Views/admin-views/gestion-view/gestion-view.component';
-import { HandlerViewComponent } from './user_Views/admin-views/handler-view/handler-view.component';
+import { HandlerViewComponent } from './user_Views/handler-view/handler-view.component';
 import { AuthGuard } from './guards/authguard';
 import { AddPublicationComponent } from './user_Views/admin-views/home-view/add-publication-view/add-publication.component';
 import { ViewPublicationComponent } from './user_Views/admin-views/home-view/view-publication/view-publication.component';
@@ -59,6 +59,8 @@ import { AddUserToGroupComponent } from './user_Views/admin-views/planning-view/
 import {DragDropModule} from '@angular/cdk/drag-drop'
 import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { map } from 'rxjs';
+import { HomeViewEtudiantComponent } from './user_Views/etudiant-views/home-view-etudiant/home-view-etudiant.component';
 
 // Récupérer depuis localstorage
 /*function userType() {
@@ -67,6 +69,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 
 }*/
 
+
+let isAdmin:boolean = false
 
 
 const appearance: MatFormFieldDefaultOptions = {
@@ -84,7 +88,7 @@ const routes: Routes = [
   })() },*/
   {
   path: 'login',
-  component: LoginViewComponent,
+  component:  LoginViewComponent,
   data: { animation: 'Login' },
   },
   {
@@ -101,22 +105,17 @@ const routes: Routes = [
     children: [
       {
         path: 'home',
-        component: HomeViewComponent ,
+        component: HomeViewComponent,
         data: { animation: 'Accueil' },
-        // children:[
-        //   {path:'addPublications',
-        //   component: PdfViewerComponent
-        // }
-        // ]
         },
       {
         path: 'planning',
-        component: PlanningViewComponent ,
+        component:  PlanningViewComponent  ,
         data: { animation: 'Planning' },
         children: [
       {
         path:'group',
-        component:GroupComponent
+        component: GroupComponent
       },
       {
         path:':id',
@@ -131,7 +130,7 @@ const routes: Routes = [
       },
       {
         path: 'examens',
-        component: ExamensViewComponent ,
+        component:  ExamensViewComponent ,
         data: { animation: 'Examens' },
       },
       {
@@ -174,7 +173,8 @@ const routes: Routes = [
         AddUserDialogComponent,
         GroupComponent,
         GroupPlanningComponent,
-        AddUserToGroupComponent
+        AddUserToGroupComponent,
+        HomeViewEtudiantComponent
 
     ],
     providers: [HttpService,{provide:HTTP_INTERCEPTORS,useClass:WebReqInterceptorService,multi:true},{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: appearance},AuthGuard], //Mettre par default tous les input en "outline"
@@ -219,7 +219,9 @@ const routes: Routes = [
 })
 
 
-export class AppModule { }
+export class AppModule {
+
+}
 platformBrowserDynamic().bootstrapModule(AppModule);
 
 

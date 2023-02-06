@@ -3,7 +3,7 @@
     <h1>Gestion des plannings</h1>
     <div id="switch">
       <button [ngClass]="view == 'Group' ? 'Groupe' : ''" id="Groupe" (click)="view = 'Group';getGroups('Group')" mat-button>Groupe</button>
-      <button [ngClass]="view == 'Enseignant' ? 'Enseignant' : ''" id="Enseignant" (click)="view = 'Enseignant';getEnseignant('Professeur')" mat-button>Enseignant</button>
+      <button [ngClass]="view == 'Enseignant' ? 'Enseignant' : ''" id="Enseignant" (click)="view = 'Enseignant';getEnseignant('Enseignant')" mat-button>Enseignant</button>
     </div>
   <div id="leftSide">
     <mat-card (click)="selectLeftItem(i)" [style]="{'opacity': globalIndex == i ? '1' : '0.7'}"   class="group-card" *ngFor="let group of groups;index as i">

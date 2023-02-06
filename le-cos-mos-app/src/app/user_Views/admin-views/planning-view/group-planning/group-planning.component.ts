@@ -35,8 +35,6 @@ export class FiveDayRangeSelectionStrategy<D> implements MatDateRangeSelectionSt
     if (date) {
       const start = this._dateAdapter.addCalendarDays(date, 0);
       const end = this._dateAdapter.addCalendarDays(date, 6);
-
-      console.log(    this._dateAdapter.getDayOfWeek(date))
       return new DateRange<D>(start, end);
     }
 
@@ -148,7 +146,6 @@ export class GroupPlanningComponent implements OnInit {
                             month = "12"
                             break;
    }
-   console.log(date.toDateString())
 
     return day + '/' + month + '/' + year
 
@@ -513,7 +510,6 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
   this.makeCalendarEmpty()
   if(planningSeance.seance.length == 0) {
 
-    console.log("EMPTY !!")
     this.makeCalendarEmpty()
 
     return
@@ -522,7 +518,6 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
 
   for(let i = 0; i < planningSeance.seance.length;i++) {
     let x:number = +planningSeance.seance[i].creneau.split('h')[0]
-    console.log(x)
     switch(planningSeance.seance[i].day) {
 
       case 'lundi':

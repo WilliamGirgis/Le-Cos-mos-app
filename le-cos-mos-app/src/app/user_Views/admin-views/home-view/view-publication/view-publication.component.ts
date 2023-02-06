@@ -15,10 +15,10 @@ export class ViewPublicationComponent implements OnInit {
   constructor(public dialogRef:MatDialogRef<ViewPublicationComponent>,@Inject(MAT_DIALOG_DATA) public data:{publication:PublicationModel,imgLink:string},private http:HttpClient) {
 
 
-    this.dialogRef.afterOpened().subscribe((res) => {
+    this.dialogRef.afterOpened().subscribe(async (res) => {
 
       if(this.imgLink != undefined) {
-        this.getImages(this.imgLink)
+        await this.getImages(this.imgLink)
       }
     })
 
@@ -31,7 +31,7 @@ export class ViewPublicationComponent implements OnInit {
 
   readonly getImagesURL = "http://localhost:4200/file/images"
   imgFile:any
-  getImages(imageName?:string) {
+  async getImages(imageName?:string):Promise<any> {
     const querParam = new HttpParams().set('imageName',imageName!);
     return this.http
       .get(this.getImagesURL, { responseType: 'blob',params:querParam})

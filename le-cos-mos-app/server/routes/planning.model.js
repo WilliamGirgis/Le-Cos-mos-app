@@ -96,7 +96,6 @@ type:{
 
   planningSchema.pre('save', function(next) {
     let user = this;
-    console.log(user)
     next()
 
   }

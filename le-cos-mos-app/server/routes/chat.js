@@ -39,8 +39,6 @@ router.get("/discussion",authenticate, async function (req, res, next) {
 router.post("/discussion/modify",authenticate, async function (req, res, next) {
 let newName = req.body.newName
 let oldName = req.body.oldName
-console.log("New name : " + newName)
-console.log("Old name : " + oldName)
 if(oldName === newName) {
   return
 }
@@ -53,7 +51,6 @@ return res.status(200).send()
 
 router.post("/discussion/del",authenticate, async function (req, res, next) {
   let name = req.body.groupName
-  console.log(name)
 
   Group.findOneAndDelete({name:name}).then((data) => {})
 
@@ -68,8 +65,7 @@ router.post("/discussion/del",authenticate, async function (req, res, next) {
     let body = req.body;
     let name = body.name
 
-    console.log("Name = " + name)
-    name = 'HEY9'
+    name = 'new Group'
 
     let newDiscussion = new Group({name:name})
 
@@ -85,7 +81,6 @@ router.post("/discussion/del",authenticate, async function (req, res, next) {
 
       let groupName = req.body.name
       let userList = req.body.userList
-console.log(userList)
 
 for(let i = 0;i < userList.length;i++) {
   Group.updateOne({name:groupName},{$push:{user_list:userList[i]}}).then((group) => {
@@ -104,7 +99,6 @@ return res.status(200).send()
 
     let user = req.body.user
     let groupName = req.body.groupName
-    // console.log(user._id)
     Group.updateOne({name:groupName},{ $pull: {user_list: {_id: { $in: [ user._id] }}}}).then(() => {
       User.updateOne({_id:user._id},{$set:{groupsNameDiscussionBelonging:''}}).then((user) => {
 

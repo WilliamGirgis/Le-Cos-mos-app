@@ -1,8 +1,8 @@
 import { trigger, transition, style, animateChild, group, animate,query } from '@angular/animations';
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, Component, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { AuthService } from 'src/app/services/AuthService.service';
+import { HttpService } from 'src/app/services/http.services';
 const slide =   trigger('routeAnimations', [
   transition('Register => Login', [
     style({ position: 'relative' }),
@@ -66,8 +66,8 @@ const slide =   trigger('routeAnimations', [
 
 export class HandlerViewComponent implements OnInit {
 
-  constructor(private authService:AuthService,private router: Router) { }
-
+  constructor(private authService:AuthService,private router: Router,private httpService:HttpService) {
+   }
   prepareRoute(outlet: RouterOutlet) {
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
@@ -79,10 +79,8 @@ logout() {
 this.authService.logout()
 }
 
-  ngOnInit(): void {
-
-
-    this.router.navigate(['app/planning/Science de la vie']); // Navigue vers la vue 'accueil' par default
+    ngOnInit(): void {
+    this.router.navigate(['app/home']); // Navigue vers la vue 'accueil' par default
   }
 
 }

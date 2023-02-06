@@ -87,7 +87,6 @@ router.post("/group/create", authenticate, async function (req, res, next) {
   let body = req.body;
   let name = body.groupName
   let isTronCommun = false
-  console.log("Name = " + name)
   name = 'new Group'
   let newGroup = new Planning({ groupName: name, istronCommun: isTronCommun, type: 'Group' })
   const response = await newGroup.save();
@@ -112,15 +111,11 @@ const getPlanning = router.get("/group/planning",/*authenticate,*/ async functio
       return res.status(400).send(['NOT FOUND'])
     }
     for (let i = 0; i < group.week.length; i++) {
-
-      console.log("\n\nIn document : " + group.week[i].weekDate + "\nReceived from client " + weekSelected)
       if (group.week[i].weekDate == weekSelected) {
         return res.status(200).send(group.week[i])
       }
     }
        await group.updateOne({ $push: { week: { weekDate: weekSelected, seance: [] } } }).then(async (week) => {
-
-        console.log("Week added to the group !")
         return res.status(200).send({weekDate:weekSelected,seance:[]})
       })
 

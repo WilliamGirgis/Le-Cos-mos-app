@@ -25,7 +25,6 @@ export class AddPublicationComponent implements OnInit {
   constructor(public dialogRef:MatDialogRef<AddPublicationComponent>,private formBuilder:FormBuilder,private http:HttpClient) {
     this.uploader!.onCompleteAll = () => {
       // When the upload queue is completely done, we refresh the page to output it correctly
-      console.log("All Uploaded to : " + this.uploader!.options.url)
       this.filename = undefined
       this.uploader.clearQueue()
     }
@@ -36,8 +35,6 @@ export class AddPublicationComponent implements OnInit {
 
     this.uploader!.onAfterAddingFile = (file) => {
       this.filename = file._file.name
-      console.log("FILE = " + file._file.name)
-      console.log(this.uploader!.queue.length)
     }
   }
   public uploader: FileUploader = new FileUploader({
@@ -107,7 +104,6 @@ filename?:string
       else {
         extension = ext[ext.length - 1]
       }
-      console.log()
       index++
     })
     let publication: PublicationModel = { title, date: '', content,imgName:this.filename,imgExtension:extension}; // -> last index ext[ext.length - 1]
