@@ -33,7 +33,7 @@ import {MatProgressBarModule} from  '@angular/material/progress-bar';
 import {CommonModule } from '@angular/common';
 import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 
-import { HttpClient, HttpClientModule, HttpParams, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginViewComponent } from './user_Views/login-view/login-view.component';
 import { HttpService } from './services/http.services';
 import { WebReqInterceptorService } from './services/webRequestInterceptor';
@@ -44,7 +44,7 @@ import { ExamensViewComponent } from './user_Views/admin-views/examens-view-admi
 import { MessagerieViewComponent } from './user_Views/admin-views/messagerie-view/messagerie-view.component';
 import { StatistiquesViewComponent } from './user_Views/admin-views/statistiques-view/statistiques-view.component';
 import { GestionViewComponent } from './user_Views/admin-views/gestion-view/gestion-view.component';
-import { HandlerViewComponent } from './user_Views/handler-view/handler-view.component';
+import { HandlerViewComponent } from './user_Views/admin-views/handler-view/handler-view.component';
 import { AuthGuard } from './guards/authguard';
 import { AddPublicationComponent } from './user_Views/admin-views/home-view/add-publication-view/add-publication.component';
 import { ViewPublicationComponent } from './user_Views/admin-views/home-view/view-publication/view-publication.component';
@@ -59,19 +59,7 @@ import { AddUserToGroupComponent } from './user_Views/admin-views/planning-view/
 import {DragDropModule} from '@angular/cdk/drag-drop'
 import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { map } from 'rxjs';
 import { HomeViewEtudiantComponent } from './user_Views/etudiant-views/home-view-etudiant/home-view-etudiant.component';
-
-// Récupérer depuis localstorage
-/*function userType() {
-  return 'admin' | 'etudiant' | 'prof';
-
-
-}*/
-
-
-let isAdmin:boolean = false
-
 
 const appearance: MatFormFieldDefaultOptions = {
   appearance: 'outline'
@@ -97,16 +85,17 @@ const routes: Routes = [
   data: { animation: 'Register' },
   },
   {
-    path: 'app',
+    path: 'admin',
     component: HandlerViewComponent ,
-    data: { animation: 'App' },
+    data: { animation: 'Admin' },
     canActivate :[AuthGuard]
     ,
     children: [
       {
         path: 'home',
-        component: HomeViewComponent,
+        component: HomeViewComponent ,
         data: { animation: 'Accueil' },
+
         },
       {
         path: 'planning',
@@ -177,7 +166,7 @@ const routes: Routes = [
         HomeViewEtudiantComponent
 
     ],
-    providers: [HttpService,{provide:HTTP_INTERCEPTORS,useClass:WebReqInterceptorService,multi:true},{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: appearance},AuthGuard], //Mettre par default tous les input en "outline"
+    providers: [HttpService,{provide:HTTP_INTERCEPTORS,useClass:WebReqInterceptorService,multi:true},{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: appearance},AuthGuard,HttpService], //Mettre par default tous les input en "outline"
     bootstrap: [AppComponent],
     imports: [
         BrowserModule,

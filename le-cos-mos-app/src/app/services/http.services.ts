@@ -33,10 +33,21 @@ public  async getUserType(){
       for(let i = 0; i < user.length;i++) {
         if(user[i]._id == localStorage.getItem('user-id')) {
           localStorage.setItem('user-type',user[i].userType)
+          if(user[i]._id == 'Admin') {
+            HttpService.isAdmin = true
+            HttpService.isEnseignant = false
+          }
         }
       }
     })).subscribe((res) => {
     });
+}
+
+public static getIsAdmin() {
+  return HttpService.isAdmin
+}
+public static getIsEnseignant() {
+  return HttpService.isEnseignant
 }
 
 }

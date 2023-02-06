@@ -82,7 +82,7 @@ export class LoginViewComponent implements OnInit {
       .pipe(
         map(async (data) => {
           await this.httpService.getUserType()
-          this.router.navigate(['app']);
+          this.router.navigate(['admin']); // Navigue vers la vue 'accueil' par default
           })
       )
       .subscribe((res:any) => {
@@ -104,7 +104,7 @@ export class LoginViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.router.navigate(['app/handler']); // Navigue vers la vue 'accueil' par default
+
   }
 
 }

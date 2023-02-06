@@ -51,6 +51,7 @@ import { LogSaveService } from './log.save.service';
       localStorage.removeItem('user-id');
       localStorage.removeItem('access-Token');
       localStorage.removeItem('refresh-Token');
+      localStorage.removeItem('user-type')
       this.isConnected = !!localStorage.getItem('user-id')
     }
 

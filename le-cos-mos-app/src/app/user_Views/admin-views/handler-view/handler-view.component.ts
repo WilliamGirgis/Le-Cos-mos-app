@@ -1,5 +1,5 @@
 import { trigger, transition, style, animateChild, group, animate,query } from '@angular/animations';
-import { AfterContentInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { AuthService } from 'src/app/services/AuthService.service';
 import { HttpService } from 'src/app/services/http.services';
@@ -80,7 +80,7 @@ this.authService.logout()
 }
 
     ngOnInit(): void {
-    this.router.navigate(['app/home']); // Navigue vers la vue 'accueil' par default
+    this.router.navigate(['admin/home']); // Navigue vers la vue 'accueil' par default
   }
 
 }
