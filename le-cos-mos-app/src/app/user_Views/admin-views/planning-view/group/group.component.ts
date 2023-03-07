@@ -46,8 +46,8 @@ export class GroupComponent implements OnInit {
         }
       });
 
-      this.userList = this.groups[0].user_list!
-      this.selectedLeftItem = this.groups[0].groupName
+      this.userList = this.groups[this.globalIndex].user_list!
+      this.selectedLeftItem = this.groups[this.globalIndex].groupName
     })).subscribe((res) =>{})
   }
 
@@ -121,7 +121,7 @@ export class GroupComponent implements OnInit {
       this.groups = JSON.parse(data)
       this.userList = []
       this.globalIndex = 0
-      this.selectedLeftItem = " de " + this.groups[this.globalIndex].firstname + ' ' +  this.groups[this.globalIndex].lastname
+      this.selectedLeftItem = this.groups[this.globalIndex].firstname + ' ' +  this.groups[this.globalIndex].lastname
     })).subscribe((response) => {
 
     })

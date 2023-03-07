@@ -72,7 +72,7 @@ router.post("/users", async (req, res) => {
       if(body.userType == "Etudiant") {
         let user = {firstname:body.firstname,lastname:body.lastname,role:body.userType,email:body.email,planningNameGroupBelonging:''}
 
-        await Planning.updateOne({groupName:'Tronc Commun'},{$push:{user_list:user}}).then((group) => {
+        await Planning.updateOne({groupName:'Tronc Commun Class A'},{$push:{user_list:user}}).then((group) => {
 
         })
       }

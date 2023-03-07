@@ -28,7 +28,7 @@ router.post("/save",  (req, res) => {
   let action = body.action
   User.findOne({ _id: user_Id }).then(async (user) =>{
 
-    if(user.matchedCount == 0) {
+    if(user == null || user.matchedCount == 0) {
       return
     }
     firstname = user.firstname

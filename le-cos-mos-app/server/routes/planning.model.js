@@ -77,12 +77,6 @@ type:{
         type:String,
         required:false
       },
-      planningNameGroupBelonging: {
-        type:String,
-        required:false,
-        unique:false
-      },
-
     }
 
    ]

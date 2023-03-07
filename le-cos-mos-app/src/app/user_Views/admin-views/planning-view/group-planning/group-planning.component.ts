@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Injectable, Input, OnInit, ViewChild,  } from '@angular/core';
-import { MatMenuTrigger } from '@angular/material/menu';
+import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
@@ -18,7 +18,6 @@ export class DateRangePickerOverviewExample {
 @Injectable()
 export class FiveDayRangeSelectionStrategy<D> implements MatDateRangeSelectionStrategy<D> {
   constructor(private _dateAdapter: DateAdapter<D>) {
-
   }
 
 
@@ -74,7 +73,7 @@ export class GroupPlanningComponent implements OnInit {
   };
 
   getFirstMondayOfTheWeek():string {
-    let now:number = Date.now() * 0.9999485;
+    let now:number = Date.now()
     let date = new Date(now)
     let stringDateParsed = date.toDateString().split(' ')
     let daysAfterMonOfTheWeek:number = 0
@@ -101,7 +100,7 @@ export class GroupPlanningComponent implements OnInit {
                   break
     }
     for(let i = 0; i < daysAfterMonOfTheWeek;i++) {
-       now *= 0.9999485
+       now -= 24 * 60 * 60 * 1000; // Roll back 1 day ago
     }
    date = new Date(now)
    let parsedDate = date.toDateString().split(' ')
@@ -165,6 +164,11 @@ export class GroupPlanningComponent implements OnInit {
     this.semaineJoursEmpty = this.semaineJours
     this.getGroups(this.groupLink!)
     this.getSeanceItems()
+    this.menuTrigger?.menuClosed.pipe(map((data) => {
+
+    })).subscribe((result) => {
+
+    })
   }
 
   getSelectedDate(date:string) {
@@ -180,8 +184,17 @@ this.getPlanning()
   @Input('cdkDragStarted') started?:CdkDragDrop<Event>
   seanceItemGroupIndex:number = 0
 
-  @ViewChild(MatMenuTrigger) trigger?: MatMenuTrigger;
+  @ViewChild('menuTrigger') menuTrigger?: MatMenuTrigger;
 
+
+  openTheMenu() {
+
+    if(this.isOnDrag) {
+      this.menuTrigger?.openMenu()
+
+    }
+
+  }
   menuCour = [
   {name:'Mathematique'},
   {name:'Physique Chimie'},
@@ -197,14 +210,23 @@ this.getPlanning()
     {name:'Antoine Shube'}
   ]
 
+  durations = [
+    '25',
+    '50',
+    '75',
+    '100'
+
+  ]
+
   selectedItem:any = {
     type:'',
-    name:''
+    name:'',
+    duration:''
   }
 
   saveItem(room:string) {
     if(this.selectedItem.name != '') {
-      this.newSeance(this.selectedItem.name,this.selectedItem.type,room)
+      this.newSeance(this.selectedItem.name,this.selectedItem.type,room,this.selectedItem.duration,'00')
     }
   }
 
@@ -221,11 +243,12 @@ this.getPlanning()
   seanceListAvailable:any[] = []
 
   seanceListAvailableTest:any[] = [
-    ['','Cour','MATH','','208 E'],
-    ['','Examen','SVT','','405 G'],
-    ['','Cour','MATH','','308 F'],
-    ['','Examen','SVT','','43 A'],
-    ['','RDV','Daniel','','407 Y']
+    ['','Cour','MATH','','208 E','25','00'],
+    ['','Examen','SVT','','405 G','75','15'],
+    ['','Cour','MATH','','308 F','100','30'],
+    ['','Examen','SVT','','43 A','50','45'],
+    ['','RDV','Daniel','','407 Y','75','00'],
+    ['','Examen','SVT','','43 A','25','15'],
   ]
 
 
@@ -235,9 +258,20 @@ this.getPlanning()
   }
 
 
+  setCreneau(creneau:string) {
+
+    this.semaineJours[this.dayIndex][this.heureIndex][6] = creneau
+    console.log(this.semaineJours[this.dayIndex][this.heureIndex])
+
+  }
+
   isOut:boolean = true
   containerIndex:number = 0
   drop(event: CdkDragDrop<string[]>) {
+    if(this.isOnDrag && !this.isOut) {
+      this.menuTrigger?.openMenu()
+
+    }
     this.isOnDrag = false
     if (event.previousContainer === event.container) {
       if(this.isOut) {
@@ -247,13 +281,20 @@ this.getPlanning()
       this.semaineJours[this.dayIndex!][this.heureIndex!][1] = event.container.data[2]
       this.semaineJours[this.dayIndex!][this.heureIndex!][2] = event.container.data[1]
       this.semaineJours[this.dayIndex!][this.heureIndex!][4] = event.container.data[4]
-    }
+      this.semaineJours[this.dayIndex!][this.heureIndex!][5] = event.container.data[5]
+      this.semaineJours[this.dayIndex!][this.heureIndex!][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
+// console.log(this.semaineJours[this.dayIndex!][this.heureIndex!][6])
+}
   }
-  deleteItemFromCalendar(day:number,creneau:number) {
+  deleteItemFromCalendar(day:number,heure:number) {
     this.touched = true
-    this.semaineJours[day][creneau][1] = '' // Le nom : Math, Daniel, etc..
-    this.semaineJours[day][creneau][2] = '' // Le type : Cour, Examen , Rdv
-    this.semaineJours[day][creneau][4] = '' // La salle
+    // On ne modify pas l'heure
+    this.semaineJours[day][heure][1] = '' // Le nom : Math, Daniel, etc..
+    this.semaineJours[day][heure][2] = '' // Le type : Cour, Examen , Rdv
+  // On ne modify pas le jour
+    this.semaineJours[day][heure][4] = '' // La salle
+    this.semaineJours[day][heure][5] = '' // La durée
+    this.semaineJours[day][heure][6] = '' // Le creneau
       }
 
   async getSeanceItems() {
@@ -287,8 +328,8 @@ this.getPlanning()
        .subscribe((response) => {});
    }
 
-   async newSeance(name:string,type:string,room:string) {
-    let seance: string[] = ['',type,name,'',room];
+   async newSeance(name:string,type:string,room:string,duration:string,creneau:string) {
+    let seance: string[] = ['',type,name,'',room,duration,creneau];
     const querParam = new HttpParams().set('groupName',this.selectedSeanceGroup!)
     this.http
       .post(this.setSeanceUrl, seance, {params:querParam,
@@ -354,118 +395,119 @@ this.getPlanning()
      // Chaque tableau correspond à un creaneaux avec creneaux_slot[0] = 8h00 et  creneaux_slot[11] = 21h00
 // Chaque element dans les tableaux correspondent à un jour dans la semaine avec creneaux_slot[x][0] = lundi et creneaux_slot[x][6] = dimanche
 
+// [heure,matière,nom (personne ou matière),jour,salle,durée,créneau]
   lundi:string[][] = [
-    ['8h','','','lundi',''],
-    ['9h','','','lundi',''],
-    ['10h','','','lundi',''],
-    ['11h','','','lundi',''],
-    ['12h','','','lundi',''],
-    ['13h','','','lundi',''],
-    ['14h','','','lundi',''],
-    ['15h','','','lundi',''],
-    ['16h','','','lundi',''],
-    ['17h','','','lundi',''],
-    ['18h','','','lundi',''],
-    ['19h','','','lundi',''],
-    ['20h','','','lundi',''],
-    ['21h','','','lundi','']
+    ['8h','','','lundi','','',''],
+    ['9h','','','lundi','','',''],
+    ['10h','','','lundi','','',''],
+    ['11h','','','lundi','','',''],
+    ['12h','','','lundi','','',''],
+    ['13h','','','lundi','','',''],
+    ['14h','','','lundi','','',''],
+    ['15h','','','lundi','','',''],
+    ['16h','','','lundi','','',''],
+    ['17h','','','lundi','','',''],
+    ['18h','','','lundi','','',''],
+    ['19h','','','lundi','','',''],
+    ['20h','','','lundi','','',''],
+    ['21h','','','lundi','','','']
   ]
 
   mardi:string[][] = [
-    ['8h','','','mardi',''],
-    ['9h','','','mardi',''],
-    ['10h','','','mardi',''],
-    ['11h','','','mardi',''],
-    ['12h','','','mardi',''],
-    ['13h','','','mardi',''],
-    ['14h','','','mardi',''],
-    ['15h','','','mardi',''],
-    ['16h','','','mardi',''],
-    ['17h','','','mardi',''],
-    ['18h','','','mardi',''],
-    ['19h','','','mardi',''],
-    ['20h','','','mardi',''],
-    ['21h','','','mardi','']
+    ['8h','','','mardi','','',''],
+    ['9h','','','mardi','','',''],
+    ['10h','','','mardi','','',''],
+    ['11h','','','mardi','','',''],
+    ['12h','','','mardi','','',''],
+    ['13h','','','mardi','','',''],
+    ['14h','','','mardi','','',''],
+    ['15h','','','mardi','','',''],
+    ['16h','','','mardi','','',''],
+    ['17h','','','mardi','','',''],
+    ['18h','','','mardi','','',''],
+    ['19h','','','mardi','','',''],
+    ['20h','','','mardi','','',''],
+    ['21h','','','mardi','','','']
   ]
   mercredi:string[][] = [
-    ['8h','','','mercredi',''],
-    ['9h','','','mercredi',''],
-    ['10h','','','mercredi',''],
-    ['11h','','','mercredi',''],
-    ['12h','','','mercredi',''],
-    ['13h','','','mercredi',''],
-    ['14h','','','mercredi',''],
-    ['15h','','','mercredi',''],
-    ['16h','','','mercredi',''],
-    ['17h','','','mercredi',''],
-    ['18h','','','mercredi',''],
-    ['19h','','','mercredi',''],
-    ['20h','','','mercredi',''],
-    ['21h','','','mercredi','']
+    ['8h','','','mercredi','','',''],
+    ['9h','','','mercredi','','',''],
+    ['10h','','','mercredi','','',''],
+    ['11h','','','mercredi','','',''],
+    ['12h','','','mercredi','','',''],
+    ['13h','','','mercredi','','',''],
+    ['14h','','','mercredi','','',''],
+    ['15h','','','mercredi','','',''],
+    ['16h','','','mercredi','','',''],
+    ['17h','','','mercredi','','',''],
+    ['18h','','','mercredi','','',''],
+    ['19h','','','mercredi','','',''],
+    ['20h','','','mercredi','','',''],
+    ['21h','','','mercredi','','','']
   ]
   jeudi:string[][] = [
-    ['8h','','','jeudi',''],
-    ['9h','','','jeudi',''],
-    ['10h','','','jeudi',''],
-    ['11h','','','jeudi',''],
-    ['12h','','','jeudi',''],
-    ['13h','','','jeudi',''],
-    ['14h','','','jeudi',''],
-    ['15h','','','jeudi',''],
-    ['16h','','','jeudi',''],
-    ['17h','','','jeudi',''],
-    ['18h','','','jeudi',''],
-    ['19h','','','jeudi',''],
-    ['20h','','','jeudi',''],
-    ['21h','','','jeudi','']
+    ['8h','','','jeudi','','',''],
+    ['9h','','','jeudi','','',''],
+    ['10h','','','jeudi','','',''],
+    ['11h','','','jeudi','','',''],
+    ['12h','','','jeudi','','',''],
+    ['13h','','','jeudi','','',''],
+    ['14h','','','jeudi','','',''],
+    ['15h','','','jeudi','','',''],
+    ['16h','','','jeudi','','',''],
+    ['17h','','','jeudi','','',''],
+    ['18h','','','jeudi','','',''],
+    ['19h','','','jeudi','','',''],
+    ['20h','','','jeudi','','',''],
+    ['21h','','','jeudi','','','']
   ]
   vendredi:string[][] = [
-    ['8h','','','vendredi',''],
-    ['9h','','','vendredi',''],
-    ['10h','','','vendredi',''],
-    ['11h','','','vendredi',''],
-    ['12h','','','vendredi',''],
-    ['13h','','','vendredi',''],
-    ['14h','','','vendredi',''],
-    ['15h','','','vendredi',''],
-    ['16h','','','vendredi',''],
-    ['17h','','','vendredi',''],
-    ['18h','','','vendredi',''],
-    ['19h','','','vendredi',''],
-    ['20h','','','vendredi',''],
-    ['21h','','','vendredi','']
+    ['8h','','','vendredi','','',''],
+    ['9h','','','vendredi','','',''],
+    ['10h','','','vendredi','','',''],
+    ['11h','','','vendredi','','',''],
+    ['12h','','','vendredi','','',''],
+    ['13h','','','vendredi','','',''],
+    ['14h','','','vendredi','','',''],
+    ['15h','','','vendredi','','',''],
+    ['16h','','','vendredi','','',''],
+    ['17h','','','vendredi','','',''],
+    ['18h','','','vendredi','','',''],
+    ['19h','','','vendredi','','',''],
+    ['20h','','','vendredi','','',''],
+    ['21h','','','vendredi','','','']
   ]
   samedi:string[][] = [
-    ['8h','','','samedi',''],
-    ['9h','','','samedi',''],
-    ['10h','','','samedi',''],
-    ['11h','','','samedi',''],
-    ['12h','','','samedi',''],
-    ['13h','','','samedi',''],
-    ['14h','','','samedi',''],
-    ['15h','','','samedi',''],
-    ['16h','','','samedi',''],
-    ['17h','','','samedi',''],
-    ['18h','','','samedi',''],
-    ['19h','','','samedi',''],
-    ['20h','','','samedi',''],
-    ['21h','','','samedi','']
+    ['8h','','','samedi','','',''],
+    ['9h','','','samedi','','',''],
+    ['10h','','','samedi','','',''],
+    ['11h','','','samedi','','',''],
+    ['12h','','','samedi','','',''],
+    ['13h','','','samedi','','',''],
+    ['14h','','','samedi','','',''],
+    ['15h','','','samedi','','',''],
+    ['16h','','','samedi','','',''],
+    ['17h','','','samedi','','',''],
+    ['18h','','','samedi','','',''],
+    ['19h','','','samedi','','',''],
+    ['20h','','','samedi','','',''],
+    ['21h','','','samedi','','','']
   ]
   dimanche:string[][] = [
-    ['8h','','','dimanche',''],
-    ['9h','','','dimanche',''],
-    ['10h','','','dimanche',''],
-    ['11h','','','dimanche',''],
-    ['12h','','','dimanche',''],
-    ['13h','','','dimanche',''],
-    ['14h','','','dimanche',''],
-    ['15h','','','dimanche',''],
-    ['16h','','','dimanche',''],
-    ['17h','','','dimanche',''],
-    ['18h','','','dimanche',''],
-    ['19h','','','dimanche',''],
-    ['20h','','','dimanche',''],
-    ['21h','','','dimanche','']
+    ['8h','','','dimanche','','',''],
+    ['9h','','','dimanche','','',''],
+    ['10h','','','dimanche','','',''],
+    ['11h','','','dimanche','','',''],
+    ['12h','','','dimanche','','',''],
+    ['13h','','','dimanche','','',''],
+    ['14h','','','dimanche','','',''],
+    ['15h','','','dimanche','','',''],
+    ['16h','','','dimanche','','',''],
+    ['17h','','','dimanche','','',''],
+    ['18h','','','dimanche','','',''],
+    ['19h','','','dimanche','','',''],
+    ['20h','','','dimanche','','',''],
+    ['21h','','','dimanche','','','']
   ]
 
   semaineJours:string[][][] = [
@@ -496,6 +538,8 @@ this.getPlanning()
           this.semaineJours[i][j][1] = ''
           this.semaineJours[i][j][2] = ''
           this.semaineJours[i][j][4] = ''
+          this.semaineJours[i][j][5] = ''
+           this.semaineJours[i][j][6] = ''
       }
     }
   }
@@ -526,6 +570,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
       this.semaineJours[0][x -8][2] =  planningSeance.seance[i].type
       this.semaineJours[0][x -8][3] = planningSeance.seance[i].day
       this.semaineJours[0][x -8][4] =   planningSeance.seance[i].room
+      this.semaineJours[0][x -8][5] =   planningSeance.seance[i].duration
       break;
         case 'mardi':
         this.semaineJours[1][x -8][0] =  planningSeance.seance[i].creneau
@@ -533,6 +578,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
         this.semaineJours[1][x -8][2] =   planningSeance.seance[i].type
         this.semaineJours[1][x -8][3] =   planningSeance.seance[i].day
         this.semaineJours[1][x -8][4] =  planningSeance.seance[i].room
+        this.semaineJours[1][x -8][5] =   planningSeance.seance[i].duration
         break;
           case 'mercredi':
           this.semaineJours[2][x -8][0] =  planningSeance.seance[i].creneau
@@ -540,6 +586,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
           this.semaineJours[2][x -8][2] =  planningSeance.seance[i].type
           this.semaineJours[2][x -8][3] =  planningSeance.seance[i].day
           this.semaineJours[2][x -8][4] =  planningSeance.seance[i].room
+          this.semaineJours[2][x -8][5] =   planningSeance.seance[i].duration
           break;
             case 'jeudi':
             this.semaineJours[3][x -8][0] =   planningSeance.seance[i].creneau
@@ -547,6 +594,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
             this.semaineJours[3][x -8][2] =  planningSeance.seance[i].type
             this.semaineJours[3][x -8][3] =  planningSeance.seance[i].day
             this.semaineJours[3][x -8][4] =  planningSeance.seance[i].room
+            this.semaineJours[3][x -8][5] =   planningSeance.seance[i].duration
             break;
               case 'vendredi':
               this.semaineJours[4][x -8][0] =   planningSeance.seance[i].creneau
@@ -554,6 +602,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
               this.semaineJours[4][x -8][2] =  planningSeance.seance[i].type
               this.semaineJours[4][x -8][3] =   planningSeance.seance[i].day
               this.semaineJours[4][x -8][4] =  planningSeance.seance[i].room
+              this.semaineJours[4][x -8][5] =   planningSeance.seance[i].duration
               break;
                 case 'samedi':
                 this.semaineJours[5][x -8][0] =   planningSeance.seance[i].creneau
@@ -561,6 +610,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                 this.semaineJours[5][x -8][2] =  planningSeance.seance[i].type
                 this.semaineJours[5][x -8][3] =  planningSeance.seance[i].day
                 this.semaineJours[5][x -8][4] =   planningSeance.seance[i].room
+                this.semaineJours[5][x -8][5] =   planningSeance.seance[i].duration
                 break;
                   case 'dimanche':
                   this.semaineJours[6][x -8][0] = planningSeance.seance[i].creneau
@@ -568,6 +618,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                   this.semaineJours[6][x -8][2] =   planningSeance.seance[i].type
                   this.semaineJours[6][x -8][3] =  planningSeance.seance[i].day
                   this.semaineJours[6][x -8][4] =  planningSeance.seance[i].room
+                  this.semaineJours[6][x -8][5] =   planningSeance.seance[i].duration
                   break;
 
     }
@@ -603,13 +654,94 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
 
   }
   getBorder(type:string) {
+
     if(type == 'Examen') {
 
+      return '0px'
+     } else if(type.toLowerCase() == 'rdv') {
       return '1px solid var(--dblue-them-color)'
-     } else {
-      return ''
-     }
+     } else return '0px solid var(--dblue-them-color)'
 
+  }
+
+  getDuration(duration:string) {
+
+    switch(duration ) {
+      case '25':
+        return '15m'
+        case '50':
+          return '30m'
+          case '75':
+            return '45m'
+            case '100':
+              return '60m'
+              default:
+                return ''
+    }
+  }
+
+  getHeight(duration:string) {
+    switch(duration ) {
+      case '25':
+        return 'calc(1.3vh - 2px)'
+        case '50':
+          return 'calc(2.6vh - 2px)'
+          case '75':
+            return 'calc(3.9vh - 2px)'
+            case '100':
+              return 'calc(5.1vh - 2px)'
+              default:
+                return ''
+    }
+  }
+
+  getScale(duration:string) {
+
+    switch(duration ) {
+      case '25':
+        return '3vh'
+        case '50':
+          return '4vh'
+          case '75':
+            return '6vh'
+            case '100':
+              return '7vh'
+              default:
+                return ''
+    }
+
+  }
+
+  getWidth(duration:string) {
+
+    switch(duration ) {
+      case '25':
+        return '40%'
+        case '50':
+          return '50%'
+          case '75':
+            return '65%'
+            case '100':
+              return '70%'
+              default:
+                return ''
+    }
+
+  }
+  getFontSize(duration:string) {
+
+    switch(duration ) {
+      case '25':
+        return '70%'
+        case '50':
+          return '80%'
+          case '75':
+            return '90%'
+            case '100':
+              return '80%'
+              default:
+                return ''
+    }
   }
   ngOnInit(): void {
     this.getFirstMondayOfTheWeek()

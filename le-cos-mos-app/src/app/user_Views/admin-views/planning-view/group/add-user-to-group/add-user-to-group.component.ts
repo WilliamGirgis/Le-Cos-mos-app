@@ -52,21 +52,18 @@ export class AddUserToGroupComponent implements OnInit {
     this.userList = []
 // Delete all occurence from the User array from parent component, and then assign the new array to the userList to print
 let isDoubled:boolean = false
-let alreadyInaGroup:boolean = false
+
 for(let userResponseIndex = 0;userResponseIndex < userListResult.length;userResponseIndex++) {
   isDoubled = false
-  alreadyInaGroup = false
+  console.log(userListResult[userResponseIndex])
   for(let dataIndex = 0;dataIndex < this.data.userList.length;dataIndex++) {
-    if(this.data.userList[dataIndex]._id == userListResult[userResponseIndex]._id) { // Check if the user is already present in the group (data.userList)
+    if(this.data.userList[dataIndex]._id == userListResult[userResponseIndex]._id || (userListResult[userResponseIndex].planningNameGroupBelonging.length >= 2)) { // Check if the user is already present in the group (data.userList)
       isDoubled = true
     }
   }
-  if(userListResult[userResponseIndex].planningNameGroupBelonging != '' && userListResult[userResponseIndex].planningNameGroupBelonging != undefined) {
-    // Si le contenu est n'est pas vide ou indéfinie, alors il appartient à un groupe et donc interdit de rajouter dans la list, sinon on passe
-    alreadyInaGroup = true
-  }
 
-   if(!isDoubled && !alreadyInaGroup) {
+
+   if(!isDoubled) {
     this.userList.push(userListResult[userResponseIndex])
   }
 }

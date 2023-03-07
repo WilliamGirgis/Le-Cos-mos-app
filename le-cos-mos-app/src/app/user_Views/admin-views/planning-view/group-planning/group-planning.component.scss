@@ -1,3 +1,7 @@
+#global {
+  margin-top: -5vh;
+}
+
 #leftWrp {
   width: 25%;
   height: 77vh;
@@ -43,7 +47,7 @@ min-height: max-content;
 
 
   #validateBtnWrp {
-    width: max-content;
+    width: 50vw;
     display: inline-flex;
     align-items: center;
 
@@ -72,18 +76,40 @@ min-height: max-content;
 #seanceWrp {
   overflow-y: scroll;
   height: 45vh;
+  min-height: max-content;
   width: 75%;
   text-align: center;
 }
 
 .seanceBtn {
+
   background-color: var(--blue-them-color);
   color: var(--white-them-color);
-  margin: 5px;
-  width: 50%;
+  margin: 2vh auto 0 auto;
+  min-width: max-content;
+  width: 70%;
   border-radius: 15px;
-}
+  text-align: center;
+min-height: 35px;
 
+}
+#buttonAvailableContent {
+  display: flex;
+  min-height: max-content;
+padding: 0;
+justify-content: center;
+align-content: baseline;
+align-items: baseline;
+
+  :first-child {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    top: 0;
+    position: relative;
+  }
+
+}
 
 
 h1 {
@@ -126,17 +152,17 @@ h1 {
 
 
 span {
-  width: 66%;
-  margin: 2vh auto auto auto;
+  height: 5vh;
+  margin: 0 auto auto auto;
   align-content: center;
   align-items: center;
   display: flex;
   flex-direction: row;
   text-align: center;
   justify-content: center;
-  column-gap: 5vw;
+  column-gap: 1vw;
   color: var(--dblue-them-color);
-
+transform: scale(0.8);
   img {
     transition: 200ms ease-in-out;
     margin-right: auto;
@@ -149,8 +175,8 @@ span {
 
   h2 {
     font-size: 120%;
-    margin-right: 5vw;
-    margin-left: 5vw;
+    margin-right: 3vw;
+    margin-left: 3vw;
 
   }
 }
@@ -165,8 +191,8 @@ th {
   text-align: center;
   color: var(--white-them-color);
   background-color: var(--blue-them-color);
-  border: 2px solid var(--white-them-color);
-  border-bottom: 3px solid var(--white-them-color);
+  border: 1px solid var(--white-them-color);
+border-bottom-width:2px ;
   font-weight: bold;
 
   &:first-of-type {
@@ -179,9 +205,13 @@ th {
 }
 
 tr.row {
-  height: 4.1vh;
-  max-height: 4.1vh;
+  font-size: 80%;
+  min-height: 1vh;
+  height: 5.1vh;
+  max-height: 5.1vh;
   background-color: transparent;
+  margin: -2px;
+  overflow: visible;
 }
 
 .header-row {
@@ -195,14 +225,15 @@ tr.row {
 .value {
   background-color: var(--blue-them-color);
   color: var(--white-them-color);
-  min-height: 4.3vh;
-  max-height: 4.3vh;
-  align-items: center;
+  min-height: 1vh;
+  height: 5.1vh;
+  max-height: 5.1vh;
+
   align-content: center;
   display: flex;
   justify-content: center;
   justify-items: center;
-  margin: -2px -2px -2px -2px; // Margin de 1px se trouve par défault dans l'element
+  margin: -3px 0 0 -1px; // Margin de 1px se trouve par défault dans l'element
 
   &:hover {
     border: 1px solid var(--blue-them-color);
@@ -211,29 +242,43 @@ tr.row {
 
 
 
+.rowDaysWrp {
+  position: absolute;
+width: 100%;
+z-index: 3;
+}
+
+.rowDays {
+position: relative;
+align-content: center;
+overflow: visible;
+}
+
 td {
+  overflow: visible;
+position: relative;
   color: var(--white-them-color);
   text-align: center;
-  width: 10%;
   min-width: fit-content;
   transition: 250ms ease-in-out;
-  border: var(--white-them-color) 2px solid;
+border: 1px solid var(--white-them-color);
+  // margin: 0; Colle les séance sur le tableau,
+width: 10%;
   cursor: pointer;
 
   &:hover {
     background-color: var(--blue-them-color);
   }
-
+  overflow: visible;
   background-color: rgb(212, 240, 253);
 
   &:first-of-type {
-    font-size: 80%;
+    font-size: 90%;
     background-color: var(--blue-them-color);
     font-weight: bold;
     width: 5%;
     min-width: max-content;
     cursor: auto;
-    border: var(--white-them-color) 1px solid;
 
     &:hover {
       background-color: var(--blue-them-color);
@@ -248,7 +293,7 @@ td {
     flex-direction: column;
 
     :first-child {
-      font-size: 80%;
+      font-size: 100%;
 
     }
 

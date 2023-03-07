@@ -54,7 +54,7 @@ router.post("/set", authenticate, async function (req, res, next) {
   }
 
   await Planning.findOne({ groupName: owner }).then(async (group) => {
-
+console.log(owner)
     for (let i = 0; i < group.week.length; i++) {
       // If the week already exists, we change it's seance list and then save the changes
       if (group.week[i].weekDate == week) {
@@ -73,7 +73,7 @@ const setUserInGroup = router.post("/user/add",/*authenticate,*/ async function 
   let userList = req.body.userList
   for (let i = 0; i < userList.length; i++) {
 
-    await User.updateOne({ _id: userList[i]._id }, { $set: { planningNameGroupBelonging: groupName } }).then((user) => {
+    await User.updateOne({ _id: userList[i]._id }, { $push: { planningNameGroupBelonging: groupName } }).then((user) => {
     })
 
     await Planning.updateOne({ groupName: groupName }, { $push: { user_list: userList[i] } }).then((group) => {
@@ -97,7 +97,7 @@ const delUserFromGroup = router.post("/user/del",/*authenticate,*/ function (req
   let user = req.body.user
   let groupName = req.body.groupName
   Planning.updateOne({ groupName: groupName }, { $pull: { user_list: { _id: { $in: [user._id] } } } }).then(() => {
-    User.updateOne({ _id: user._id }, { $set: { planningNameGroupBelonging: '' } }).then((user) => {
+    User.updateOne({ _id: user._id }, { $pull: { planningNameGroupBelonging: groupName } }).then((user) => {
       return res.status(200).send()
     })
   })
