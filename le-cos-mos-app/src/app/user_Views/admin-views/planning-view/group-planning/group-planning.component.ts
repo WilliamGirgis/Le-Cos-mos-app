@@ -689,6 +689,40 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
     }
   }
 
+  getOverFlowedBackgroundColor(day:string[][]) {
+    let overflowedType = day[this.heureIndex][2]
+    switch(day[this.heureIndex - 1][5] ) {
+      case '25':
+        return 'overflow-0min'
+        case '50':
+          if(day[this.heureIndex - 1][6] == '45') {
+            return this.getBackgroundColor(overflowedType)
+          } else {
+            return 'overflow-0min'
+          }
+          case '75':
+            if(day[this.heureIndex - 1][6] == '45') {
+              return this.getBackgroundColor(overflowedType)
+            } else if(day[this.heureIndex][6] == '30') {
+              return this.getBackgroundColor(overflowedType)
+            } else {
+              return 'overflow-0min'
+            }
+            case '100':
+              if(day[this.heureIndex - 1][6] == '45') {
+                return this.getBackgroundColor(overflowedType)
+              } else if(day[this.heureIndex - 1][6] == '30') {
+                return this.getBackgroundColor(overflowedType)
+              } else if(day[this.heureIndex - 1][6] == '15') {
+                return this.getBackgroundColor(overflowedType)
+              } else {
+                return 'overflow-0min'
+              }
+              default:
+                return 'overflow-0min'
+    }
+  }
+
   // SeanceListAvailabe related method //
   getHeightSeanceAvailableButton(duration:string) {
 
@@ -727,11 +761,11 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
 
     switch(duration ) {
       case '25':
-        return '70%'
+        return '50%'
         case '50':
-          return '80%'
+          return '60%'
           case '75':
-            return '90%'
+            return '70%'
             case '100':
               return '80%'
               default:
