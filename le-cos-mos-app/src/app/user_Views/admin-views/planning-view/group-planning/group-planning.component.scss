@@ -204,15 +204,6 @@ border-bottom-width:2px ;
   }
 }
 
-tr.row {
-  font-size: 80%;
-  min-height: 1vh;
-  height: 5.1vh;
-  max-height: 5.1vh;
-  background-color: transparent;
-  margin: -2px;
-  overflow: visible;
-}
 
 .header-row {
   height: 5vh;
@@ -220,91 +211,12 @@ tr.row {
 
 .deleteElement {
   color: red;
-}
-
-.value {
-  background-color: var(--blue-them-color);
-  color: var(--white-them-color);
-  min-height: 1vh;
-  height: 5.1vh;
-  max-height: 5.1vh;
-
-  align-content: center;
-  display: flex;
-  justify-content: center;
-  justify-items: center;
-  margin: -3px 0 0 -1px; // Margin de 1px se trouve par défault dans l'element
-
-  &:hover {
-    border: 1px solid var(--blue-them-color);
-  }
-}
-
-
-
-.rowDaysWrp {
-  position: absolute;
-width: 100%;
-z-index: 3;
-}
-
-.rowDays {
-position: relative;
-align-content: center;
-overflow: visible;
-}
-
-td {
-  overflow: visible;
-position: relative;
-  color: var(--white-them-color);
-  text-align: center;
-  min-width: fit-content;
-  transition: 250ms ease-in-out;
-border: 1px solid var(--white-them-color);
-  // margin: 0; Colle les séance sur le tableau,
-width: 10%;
-  cursor: pointer;
-
-  &:hover {
-    background-color: var(--blue-them-color);
-  }
-  overflow: visible;
-  background-color: rgb(212, 240, 253);
-
-  &:first-of-type {
-    font-size: 90%;
-    background-color: var(--blue-them-color);
-    font-weight: bold;
-    width: 5%;
-    min-width: max-content;
-    cursor: auto;
-
-    &:hover {
-      background-color: var(--blue-them-color);
-      color: var(--white-them-color);
-    }
-
-  }
-
-
-  div {
-    display: grid;
-    flex-direction: column;
-
-    :first-child {
-      font-size: 100%;
-
-    }
-
-    :last-child {
-      font-size: 70%;
-      margin-top: -2px;
-    }
-  }
 
 
 }
+
+
+
 
 label {
   cursor: pointer;
@@ -334,6 +246,7 @@ label {
   input {
     max-height: 100%;
     opacity: 1;
+
     color: var(--dblue-them-color);
   }
 
@@ -347,6 +260,121 @@ label {
     font-size: 10px;
   }
 }
+
+
+
+
+#t-00 {
+  width: 100%;
+  min-height: calc(15vh / 4);
+height: 25%;
+  max-height:  max-content;
+  cursor: pointer;
+
+
+}
+#t-15 {
+  width: 100%;
+  min-height: calc(15vh / 4);
+height: 25%;
+  max-height:  max-content;
+
+
+}
+#t-30 {
+  cursor: pointer;
+  width: 100%;
+  min-height: calc(15vh / 4);
+height: 25%;
+  max-height:  max-content;
+
+
+}
+#t-45 {
+ cursor: pointer;
+  width: 100%;
+  min-height: calc(15vh / 4);
+height: 25%;
+  max-height: max-content;
+
+}
+
+
+.rowDaysWrp {
+  :first-child {
+    font-size: 100%;
+  }
+  :last-child {
+    font-size: 70%;
+  }
+  z-index: 3;
+  border: 1px solid red;
+  max-height: max-content;
+  height: 100%; // Very important // To change for expandable
+transition: 350ms ease-in-out;
+min-height: max-content;
+  }
+
+
+tr {
+border: 0;
+  margin: 0;
+
+  &.row {
+  border: 0;
+  margin: 0;
+
+  }
+}
+
+td {
+  color: var(--white-them-color);
+  text-align: center;
+  min-width: fit-content;
+border: 1px solid black;
+border-top-width: 0;
+border-right-width: 0;
+   margin: 0;
+width: 10%;
+height: 5vh;
+min-height: 100%;
+max-height: 15vh;
+  overflow: visible;
+  transition: 350ms ease-in-out;
+  cursor: pointer;
+  background-color: rgb(212, 240, 253);
+  &:hover {
+    background-color: cadetblue;
+    height: 15vh;
+
+    .rowDaysWrp {
+      height: 100%;
+      min-height: 15vh;
+
+    }
+  }
+  &:first-of-type {
+    border-left: 0;
+    font-size: 90%;
+    background-color: var(--blue-them-color);
+    font-weight: bold;
+    width: 5%;
+    min-width: max-content;
+  }
+
+}
+
+
+tr {
+  transition: 350ms ease-in-out;
+  &.row {
+    height: 5vh;
+  }
+}
+
+
+
+
 
 /* width */
 ::-webkit-scrollbar {

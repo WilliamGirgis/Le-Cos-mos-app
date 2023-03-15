@@ -257,6 +257,7 @@ this.getPlanning()
   this.isOnDrag = true
   }
 
+  letCreneauMatrice = []
 
   setCreneau(creneau:string) {
 
@@ -274,6 +275,7 @@ this.getPlanning()
     }
     this.isOnDrag = false
     if (event.previousContainer === event.container) {
+      console.log("Previous container is equal to target ")
       if(this.isOut) {
         return
       }
@@ -283,7 +285,7 @@ this.getPlanning()
       this.semaineJours[this.dayIndex!][this.heureIndex!][4] = event.container.data[4]
       this.semaineJours[this.dayIndex!][this.heureIndex!][5] = event.container.data[5]
       this.semaineJours[this.dayIndex!][this.heureIndex!][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
-// console.log(this.semaineJours[this.dayIndex!][this.heureIndex!][6])
+      // console.log(this.semaineJours[this.dayIndex!][this.heureIndex!][6])
 }
   }
   deleteItemFromCalendar(day:number,heure:number) {
@@ -544,6 +546,8 @@ this.getPlanning()
     }
   }
 
+  isExpanded:boolean = false
+
   getPlanning() {
     const querParam = new HttpParams().set('groupName', this.groupLink!).set('week',this.week);
 this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(map((data) => {
@@ -653,16 +657,6 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
      }
 
   }
-  getBorder(type:string) {
-
-    if(type == 'Examen') {
-
-      return '0px'
-     } else if(type.toLowerCase() == 'rdv') {
-      return '1px solid var(--dblue-them-color)'
-     } else return '0px solid var(--dblue-them-color)'
-
-  }
 
   getDuration(duration:string) {
 
@@ -683,19 +677,20 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
   getHeight(duration:string) {
     switch(duration ) {
       case '25':
-        return 'calc(1.3vh - 2px)'
+        return '25%'
         case '50':
-          return 'calc(2.6vh - 2px)'
+          return '50%'
           case '75':
-            return 'calc(3.9vh - 2px)'
+            return '75%'
             case '100':
-              return 'calc(5.1vh - 2px)'
+              return '100%'
               default:
                 return ''
     }
   }
 
-  getScale(duration:string) {
+  // SeanceListAvailabe related method //
+  getHeightSeanceAvailableButton(duration:string) {
 
     switch(duration ) {
       case '25':

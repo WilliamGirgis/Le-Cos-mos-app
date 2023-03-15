@@ -18,7 +18,7 @@
     <div   *ngFor="let seance of seanceListAvailableTest;index as i">
 
 
-    <button  (mouseenter)="enter(i)"  cdkDropList #event="cdkDropList" (cdkDragStarted)="onDragStart($event)" cdkDrag style="cursor: pointer;"  [matMenuTriggerFor]="menu"  [style]="{'background-color': getBackgroundColor(seance[1]),'color':getTextColor(seance[1]),'border': seance[1] == 'Examen' ? '1px solid var(--dblue-them-color)' : '0px solid','height':getScale(seance[5]),'font-size':getFontSize(seance[5]),'width':getWidth(seance[5])}" class="seanceBtn" mat-button>
+    <button  (mouseenter)="enter(i)"  cdkDropList #event="cdkDropList" (cdkDragStarted)="onDragStart($event)" cdkDrag style="cursor: pointer;"  [matMenuTriggerFor]="menu"  [style]="{'background-color': getBackgroundColor(seance[1]),'color':getTextColor(seance[1]),'border': seance[1] == 'Examen' ? '1px solid var(--dblue-them-color)' : '0px solid','height':getHeightSeanceAvailableButton(seance[5]),'font-size':getFontSize(seance[5]),'width':getWidth(seance[5])}" class="seanceBtn" mat-button>
 
       <div id="buttonAvailableContent">
         {{seance[1]}}
@@ -137,11 +137,37 @@
   <th
    *matHeaderCellDef> {{column}} </th>
 
-    <td  (mouseleave)="isOut = !isOut" (mouseenter)="heureIndex = i;dayIndex = day - 1;isOut = !isOut"    *matCellDef="let element;let i = dataIndex">
+    <td    (mouseleave)="isOut = !isOut" (mouseenter)="heureIndex = i;dayIndex = day - 1;isOut = !isOut"    *matCellDef="let element;let i = dataIndex">
 
-      <div [matMenuTriggerFor]="menu"  class="rowDaysWrp" [style]="{'top':semaineJours[0][i][6] == '00'? '3px' : semaineJours[0][i][6] == '15' ? 'calc(2px + 1.3vh)' : semaineJours[0][i][6] == '30' ? 'calc(2px + 2.6vh)' : semaineJours[0][i][6] == '45' ?  'calc(2px + 3.9vh)' : '2px'  ,'height':getHeight(semaineJours[0][i][5]),'background-color' : getBackgroundColor(semaineJours[0][i][2]) ,'color':getTextColor(semaineJours[0][i][2]), 'border':getBorder(semaineJours[0][i][2])}"   [ngClass]="semaineJours[0][i][1] != ''  || semaineJours[0][i][2] != '' ? 'value' : 'noValue'"  *ngIf="i < creneaux.length && semaineJours[0][i][3] == column && semaineJours[0][i][1] != '' && semaineJours[0][i][0] == creneaux[i] && semaineJours[0][i][5] != ''">
-      <div   class="rowDays">
-    <label >    {{semaineJours[0][i][2]}}</label>
+      <div  (click)="isExpanded = !isExpanded"   [matMenuTriggerFor]="menu"  class="rowDaysWrp"
+         *ngIf="semaineJours[0][i][3] == column && semaineJours[0][i][1] != ''">
+        <div   [style]="{
+      'background-color' : (semaineJours[0][i][6] == '00') ? getBackgroundColor(semaineJours[0][i][2]) : 'transparent' ,
+      'color':getTextColor(semaineJours[0][i][2])}"
+    id="t-00">
+          <label *ngIf="(semaineJours[0][i][6] == '00')" >    {{semaineJours[0][i][2]}}</label>
+        </div>
+        <div [style]="{
+          'background-color' : semaineJours[0][i][6] == '15' || (semaineJours[0][i][6] == '00' && semaineJours[0][i][5] != '25') ? getBackgroundColor(semaineJours[0][i][2]) : 'transparent' ,
+          'color':getTextColor(semaineJours[0][i][2])}"
+
+           id="t-15">
+          <label *ngIf=" semaineJours[0][i][6] == '15' || (semaineJours[0][i][6] == '00' && semaineJours[0][i][5] != '25') " >    {{semaineJours[0][i][2]}}</label>
+        </div>
+        <div [style]="{
+          'background-color' : semaineJours[0][i][6] == '30' || (semaineJours[0][i][6] == '15' && semaineJours[0][i][5] != '25') || (semaineJours[0][i][6] == '00' && (semaineJours[0][i][5] != '25' && semaineJours[0][i][5] != '50')) ? getBackgroundColor(semaineJours[0][i][2]) : 'transparent',
+          'color':getTextColor(semaineJours[0][i][2])}"
+
+           id="t-30">
+          <label *ngIf="semaineJours[0][i][6] == '30' || (semaineJours[0][i][6] == '15' && semaineJours[0][i][5] != '25') || (semaineJours[0][i][6] == '00' && (semaineJours[0][i][5] != '25' && semaineJours[0][i][5] != '50'))" >    {{semaineJours[0][i][2]}}</label>
+        </div>
+        <div [style]="{
+          'background-color' : (semaineJours[0][i][6] == '30' && semaineJours[0][i][5] != '25' ) ||  semaineJours[0][i][6] == '45' || semaineJours[0][i][5] == '100' ||  (semaineJours[0][i][6] == '15' && (semaineJours[0][i][5] == '75' || semaineJours[0][i][5] == '100')) || (semaineJours[0][i][6] == '00' && semaineJours[0][i][5] == '100') ? getBackgroundColor(semaineJours[0][i][2]) : 'transparent' ,
+          'color':getTextColor(semaineJours[0][i][2])}"
+           id="t-45">
+          <label *ngIf="(semaineJours[0][i][6] == '30' && semaineJours[0][i][5] != '25' ) ||  semaineJours[0][i][6] == '45' || semaineJours[0][i][5] == '100' ||  (semaineJours[0][i][6] == '15' && (semaineJours[0][i][5] == '75' || semaineJours[0][i][5] == '100')) || (semaineJours[0][i][6] == '00' && semaineJours[0][i][5] == '100') " >    {{semaineJours[0][i][2]}}</label>
+        </div>
+
     <mat-menu style="cursor: pointer;text-align: center;" #menu="matMenu">
       <mat-label mat-menu-item>Type de séance : {{semaineJours[0][i][2] || "Aucun type n'est associée"}}</mat-label>
       <mat-label mat-menu-item>Salle : {{semaineJours[0][i][4] || "Aucune salle n'est associée"}}</mat-label>
@@ -151,7 +177,6 @@
       <button (click)="deleteItemFromCalendar(0,i)"   class="deleteElement" mat-button>Supprimer l'element</button>
     </mat-menu>
       </div>
-    </div>
     <div [matMenuTriggerFor]="menuHour" #menuTrigger="matMenuTrigger"  >
       <mat-menu  #menuHour="matMenu">
         <mat-label (click)="setCreneau('00')" mat-menu-item>{{semaineJours[dayIndex][heureIndex][0]}}:00</mat-label>
@@ -160,9 +185,35 @@
         <mat-label (click)="setCreneau('45')" mat-menu-item>{{semaineJours[dayIndex][heureIndex][0]}}:45</mat-label>
       </mat-menu>
     </div>
-    <div [matMenuTriggerFor]="menu" class="rowDaysWrp" [style]="{'top':semaineJours[1][i][6] == '00'? '3px' : semaineJours[1][i][6] == '15' ? 'calc(2px + 1.3vh)' : semaineJours[1][i][6] == '30' ? 'calc(2px + 2.6vh)' : semaineJours[1][i][6] == '45' ?  'calc(2px + 3.9vh)' : '2px'  ,'height':getHeight(semaineJours[1][i][5]),'background-color' : getBackgroundColor(semaineJours[1][i][2]),'color':getTextColor(semaineJours[1][i][2]),'border':getBorder(semaineJours[1][i][2])}" [ngClass]="semaineJours[1][i][1] != ''  || semaineJours[1][i][2] != '' ? 'value' : 'noValue'"  *ngIf="i < creneaux.length && semaineJours[1][i][3] == column && semaineJours[1][i][1] != '' && semaineJours[1][i][0] == creneaux[i]">
-      <div class="rowDays"  >
-        <label>{{semaineJours[1][i][2]}}</label>
+
+    <div [matMenuTriggerFor]="menu" class="rowDaysWrp"
+      *ngIf="i < creneaux.length && semaineJours[1][i][3] == column && semaineJours[1][i][1] != '' && semaineJours[1][i][0] == creneaux[i]"
+      >
+        <div [style]="{
+      'background-color' : (semaineJours[1][i][6] == '00') ? getBackgroundColor(semaineJours[1][i][2]) : 'transparent' ,
+      'color':getTextColor(semaineJours[1][i][2])}"
+ id="t-00">
+          <label *ngIf="(semaineJours[1][i][6] == '00')" >    {{semaineJours[1][i][2]}}</label>
+        </div>
+        <div [style]="{
+          'background-color' : semaineJours[1][i][6] == '15' || (semaineJours[1][i][6] == '00' && semaineJours[1][i][5] != '25')  ? getBackgroundColor(semaineJours[1][i][2]) : 'transparent' ,
+          'color':getTextColor(semaineJours[1][i][2])}"
+           id="t-15">
+          <label *ngIf="semaineJours[1][i][6] == '15' || (semaineJours[1][i][6] == '00' && semaineJours[1][i][5] != '25')" >    {{semaineJours[1][i][2]}}</label>
+        </div>
+        <div [style]="{
+          'background-color' : semaineJours[1][i][6] == '30' || (semaineJours[1][i][6] == '15' && semaineJours[1][i][5] != '25') || (semaineJours[1][i][6] == '00' && (semaineJours[1][i][5] != '25' && semaineJours[1][i][5] != '50'))  ? getBackgroundColor(semaineJours[1][i][2]) : 'transparent' ,
+          'color':getTextColor(semaineJours[1][i][2])}"
+
+           id="t-30">
+          <label *ngIf=" semaineJours[1][i][6] == '30' || (semaineJours[1][i][6] == '15' && semaineJours[1][i][5] != '25') || (semaineJours[1][i][6] == '00' && (semaineJours[1][i][5] != '25' && semaineJours[1][i][5] != '50'))" >    {{semaineJours[1][i][2]}}</label>
+        </div>
+        <div [style]="{
+          'background-color' : (semaineJours[1][i][6] == '30' && semaineJours[1][i][5] != '25' ) ||  semaineJours[1][i][6] == '45' || semaineJours[1][i][5] == '100' ||  (semaineJours[1][i][6] == '15' && (semaineJours[1][i][5] == '75' || semaineJours[1][i][5] == '100')) || (semaineJours[1][i][6] == '00' && semaineJours[1][i][5] == '100') ? getBackgroundColor(semaineJours[1][i][2]) : 'transparent' ,
+          'color':getTextColor(semaineJours[1][i][2])}"
+           id="t-45">
+          <label *ngIf="(semaineJours[1][i][6] == '30' && semaineJours[1][i][5] != '25' ) ||  semaineJours[1][i][6] == '45' || semaineJours[1][i][5] == '100' ||  (semaineJours[1][i][6] == '15' && (semaineJours[1][i][5] == '75' || semaineJours[1][i][5] == '100')) || (semaineJours[1][i][6] == '00' && semaineJours[1][i][5] == '100')" >    {{semaineJours[1][i][2]}}</label>
+        </div>
         <mat-menu style="cursor: pointer;text-align: center;" #menu="matMenu">
           <mat-label mat-menu-item>Type de séance : {{semaineJours[1][i][2] || "Aucun type n'est associée"}}</mat-label>
           <mat-label mat-menu-item>Salle : {{semaineJours[1][i][4] || "Aucune salle n'est associée"}}</mat-label>
@@ -171,16 +222,35 @@
           <mat-label  mat-menu-item>Commence à : {{semaineJours[1][i][0]}}:{{semaineJours[1][i][6]}}</mat-label>
           <button (click)="deleteItemFromCalendar(1,i)"  class="deleteElement" mat-button>Supprimer l'element</button>
         </mat-menu>
-      </div>
-
-
-
     </div>
-    <div [matMenuTriggerFor]="menu" class="rowDaysWrp" [style]="{'top':semaineJours[2][i][6] == '00'? '3px' : semaineJours[2][i][6] == '15' ? 'calc(2px + 1.3vh)' : semaineJours[2][i][6] == '30' ? 'calc(2px + 2.6vh)' : semaineJours[2][i][6] == '45' ?  'calc(2px + 3.9vh)' : '2px'  ,'height':getHeight(semaineJours[2][i][5]),'background-color' : getBackgroundColor(semaineJours[2][i][2]),'color':getTextColor(semaineJours[2][i][2]),'border':getBorder(semaineJours[2][i][2])}" [ngClass]="semaineJours[2][i][1] != '' || semaineJours[2][i][2] != '' ? 'value' : 'noValue'"  *ngIf="i < creneaux.length && semaineJours[2][i][3] == column && semaineJours[2][i][1] != '' && semaineJours[2][i][0] == creneaux[i]">
 
-      <div class="rowDays"  >
 
-        <label>    {{semaineJours[2][i][2]}}</label>
+    <div [matMenuTriggerFor]="menu" class="rowDaysWrp"
+    *ngIf="i < creneaux.length && semaineJours[2][i][3] == column && semaineJours[2][i][1] != '' && semaineJours[2][i][0] == creneaux[i]">
+      <div [style]="{
+        'background-color' : (semaineJours[2][i][6] == '00') ? getBackgroundColor(semaineJours[2][i][2]) :'transparent' ,
+        'color':getTextColor(semaineJours[2][i][2])}"
+        id="t-00">
+            <label *ngIf="(semaineJours[2][i][6] == '00')" >    {{semaineJours[2][i][2]}}</label>
+          </div>
+          <div [style]="{
+            'background-color' : semaineJours[2][i][6] == '15' || (semaineJours[2][i][6] == '00' && semaineJours[2][i][5] != '25') ? getBackgroundColor(semaineJours[2][i][2]) :'transparent' ,
+            'color':getTextColor(semaineJours[2][i][2])}"
+             id="t-15">
+            <label *ngIf="semaineJours[2][i][6] == '15' || (semaineJours[2][i][6] == '00' && semaineJours[2][i][5] != '25') " >    {{semaineJours[2][i][2]}}</label>
+          </div>
+          <div [style]="{
+            'background-color' : semaineJours[2][i][6] == '30' || (semaineJours[2][i][6] == '15' && semaineJours[2][i][5] != '25') || (semaineJours[2][i][6] == '00' && (semaineJours[2][i][5] != '25' && semaineJours[2][i][5] != '50')) ? getBackgroundColor(semaineJours[2][i][2]) :'transparent' ,
+            'color':getTextColor(semaineJours[2][i][2])}"
+             id="t-30">
+            <label *ngIf="semaineJours[2][i][6] == '30' || (semaineJours[2][i][6] == '15' && semaineJours[2][i][5] != '25') || (semaineJours[2][i][6] == '00' && (semaineJours[2][i][5] != '25' && semaineJours[2][i][5] != '50'))" >    {{semaineJours[2][i][2]}}</label>
+          </div>
+          <div [style]="{
+            'background-color' : (semaineJours[2][i][6] == '30' && semaineJours[2][i][5] != '25' ) ||  semaineJours[2][i][6] == '45' || semaineJours[2][i][5] == '100' ||  (semaineJours[2][i][6] == '15' && (semaineJours[2][i][5] == '75' || semaineJours[2][i][5] == '100')) || (semaineJours[2][i][6] == '00' && semaineJours[2][i][5] == '100') ? getBackgroundColor(semaineJours[2][i][2]) :'transparent' ,
+            'color':getTextColor(semaineJours[2][i][2])}"
+             id="t-45">
+            <label *ngIf="(semaineJours[2][i][6] == '30' && semaineJours[2][i][5] != '25' ) ||  semaineJours[2][i][6] == '45' || semaineJours[2][i][5] == '100' ||  (semaineJours[2][i][6] == '15' && (semaineJours[2][i][5] == '75' || semaineJours[2][i][5] == '100')) || (semaineJours[2][i][6] == '00' && semaineJours[2][i][5] == '100')" >    {{semaineJours[2][i][2]}}</label>
+          </div>
         <mat-menu style="cursor: pointer;text-align: center;" #menu="matMenu">
           <mat-label mat-menu-item>Type de séance : {{semaineJours[2][i][2] || "Aucun type n'est associée"}}</mat-label>
           <mat-label mat-menu-item>Salle : {{semaineJours[2][i][4] || "Aucune salle n'est associée"}}</mat-label>
@@ -189,13 +259,34 @@
           <mat-label  mat-menu-item>Commence à : {{semaineJours[2][i][0]}}:{{semaineJours[2][i][6]}}</mat-label>
           <button (click)="deleteItemFromCalendar(2,i)" class="deleteElement" mat-button>Supprimer l'element</button>
         </mat-menu>
-      </div>
 </div>
 
-<div [matMenuTriggerFor]="menu" class="rowDaysWrp" [style]="{'top':semaineJours[3][i][6] == '00'? '3px' : semaineJours[3][i][6] == '15' ? 'calc(2px + 1.3vh)' : semaineJours[3][i][6] == '30' ? 'calc(2px + 2.6vh)' : semaineJours[3][i][6] == '45' ?  'calc(2px + 3.9vh)' : '2px'  ,'height':getHeight(semaineJours[3][i][5]),'background-color' : getBackgroundColor(semaineJours[3][i][2]),'color':getTextColor(semaineJours[3][i][2]),'border':getBorder(semaineJours[3][i][2])}" [ngClass]="semaineJours[3][i][1] != '' || semaineJours[3][i][2] != ''  ? 'value' : 'noValue'"  *ngIf="i < creneaux.length && semaineJours[3][i][3] == column && semaineJours[3][i][1] != '' && semaineJours[3][i][0] == creneaux[i]">
-      <div class="rowDays"  >
-
-        <label>    {{semaineJours[3][i][2]}}</label>
+<div [matMenuTriggerFor]="menu" class="rowDaysWrp"
+  *ngIf="i < creneaux.length && semaineJours[3][i][3] == column && semaineJours[3][i][1] != '' && semaineJours[3][i][0] == creneaux[i]">
+  <div
+  [style]="{'background-color' : (semaineJours[3][i][6] == '00') ? getBackgroundColor(semaineJours[3][i][2]) :'transparent' ,
+  'color':getTextColor(semaineJours[3][i][2])}"
+  id="t-00">
+        <label *ngIf="(semaineJours[3][i][6] == '00')">    {{semaineJours[3][i][2]}}</label>
+      </div>
+      <div [style]="{
+        'background-color' : semaineJours[3][i][6] == '15' || (semaineJours[3][i][6] == '00' && semaineJours[3][i][5] != '25')  ? getBackgroundColor(semaineJours[3][i][2]) :'transparent' ,
+        'color':getTextColor(semaineJours[3][i][2])}"
+         id="t-15">
+        <label *ngIf="semaineJours[3][i][6] == '15' || (semaineJours[3][i][6] == '00' && semaineJours[3][i][5] != '25')" >    {{semaineJours[3][i][2]}}</label>
+      </div>
+      <div [style]="{
+        'background-color' : semaineJours[3][i][6] == '30' || (semaineJours[3][i][6] == '15' && semaineJours[3][i][5] != '25') || (semaineJours[3][i][6] == '00' && (semaineJours[3][i][5] != '25' && semaineJours[3][i][5] != '50'))  ? getBackgroundColor(semaineJours[3][i][2]) : 'transparent' ,
+        'color':getTextColor(semaineJours[3][i][2])}"
+         id="t-30">
+        <label *ngIf="semaineJours[3][i][6] == '30' || (semaineJours[3][i][6] == '15' && semaineJours[3][i][5] != '25') || (semaineJours[3][i][6] == '00' && (semaineJours[3][i][5] != '25' && semaineJours[3][i][5] != '50'))" >    {{semaineJours[3][i][2]}}</label>
+      </div>
+      <div [style]="{
+        'background-color' : (semaineJours[3][i][6] == '30' && semaineJours[3][i][5] != '25' ) ||  semaineJours[3][i][6] == '45' || semaineJours[3][i][5] == '100' ||  (semaineJours[3][i][6] == '15' && (semaineJours[3][i][5] == '75' || semaineJours[3][i][5] == '100')) || (semaineJours[3][i][6] == '00' && semaineJours[3][i][5] == '100') ? getBackgroundColor(semaineJours[3][i][2]) : 'transparent' ,
+        'color':getTextColor(semaineJours[3][i][2])}"
+         id="t-45">
+        <label *ngIf="(semaineJours[3][i][6] == '30' && semaineJours[3][i][5] != '25' ) ||  semaineJours[3][i][6] == '45' || semaineJours[3][i][5] == '100' ||  (semaineJours[3][i][6] == '15' && (semaineJours[3][i][5] == '75' || semaineJours[3][i][5] == '100')) || (semaineJours[3][i][6] == '00' && semaineJours[3][i][5] == '100')" >    {{semaineJours[3][i][2]}}</label>
+      </div>
         <mat-menu style="cursor: pointer;text-align: center;" #menu="matMenu">
           <mat-label mat-menu-item>Type de séance : {{semaineJours[3][i][2] || "Aucun type n'est associée"}}</mat-label>
           <mat-label mat-menu-item>Salle : {{semaineJours[3][i][4] || "Aucune salle n'est associée"}}</mat-label>
@@ -204,13 +295,36 @@
           <mat-label  mat-menu-item>Commence à : {{semaineJours[3][i][0]}}:{{semaineJours[3][i][6]}}</mat-label>
           <button (click)="deleteItemFromCalendar(3,i)" class="deleteElement" mat-button>Supprimer l'element</button>
         </mat-menu>
-      </div>
+
     </div>
 
-    <div [matMenuTriggerFor]="menu" class="rowDaysWrp" [style]="{'top':semaineJours[4][i][6] == '00'? '3px' : semaineJours[4][i][6] == '15' ? 'calc(2px + 1.3vh)' : semaineJours[4][i][6] == '30' ? 'calc(2px + 2.6vh)' : semaineJours[4][i][6] == '45' ?  'calc(2px + 3.9vh)' : '2px'  ,'height':getHeight(semaineJours[4][i][5]),'background-color' : getBackgroundColor(semaineJours[4][i][2]),'color':getTextColor(semaineJours[4][i][2]),'border':getBorder(semaineJours[4][i][2])}" [ngClass]="semaineJours[4][i][1] != '' || semaineJours[4][i][2] != '' ? 'value' : 'noValue'"  *ngIf="i < creneaux.length && semaineJours[4][i][3] == column && semaineJours[4][i][1] != '' && semaineJours[4][i][0] == creneaux[i]">
-      <div class="rowDays"  >
+    <div [matMenuTriggerFor]="menu" class="rowDaysWrp"
+     *ngIf="i < creneaux.length && semaineJours[4][i][3] == column && semaineJours[4][i][1] != '' && semaineJours[4][i][0] == creneaux[i]">
 
-        <label>{{semaineJours[4][i][2]}}</label>
+      <div [style]="{
+        'background-color' : (semaineJours[4][i][6] == '00') ? getBackgroundColor(semaineJours[4][i][2]) : 'transparent' ,
+        'color':getTextColor(semaineJours[4][i][2])}"
+       id="t-00">
+            <label *ngIf="(semaineJours[4][i][6] == '00')" >    {{semaineJours[4][i][2]}}</label>
+          </div>
+          <div [style]="{
+            'background-color' : semaineJours[4][i][6] == '15' || (semaineJours[4][i][6] == '00' && semaineJours[4][i][5] != '25')  ? getBackgroundColor(semaineJours[4][i][2]) : 'transparent' ,
+            'color':getTextColor(semaineJours[4][i][2])}"
+             id="t-15">
+            <label *ngIf="semaineJours[4][i][6] == '15' || (semaineJours[4][i][6] == '00' && semaineJours[4][i][5] != '25') " >    {{semaineJours[4][i][2]}}</label>
+          </div>
+          <div [style]="{
+            'background-color' : semaineJours[4][i][6] == '30' || (semaineJours[4][i][6] == '15' && semaineJours[4][i][5] != '25') || (semaineJours[4][i][6] == '00' && (semaineJours[4][i][5] != '25' && semaineJours[4][i][5] != '50'))  ? getBackgroundColor(semaineJours[4][i][2]) :'transparent' ,
+            'color':getTextColor(semaineJours[4][i][2])}"
+             id="t-30">
+            <label *ngIf="semaineJours[4][i][6] == '30' || (semaineJours[4][i][6] == '15' && semaineJours[4][i][5] != '25') || (semaineJours[4][i][6] == '00' && (semaineJours[4][i][5] != '25' && semaineJours[4][i][5] != '50'))" >    {{semaineJours[4][i][2]}}</label>
+          </div>
+          <div [style]="{
+            'background-color' : (semaineJours[4][i][6] == '30' && semaineJours[4][i][5] != '25' ) ||  semaineJours[4][i][6] == '45' || semaineJours[4][i][5] == '100' ||  (semaineJours[4][i][6] == '15' && (semaineJours[4][i][5] == '75' || semaineJours[4][i][5] == '100')) || (semaineJours[4][i][6] == '00' && semaineJours[4][i][5] == '100') ? getBackgroundColor(semaineJours[4][i][2]) : 'transparent' ,
+            'color':getTextColor(semaineJours[4][i][2])}"
+             id="t-45">
+            <label *ngIf="(semaineJours[4][i][6] == '30' && semaineJours[4][i][5] != '25' ) ||  semaineJours[4][i][6] == '45' || semaineJours[4][i][5] == '100' ||  (semaineJours[4][i][6] == '15' && (semaineJours[4][i][5] == '75' || semaineJours[4][i][5] == '100')) || (semaineJours[4][i][6] == '00' && semaineJours[4][i][5] == '100')" >    {{semaineJours[4][i][2]}}</label>
+          </div>
         <mat-menu style="cursor: pointer;text-align: center;" #menu="matMenu">
           <mat-label mat-menu-item>Type de séance : {{semaineJours[4][i][2] || "Aucun type n'est associée"}}</mat-label>
           <mat-label mat-menu-item>Salle : {{semaineJours[4][i][4] || "Aucune salle n'est associée"}}</mat-label>
@@ -219,13 +333,35 @@
           <mat-label  mat-menu-item>Commence à : {{semaineJours[4][i][0]}}:{{semaineJours[4][i][6]}}</mat-label>
           <button (click)="deleteItemFromCalendar(4,i)" class="deleteElement" mat-button>Supprimer l'element</button>
         </mat-menu>
-          </div>
         </div>
 
-    <div  [matMenuTriggerFor]="menu"  class="rowDaysWrp" [style]="{'top':semaineJours[5][i][6] == '00'? '3px' : semaineJours[5][i][6] == '15' ? 'calc(2px + 1.3vh)' : semaineJours[5][i][6] == '30' ? 'calc(2px + 2.6vh)' : semaineJours[5][i][6] == '45' ?  'calc(2px + 3.9vh)' : '2px'  ,'height':getHeight(semaineJours[5][i][5]),'background-color' : getBackgroundColor(semaineJours[5][i][2]),'color':getTextColor(semaineJours[5][i][2]),'border':getBorder(semaineJours[5][i][2])}" [ngClass]="semaineJours[5][i][1] != '' || semaineJours[5][i][2] != ''  ? 'value' : 'noValue'"  *ngIf="i < creneaux.length && semaineJours[5][i][3] == column && semaineJours[5][i][1] != '' && semaineJours[5][i][0] == creneaux[i]">
-      <div class="rowDays">
+    <div  [matMenuTriggerFor]="menu"  class="rowDaysWrp"
+*ngIf="i < creneaux.length && semaineJours[5][i][3] == column && semaineJours[5][i][1] != '' && semaineJours[5][i][0] == creneaux[i]">
 
-        <label>    {{semaineJours[5][i][2]}}</label>
+      <div [style]="{
+        'background-color' : (semaineJours[5][i][6] == '00') ? getBackgroundColor(semaineJours[5][i][2]) : 'transparent' ,
+        'color':getTextColor(semaineJours[5][i][2])}"
+        id="t-00">
+            <label *ngIf="(semaineJours[5][i][6] == '00')" >    {{semaineJours[5][i][2]}}</label>
+          </div>
+          <div [style]="{
+            'background-color' : semaineJours[5][i][6] == '15' || (semaineJours[5][i][6] == '00' && semaineJours[5][i][5] != '25')  ? getBackgroundColor(semaineJours[5][i][2]) : 'transparent' ,
+            'color':getTextColor(semaineJours[5][i][2])}"
+             id="t-15">
+            <label *ngIf="semaineJours[5][i][6] == '15' || (semaineJours[5][i][6] == '00' && semaineJours[5][i][5] != '25')" >    {{semaineJours[5][i][2]}}</label>
+          </div>
+          <div [style]="{
+            'background-color' : semaineJours[5][i][6] == '30' || (semaineJours[5][i][6] == '15' && semaineJours[5][i][5] != '25') || (semaineJours[5][i][6] == '00' && (semaineJours[5][i][5] != '25' && semaineJours[5][i][5] != '50'))  ? getBackgroundColor(semaineJours[5][i][2]) : 'transparent',
+            'color':getTextColor(semaineJours[5][i][2])}"
+             id="t-30">
+            <label *ngIf="semaineJours[5][i][6] == '30' || (semaineJours[5][i][6] == '15' && semaineJours[5][i][5] != '25') || (semaineJours[5][i][6] == '00' && (semaineJours[5][i][5] != '25' && semaineJours[5][i][5] != '50')) " >    {{semaineJours[5][i][2]}}</label>
+          </div>
+          <div [style]="{
+            'background-color' : (semaineJours[5][i][6] == '30' && semaineJours[5][i][5] != '25' ) ||  semaineJours[5][i][6] == '45' || semaineJours[5][i][5] == '100' ||  (semaineJours[5][i][6] == '15' && (semaineJours[5][i][5] == '75' || semaineJours[5][i][5] == '100')) || (semaineJours[5][i][6] == '00' && semaineJours[5][i][5] == '100') ? getBackgroundColor(semaineJours[5][i][2]) : 'transparent' ,
+            'color':getTextColor(semaineJours[5][i][2])}"
+             id="t-45">
+            <label *ngIf="(semaineJours[5][i][6] == '30' && semaineJours[5][i][5] != '25' ) ||  semaineJours[5][i][6] == '45' || semaineJours[5][i][5] == '100' ||  (semaineJours[5][i][6] == '15' && (semaineJours[5][i][5] == '75' || semaineJours[5][i][5] == '100')) || (semaineJours[5][i][6] == '00' && semaineJours[5][i][5] == '100')" >    {{semaineJours[5][i][2]}}</label>
+          </div>
         <mat-menu style="cursor: pointer;text-align: center;" #menu="matMenu">
           <mat-label mat-menu-item>Type de séance : {{semaineJours[5][i][2] || "Aucun type n'est associée"}}</mat-label>
           <mat-label mat-menu-item>Salle : {{semaineJours[5][i][4] || "Aucune salle n'est associée"}}</mat-label>
@@ -234,14 +370,37 @@
           <mat-label  mat-menu-item>Commence à : {{semaineJours[5][i][0]}}:{{semaineJours[5][i][6]}}</mat-label>
           <button (click)="deleteItemFromCalendar(5,i)" class="deleteElement" mat-button>Supprimer l'element</button>
         </mat-menu>
-      </div>
 
     </div>
-      <div [matMenuTriggerFor]="menu" class="rowDaysWrp" [style]="{'top':semaineJours[6][i][6] == '00'? '3px' : semaineJours[6][i][6] == '15' ? 'calc(2px + 1.3vh)' : semaineJours[6][i][6] == '30' ? 'calc(2px + 2.6vh)' : semaineJours[6][i][6] == '45' ?  'calc(2px + 3.9vh)' : '2px'  ,'height':getHeight(semaineJours[6][i][5]),'background-color' : getBackgroundColor(semaineJours[6][i][2]),'color':getTextColor(semaineJours[6][i][2]),'border':getBorder(semaineJours[6][i][2])}" [ngClass]="semaineJours[6][i][1] != '' || semaineJours[6][i][2] != ''  ? 'value' : 'noValue'"  *ngIf="i < creneaux.length && semaineJours[6][i][3] == column && semaineJours[6][i][1] != '' && semaineJours[6][i][0] == creneaux[i]">
+      <div [matMenuTriggerFor]="menu" class="rowDaysWrp"
+      *ngIf="i < creneaux.length && semaineJours[6][i][3] == column && semaineJours[6][i][1] != '' && semaineJours[6][i][0] == creneaux[i]">
 
-      <div class="rowDays"  >
+        <div [style]="{
+          'background-color' : (semaineJours[6][i][6] == '00') ? getBackgroundColor(semaineJours[6][i][2]) : 'transparent' ,
+          'color':getTextColor(semaineJours[6][i][2])}"
+ id="t-00">
+              <label *ngIf="(semaineJours[6][i][6] == '00')" >    {{semaineJours[6][i][2]}}</label>
+            </div>
+            <div [style]="{
+              'background-color' : semaineJours[6][i][6] == '15' || (semaineJours[6][i][6] == '00' && semaineJours[6][i][5] != '25') ? getBackgroundColor(semaineJours[6][i][2]) : 'transparent' ,
+              'color':getTextColor(semaineJours[6][i][2])}"
+               id="t-15">
+              <label *ngIf="semaineJours[6][i][6] == '15' || (semaineJours[6][i][6] == '00' && semaineJours[6][i][5] != '25')" >    {{semaineJours[6][i][2]}}</label>
+            </div>
+            <div [style]="{
+              'background-color' : semaineJours[6][i][6] == '30' || (semaineJours[6][i][6] == '15' && semaineJours[6][i][5] != '25') || (semaineJours[6][i][6] == '00' && (semaineJours[6][i][5] != '25' && semaineJours[6][i][5] != '50'))  ? getBackgroundColor(semaineJours[6][i][2]) : 'transparent' ,
+              'color':getTextColor(semaineJours[6][i][2])}"
 
-        <label>    {{semaineJours[6][i][2]}}</label>
+               id="t-30">
+              <label *ngIf=" semaineJours[6][i][6] == '30' || (semaineJours[6][i][6] == '15' && semaineJours[6][i][5] != '25') || (semaineJours[6][i][6] == '00' && (semaineJours[6][i][5] != '25' && semaineJours[6][i][5] != '50'))  " >    {{semaineJours[6][i][2]}}</label>
+            </div>
+            <div [style]="{
+              'background-color' : (semaineJours[6][i][6] == '30' && semaineJours[6][i][5] != '25' ) ||  semaineJours[6][i][6] == '45' || semaineJours[6][i][5] == '100' ||  (semaineJours[6][i][6] == '15' && (semaineJours[6][i][5] == '75' || semaineJours[6][i][5] == '100')) || (semaineJours[6][i][6] == '00' && semaineJours[6][i][5] == '100') ? getBackgroundColor(semaineJours[6][i][2]) : 'transparent' ,
+              'color':getTextColor(semaineJours[6][i][2])}"
+               id="t-45">
+              <label *ngIf="(semaineJours[6][i][6] == '30' && semaineJours[6][i][5] != '25' ) ||  semaineJours[6][i][6] == '45' || semaineJours[6][i][5] == '100' ||  (semaineJours[6][i][6] == '15' && (semaineJours[6][i][5] == '75' || semaineJours[6][i][5] == '100')) || (semaineJours[6][i][6] == '00' && semaineJours[6][i][5] == '100')" >    {{semaineJours[6][i][2]}}</label>
+            </div>
+
         <mat-menu style="cursor: pointer;text-align: center;" #menu="matMenu">
           <mat-label mat-menu-item>Type de séance : {{semaineJours[6][i][2] || "Aucun type n'est associée"}}</mat-label>
           <mat-label mat-menu-item>Salle : {{semaineJours[6][i][4] || "Aucune salle n'est associée"}}</mat-label>
@@ -250,7 +409,6 @@
           <mat-label  mat-menu-item>Commence à : {{semaineJours[6][i][0]}}:{{semaineJours[6][i][6]}}</mat-label>
           <button (click)="deleteItemFromCalendar(6,i)" class="deleteElement" mat-button>Supprimer l'element</button>
         </mat-menu>
-      </div>
       </div>
 
 

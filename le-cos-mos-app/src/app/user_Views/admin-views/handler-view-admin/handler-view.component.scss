@@ -34,6 +34,10 @@
   border-radius: 20px;
   margin-right: 1vw;
 
+
+    overflow-y: auto;
+
+
 }
 
 .active-link {
@@ -58,3 +62,21 @@
   margin: 3vh 2vw 3vh auto;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgb(199, 205, 207);
+  border-radius: 5px 5px 5px 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--dblue-them-color);
+  border-radius: 5px 5px 5px 5px;
+
+}
