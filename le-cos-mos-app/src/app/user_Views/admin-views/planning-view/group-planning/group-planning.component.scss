@@ -309,13 +309,6 @@ height: 25%;
 }
 
 .rowDaysWrp {
-  :first-child {
-    font-size: 100%;
-  }
-  :last-child {
-    font-size: 70%;
-
-  }
   z-index: 3;
   max-height: max-content;
   height: 100%; // Very important // To change for expandable
@@ -335,7 +328,6 @@ height: 5vh; // Required to trigger animation
 min-height: 100%;
 max-height: 15vh;
   overflow: visible;
-  transition: 225ms ease-in-out;
   cursor: pointer;
   background-color: rgb(212, 240, 253);
 margin: 0;
@@ -353,7 +345,7 @@ margin: 0;
 
 tr {
   &.row {
-    height: 6vh; // Statick height of cells
+    height: 5vh; // Statick height of cells
     min-height: 25%;
   }
 }

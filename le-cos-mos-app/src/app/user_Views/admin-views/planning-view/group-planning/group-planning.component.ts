@@ -161,7 +161,7 @@ export class GroupPlanningComponent implements OnInit {
 
   selectedSeanceGroup = 'Science de la vie'
   constructor(private http:HttpClient,private route: ActivatedRoute) {
-    this.semaineJoursEmpty = this.semaineJours
+
     this.getGroups(this.groupLink!)
     this.getSeanceItems()
     this.menuTrigger?.menuClosed.pipe(map((data) => {
@@ -261,13 +261,14 @@ this.getPlanning()
 
   setCreneau(creneau:string) {
 
-    this.semaineJours[this.dayIndex][this.heureIndex][6] = creneau
+    this.semaineJours[this.dayIndex][this.heureIndex][this.creneauIndex][6] = creneau
     console.log(this.semaineJours[this.dayIndex][this.heureIndex])
 
   }
 
   isOut:boolean = true
   containerIndex:number = 0
+  creneauIndex:number = 0
   drop(event: CdkDragDrop<string[]>) {
     if(this.isOnDrag && !this.isOut) {
       this.menuTrigger?.openMenu()
@@ -279,24 +280,330 @@ this.getPlanning()
       if(this.isOut) {
         return
       }
-      this.touched = true
-      this.semaineJours[this.dayIndex!][this.heureIndex!][1] = event.container.data[2]
-      this.semaineJours[this.dayIndex!][this.heureIndex!][2] = event.container.data[1]
-      this.semaineJours[this.dayIndex!][this.heureIndex!][4] = event.container.data[4]
-      this.semaineJours[this.dayIndex!][this.heureIndex!][5] = event.container.data[5]
-      this.semaineJours[this.dayIndex!][this.heureIndex!][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
+
+      if(true) {
+        console.log(event.container.data)
+
+      } else {
+        return
+      }
+
+      let duree  = event.container.data[5]
+      switch(duree) {
+        case '25':
+          switch(this.creneauIndex) {
+            case 0:
+              this.touched = true
+              this.semaineJours[this.dayIndex!][this.heureIndex!][0][1] = event.container.data[2]
+              this.semaineJours[this.dayIndex!][this.heureIndex!][0][2] = event.container.data[1]
+              this.semaineJours[this.dayIndex!][this.heureIndex!][0][4] = event.container.data[4]
+              this.semaineJours[this.dayIndex!][this.heureIndex!][0][5] = event.container.data[5]
+              this.semaineJours[this.dayIndex!][this.heureIndex!][0][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
+              break;
+              case 1:
+                this.touched = true
+                this.semaineJours[this.dayIndex!][this.heureIndex!][1][1] = event.container.data[2]
+                this.semaineJours[this.dayIndex!][this.heureIndex!][1][2] = event.container.data[1]
+                this.semaineJours[this.dayIndex!][this.heureIndex!][1][4] = event.container.data[4]
+                this.semaineJours[this.dayIndex!][this.heureIndex!][1][5] = event.container.data[5]
+                this.semaineJours[this.dayIndex!][this.heureIndex!][1][6] =  '15' // Valeur par défaut si aucun élément n'est sélectionner
+                break;
+                case 2:
+                  this.touched = true
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][1] = event.container.data[2]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][2] = event.container.data[1]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][4] = event.container.data[4]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][5] = event.container.data[5]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][6] =  '30' // Valeur par défaut si aucun élément n'est sélectionner
+                  break;
+                  case 3:
+                    this.touched = true
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][1] = event.container.data[2]
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][2] = event.container.data[1]
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][4] = event.container.data[4]
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][5] = event.container.data[5]
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][6] =  '45' // Valeur par défaut si aucun élément n'est sélectionner
+                    break;
+
+          }
+         break;
+         case '50':
+          switch(this.creneauIndex) {
+
+            case 0:
+              this.touched = true
+              this.semaineJours[this.dayIndex!][this.heureIndex!][0][1] = event.container.data[2]
+              this.semaineJours[this.dayIndex!][this.heureIndex!][0][2] = event.container.data[1]
+              this.semaineJours[this.dayIndex!][this.heureIndex!][0][4] = event.container.data[4]
+              this.semaineJours[this.dayIndex!][this.heureIndex!][0][5] = event.container.data[5]
+              this.semaineJours[this.dayIndex!][this.heureIndex!][0][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
+
+              this.semaineJours[this.dayIndex!][this.heureIndex!][1][1] = event.container.data[2]
+              this.semaineJours[this.dayIndex!][this.heureIndex!][1][2] = event.container.data[1]
+              this.semaineJours[this.dayIndex!][this.heureIndex!][1][4] = event.container.data[4]
+              this.semaineJours[this.dayIndex!][this.heureIndex!][1][5] = event.container.data[5]
+              this.semaineJours[this.dayIndex!][this.heureIndex!][1][6] =  '15' // Valeur par défaut si aucun élément n'est sélectionner
+              break;
+              case 1:
+                this.touched = true
+                this.semaineJours[this.dayIndex!][this.heureIndex!][1][1] = event.container.data[2]
+                this.semaineJours[this.dayIndex!][this.heureIndex!][1][2] = event.container.data[1]
+                this.semaineJours[this.dayIndex!][this.heureIndex!][1][4] = event.container.data[4]
+                this.semaineJours[this.dayIndex!][this.heureIndex!][1][5] = event.container.data[5]
+                this.semaineJours[this.dayIndex!][this.heureIndex!][1][6] =  '15' // Valeur par défaut si aucun élément n'est sélectionner
+
+                this.semaineJours[this.dayIndex!][this.heureIndex!][2][1] = event.container.data[2]
+                this.semaineJours[this.dayIndex!][this.heureIndex!][2][2] = event.container.data[1]
+                this.semaineJours[this.dayIndex!][this.heureIndex!][2][4] = event.container.data[4]
+                this.semaineJours[this.dayIndex!][this.heureIndex!][2][5] = event.container.data[5]
+                this.semaineJours[this.dayIndex!][this.heureIndex!][2][6] =  '30' // Valeur par défaut si aucun élément n'est sélectionner
+                break;
+                case 2:
+                  this.touched = true
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][1] = event.container.data[2]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][2] = event.container.data[1]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][4] = event.container.data[4]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][5] = event.container.data[5]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][6] =  '30' // Valeur par défaut si aucun élément n'est sélectionner
+
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][1] = event.container.data[2]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][2] = event.container.data[1]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][4] = event.container.data[4]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][5] = event.container.data[5]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][6] =  '45' // Valeur par défaut si aucun élément n'est sélectionner
+                  break;
+                  case 3:
+                    this.touched = true
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][1] = event.container.data[2]
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][2] = event.container.data[1]
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][4] = event.container.data[4]
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][5] = event.container.data[5]
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][6] =  '45' // Valeur par défaut si aucun élément n'est sélectionner
+
+                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][1] = event.container.data[2]
+                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][2] = event.container.data[1]
+                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][4] = event.container.data[4]
+                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][5] = event.container.data[5]
+                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
+
+
+                    break;
+
+          }
+          break;
+          case '75':
+            switch(this.creneauIndex) {
+              case 0:
+                this.touched = true
+                this.semaineJours[this.dayIndex!][this.heureIndex!][0][1] = event.container.data[2]
+                this.semaineJours[this.dayIndex!][this.heureIndex!][0][2] = event.container.data[1]
+                this.semaineJours[this.dayIndex!][this.heureIndex!][0][4] = event.container.data[4]
+                this.semaineJours[this.dayIndex!][this.heureIndex!][0][5] = event.container.data[5]
+                this.semaineJours[this.dayIndex!][this.heureIndex!][0][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
+
+                this.semaineJours[this.dayIndex!][this.heureIndex!][1][1] = event.container.data[2]
+                this.semaineJours[this.dayIndex!][this.heureIndex!][1][2] = event.container.data[1]
+                this.semaineJours[this.dayIndex!][this.heureIndex!][1][4] = event.container.data[4]
+                this.semaineJours[this.dayIndex!][this.heureIndex!][1][5] = event.container.data[5]
+                this.semaineJours[this.dayIndex!][this.heureIndex!][1][6] =  '15' // Valeur par défaut si aucun élément n'est sélectionner
+
+                this.semaineJours[this.dayIndex!][this.heureIndex!][2][1] = event.container.data[2]
+                this.semaineJours[this.dayIndex!][this.heureIndex!][2][2] = event.container.data[1]
+                this.semaineJours[this.dayIndex!][this.heureIndex!][2][4] = event.container.data[4]
+                this.semaineJours[this.dayIndex!][this.heureIndex!][2][5] = event.container.data[5]
+                this.semaineJours[this.dayIndex!][this.heureIndex!][2][6] =  '30' // Valeur par défaut si aucun élément n'est sélectionner
+               break;
+                case 1:
+                  this.touched = true
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][1][1] = event.container.data[2]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][1][2] = event.container.data[1]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][1][4] = event.container.data[4]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][1][5] = event.container.data[5]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][1][6] =  '15' // Valeur par défaut si aucun élément n'est sélectionner
+
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][1] = event.container.data[2]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][2] = event.container.data[1]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][4] = event.container.data[4]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][5] = event.container.data[5]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][6] =  '30' // Valeur par défaut si aucun élément n'est sélectionner
+
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][1] = event.container.data[2]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][2] = event.container.data[1]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][4] = event.container.data[4]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][5] = event.container.data[5]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][6] =  '45' // Valeur par défaut si aucun élément n'est sélectionner
+                  break;
+                  case 2:
+                    this.touched = true
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][2][1] = event.container.data[2]
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][2][2] = event.container.data[1]
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][2][4] = event.container.data[4]
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][2][5] = event.container.data[5]
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][2][6] =  '30' // Valeur par défaut si aucun élément n'est sélectionner
+
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][1] = event.container.data[2]
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][2] = event.container.data[1]
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][4] = event.container.data[4]
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][5] = event.container.data[5]
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][6] =  '45' // Valeur par défaut si aucun élément n'est sélectionner
+
+                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][1] = event.container.data[2]
+                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][2] = event.container.data[1]
+                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][4] = event.container.data[4]
+                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][5] = event.container.data[5]
+                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
+                    break;
+                    case 3:
+                      this.touched = true
+                      this.semaineJours[this.dayIndex!][this.heureIndex!][3][1] = event.container.data[2]
+                      this.semaineJours[this.dayIndex!][this.heureIndex!][3][2] = event.container.data[1]
+                      this.semaineJours[this.dayIndex!][this.heureIndex!][3][4] = event.container.data[4]
+                      this.semaineJours[this.dayIndex!][this.heureIndex!][3][5] = event.container.data[5]
+                      this.semaineJours[this.dayIndex!][this.heureIndex!][3][6] =  '45' // Valeur par défaut si aucun élément n'est sélectionner
+
+                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][1] = event.container.data[2]
+                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][2] = event.container.data[1]
+                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][4] = event.container.data[4]
+                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][5] = event.container.data[5]
+                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
+
+                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][1] = event.container.data[2]
+                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][2] = event.container.data[1]
+                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][4] = event.container.data[4]
+                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][5] = event.container.data[5]
+                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][6] =  '15' // Valeur par défaut si aucun élément n'est sélectionner
+                      break;
+            }
+            break;
+            case '100':
+              switch(this.creneauIndex) {
+
+                case 0:
+                  this.touched = true
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][0][1] = event.container.data[2]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][0][2] = event.container.data[1]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][0][4] = event.container.data[4]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][0][5] = event.container.data[5]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][0][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
+
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][1][1] = event.container.data[2]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][1][2] = event.container.data[1]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][1][4] = event.container.data[4]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][1][5] = event.container.data[5]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][1][6] =  '15' // Valeur par défaut si aucun élément n'est sélectionner
+
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][1] = event.container.data[2]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][2] = event.container.data[1]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][4] = event.container.data[4]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][5] = event.container.data[5]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][6] =  '30' // Valeur par défaut si aucun élément n'est sélectionner
+
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][1] = event.container.data[2]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][2] = event.container.data[1]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][4] = event.container.data[4]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][5] = event.container.data[5]
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][6] =  '45' // Valeur par défaut si aucun élément n'est sélectionner
+                  break;
+                  case 1:
+                    this.touched = true
+
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][1][1] = event.container.data[2]
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][1][2] = event.container.data[1]
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][1][4] = event.container.data[4]
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][1][5] = event.container.data[5]
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][1][6] =  '15' // Valeur par défaut si aucun élément n'est sélectionner
+
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][2][1] = event.container.data[2]
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][2][2] = event.container.data[1]
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][2][4] = event.container.data[4]
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][2][5] = event.container.data[5]
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][2][6] =  '30' // Valeur par défaut si aucun élément n'est sélectionner
+
+
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][1] = event.container.data[2]
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][2] = event.container.data[1]
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][4] = event.container.data[4]
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][5] = event.container.data[5]
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][6] =  '45' // Valeur par défaut si aucun élément n'est sélectionner
+
+                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][1] = event.container.data[2]
+                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][2] = event.container.data[1]
+                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][4] = event.container.data[4]
+                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][5] = event.container.data[5]
+                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
+
+                    break;
+                    case 2:
+                      this.touched = true
+                      this.semaineJours[this.dayIndex!][this.heureIndex!][2][1] = event.container.data[2]
+                      this.semaineJours[this.dayIndex!][this.heureIndex!][2][2] = event.container.data[1]
+                      this.semaineJours[this.dayIndex!][this.heureIndex!][2][4] = event.container.data[4]
+                      this.semaineJours[this.dayIndex!][this.heureIndex!][2][5] = event.container.data[5]
+                      this.semaineJours[this.dayIndex!][this.heureIndex!][2][6] =  '30' // Valeur par défaut si aucun élément n'est sélectionner
+
+                      this.semaineJours[this.dayIndex!][this.heureIndex!][3][1] = event.container.data[2]
+                      this.semaineJours[this.dayIndex!][this.heureIndex!][3][2] = event.container.data[1]
+                      this.semaineJours[this.dayIndex!][this.heureIndex!][3][4] = event.container.data[4]
+                      this.semaineJours[this.dayIndex!][this.heureIndex!][3][5] = event.container.data[5]
+                      this.semaineJours[this.dayIndex!][this.heureIndex!][3][6] =  '45' // Valeur par défaut si aucun élément n'est sélectionner
+
+                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][1] = event.container.data[2]
+                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][2] = event.container.data[1]
+                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][4] = event.container.data[4]
+                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][5] = event.container.data[5]
+                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
+
+
+                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][1] = event.container.data[2]
+                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][2] = event.container.data[1]
+                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][4] = event.container.data[4]
+                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][5] = event.container.data[5]
+                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][6] =  '15' // Valeur par défaut si aucun élément n'est sélectionner
+
+                      break;
+                      case 3:
+                        this.touched = true
+                        this.semaineJours[this.dayIndex!][this.heureIndex!][3][1] = event.container.data[2]
+                        this.semaineJours[this.dayIndex!][this.heureIndex!][3][2] = event.container.data[1]
+                        this.semaineJours[this.dayIndex!][this.heureIndex!][3][4] = event.container.data[4]
+                        this.semaineJours[this.dayIndex!][this.heureIndex!][3][5] = event.container.data[5]
+                        this.semaineJours[this.dayIndex!][this.heureIndex!][3][6] =  '45' // Valeur par défaut si aucun élément n'est sélectionner
+
+                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][1] = event.container.data[2]
+                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][2] = event.container.data[1]
+                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][4] = event.container.data[4]
+                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][5] = event.container.data[5]
+                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
+
+                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][1] = event.container.data[2]
+                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][2] = event.container.data[1]
+                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][4] = event.container.data[4]
+                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][5] = event.container.data[5]
+                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][6] =  '15' // Valeur par défaut si aucun élément n'est sélectionner
+
+                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][2][1] = event.container.data[2]
+                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][2][2] = event.container.data[1]
+                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][2][4] = event.container.data[4]
+                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][2][5] = event.container.data[5]
+                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][2][6] =  '30' // Valeur par défaut si aucun élément n'est sélectionner
+
+                        break;
+              }
+              break;
+      }
+
       // console.log(this.semaineJours[this.dayIndex!][this.heureIndex!][6])
 }
   }
   deleteItemFromCalendar(day:number,heure:number) {
     this.touched = true
     // On ne modify pas l'heure
-    this.semaineJours[day][heure][1] = '' // Le nom : Math, Daniel, etc..
-    this.semaineJours[day][heure][2] = '' // Le type : Cour, Examen , Rdv
+    this.semaineJours[day][heure][this.creneauIndex][1] = '' // Le nom : Math, Daniel, etc..
+    this.semaineJours[day][heure][this.creneauIndex][2] = '' // Le type : Cour, Examen , Rdv
   // On ne modify pas le jour
-    this.semaineJours[day][heure][4] = '' // La salle
-    this.semaineJours[day][heure][5] = '' // La durée
-    this.semaineJours[day][heure][6] = '' // Le creneau
+    this.semaineJours[day][heure][this.creneauIndex][4] = '' // La salle
+    this.semaineJours[day][heure][this.creneauIndex][5] = '' // La durée
+    this.semaineJours[day][heure][this.creneauIndex][6] = '' // Le creneau
       }
 
   async getSeanceItems() {
@@ -393,126 +700,128 @@ this.getPlanning()
      // chaque tableau dans le tableau correspond à un créneaux
           // L'ordre des jours n'a pas d'importance
             // Si plusieurs même élements sont présent dans le tableau (exemple un jour avec jeudi) alors les deux valeurs sont utilisées pour afficher la donné
-            // La taille des tableaux doivent être inférieur ou égale à 7 ( index commencent par 0 et fini par 6) sinon les données ne s'afficheront pas
+            // La taille des tableaux doivent être i['9h','','','lundi','','','']nférieur ou égale à 7 ( index commencent par 0 et fini par 6) sinon les données ne s'afficheront pas
      // Chaque tableau correspond à un creaneaux avec creneaux_slot[0] = 8h00 et  creneaux_slot[11] = 21h00
 // Chaque element dans les tableaux correspondent à un jour dans la semaine avec creneaux_slot[x][0] = lundi et creneaux_slot[x][6] = dimanche
 
 // [heure,matière,nom (personne ou matière),jour,salle,durée,créneau]
-  lundi:string[][] = [
-    ['8h','','','lundi','','',''],
-    ['9h','','','lundi','','',''],
-    ['10h','','','lundi','','',''],
-    ['11h','','','lundi','','',''],
-    ['12h','','','lundi','','',''],
-    ['13h','','','lundi','','',''],
-    ['14h','','','lundi','','',''],
-    ['15h','','','lundi','','',''],
-    ['16h','','','lundi','','',''],
-    ['17h','','','lundi','','',''],
-    ['18h','','','lundi','','',''],
-    ['19h','','','lundi','','',''],
-    ['20h','','','lundi','','',''],
-    ['21h','','','lundi','','','']
+
+
+  lundi:any[][][] = [
+    [['8h','','','lundi','','',''],['8h','','','lundi','','',''],['8h','','','lundi','','',''],['8h','','','lundi','','','']],
+    [['9h','','','lundi','','',''],['9h','','','lundi','','',''],['9h','','','lundi','','',''],['9h','','','lundi','','','']],
+    [['10h','','','lundi','','',''],['10h','','','lundi','','',''],['10h','','','lundi','','',''],['10h','','','lundi','','','']],
+    [['11h','','','lundi','','',''],['11h','','','lundi','','',''],['11h','','','lundi','','',''],['11h','','','lundi','','','']],
+    [['12h','','','lundi','','',''],['12h','','','lundi','','',''],['12h','','','lundi','','',''],['12h','','','lundi','','','']],
+    [['13h','','','lundi','','',''],['13h','','','lundi','','',''],['13h','','','lundi','','',''],['13h','','','lundi','','','']],
+    [['14h','','','lundi','','',''],['14h','','','lundi','','',''],['14h','','','lundi','','',''],['14h','','','lundi','','','']],
+    [['15h','','','lundi','','',''],['15h','','','lundi','','',''],['15h','','','lundi','','',''],['15h','','','lundi','','','']],
+    [['16h','','','lundi','','',''],['16h','','','lundi','','',''],['16h','','','lundi','','',''],['16h','','','lundi','','','']],
+    [['17h','','','lundi','','',''],['17h','','','lundi','','',''],['17h','','','lundi','','',''],['17h','','','lundi','','','']],
+    [['18h','','','lundi','','',''],['18h','','','lundi','','',''],['18h','','','lundi','','',''],['18h','','','lundi','','','']],
+    [['19h','','','lundi','','',''],['19h','','','lundi','','',''],['19h','','','lundi','','',''],['19h','','','lundi','','','']],
+    [['20h','','','lundi','','',''],['20h','','','lundi','','',''],['20h','','','lundi','','',''],['20h','','','lundi','','','']],
+    [['21h','','','lundi','','',''],['21h','','','lundi','','',''],['21h','','','lundi','','',''],['21h','','','lundi','','','']]
   ]
 
-  mardi:string[][] = [
-    ['8h','','','mardi','','',''],
-    ['9h','','','mardi','','',''],
-    ['10h','','','mardi','','',''],
-    ['11h','','','mardi','','',''],
-    ['12h','','','mardi','','',''],
-    ['13h','','','mardi','','',''],
-    ['14h','','','mardi','','',''],
-    ['15h','','','mardi','','',''],
-    ['16h','','','mardi','','',''],
-    ['17h','','','mardi','','',''],
-    ['18h','','','mardi','','',''],
-    ['19h','','','mardi','','',''],
-    ['20h','','','mardi','','',''],
-    ['21h','','','mardi','','','']
+  mardi:any[][][] = [
+    [['8h','','','mardi','','',''],['8h','','','mardi','','',''],['8h','','','mardi','','',''],['8h','','','mardi','','','']],
+    [['9h','','','mardi','','',''],['9h','','','mardi','','',''],['9h','','','mardi','','',''],['9h','','','mardi','','','']],
+    [['10h','','','mardi','','',''],['10h','','','mardi','','',''],['10h','','','mardi','','',''],['10h','','','mardi','','','']],
+    [['11h','','','mardi','','',''],['11h','','','mardi','','',''],['11h','','','mardi','','',''],['11h','','','mardi','','','']],
+    [['12h','','','mardi','','',''],['12h','','','mardi','','',''],['12h','','','mardi','','',''],['12h','','','mardi','','','']],
+    [['13h','','','mardi','','',''],['13h','','','mardi','','',''],['13h','','','mardi','','',''],['13h','','','mardi','','','']],
+    [['14h','','','mardi','','',''],['14h','','','mardi','','',''],['14h','','','mardi','','',''],['14h','','','mardi','','','']],
+    [['15h','','','mardi','','',''],['15h','','','mardi','','',''],['15h','','','mardi','','',''],['15h','','','mardi','','','']],
+    [['16h','','','mardi','','',''],['16h','','','mardi','','',''],['16h','','','mardi','','',''],['16h','','','mardi','','','']],
+    [['17h','','','mardi','','',''],['17h','','','mardi','','',''],['17h','','','mardi','','',''],['17h','','','mardi','','','']],
+    [['18h','','','mardi','','',''],['18h','','','mardi','','',''],['18h','','','mardi','','',''],['18h','','','mardi','','','']],
+    [['19h','','','mardi','','',''],['19h','','','mardi','','',''],['19h','','','mardi','','',''],['19h','','','mardi','','','']],
+    [['20h','','','mardi','','',''],['20h','','','mardi','','',''],['20h','','','mardi','','',''],['20h','','','mardi','','','']],
+    [['21h','','','mardi','','',''],['21h','','','mardi','','',''],['21h','','','mardi','','',''],['21h','','','mardi','','','']]
   ]
-  mercredi:string[][] = [
-    ['8h','','','mercredi','','',''],
-    ['9h','','','mercredi','','',''],
-    ['10h','','','mercredi','','',''],
-    ['11h','','','mercredi','','',''],
-    ['12h','','','mercredi','','',''],
-    ['13h','','','mercredi','','',''],
-    ['14h','','','mercredi','','',''],
-    ['15h','','','mercredi','','',''],
-    ['16h','','','mercredi','','',''],
-    ['17h','','','mercredi','','',''],
-    ['18h','','','mercredi','','',''],
-    ['19h','','','mercredi','','',''],
-    ['20h','','','mercredi','','',''],
-    ['21h','','','mercredi','','','']
+  mercredi:any[][][] = [
+    [['8h','','','mercredi','','',''],['8h','','','mercredi','','',''],['8h','','','mercredi','','',''],['8h','','','mercredi','','','']],
+    [['9h','','','mercredi','','',''],['9h','','','mercredi','','',''],['9h','','','mercredi','','',''],['9h','','','mercredi','','','']],
+    [['10h','','','mercredi','','',''],['10h','','','mercredi','','',''],['10h','','','mercredi','','',''],['10h','','','mercredi','','','']],
+    [['11h','','','mercredi','','',''],['11h','','','mercredi','','',''],['11h','','','mercredi','','',''],['11h','','','mercredi','','','']],
+    [['12h','','','mercredi','','',''],['12h','','','mercredi','','',''],['12h','','','mercredi','','',''],['12h','','','mercredi','','','']],
+    [['13h','','','mercredi','','',''],['13h','','','mercredi','','',''],['13h','','','mercredi','','',''],['13h','','','mercredi','','','']],
+    [['14h','','','mercredi','','',''],['14h','','','mercredi','','',''],['14h','','','mercredi','','',''],['14h','','','mercredi','','','']],
+    [['15h','','','mercredi','','',''],['15h','','','mercredi','','',''],['15h','','','mercredi','','',''],['15h','','','mercredi','','','']],
+    [['16h','','','mercredi','','',''],['16h','','','mercredi','','',''],['16h','','','mercredi','','',''],['16h','','','mercredi','','','']],
+    [['17h','','','mercredi','','',''],['17h','','','mercredi','','',''],['17h','','','mercredi','','',''],['17h','','','mercredi','','','']],
+    [['18h','','','mercredi','','',''],['18h','','','mercredi','','',''],['18h','','','mercredi','','',''],['18h','','','mercredi','','','']],
+    [['19h','','','mercredi','','',''],['19h','','','mercredi','','',''],['19h','','','mercredi','','',''],['19h','','','mercredi','','','']],
+    [['20h','','','mercredi','','',''],['20h','','','mercredi','','',''],['20h','','','mercredi','','',''],['20h','','','mercredi','','','']],
+    [['21h','','','mercredi','','',''],['21h','','','mercredi','','',''],['21h','','','mercredi','','',''],['21h','','','mercredi','','','']]
   ]
-  jeudi:string[][] = [
-    ['8h','','','jeudi','','',''],
-    ['9h','','','jeudi','','',''],
-    ['10h','','','jeudi','','',''],
-    ['11h','','','jeudi','','',''],
-    ['12h','','','jeudi','','',''],
-    ['13h','','','jeudi','','',''],
-    ['14h','','','jeudi','','',''],
-    ['15h','','','jeudi','','',''],
-    ['16h','','','jeudi','','',''],
-    ['17h','','','jeudi','','',''],
-    ['18h','','','jeudi','','',''],
-    ['19h','','','jeudi','','',''],
-    ['20h','','','jeudi','','',''],
-    ['21h','','','jeudi','','','']
+  jeudi:any[][][] = [
+    [['8h','','','jeudi','','',''],['8h','','','jeudi','','',''],['8h','','','jeudi','','',''],['8h','','','jeudi','','','']],
+    [['9h','','','jeudi','','',''],['9h','','','jeudi','','',''],['9h','','','jeudi','','',''],['9h','','','jeudi','','','']],
+    [['10h','','','jeudi','','',''],['10h','','','jeudi','','',''],['10h','','','jeudi','','',''],['10h','','','jeudi','','','']],
+    [['11h','','','jeudi','','',''],['11h','','','jeudi','','',''],['11h','','','jeudi','','',''],['11h','','','jeudi','','','']],
+    [['12h','','','jeudi','','',''],['12h','','','jeudi','','',''],['12h','','','jeudi','','',''],['12h','','','jeudi','','','']],
+    [['13h','','','jeudi','','',''],['13h','','','jeudi','','',''],['13h','','','jeudi','','',''],['13h','','','jeudi','','','']],
+    [['14h','','','jeudi','','',''],['14h','','','jeudi','','',''],['14h','','','jeudi','','',''],['14h','','','jeudi','','','']],
+    [['15h','','','jeudi','','',''],['15h','','','jeudi','','',''],['15h','','','jeudi','','',''],['15h','','','jeudi','','','']],
+    [['16h','','','jeudi','','',''],['16h','','','jeudi','','',''],['16h','','','jeudi','','',''],['16h','','','jeudi','','','']],
+    [['17h','','','jeudi','','',''],['17h','','','jeudi','','',''],['17h','','','jeudi','','',''],['17h','','','jeudi','','','']],
+    [['18h','','','jeudi','','',''],['18h','','','jeudi','','',''],['18h','','','jeudi','','',''],['18h','','','jeudi','','','']],
+    [['19h','','','jeudi','','',''],['19h','','','jeudi','','',''],['19h','','','jeudi','','',''],['19h','','','jeudi','','','']],
+    [['20h','','','jeudi','','',''],['20h','','','jeudi','','',''],['20h','','','jeudi','','',''],['20h','','','jeudi','','','']],
+    [['21h','','','jeudi','','',''],['21h','','','jeudi','','',''],['21h','','','jeudi','','',''],['21h','','','jeudi','','','']]
   ]
-  vendredi:string[][] = [
-    ['8h','','','vendredi','','',''],
-    ['9h','','','vendredi','','',''],
-    ['10h','','','vendredi','','',''],
-    ['11h','','','vendredi','','',''],
-    ['12h','','','vendredi','','',''],
-    ['13h','','','vendredi','','',''],
-    ['14h','','','vendredi','','',''],
-    ['15h','','','vendredi','','',''],
-    ['16h','','','vendredi','','',''],
-    ['17h','','','vendredi','','',''],
-    ['18h','','','vendredi','','',''],
-    ['19h','','','vendredi','','',''],
-    ['20h','','','vendredi','','',''],
-    ['21h','','','vendredi','','','']
+  vendredi:any[][][] = [
+    [['8h','','','vendredi','','',''],['8h','','','vendredi','','',''],['8h','','','vendredi','','',''],['8h','','','vendredi','','','']],
+    [['9h','','','vendredi','','',''],['9h','','','vendredi','','',''],['9h','','','vendredi','','',''],['9h','','','vendredi','','','']],
+    [['10h','','','vendredi','','',''],['10h','','','vendredi','','',''],['10h','','','vendredi','','',''],['10h','','','vendredi','','','']],
+    [['11h','','','vendredi','','',''],['11h','','','vendredi','','',''],['11h','','','vendredi','','',''],['11h','','','vendredi','','','']],
+    [['12h','','','vendredi','','',''],['12h','','','vendredi','','',''],['12h','','','vendredi','','',''],['12h','','','vendredi','','','']],
+    [['13h','','','vendredi','','',''],['13h','','','vendredi','','',''],['13h','','','vendredi','','',''],['13h','','','vendredi','','','']],
+    [['14h','','','vendredi','','',''],['14h','','','vendredi','','',''],['14h','','','vendredi','','',''],['14h','','','vendredi','','','']],
+    [['15h','','','vendredi','','',''],['15h','','','vendredi','','',''],['15h','','','vendredi','','',''],['15h','','','vendredi','','','']],
+    [['16h','','','vendredi','','',''],['16h','','','vendredi','','',''],['16h','','','vendredi','','',''],['16h','','','vendredi','','','']],
+    [['17h','','','vendredi','','',''],['17h','','','vendredi','','',''],['17h','','','vendredi','','',''],['17h','','','vendredi','','','']],
+    [['18h','','','vendredi','','',''],['18h','','','vendredi','','',''],['18h','','','vendredi','','',''],['18h','','','vendredi','','','']],
+    [['19h','','','vendredi','','',''],['19h','','','vendredi','','',''],['19h','','','vendredi','','',''],['19h','','','vendredi','','','']],
+    [['20h','','','vendredi','','',''],['20h','','','vendredi','','',''],['20h','','','vendredi','','',''],['20h','','','vendredi','','','']],
+    [['21h','','','vendredi','','',''],['21h','','','vendredi','','',''],['21h','','','vendredi','','',''],['21h','','','vendredi','','','']]
   ]
-  samedi:string[][] = [
-    ['8h','','','samedi','','',''],
-    ['9h','','','samedi','','',''],
-    ['10h','','','samedi','','',''],
-    ['11h','','','samedi','','',''],
-    ['12h','','','samedi','','',''],
-    ['13h','','','samedi','','',''],
-    ['14h','','','samedi','','',''],
-    ['15h','','','samedi','','',''],
-    ['16h','','','samedi','','',''],
-    ['17h','','','samedi','','',''],
-    ['18h','','','samedi','','',''],
-    ['19h','','','samedi','','',''],
-    ['20h','','','samedi','','',''],
-    ['21h','','','samedi','','','']
+  samedi:any[][][] = [
+    [['8h','','','samedi','','',''],['8h','','','samedi','','',''],['8h','','','samedi','','',''],['8h','','','samedi','','','']],
+    [['9h','','','samedi','','',''],['9h','','','samedi','','',''],['9h','','','samedi','','',''],['9h','','','samedi','','','']],
+    [['10h','','','samedi','','',''],['10h','','','samedi','','',''],['10h','','','samedi','','',''],['10h','','','samedi','','','']],
+    [['11h','','','samedi','','',''],['11h','','','samedi','','',''],['11h','','','samedi','','',''],['11h','','','samedi','','','']],
+    [['12h','','','samedi','','',''],['12h','','','samedi','','',''],['12h','','','samedi','','',''],['12h','','','samedi','','','']],
+    [['13h','','','samedi','','',''],['13h','','','samedi','','',''],['13h','','','samedi','','',''],['13h','','','samedi','','','']],
+    [['14h','','','samedi','','',''],['14h','','','samedi','','',''],['14h','','','samedi','','',''],['14h','','','samedi','','','']],
+    [['15h','','','samedi','','',''],['15h','','','samedi','','',''],['15h','','','samedi','','',''],['15h','','','samedi','','','']],
+    [['16h','','','samedi','','',''],['16h','','','samedi','','',''],['16h','','','samedi','','',''],['16h','','','samedi','','','']],
+    [['17h','','','samedi','','',''],['17h','','','samedi','','',''],['17h','','','samedi','','',''],['17h','','','samedi','','','']],
+    [['18h','','','samedi','','',''],['18h','','','samedi','','',''],['18h','','','samedi','','',''],['18h','','','samedi','','','']],
+    [['19h','','','samedi','','',''],['19h','','','samedi','','',''],['19h','','','samedi','','',''],['19h','','','samedi','','','']],
+    [['20h','','','samedi','','',''],['20h','','','samedi','','',''],['20h','','','samedi','','',''],['20h','','','samedi','','','']],
+    [['21h','','','samedi','','',''],['21h','','','samedi','','',''],['21h','','','samedi','','',''],['21h','','','samedi','','','']]
   ]
-  dimanche:string[][] = [
-    ['8h','','','dimanche','','',''],
-    ['9h','','','dimanche','','',''],
-    ['10h','','','dimanche','','',''],
-    ['11h','','','dimanche','','',''],
-    ['12h','','','dimanche','','',''],
-    ['13h','','','dimanche','','',''],
-    ['14h','','','dimanche','','',''],
-    ['15h','','','dimanche','','',''],
-    ['16h','','','dimanche','','',''],
-    ['17h','','','dimanche','','',''],
-    ['18h','','','dimanche','','',''],
-    ['19h','','','dimanche','','',''],
-    ['20h','','','dimanche','','',''],
-    ['21h','','','dimanche','','','']
+  dimanche:any[][][] = [
+    [['8h','','','dimanche','','',''],['8h','','','dimanche','','',''],['8h','','','dimanche','','',''],['8h','','','dimanche','','','']],
+    [['9h','','','dimanche','','',''],['9h','','','dimanche','','',''],['9h','','','dimanche','','',''],['9h','','','dimanche','','','']],
+    [['10h','','','dimanche','','',''],['10h','','','dimanche','','',''],['10h','','','dimanche','','',''],['10h','','','dimanche','','','']],
+    [['11h','','','dimanche','','',''],['11h','','','dimanche','','',''],['11h','','','dimanche','','',''],['11h','','','dimanche','','','']],
+    [['12h','','','dimanche','','',''],['12h','','','dimanche','','',''],['12h','','','dimanche','','',''],['12h','','','dimanche','','','']],
+    [['13h','','','dimanche','','',''],['13h','','','dimanche','','',''],['13h','','','dimanche','','',''],['13h','','','dimanche','','','']],
+    [['14h','','','dimanche','','',''],['14h','','','dimanche','','',''],['14h','','','dimanche','','',''],['14h','','','dimanche','','','']],
+    [['15h','','','dimanche','','',''],['15h','','','dimanche','','',''],['15h','','','dimanche','','',''],['15h','','','dimanche','','','']],
+    [['16h','','','dimanche','','',''],['16h','','','dimanche','','',''],['16h','','','dimanche','','',''],['16h','','','dimanche','','','']],
+    [['17h','','','dimanche','','',''],['17h','','','dimanche','','',''],['17h','','','dimanche','','',''],['17h','','','dimanche','','','']],
+    [['18h','','','dimanche','','',''],['18h','','','dimanche','','',''],['18h','','','dimanche','','',''],['18h','','','dimanche','','','']],
+    [['19h','','','dimanche','','',''],['19h','','','dimanche','','',''],['19h','','','dimanche','','',''],['19h','','','dimanche','','','']],
+    [['20h','','','dimanche','','',''],['20h','','','dimanche','','',''],['20h','','','dimanche','','',''],['20h','','','dimanche','','','']],
+    [['21h','','','dimanche','','',''],['21h','','','dimanche','','',''],['21h','','','dimanche','','',''],['21h','','','dimanche','','','']]
   ]
 
-  semaineJours:string[][][] = [
+  semaineJours:any[][][][] = [
     this.lundi,
     this.mardi,
     this.mercredi,
@@ -521,7 +830,7 @@ this.getPlanning()
     this.samedi,
     this.dimanche
   ]
-  readonly semaineJoursEmpty?:string[][][]
+
 
   validatePlanning() {
     this.http.post(this.savePlanningUrl,{planning:this.semaineJours,planningOwner:this.groupLink,week:this.week}).pipe(map((data) => {
@@ -537,11 +846,14 @@ this.getPlanning()
   makeCalendarEmpty() {
     for(let i = 0; i < 7;i++) {
       for(let j = 0;j < 14;j++) {
-          this.semaineJours[i][j][1] = ''
-          this.semaineJours[i][j][2] = ''
-          this.semaineJours[i][j][4] = ''
-          this.semaineJours[i][j][5] = ''
-           this.semaineJours[i][j][6] = ''
+        for(let x = 0; x < 4;x++) {
+          this.semaineJours[i][j][x][1] = ''
+          this.semaineJours[i][j][x][2] = ''
+          this.semaineJours[i][j][x][4] = ''
+          this.semaineJours[i][j][x][5] = ''
+           this.semaineJours[i][j][x][6] = ''
+        }
+
       }
     }
   }
