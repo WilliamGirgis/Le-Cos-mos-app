@@ -215,7 +215,6 @@ this.getPlanning()
     '50',
     '75',
     '100'
-
   ]
 
   selectedItem:any = {
@@ -257,15 +256,6 @@ this.getPlanning()
   this.isOnDrag = true
   }
 
-  letCreneauMatrice = []
-
-  setCreneau(creneau:string) {
-
-    this.semaineJours[this.dayIndex][this.heureIndex][this.creneauIndex][6] = creneau
-    console.log(this.semaineJours[this.dayIndex][this.heureIndex])
-
-  }
-
   isOut:boolean = true
   containerIndex:number = 0
   creneauIndex:number = 0
@@ -278,13 +268,6 @@ this.getPlanning()
     if (event.previousContainer === event.container) {
       console.log("Previous container is equal to target ")
       if(this.isOut) {
-        return
-      }
-
-      if(true) {
-        console.log(event.container.data)
-
-      } else {
         return
       }
 
@@ -833,6 +816,7 @@ this.getPlanning()
 
 
   validatePlanning() {
+    // console.log(this.semaineJours)
     this.http.post(this.savePlanningUrl,{planning:this.semaineJours,planningOwner:this.groupLink,week:this.week}).pipe(map((data) => {
       this.touched = !this.touched
       this.getPlanning()
@@ -875,66 +859,302 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
     return
   }
 
-
+  console.log(planningSeance)
   for(let i = 0; i < planningSeance.seance.length;i++) {
-    let x:number = +planningSeance.seance[i].creneau.split('h')[0]
+
+
+    let x:number = + planningSeance.seance[i].creneau[0].split('h')[0]
+    let quartDheure = planningSeance.seance[i].quartDheure
+
     switch(planningSeance.seance[i].day) {
 
       case 'lundi':
-      this.semaineJours[0][x -8][0] = planningSeance.seance[i].creneau
-      this.semaineJours[0][x -8][1] = planningSeance.seance[i].matiere
-      this.semaineJours[0][x -8][2] =  planningSeance.seance[i].type
-      this.semaineJours[0][x -8][3] = planningSeance.seance[i].day
-      this.semaineJours[0][x -8][4] =   planningSeance.seance[i].room
-      this.semaineJours[0][x -8][5] =   planningSeance.seance[i].duration
+
+      switch(quartDheure) {
+        case '00':
+          this.semaineJours[0][x -8][0][0] = planningSeance.seance[i].creneau[0]
+          this.semaineJours[0][x -8][0][1] = planningSeance.seance[i].matiere
+          this.semaineJours[0][x -8][0][2] =  planningSeance.seance[i].type
+          this.semaineJours[0][x -8][0][3] = planningSeance.seance[i].day
+          this.semaineJours[0][x -8][0][4] =   planningSeance.seance[i].room
+          this.semaineJours[0][x -8][0][5] =   planningSeance.seance[i].duration
+          this.semaineJours[0][x -8][0][6] =  planningSeance.seance[i].quartDheure
+          break;
+          case '15':
+            this.semaineJours[0][x -8][1][0] = planningSeance.seance[i].creneau[0]
+            this.semaineJours[0][x -8][1][1] = planningSeance.seance[i].matiere
+            this.semaineJours[0][x -8][1][2] =  planningSeance.seance[i].type
+            this.semaineJours[0][x -8][1][3] = planningSeance.seance[i].day
+            this.semaineJours[0][x -8][1][4] =   planningSeance.seance[i].room
+            this.semaineJours[0][x -8][1][5] =   planningSeance.seance[i].duration
+            this.semaineJours[0][x -8][1][6] =  planningSeance.seance[i].quartDheure
+            break;
+            case '30':
+              this.semaineJours[0][x -8][2][0] = planningSeance.seance[i].creneau[0]
+              this.semaineJours[0][x -8][2][1] = planningSeance.seance[i].matiere
+              this.semaineJours[0][x -8][2][2] =  planningSeance.seance[i].type
+              this.semaineJours[0][x -8][2][3] = planningSeance.seance[i].day
+              this.semaineJours[0][x -8][2][4] =   planningSeance.seance[i].room
+              this.semaineJours[0][x -8][2][5] =   planningSeance.seance[i].duration
+              this.semaineJours[0][x -8][2][6] =  planningSeance.seance[i].quartDheure
+              break;
+              case '45':
+                this.semaineJours[0][x -8][3][0] = planningSeance.seance[i].creneau[0]
+                this.semaineJours[0][x -8][3][1] = planningSeance.seance[i].matiere
+                this.semaineJours[0][x -8][3][2] =  planningSeance.seance[i].type
+                this.semaineJours[0][x -8][3][3] = planningSeance.seance[i].day
+                this.semaineJours[0][x -8][3][4] =   planningSeance.seance[i].room
+                this.semaineJours[0][x -8][3][5] =   planningSeance.seance[i].duration
+                this.semaineJours[0][x -8][3][6] =  planningSeance.seance[i].quartDheure
+                break;
+
+      }
+
       break;
         case 'mardi':
-        this.semaineJours[1][x -8][0] =  planningSeance.seance[i].creneau
-        this.semaineJours[1][x -8][1] = planningSeance.seance[i].matiere
-        this.semaineJours[1][x -8][2] =   planningSeance.seance[i].type
-        this.semaineJours[1][x -8][3] =   planningSeance.seance[i].day
-        this.semaineJours[1][x -8][4] =  planningSeance.seance[i].room
-        this.semaineJours[1][x -8][5] =   planningSeance.seance[i].duration
+          switch(quartDheure) {
+            case '00':
+              this.semaineJours[1][x -8][0][0] = planningSeance.seance[i].creneau[0]
+              this.semaineJours[1][x -8][0][1] = planningSeance.seance[i].matiere
+              this.semaineJours[1][x -8][0][2] =  planningSeance.seance[i].type
+              this.semaineJours[1][x -8][0][3] = planningSeance.seance[i].day
+              this.semaineJours[1][x -8][0][4] =   planningSeance.seance[i].room
+              this.semaineJours[1][x -8][0][5] =   planningSeance.seance[i].duration
+              this.semaineJours[1][x -8][0][6] =  planningSeance.seance[i].quartDheure
+              break;
+              case '15':
+                this.semaineJours[1][x -8][1][0] = planningSeance.seance[i].creneau[0]
+                this.semaineJours[1][x -8][1][1] = planningSeance.seance[i].matiere
+                this.semaineJours[1][x -8][1][2] =  planningSeance.seance[i].type
+                this.semaineJours[1][x -8][1][3] = planningSeance.seance[i].day
+                this.semaineJours[1][x -8][1][4] =   planningSeance.seance[i].room
+                this.semaineJours[1][x -8][1][5] =   planningSeance.seance[i].duration
+                this.semaineJours[1][x -8][1][6] =  planningSeance.seance[i].quartDheure
+                break;
+                case '30':
+                  this.semaineJours[1][x -8][2][0] = planningSeance.seance[i].creneau[0]
+                  this.semaineJours[1][x -8][2][1] = planningSeance.seance[i].matiere
+                  this.semaineJours[1][x -8][2][2] =  planningSeance.seance[i].type
+                  this.semaineJours[1][x -8][2][3] = planningSeance.seance[i].day
+                  this.semaineJours[1][x -8][2][4] =   planningSeance.seance[i].room
+                  this.semaineJours[1][x -8][2][5] =   planningSeance.seance[i].duration
+                  this.semaineJours[1][x -8][2][6] =  planningSeance.seance[i].quartDheure
+                  break;
+                  case '45':
+                    this.semaineJours[1][x -8][3][0] = planningSeance.seance[i].creneau[0]
+                    this.semaineJours[1][x -8][3][1] = planningSeance.seance[i].matiere
+                    this.semaineJours[1][x -8][3][2] =  planningSeance.seance[i].type
+                    this.semaineJours[1][x -8][3][3] = planningSeance.seance[i].day
+                    this.semaineJours[1][x -8][3][4] =   planningSeance.seance[i].room
+                    this.semaineJours[1][x -8][3][5] =   planningSeance.seance[i].duration
+                    this.semaineJours[1][x -8][3][6] =  planningSeance.seance[i].quartDheure
+                    break;
+          }
         break;
           case 'mercredi':
-          this.semaineJours[2][x -8][0] =  planningSeance.seance[i].creneau
-          this.semaineJours[2][x -8][1] =  planningSeance.seance[i].matiere
-          this.semaineJours[2][x -8][2] =  planningSeance.seance[i].type
-          this.semaineJours[2][x -8][3] =  planningSeance.seance[i].day
-          this.semaineJours[2][x -8][4] =  planningSeance.seance[i].room
-          this.semaineJours[2][x -8][5] =   planningSeance.seance[i].duration
+            switch(quartDheure) {
+              case '00':
+                this.semaineJours[2][x -8][0][0] = planningSeance.seance[i].creneau[0]
+                this.semaineJours[2][x -8][0][1] = planningSeance.seance[i].matiere
+                this.semaineJours[2][x -8][0][2] =  planningSeance.seance[i].type
+                this.semaineJours[2][x -8][0][3] = planningSeance.seance[i].day
+                this.semaineJours[2][x -8][0][4] =   planningSeance.seance[i].room
+                this.semaineJours[2][x -8][0][5] =   planningSeance.seance[i].duration
+                this.semaineJours[2][x -8][0][6] =  planningSeance.seance[i].quartDheure
+                break;
+                case '15':
+                  this.semaineJours[2][x -8][1][0] = planningSeance.seance[i].creneau[0]
+                  this.semaineJours[2][x -8][1][1] = planningSeance.seance[i].matiere
+                  this.semaineJours[2][x -8][1][2] =  planningSeance.seance[i].type
+                  this.semaineJours[2][x -8][1][3] = planningSeance.seance[i].day
+                  this.semaineJours[2][x -8][1][4] =   planningSeance.seance[i].room
+                  this.semaineJours[2][x -8][1][5] =   planningSeance.seance[i].duration
+                  this.semaineJours[2][x -8][1][6] =  planningSeance.seance[i].quartDheure
+                  break;
+                  case '30':
+                    this.semaineJours[2][x -8][2][0] = planningSeance.seance[i].creneau[0]
+                    this.semaineJours[2][x -8][2][1] = planningSeance.seance[i].matiere
+                    this.semaineJours[2][x -8][2][2] =  planningSeance.seance[i].type
+                    this.semaineJours[2][x -8][2][3] = planningSeance.seance[i].day
+                    this.semaineJours[2][x -8][2][4] =   planningSeance.seance[i].room
+                    this.semaineJours[2][x -8][2][5] =   planningSeance.seance[i].duration
+                    this.semaineJours[2][x -8][2][6] =  planningSeance.seance[i].quartDheure
+                    break;
+                    case '45':
+                      this.semaineJours[2][x -8][3][0] = planningSeance.seance[i].creneau[0]
+                      this.semaineJours[2][x -8][3][1] = planningSeance.seance[i].matiere
+                      this.semaineJours[2][x -8][3][2] =  planningSeance.seance[i].type
+                      this.semaineJours[2][x -8][3][3] = planningSeance.seance[i].day
+                      this.semaineJours[2][x -8][3][4] =   planningSeance.seance[i].room
+                      this.semaineJours[2][x -8][3][5] =   planningSeance.seance[i].duration
+                      this.semaineJours[2][x -8][3][6] =  planningSeance.seance[i].quartDheure
+                      break;
+
+            }
           break;
             case 'jeudi':
-            this.semaineJours[3][x -8][0] =   planningSeance.seance[i].creneau
-            this.semaineJours[3][x -8][1] =  planningSeance.seance[i].matiere
-            this.semaineJours[3][x -8][2] =  planningSeance.seance[i].type
-            this.semaineJours[3][x -8][3] =  planningSeance.seance[i].day
-            this.semaineJours[3][x -8][4] =  planningSeance.seance[i].room
-            this.semaineJours[3][x -8][5] =   planningSeance.seance[i].duration
+              switch(quartDheure) {
+                case '00':
+                  this.semaineJours[3][x -8][0][0] = planningSeance.seance[i].creneau[0]
+                  this.semaineJours[3][x -8][0][1] = planningSeance.seance[i].matiere
+                  this.semaineJours[3][x -8][0][2] =  planningSeance.seance[i].type
+                  this.semaineJours[3][x -8][0][3] = planningSeance.seance[i].day
+                  this.semaineJours[3][x -8][0][4] =   planningSeance.seance[i].room
+                  this.semaineJours[3][x -8][0][5] =   planningSeance.seance[i].duration
+                  this.semaineJours[3][x -8][0][6] =  planningSeance.seance[i].quartDheure
+                  break;
+                  case '15':
+                    this.semaineJours[3][x -8][1][0] = planningSeance.seance[i].creneau[0]
+                    this.semaineJours[3][x -8][1][1] = planningSeance.seance[i].matiere
+                    this.semaineJours[3][x -8][1][2] =  planningSeance.seance[i].type
+                    this.semaineJours[3][x -8][1][3] = planningSeance.seance[i].day
+                    this.semaineJours[3][x -8][1][4] =   planningSeance.seance[i].room
+                    this.semaineJours[3][x -8][1][5] =   planningSeance.seance[i].duration
+                    this.semaineJours[3][x -8][1][6] =  planningSeance.seance[i].quartDheure
+                    break;
+                    case '30':
+                      this.semaineJours[3][x -8][2][0] = planningSeance.seance[i].creneau[0]
+                      this.semaineJours[3][x -8][2][1] = planningSeance.seance[i].matiere
+                      this.semaineJours[3][x -8][2][2] =  planningSeance.seance[i].type
+                      this.semaineJours[3][x -8][2][3] = planningSeance.seance[i].day
+                      this.semaineJours[3][x -8][2][4] =   planningSeance.seance[i].room
+                      this.semaineJours[3][x -8][2][5] =   planningSeance.seance[i].duration
+                      this.semaineJours[3][x -8][2][6] =  planningSeance.seance[i].quartDheure
+                      break;
+                      case '45':
+                        this.semaineJours[3][x -8][3][0] = planningSeance.seance[i].creneau[0]
+                        this.semaineJours[3][x -8][3][1] = planningSeance.seance[i].matiere
+                        this.semaineJours[3][x -8][3][2] =  planningSeance.seance[i].type
+                        this.semaineJours[3][x -8][3][3] = planningSeance.seance[i].day
+                        this.semaineJours[3][x -8][3][4] =   planningSeance.seance[i].room
+                        this.semaineJours[3][x -8][3][5] =   planningSeance.seance[i].duration
+                        this.semaineJours[3][x -8][3][6] =  planningSeance.seance[i].quartDheure
+                        break;
+
+              }
             break;
               case 'vendredi':
-              this.semaineJours[4][x -8][0] =   planningSeance.seance[i].creneau
-              this.semaineJours[4][x -8][1] =   planningSeance.seance[i].matiere
-              this.semaineJours[4][x -8][2] =  planningSeance.seance[i].type
-              this.semaineJours[4][x -8][3] =   planningSeance.seance[i].day
-              this.semaineJours[4][x -8][4] =  planningSeance.seance[i].room
-              this.semaineJours[4][x -8][5] =   planningSeance.seance[i].duration
+                switch(quartDheure) {
+                  case '00':
+                    this.semaineJours[4][x -8][0][1] = planningSeance.seance[i].matiere
+                    this.semaineJours[4][x -8][0][2] =  planningSeance.seance[i].type
+                    this.semaineJours[4][x -8][0][3] = planningSeance.seance[i].day
+                    this.semaineJours[4][x -8][0][0] = planningSeance.seance[i].creneau[0]
+                    this.semaineJours[4][x -8][0][4] =   planningSeance.seance[i].room
+                    this.semaineJours[4][x -8][0][5] =   planningSeance.seance[i].duration
+                    this.semaineJours[4][x -8][0][6] =  planningSeance.seance[i].quartDheure
+                    break;
+                    case '15':
+                      this.semaineJours[4][x -8][1][0] = planningSeance.seance[i].creneau[0]
+                      this.semaineJours[4][x -8][1][1] = planningSeance.seance[i].matiere
+                      this.semaineJours[4][x -8][1][2] =  planningSeance.seance[i].type
+                      this.semaineJours[4][x -8][1][3] = planningSeance.seance[i].day
+                      this.semaineJours[4][x -8][1][4] =   planningSeance.seance[i].room
+                      this.semaineJours[4][x -8][1][5] =   planningSeance.seance[i].duration
+                      this.semaineJours[4][x -8][1][6] =  planningSeance.seance[i].quartDheure
+                      break;
+                      case '30':
+                        this.semaineJours[4][x -8][2][0] = planningSeance.seance[i].creneau[0]
+                        this.semaineJours[4][x -8][2][1] = planningSeance.seance[i].matiere
+                        this.semaineJours[4][x -8][2][2] =  planningSeance.seance[i].type
+                        this.semaineJours[4][x -8][2][3] = planningSeance.seance[i].day
+                        this.semaineJours[4][x -8][2][4] =   planningSeance.seance[i].room
+                        this.semaineJours[4][x -8][2][5] =   planningSeance.seance[i].duration
+                        this.semaineJours[4][x -8][2][6] =  planningSeance.seance[i].quartDheure
+                        break;
+                        case '45':
+                          this.semaineJours[4][x -8][3][0] = planningSeance.seance[i].creneau[0]
+                          this.semaineJours[4][x -8][3][1] = planningSeance.seance[i].matiere
+                          this.semaineJours[4][x -8][3][2] =  planningSeance.seance[i].type
+                          this.semaineJours[4][x -8][3][3] = planningSeance.seance[i].day
+                          this.semaineJours[4][x -8][3][4] =   planningSeance.seance[i].room
+                          this.semaineJours[4][x -8][3][5] =   planningSeance.seance[i].duration
+                          this.semaineJours[4][x -8][3][6] =  planningSeance.seance[i].quartDheure
+                          break;
+
+                }
               break;
                 case 'samedi':
-                this.semaineJours[5][x -8][0] =   planningSeance.seance[i].creneau
-                this.semaineJours[5][x -8][1] =  planningSeance.seance[i].matiere
-                this.semaineJours[5][x -8][2] =  planningSeance.seance[i].type
-                this.semaineJours[5][x -8][3] =  planningSeance.seance[i].day
-                this.semaineJours[5][x -8][4] =   planningSeance.seance[i].room
-                this.semaineJours[5][x -8][5] =   planningSeance.seance[i].duration
+                  switch(quartDheure) {
+                    case '00':
+                      this.semaineJours[5][x -8][0][0] = planningSeance.seance[i].creneau[0]
+                      this.semaineJours[5][x -8][0][1] = planningSeance.seance[i].matiere
+                      this.semaineJours[5][x -8][0][2] =  planningSeance.seance[i].type
+                      this.semaineJours[5][x -8][0][3] = planningSeance.seance[i].day
+                      this.semaineJours[5][x -8][0][4] =   planningSeance.seance[i].room
+                      this.semaineJours[5][x -8][0][5] =   planningSeance.seance[i].duration
+                      this.semaineJours[5][x -8][0][6] =  planningSeance.seance[i].quartDheure
+                      break;
+                      case '15':
+                        this.semaineJours[5][x -8][1][0] = planningSeance.seance[i].creneau[0]
+                        this.semaineJours[5][x -8][1][1] = planningSeance.seance[i].matiere
+                        this.semaineJours[5][x -8][1][2] =  planningSeance.seance[i].type
+                        this.semaineJours[5][x -8][1][3] = planningSeance.seance[i].day
+                        this.semaineJours[5][x -8][1][4] =   planningSeance.seance[i].room
+                        this.semaineJours[5][x -8][1][5] =   planningSeance.seance[i].duration
+                        this.semaineJours[5][x -8][1][6] =  planningSeance.seance[i].quartDheure
+                        break;
+                        case '30':
+                          this.semaineJours[5][x -8][2][0] = planningSeance.seance[i].creneau[0]
+                          this.semaineJours[5][x -8][2][1] = planningSeance.seance[i].matiere
+                          this.semaineJours[5][x -8][2][2] =  planningSeance.seance[i].type
+                          this.semaineJours[5][x -8][2][3] = planningSeance.seance[i].day
+                          this.semaineJours[5][x -8][2][4] =   planningSeance.seance[i].room
+                          this.semaineJours[5][x -8][2][5] =   planningSeance.seance[i].duration
+                          this.semaineJours[5][x -8][2][6] =  planningSeance.seance[i].quartDheure
+                          break;
+                          case '45':
+                            this.semaineJours[5][x -8][3][0] = planningSeance.seance[i].creneau[0]
+                            this.semaineJours[5][x -8][3][1] = planningSeance.seance[i].matiere
+                            this.semaineJours[5][x -8][3][2] =  planningSeance.seance[i].type
+                            this.semaineJours[5][x -8][3][3] = planningSeance.seance[i].day
+                            this.semaineJours[5][x -8][3][4] =   planningSeance.seance[i].room
+                            this.semaineJours[5][x -8][3][5] =   planningSeance.seance[i].duration
+                            this.semaineJours[5][x -8][3][6] =  planningSeance.seance[i].quartDheure
+                            break;
+
+                  }
                 break;
                   case 'dimanche':
-                  this.semaineJours[6][x -8][0] = planningSeance.seance[i].creneau
-                  this.semaineJours[6][x -8][1] =   planningSeance.seance[i].matiere
-                  this.semaineJours[6][x -8][2] =   planningSeance.seance[i].type
-                  this.semaineJours[6][x -8][3] =  planningSeance.seance[i].day
-                  this.semaineJours[6][x -8][4] =  planningSeance.seance[i].room
-                  this.semaineJours[6][x -8][5] =   planningSeance.seance[i].duration
+                    switch(quartDheure) {
+                      case '00':
+                        this.semaineJours[6][x -8][0][0] = planningSeance.seance[i].creneau[0]
+                        this.semaineJours[6][x -8][0][1] = planningSeance.seance[i].matiere
+                        this.semaineJours[6][x -8][0][2] =  planningSeance.seance[i].type
+                        this.semaineJours[6][x -8][0][3] = planningSeance.seance[i].day
+                        this.semaineJours[6][x -8][0][4] =   planningSeance.seance[i].room
+                        this.semaineJours[6][x -8][0][5] =   planningSeance.seance[i].duration
+                        this.semaineJours[6][x -8][0][6] =  planningSeance.seance[i].quartDheure
+                        break;
+                        case '15':
+                          this.semaineJours[6][x -8][1][0] = planningSeance.seance[i].creneau[0]
+                          this.semaineJours[6][x -8][1][1] = planningSeance.seance[i].matiere
+                          this.semaineJours[6][x -8][1][2] =  planningSeance.seance[i].type
+                          this.semaineJours[6][x -8][1][3] = planningSeance.seance[i].day
+                          this.semaineJours[6][x -8][1][4] =   planningSeance.seance[i].room
+                          this.semaineJours[6][x -8][1][5] =   planningSeance.seance[i].duration
+                          this.semaineJours[6][x -8][1][6] =  planningSeance.seance[i].quartDheure
+                          break;
+                          case '30':
+                            this.semaineJours[6][x -8][2][0] = planningSeance.seance[i].creneau[0]
+                            this.semaineJours[6][x -8][2][1] = planningSeance.seance[i].matiere
+                            this.semaineJours[6][x -8][2][2] =  planningSeance.seance[i].type
+                            this.semaineJours[6][x -8][2][3] = planningSeance.seance[i].day
+                            this.semaineJours[6][x -8][2][4] =   planningSeance.seance[i].room
+                            this.semaineJours[6][x -8][2][5] =   planningSeance.seance[i].duration
+                            this.semaineJours[6][x -8][2][6] =  planningSeance.seance[i].quartDheure
+                            break;
+                            case '45':
+                              this.semaineJours[6][x -8][3][0] = planningSeance.seance[i].creneau[0]
+                              this.semaineJours[6][x -8][3][1] = planningSeance.seance[i].matiere
+                              this.semaineJours[6][x -8][3][2] =  planningSeance.seance[i].type
+                              this.semaineJours[6][x -8][3][3] = planningSeance.seance[i].day
+                              this.semaineJours[6][x -8][3][4] =   planningSeance.seance[i].room
+                              this.semaineJours[6][x -8][3][5] =   planningSeance.seance[i].duration
+                              this.semaineJours[6][x -8][3][6] =  planningSeance.seance[i].quartDheure
+                              break;
+
+                    }
                   break;
 
     }

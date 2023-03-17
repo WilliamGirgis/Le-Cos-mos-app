@@ -34,10 +34,10 @@ type:{
 
       { // 7 Jours par semaine
 
-        creneau: {
+        creneau: [{ // Retirer les crochet créer une erreur -> Trouver la solution pour que cela fonctionne sans
           type:String,
           required:true
-        },
+        }],
         matiere: {
           type:String,
           required:true
@@ -53,8 +53,16 @@ type:{
         room: {
           type:String,
           required:false
-        }
+        },
+        duree: { // 25 | 50 | 75 | 100 (with 100 = 60min & 25 = 15min)
+          type:String,
+          required:false
 
+        },
+        quartDheure : { // 00 | 15 | 30 | 45
+          type:String,
+          required:false
+        }
       }
     ]
    }

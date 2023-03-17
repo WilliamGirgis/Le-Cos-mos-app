@@ -40,27 +40,39 @@ router.get("/get", authenticate, async function (req, res, next) {
 })
 
 router.post("/set", authenticate, async function (req, res, next) {
-  var planning = req.body.planning
+  const planning = req.body.planning
+
+
   var owner = req.body.planningOwner
   var week = req.body.week
 
   let transformedarray = []
   for (let i = 0; i < planning.length; i++) { // Les 7 jours
     for (let j = 0; j < planning[i].length; j++) { // Les 12 creneaux dans chaque jour
-      if (planning[i][j][1] != '' && planning[i][j][2] != '') {
-        transformedarray.push({ creneau: planning[i][j][0], matiere: planning[i][j][1], type: planning[i][j][2], day: planning[i][j][3], room: planning[i][j][4] })
+      for(let x = 0; x < 4; x++) {
+        if (planning[i][j][x][1] != '' && planning[i][j][x][2] != '') {
+          transformedarray.push({ creneau: planning[i][j][x][0], matiere: planning[i][j][x][1], type: planning[i][j][x][2], day: planning[i][j][x][3], room: planning[i][j][x][4],duree: planning[i][j][x][5],quartDheure: planning[i][j][x][6] })
+        }
       }
     }
   }
 
+  console.log(transformedarray)
+
   await Planning.findOne({ groupName: owner }).then(async (group) => {
-console.log(owner)
+// console.log(owner)
     for (let i = 0; i < group.week.length; i++) {
       // If the week already exists, we change it's seance list and then save the changes
       if (group.week[i].weekDate == week) {
-        group.week[i].seance = transformedarray
+
+        for (let j = 0; j < transformedarray.length;j++) {
+          group.week[i].seance[j] = transformedarray[j] // La transformation de l'attribut 'creneau' en tableau se fait ici.
+
+        }
         await group.save();
-        return res.status(200).send(["Seance Updated ! "])
+        console.log('SAVED ! ')
+        return res.status(200).send("Seance Updated ! ")
+
       }
     }
 
