@@ -1,12 +1,23 @@
 
 <div id="top-wrp">
-  <h2>Contenu de l'UE</h2>
-  <div routerLink="../" id="img-hover">
+  <h2>Contenu de {{selectedUed}}</h2>
+  <div routerLink=".." id="img-hover">
     <img  src="../../../../assets/images/arrow-left.svg">
   </div>
   <div id="top-btn-wrp">
   <button mat-button>Ajouter</button>
   <button mat-button>Tout supprimer</button>
 </div>
+
+</div>
+
+<div id="supports-wrp">
+  <mat-card  routerLink="./{{item.name}}" id="circle-wrp" *ngFor="let item of content">
+    <div id="circle">
+    </div>
+
+      {{item.name}}
+
+  </mat-card>
 
 </div>

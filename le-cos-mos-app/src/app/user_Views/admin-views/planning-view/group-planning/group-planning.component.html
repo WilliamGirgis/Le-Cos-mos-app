@@ -14,8 +14,8 @@
     </button>
 
   </mat-menu>
-  <div  (cdkDropListDropped)="drop($event)"  [cdkDropListData]="seanceListAvailableTest[containerIndex]"  [cdkDropListConnectedTo]="[day]" #seanceItemList="cdkDropList" cdkDropList id="seanceWrp">
-    <div   *ngFor="let seance of seanceListAvailableTest;index as i">
+  <div  (cdkDropListDropped)="drop($event)"  [cdkDropListData]="seanceListAvailable[containerIndex]"  [cdkDropListConnectedTo]="[day]" #seanceItemList="cdkDropList" cdkDropList id="seanceWrp">
+    <div   *ngFor="let seance of seanceListAvailable;index as i">
 
 
     <button  (mouseenter)="enter(i)"  cdkDropList #event="cdkDropList" (cdkDragStarted)="onDragStart($event)" cdkDrag style="cursor: pointer;"  [matMenuTriggerFor]="menu"  [style]="{'background-color': getBackgroundColor(seance[1]),'color':getTextColor(seance[1]),'border': seance[1] == 'Examen' ? '1px solid var(--dblue-them-color)' : '0px solid','height':getHeightSeanceAvailableButton(seance[5]),'font-size':getFontSize(seance[5]),'width':getWidth(seance[5])}" class="seanceBtn" mat-button>

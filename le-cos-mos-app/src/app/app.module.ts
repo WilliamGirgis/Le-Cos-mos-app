@@ -63,6 +63,11 @@ import { HomeViewEtudiantComponent } from './user_Views/etudiant-views/home-view
 import { SupportBlocksComponent } from './user_Views/admin-views/supports-view-admin/support-blocks/support-blocks.component';
 import { SupporUEComponent } from './user_Views/admin-views/supports-view-admin/suppor-ue/suppor-ue.component';
 import { SupportContentComponent } from './user_Views/admin-views/supports-view-admin/support-content/support-content.component';
+import { SupportHandlerComponent } from './user_Views/admin-views/supports-view-admin/support-content-subviews/support-handler/support-handler.component';
+import { ExerciceComponent } from './user_Views/admin-views/supports-view-admin/support-content-subviews/exercice/exercice.component';
+import { CoursComponent } from './user_Views/admin-views/supports-view-admin/support-content-subviews/cours/cours.component';
+import { TdComponent } from './user_Views/admin-views/supports-view-admin/support-content-subviews/td/td.component';
+import { VideoComponent } from './user_Views/admin-views/supports-view-admin/support-content-subviews/video/video.component';
 
 const appearance: MatFormFieldDefaultOptions = {
   appearance: 'outline'
@@ -128,6 +133,8 @@ const routes: Routes = [
             path: 'UE/:id',
             component: SupporUEComponent
           },{path:'UE/:id/:id',component:SupportContentComponent}
+          ,{path:'UE/:id/:id/:id',component:SupportHandlerComponent,
+        children:[{path:'td',component:TdComponent},{path:'video',component:VideoComponent},{path:'cours',component:CoursComponent},{path:'exercice',component:ExerciceComponent}]}
 
 
         ]
@@ -181,7 +188,11 @@ const routes: Routes = [
     HomeViewEtudiantComponent,
     SupportBlocksComponent,
     SupporUEComponent,
-    SupportContentComponent
+    SupportContentComponent,
+    ExerciceComponent,
+    CoursComponent,
+    TdComponent,
+    VideoComponent
 
   ],
   providers: [HttpService, { provide: HTTP_INTERCEPTORS, useClass: WebReqInterceptorService, multi: true }, { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: appearance }, AuthGuard, HttpService], //Mettre par default tous les input en "outline"
