@@ -3,7 +3,7 @@
   <div id="leftwrp">
     <h1>DISCUSSIONS</h1>
   <div id="leftSide">
-    <mat-card [style]="{'opacity': globalIndex == i ? '1' : '0.7'}" (click)="selectGroup(i)"  class="group-card" *ngFor="let group of groupsDiscussions;index as i">
+    <mat-card [style]="{'opacity': globalIndex == i ? '1' : '0.7'}" (click)="selectGroup(i)"  class="group-card" *ngFor="let group of groupsDiscussionsTest;index as i">
 
 <textarea class="addGroup" name="groups" #text>{{group.name}}</textarea>
 
@@ -18,7 +18,7 @@
 <div id="rightWrp">
   <div id="rightSide">
 
-    <mat-card class="user-card" *ngFor="let user of userList">
+    <mat-card class="user-card" *ngFor="let user of userListTest">
       <mat-label>{{user.firstname}}</mat-label>
       <button (click)="deletUser(user)"  mat-button><img width="20vw" height="100%" src="../../../../assets/images/trash3-fill.svg"></button>
     </mat-card>

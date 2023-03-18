@@ -207,6 +207,8 @@ border-bottom-width:2px ;
 
 .header-row {
   height: 5vh;
+  text-shadow: black 2px 2px 4px;
+
 }
 
 .deleteElement {
@@ -310,9 +312,7 @@ height: 25%;
 
 .rowDaysWrp {
   z-index: 3;
-  max-height: 15vh;
   height: 100%; // Very important // To change for expandable
-min-height: 5vh;
 
 div {
   label {
@@ -325,12 +325,12 @@ td {
   color: var(--white-them-color);
   text-align: center;
   min-width: fit-content;
-border: 1px solid var(--white-them-color);
+border: 1px solid rgb(200, 215, 223);
 border-top-width: 0;
 border-right-width: 0;
+border-bottom-width: 0 ;
 width: 10%;
 height: 5vh; // Required to trigger animation
-max-height: max-content;
   overflow: visible;
   cursor: pointer;
   background-color: rgb(212, 240, 253);
@@ -344,23 +344,21 @@ margin: 0;
     min-width: max-content;
   }
 
+
 label {
   display: none;
 }
-
-transition: 200ms ease-in-out;
-  &:hover {
-    height: 15vh;
-  }
-
-
 }
 
 
 tr {
+  transition: 200ms ease-in-out;
   &:hover {
-    td { // To avoid trigger animation when cursor on the border of cells
-        height: 15vh;
+    td {
+
+        border-bottom-width: 2px;
+        border-top-width: 2px;
+
     }
     label {
       display: initial;
@@ -369,7 +367,58 @@ tr {
   &.row {
     height: 5vh; // Statick height of rows (lines : 8h ; 9h ; 10h ... : 21h)
     max-height: 5vh;
+
+    &:hover {
+        height: 15vh;
+        max-height: 15vh;
+        #quartDheureList {
+display: flex;
+            }
+    }
   }
+}
+
+
+#headerContentWrp {
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+#headerheure {
+margin: auto;
+  width:fit-content;
+  height: fit-content;
+  text-shadow: black 2px 2px 4px;
+}
+
+#quartDheureList {
+  transition: 350ms ease-in-out;
+  overflow: visible;
+  list-style: none;
+  font-size: 75%;
+  flex-direction: column;
+  width:fit-content;
+  height: 100%;
+  display: none;
+align-content: space-between;
+div {
+  z-index: 3;
+&:first-of-type {
+  text-shadow: black -1px -1px 2px;
+  margin-top: -1vh;
+}
+&:last-of-type {
+  text-shadow: black -1px -1px 2px;
+  margin-bottom: -3vh;
+}
+text-shadow: black -1px -1px 2px;
+  height: 100%;
+  align-self: center;
+}
+
 }
 
 /* width */

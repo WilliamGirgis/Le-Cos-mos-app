@@ -81,7 +81,7 @@ this.authService.logout()
 
     ngOnInit(): void {
     // this.router.navigate(['admin/supports/UE/Block santé']); // Navigue vers la vue 'accueil' par default
-    this.router.navigate(['admin/planning/NoGroup']); // Navigue vers la vue 'accueil' par default
+    this.router.navigate(['admin/supports/blocks/UE/Bloc%20santé']); // Navigue vers la vue 'accueil' par default
 
   }
 

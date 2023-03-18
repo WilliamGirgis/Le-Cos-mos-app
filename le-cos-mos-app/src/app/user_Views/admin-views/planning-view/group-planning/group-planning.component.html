@@ -133,11 +133,34 @@
   <ng-container  *ngFor="let column of columnsToDisplay;index as day" matColumnDef="{{column}}">
     <div  *ngIf="column == ' '">
       <td   id="header" *matCellDef="let element;let i = dataIndex ">
-          {{element}}
+        <div id="headerContentWrp">
+
+          <div id="headerheure">
+            {{element}}
+          </div>
+
+          <div id="quartDheureList">
+            <div>
+              {{element.split('h')[0]}}:00
+            </div>
+            <div>
+              {{element.split('h')[0]}}:15
+            </div>
+            <div>
+              {{element.split('h')[0]}}:30
+            </div>
+            <div>
+              {{element.split('h')[0]}}:45
+            </div>
+            <div>
+              {{+element.split('h')[0] + 1}}:00
+            </div>
+          </div>
+        </div>
         </td>
     </div>
   <th
-   *matHeaderCellDef> {{column}} </th>
+   *matHeaderCellDef> {{column}}</th>
 
     <td    (mouseleave)="isOut = !isOut" (mouseenter)="heureIndex = i;dayIndex = day - 1;isOut = !isOut"    *matCellDef="let i = dataIndex">
 

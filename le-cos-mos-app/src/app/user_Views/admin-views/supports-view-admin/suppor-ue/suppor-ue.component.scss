@@ -1,13 +1,16 @@
 
 #supports-wrp {
   border-radius: 10px;
-  height: fit-content;
   display:flex;
 margin: auto auto auto auto;
   cursor: pointer;
   top: 0;
-  height: 50vh;
+  height: 80vh;
   width: 100%;
+  flex-flow: row wrap;
+  mat-card {
+    width: 33%;
+  }
   }
 
 
@@ -29,9 +32,9 @@ height: 25vh;
   }
 
   #circle {
-    width: 10vw;
+    width: 13vw;
   border-radius: 50%;
-  min-height: 20vh;
+  min-height: 26vh;
 
 margin: 0 auto 5vh auto;
 border: 3px solid var(--blue-them-color);
