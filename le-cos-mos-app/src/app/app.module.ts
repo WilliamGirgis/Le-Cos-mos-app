@@ -61,13 +61,17 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { HomeViewEtudiantComponent } from './user_Views/etudiant-views/home-view-etudiant/home-view-etudiant.component';
 import { SupportBlocksComponent } from './user_Views/admin-views/supports-view-admin/support-blocks/support-blocks.component';
-import { SupporUEComponent } from './user_Views/admin-views/supports-view-admin/suppor-ue/suppor-ue.component';
+import { SupporUEComponent } from './user_Views/admin-views/supports-view-admin/support-blocks/hors-sante-blocks/suppor-ue/suppor-ue.component';
 import { SupportContentComponent } from './user_Views/admin-views/supports-view-admin/support-content/support-content.component';
-import { SupportHandlerComponent } from './user_Views/admin-views/supports-view-admin/support-content-subviews/support-handler/support-handler.component';
-import { ExerciceComponent } from './user_Views/admin-views/supports-view-admin/support-content-subviews/exercice/exercice.component';
-import { CoursComponent } from './user_Views/admin-views/supports-view-admin/support-content-subviews/cours/cours.component';
-import { TdComponent } from './user_Views/admin-views/supports-view-admin/support-content-subviews/td/td.component';
-import { VideoComponent } from './user_Views/admin-views/supports-view-admin/support-content-subviews/video/video.component';
+import { TransversalBlocksComponent } from './user_Views/admin-views/supports-view-admin/support-blocks/transversal-blocks/transversal-blocks.component';
+import { HorsSanteBlocksComponent } from './user_Views/admin-views/supports-view-admin/support-blocks/hors-sante-blocks/hors-sante-blocks.component';
+import { AddItemComponent } from './user_Views/admin-views/supports-view-admin/support-content/add-item/add-item.component';
+import { DisplayLectureComponent } from './user_Views/admin-views/supports-view-admin/support-content/display-lecture/display-lecture.component';
+import { TdViewComponent } from './user_Views/admin-views/supports-view-admin/support-content/td-view/td-view.component';
+import { VideoViewComponent } from './user_Views/admin-views/supports-view-admin/support-content/video-view/video-view.component';
+import { AnnalesViewComponent } from './user_Views/admin-views/supports-view-admin/support-content/annales-view/annales-view.component';
+import { CmViewComponent } from './user_Views/admin-views/supports-view-admin/support-content/cm-view/cm-view.component';
+import { TransversalBlockListComponent } from './user_Views/admin-views/supports-view-admin/support-content/transversal-block-list/transversal-block-list.component';
 
 const appearance: MatFormFieldDefaultOptions = {
   appearance: 'outline'
@@ -124,21 +128,55 @@ const routes: Routes = [
         path: 'supports',
         component: SupportsViewComponent,
         data: { animation: 'Supports' },
-        children: [
-          {
-            path: 'blocks',
-            component: SupportBlocksComponent
-          },
-          {
-            path: 'UE/:id',
-            component: SupporUEComponent
-          },{path:'UE/:id/:id',component:SupportContentComponent}
-          ,{path:'UE/:id/:id/:id',component:SupportHandlerComponent,
-        children:[{path:'td',component:TdComponent},{path:'video',component:VideoComponent},{path:'cours',component:CoursComponent},{path:'exercice',component:ExerciceComponent}]}
+        children:[      {
+          path: 'blocks',
+          component: SupportBlocksComponent,
+        },
+        { path: 'sante', component: SupporUEComponent,children:[
 
+          {path:'ue_list',component: SupporUEComponent},
+          {path:':id',component:SupportContentComponent,children:[
+          {path:'cm',component:DisplayLectureComponent},
+          {path:'td',component:TdViewComponent},
+          {path:'video',component:VideoViewComponent},
+          {path:'annales',component:AddItemComponent},
+          {path:'excerices',component:AddItemComponent},
+          {path:'seance de cours',component:AddItemComponent},
 
-        ]
+          ]
+        }
+        ] },
+        { path: 'transversal', component: TransversalBlockListComponent,children:[
+          {path:'transversal_block_list',component: TransversalBlockListComponent},
+          {path:':id',component:SupportContentComponent,children:[
+            {path:'cm',component:CmViewComponent},
+            {path:'td',component:TdViewComponent},
+            {path:'video',component:VideoViewComponent},
+            {path:'annales',component:AnnalesViewComponent},
+            {path:'excerices',component:AddItemComponent},
+            {path:'seance de cours',component:AddItemComponent},
+
+            ]
+          }
+        ] },
+        { path: 'hors_sante', component: HorsSanteBlocksComponent,children:[
+          {path:'hs_block_list',component: SupporUEComponent},
+          {path:':id',component:SupportContentComponent,children:[
+            {path:'cm',component:CmViewComponent},
+            {path:'td',component:TdViewComponent},
+            {path:'video',component:VideoViewComponent},
+            {path:'annales',component:AnnalesViewComponent},
+            {path:'excerices',component:AddItemComponent},
+            {path:'seance de cours',component:AddItemComponent},
+
+            ]
+          }
+        ] }]
       },
+
+
+
+
       {
         path: 'examens',
         component: ExamensViewComponent,
@@ -161,8 +199,7 @@ const routes: Routes = [
       }
     ]
   }
-
-];
+]
 
 
 @NgModule({
@@ -189,10 +226,12 @@ const routes: Routes = [
     SupportBlocksComponent,
     SupporUEComponent,
     SupportContentComponent,
-    ExerciceComponent,
-    CoursComponent,
-    TdComponent,
-    VideoComponent
+    HorsSanteBlocksComponent,
+    AddItemComponent,
+    TdViewComponent,
+    VideoViewComponent,
+    TransversalBlocksComponent,
+    TransversalBlockListComponent
 
   ],
   providers: [HttpService, { provide: HTTP_INTERCEPTORS, useClass: WebReqInterceptorService, multi: true }, { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: appearance }, AuthGuard, HttpService], //Mettre par default tous les input en "outline"

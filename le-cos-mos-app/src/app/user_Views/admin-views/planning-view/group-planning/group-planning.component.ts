@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Injectable, Input, OnInit, ViewChild,  } from '@angular/core';
-import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
+import {  MatMenuTrigger } from '@angular/material/menu';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
@@ -159,7 +159,7 @@ export class GroupPlanningComponent implements OnInit {
 
   groupLink = this.route.snapshot.paramMap.get('id')
 
-  selectedSeanceGroup = 'Science de la vie'
+  selectedSeanceGroup = this.groupLink
   constructor(private http:HttpClient,private route: ActivatedRoute) {
 
     this.getGroups(this.groupLink!)
@@ -663,7 +663,9 @@ this.getPlanning()
         if(element.type === 'Group') {
           this.groupList!.push(element)
         }
-      });
+        this.selectedSeanceGroup = this.groupList![0].groupName
+      })
+
       this.getPlanning()
     })).subscribe((res) =>{
     })

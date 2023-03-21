@@ -3,6 +3,9 @@ const router = express.Router();
 const Planning = require("./planning.model");
 const User = require("./user.model");
 const jwt = require('jsonwebtoken');
+const fs = require("fs");
+let publicationFolder =
+  "src/app/user_Views/admin-views/planning-view/group-planning/seances";
 
 let authenticate = (req, res, next) => {  /* MIDDLEWARE for checking if the access-token has expired */
   let token = req.header('x-access-token') // We intercept each request, taking the access-Token of the current user logged in
@@ -18,12 +21,17 @@ let authenticate = (req, res, next) => {  /* MIDDLEWARE for checking if the acce
 }
 
 router.post("/group/modify", authenticate, async function (req, res, next) {
-  let newName = req.body.newName
-  let oldName = req.body.oldName
+  let newName = req.body.newName.replace(/ /g,'_')
+  let oldName = req.body.oldName.replace(/ /g,'_')
+  console.log(oldName)
+  fs.renameSync(publicationFolder + '/' + oldName + '.json',publicationFolder + '/' + newName + '.json');
+
   let isTronCommun = false
+  let splitedNewName = req.body.newName.split(/ /)
+  let testTroncCommun = splitedNewName[0].toLowerCase() + ' ' + splitedNewName[1].toLowerCase()
   if (oldName === newName) {
     return
-  } else if (newName.toLowerCase() == 'Tronc Commun'.toLowerCase()) {
+  } else if (testTroncCommun == 'tronc commun'.toLowerCase()) {
     isTronCommun = true
   }
   Planning.findOneAndUpdate({ groupName: oldName }, { $set: { groupName: newName, istronCommun: isTronCommun } }).then((data) => {
@@ -97,9 +105,10 @@ const setUserInGroup = router.post("/user/add",/*authenticate,*/ async function 
 
 router.post("/group/create", authenticate, async function (req, res, next) {
   let body = req.body;
-  let name = body.groupName
+  let name = body.name.replace(/ /g,'_')
   let isTronCommun = false
-  name = 'new Group'
+  fs.writeFileSync(publicationFolder + '/' + name + '.json', '[]', async function (data) {
+  })
   let newGroup = new Planning({ groupName: name, istronCommun: isTronCommun, type: 'Group' })
   const response = await newGroup.save();
   return res.status(200).send()
@@ -136,6 +145,7 @@ const getPlanning = router.get("/group/planning",/*authenticate,*/ async functio
 
 router.post("/group/del", authenticate, async function (req, res, next) {
   let name = req.body.groupName
+  fs.rmSync(publicationFolder + '/' + name + '.json', { recursive: true, force: true });
   Planning.findOneAndDelete({ groupName: name }).then((data) => {
     return res.status(200).send()
   })

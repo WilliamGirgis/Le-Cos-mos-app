@@ -1,8 +1,5 @@
 <div id="top-wrp">
   <h2>Vos supports</h2>
-  <div id="img-hover">
-    <img src="../../../../assets/images/arrow-left.svg">
-  </div>
   <div id="top-btn-wrp">
   <button mat-button>Ajouter</button>
   <button mat-button>Tout supprimer</button>
@@ -10,11 +7,25 @@
 
 </div>
 <div id="supports-wrp">
-  <mat-card  routerLink="../UE/{{item.name}}" id="circle-wrp" *ngFor="let item of matiere">
+  <mat-card  routerLink="../sante" id="circle-wrp" >
     <div id="circle">
     </div>
+    Bloc santé
 
-      {{item.name}}
+
+  </mat-card>
+  <mat-card  routerLink="../transversal" id="circle-wrp" >
+    <div id="circle">
+    </div>
+    Block disciplines transversal
+
+
+  </mat-card>
+  <mat-card  routerLink="../hors_sante" id="circle-wrp" >
+    <div id="circle">
+    </div>
+    Bloc disciplines hors santé
+
 
   </mat-card>
 
