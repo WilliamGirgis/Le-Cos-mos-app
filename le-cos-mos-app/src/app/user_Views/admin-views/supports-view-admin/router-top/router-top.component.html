@@ -1,0 +1,10 @@
+<div id="top-wrp">
+  <h2> <label routerLink="/admin/supports/blocks">Vos supports</label> &nbsp;&nbsp;&nbsp; > &nbsp;&nbsp;&nbsp; <label routerLink="/admin/supports/{{blockName}}" >{{blockName == 'hors_sante' ? 'Block hors sante' : 'Block ' + blockName}}</label> &nbsp;&nbsp;&nbsp; > &nbsp;&nbsp;&nbsp; <label routerLink="..">{{globalBlockClean}}</label> &nbsp;&nbsp;&nbsp; > &nbsp;&nbsp;&nbsp; <label>{{globalBlock}}</label> </h2>
+  <div routerLink=".." id="img-hover">
+    <img  src="../../../../assets/images/arrow-left.svg">
+  </div>
+  <div id="top-btn-wrp">
+    <button mat-button>Ajouter</button>
+    <button mat-button>Tout supprimer</button>
+  </div>
+</div>

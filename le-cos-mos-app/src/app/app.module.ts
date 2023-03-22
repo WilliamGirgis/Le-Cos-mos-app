@@ -61,17 +61,22 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { HomeViewEtudiantComponent } from './user_Views/etudiant-views/home-view-etudiant/home-view-etudiant.component';
 import { SupportBlocksComponent } from './user_Views/admin-views/supports-view-admin/support-blocks/support-blocks.component';
-import { SupporUEComponent } from './user_Views/admin-views/supports-view-admin/support-blocks/hors-sante-blocks/suppor-ue/suppor-ue.component';
+import { SupporUEComponent } from './user_Views/admin-views/supports-view-admin/support-blocks/sante-blocks/support-ue-list/suppor-ue.component';
 import { SupportContentComponent } from './user_Views/admin-views/supports-view-admin/support-content/support-content.component';
 import { TransversalBlocksComponent } from './user_Views/admin-views/supports-view-admin/support-blocks/transversal-blocks/transversal-blocks.component';
 import { HorsSanteBlocksComponent } from './user_Views/admin-views/supports-view-admin/support-blocks/hors-sante-blocks/hors-sante-blocks.component';
-import { AddItemComponent } from './user_Views/admin-views/supports-view-admin/support-content/add-item/add-item.component';
-import { DisplayLectureComponent } from './user_Views/admin-views/supports-view-admin/support-content/display-lecture/display-lecture.component';
 import { TdViewComponent } from './user_Views/admin-views/supports-view-admin/support-content/td-view/td-view.component';
 import { VideoViewComponent } from './user_Views/admin-views/supports-view-admin/support-content/video-view/video-view.component';
 import { AnnalesViewComponent } from './user_Views/admin-views/supports-view-admin/support-content/annales-view/annales-view.component';
 import { CmViewComponent } from './user_Views/admin-views/supports-view-admin/support-content/cm-view/cm-view.component';
-import { TransversalBlockListComponent } from './user_Views/admin-views/supports-view-admin/support-content/transversal-block-list/transversal-block-list.component';
+import { TransversalBlockListComponent } from './user_Views/admin-views/supports-view-admin/support-blocks/transversal-blocks/transversal-block-list/transversal-block-list.component';
+import { SanteBlocksComponent } from './user_Views/admin-views/supports-view-admin/support-blocks/sante-blocks/support-ue-list.component';
+import { HsBlockListComponent } from './user_Views/admin-views/supports-view-admin/support-blocks/hors-sante-blocks/hs-block-list/hs-block-list.component';
+import { ContentBlockListComponent } from './user_Views/admin-views/supports-view-admin/support-content/content-block-list/content-block-list.component';
+import { ExcercicesViewComponent } from './user_Views/admin-views/supports-view-admin/support-content/excercices-view/excercices-view.component';
+import { PlanchageViewComponent } from './user_Views/admin-views/supports-view-admin/support-content/planchage-view/planchage-view.component';
+import { RouterTopComponent } from './user_Views/admin-views/supports-view-admin/router-top/router-top.component';
+import { RouterTop2Component } from './user_Views/admin-views/supports-view-admin/router-top2/router-top2.component';
 
 const appearance: MatFormFieldDefaultOptions = {
   appearance: 'outline'
@@ -132,46 +137,31 @@ const routes: Routes = [
           path: 'blocks',
           component: SupportBlocksComponent,
         },
-        { path: 'sante', component: SupporUEComponent,children:[
+        { path: 'sante', component: SupporUEComponent},
+          {path:'sante/:id',component:ContentBlockListComponent} ,
+          {path:'sante/:id/cm',component:CmViewComponent},
+          {path:'sante/:id/td',component:TdViewComponent},
+          {path:'sante/:id/video',component:VideoViewComponent},
+          {path:'sante/:id/annales',component:AnnalesViewComponent},
+          {path:'sante/:id/excercices',component:ExcercicesViewComponent},
+          {path:'sante/:id/planchage',component:PlanchageViewComponent},
+          { path: 'transversal', component: TransversalBlockListComponent},
+          {path:'transversal/:id',component:ContentBlockListComponent},
+          {path:'transversal/:id/cm',component:CmViewComponent},
+          {path:'transversal/:id/td',component:TdViewComponent},
+          {path:'transversal/:id/video',component:VideoViewComponent},
+          {path:'transversal/:id/annales',component:AnnalesViewComponent},
+          {path:'transversal/:id/excercices',component:ExcercicesViewComponent},
+          {path:'transversal/:id/planchage',component:PlanchageViewComponent},
 
-          {path:'ue_list',component: SupporUEComponent},
-          {path:':id',component:SupportContentComponent,children:[
-          {path:'cm',component:DisplayLectureComponent},
-          {path:'td',component:TdViewComponent},
-          {path:'video',component:VideoViewComponent},
-          {path:'annales',component:AddItemComponent},
-          {path:'excerices',component:AddItemComponent},
-          {path:'seance de cours',component:AddItemComponent},
-
-          ]
-        }
-        ] },
-        { path: 'transversal', component: TransversalBlockListComponent,children:[
-          {path:'transversal_block_list',component: TransversalBlockListComponent},
-          {path:':id',component:SupportContentComponent,children:[
-            {path:'cm',component:CmViewComponent},
-            {path:'td',component:TdViewComponent},
-            {path:'video',component:VideoViewComponent},
-            {path:'annales',component:AnnalesViewComponent},
-            {path:'excerices',component:AddItemComponent},
-            {path:'seance de cours',component:AddItemComponent},
-
-            ]
-          }
-        ] },
-        { path: 'hors_sante', component: HorsSanteBlocksComponent,children:[
-          {path:'hs_block_list',component: SupporUEComponent},
-          {path:':id',component:SupportContentComponent,children:[
-            {path:'cm',component:CmViewComponent},
-            {path:'td',component:TdViewComponent},
-            {path:'video',component:VideoViewComponent},
-            {path:'annales',component:AnnalesViewComponent},
-            {path:'excerices',component:AddItemComponent},
-            {path:'seance de cours',component:AddItemComponent},
-
-            ]
-          }
-        ] }]
+        { path: 'hors_sante', component: HsBlockListComponent},
+        {path:'hors_sante/:id',component:ContentBlockListComponent},
+        {path:'hors_sante/:id/cm',component:CmViewComponent},
+        {path:'hors_sante/:id/td',component:TdViewComponent},
+        {path:'hors_sante/:id/video',component:VideoViewComponent},
+        {path:'hors_sante/:id/annales',component:AnnalesViewComponent},
+        {path:'hors_sante/:id/excercices',component:ExcercicesViewComponent},
+        {path:'hors_sante/:id/planchage',component:PlanchageViewComponent}]
       },
 
 
@@ -227,11 +217,19 @@ const routes: Routes = [
     SupporUEComponent,
     SupportContentComponent,
     HorsSanteBlocksComponent,
-    AddItemComponent,
     TdViewComponent,
-    VideoViewComponent,
     TransversalBlocksComponent,
-    TransversalBlockListComponent
+    TransversalBlockListComponent,
+    SanteBlocksComponent,
+    HsBlockListComponent,
+    ContentBlockListComponent,
+    PlanchageViewComponent,
+    AnnalesViewComponent,
+    VideoViewComponent,
+    CmViewComponent,
+    ExcercicesViewComponent,
+    RouterTopComponent,
+    RouterTop2Component
 
   ],
   providers: [HttpService, { provide: HTTP_INTERCEPTORS, useClass: WebReqInterceptorService, multi: true }, { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: appearance }, AuthGuard, HttpService], //Mettre par default tous les input en "outline"

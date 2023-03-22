@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DisplayLectureComponent } from './display-lecture.component';
+import { RouterTop2Component } from './router-top2.component';
 
-describe('DisplayLectureComponent', () => {
-  let component: DisplayLectureComponent;
-  let fixture: ComponentFixture<DisplayLectureComponent>;
+describe('RouterTop2Component', () => {
+  let component: RouterTop2Component;
+  let fixture: ComponentFixture<RouterTop2Component>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DisplayLectureComponent ]
+      declarations: [ RouterTop2Component ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DisplayLectureComponent);
+    fixture = TestBed.createComponent(RouterTop2Component);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

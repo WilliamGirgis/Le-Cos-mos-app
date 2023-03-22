@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-transversal-block-list',
@@ -7,8 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TransversalBlockListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
   block_list:any = [{name:'MTU'},{name:'SHS'},{name:'PPP'}]
+  globalBlock = this.router.url.split(/\//g)[this.router.url.split(/\//g).length - 1]
 
   ngOnInit(): void {
   }

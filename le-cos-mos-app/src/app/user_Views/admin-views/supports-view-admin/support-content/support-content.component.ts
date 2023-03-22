@@ -8,10 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SupportContentComponent implements OnInit {
 
-  constructor(private router:ActivatedRoute) { }
-  content:any = [{name:'Cours Magistraux'},{name:'Travaux Dirigés'},{name:'Annales'},{name:'Vidéos'},{name:'Exercices'},{name:'Séance de Planchages'}]
-
-  selectedUed:string = this.router.snapshot.paramMap.get('id')!
+  constructor() { }
   ngOnInit(): void {
   }
 

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddItemComponent } from './add-item.component';
+import { PlanchageViewComponent } from './planchage-view.component';
 
-describe('AddItemComponent', () => {
-  let component: AddItemComponent;
-  let fixture: ComponentFixture<AddItemComponent>;
+describe('PlanchageViewComponent', () => {
+  let component: PlanchageViewComponent;
+  let fixture: ComponentFixture<PlanchageViewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddItemComponent ]
+      declarations: [ PlanchageViewComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AddItemComponent);
+    fixture = TestBed.createComponent(PlanchageViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,41 +1,49 @@
 
 #supports-wrp {
-  display: flex;
-  justify-content: center;
-  gap: 7vw;
+  border-radius: 10px;
+  display:flex;
+margin: auto auto auto auto;
   cursor: pointer;
-  width: 100%;
+  top: 0;
+  height: 80vh;
+  width: 90vw;
+  flex-flow: row wrap;
+
+  mat-card {
+    width: 25%;
+
+  }
   }
 
 
   #circle-wrp {
-    display: flex;
-    flex-direction: column;
     border: 0;
     background-color: transparent;
     box-shadow: none;
     text-align: center;
-    gap: 5vh;
     color: var(--dblue-them-color);
     font-size: 125%;
     font-weight: bold;
-
+    margin: auto;
+    margin-top: 0;
+min-height: max-content;
+height: fit-content;
   }
 
   #circle {
-    box-shadow:0px 0px 15px var(--blue-them-color);
-    width: 17vw;
+    width: 13vw;
   border-radius: 50%;
-  min-height: 35vh;
-  margin: auto;
+  min-height: 26vh;
+
+margin: 0 auto 5vh auto;
+border: 3px solid var(--blue-them-color);
 
   }
 
   #matiere {
-    display: flex;
-  width: 17vw;
+
   border-radius: 50%;
-  min-height: 35vh;
+
   text-align: center;
   align-items: center;
   justify-content: center;
@@ -44,16 +52,15 @@
   }
 
 
-
 #top-wrp {
-  gap: 3vw;
   position: absolute;
   top: 3vh;
-  width: 100%;
+  width: fit-content;
   height: max-content;
   display: flex;
   flex-direction: row;
 left: 3vw;
+gap: 3vw;
   #img-hover {
     align-self: center;
     min-width: 10vw;
@@ -75,25 +82,23 @@ img {
 
 
 h2 {
+  font-size: 100%;
   color: var(--blue-them-color);
-
 min-width: max-content;
 }
 
 #top-btn-wrp {
   width: 100%;
 color: var(--blue-them-color);
-gap: 3vw;
+gap: 1vw;
   display: flex;
   align-items: center;
-justify-self: right;
-margin-right: 20vw;
 
 button {
   font-weight: bold;
  border-radius: 10px;
  transition: 350ms ease-in-out;
-
+font-size: 70%;
  &:first-of-type {
   border: 1px solid var(--blue-them-color);
  }
@@ -105,3 +110,4 @@ button {
 }
 }
 }
+

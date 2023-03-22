@@ -6,8 +6,10 @@ margin: auto auto auto auto;
   cursor: pointer;
   top: 0;
   height: 80vh;
-  width: 100%;
+
+  width: 90vw;
   flex-flow: row wrap;
+  align-content: center;
   mat-card {
     width: 33%;
   }
@@ -26,9 +28,9 @@ height: fit-content;
     font-weight: bold;
     margin: auto;
     margin-top: 0;
-width: 14vw;
 
-height: 25vh;
+
+height: max-content;
   }
 
   #circle {
@@ -56,17 +58,21 @@ border: 3px solid var(--blue-them-color);
 #top-wrp {
   position: absolute;
   top: 3vh;
-  width: 100%;
+  width: fit-content;
   height: max-content;
   display: flex;
   flex-direction: row;
-
+gap: 3vw;
+ left: 3vw;
   #img-hover {
     align-self: center;
-    min-width: 10vw;
+    min-width: fit-content;
     cursor: pointer;
+    width: max-content;
+
     &:hover {
      img {
+
       transform: translateX(-30px);
      }
     }
@@ -75,7 +81,6 @@ border: 3px solid var(--blue-them-color);
 img {
   height: 7vh;
   align-self: center;
-
   transition: 350ms ease-in-out;
 
 }
@@ -83,20 +88,18 @@ img {
 
 h2 {
   color: var(--blue-them-color);
-margin-left: 5vw;
+  font-size: 100%;
 min-width: max-content;
-margin-right: 7vw;
+
 }
 
 #top-btn-wrp {
-  justify-content: right;
+
   width: 100%;
 color: var(--blue-them-color);
 gap: 3vw;
   display: flex;
   align-items: center;
-justify-self: right;
-margin-right: 20vw;
 
 button {
   font-weight: bold;
@@ -114,4 +117,8 @@ button {
 }
 }
 }
+
+label {
+  cursor: pointer;
+  }
 

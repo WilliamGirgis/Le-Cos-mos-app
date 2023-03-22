@@ -10,6 +10,7 @@ export class HorsSanteBlocksComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
 }
