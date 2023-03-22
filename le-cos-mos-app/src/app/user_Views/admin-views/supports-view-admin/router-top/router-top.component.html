@@ -1,6 +1,6 @@
-<div id="top-wrp">
-  <h2> <label routerLink="/admin/supports/blocks">Vos supports</label> &nbsp;&nbsp;&nbsp; > &nbsp;&nbsp;&nbsp; <label routerLink="/admin/supports/{{blockName}}" >{{blockName == 'hors_sante' ? 'Block hors sante' : 'Block ' + blockName}}</label> &nbsp;&nbsp;&nbsp; > &nbsp;&nbsp;&nbsp; <label routerLink="..">{{globalBlockClean}}</label> &nbsp;&nbsp;&nbsp; > &nbsp;&nbsp;&nbsp; <label>{{globalBlock}}</label> </h2>
-  <div routerLink=".." id="img-hover">
+<div  id="top-wrp">
+  <h2> <label routerLink="/admin/supports/blocks">Vos supports</label> &nbsp;&nbsp;&nbsp; > &nbsp;&nbsp;&nbsp;  <label routerLink="/admin/supports/{{lvl1BlockClean}}">{{lvl1Block == 'hors_sante' ? 'Block hors sante' : 'Block ' + lvl1BlockClean}}</label> &nbsp;&nbsp;&nbsp; > &nbsp;&nbsp;&nbsp; <label routerLink="/admin/supports/{{lvl1BlockClean}}/{{lvl2BlockClean}}" >{{lvl2BlockClean}}</label> &nbsp;&nbsp;&nbsp; > &nbsp;&nbsp;&nbsp; <label>{{lvl3BlockClean}}</label> &nbsp;&nbsp;&nbsp; </h2>
+  <div (click)="navigateBack()" id="img-hover">
     <img  src="../../../../assets/images/arrow-left.svg">
   </div>
   <div id="top-btn-wrp">

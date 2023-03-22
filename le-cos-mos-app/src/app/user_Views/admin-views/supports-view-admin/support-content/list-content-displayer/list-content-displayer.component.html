@@ -1,0 +1,14 @@
+<div id="wrapper">
+<li>
+  <ul routerLink="./{{item.name + '_' + item.chapter }}" (click)="displayDetails(i)" *ngFor="let item of contentListTest; index as i">
+
+    <div id="header-wrp">
+    <h3>Chapitre {{item.chapter}}</h3>
+    <label>{{item.name}}</label>
+
+  <img id="arrowD" src="../../../../../../assets/images/arrow-bar-down.svg">
+</div>
+  </ul>
+
+</li>
+</div>

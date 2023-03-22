@@ -19,7 +19,10 @@ export class ContentBlockListComponent implements OnInit {
 
 
   cleanContent = this.blockContentList.replace(/%20/g,' ')
-  globalBlockClean = this.cleanContent.replace(/%20/g,' ').replace(/%C3%A9/,'e')
+  globalBlockClean = this.cleanContent.replace(/%20/g,' ').replace(/%C3%A9/g,'e')
+
+
+
   ngOnInit(): void {
   }
 

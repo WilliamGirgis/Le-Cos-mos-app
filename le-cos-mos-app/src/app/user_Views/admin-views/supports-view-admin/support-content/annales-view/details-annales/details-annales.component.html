@@ -1,0 +1,3 @@
+<img id="uploadedImage" *ngIf="imgLink !== undefined && imgFile != undefined && imgExtension != 'pdf' && imgExtension != undefined" [src]="imgFile">
+<pdf-viewer [zoom]="0.8" [fit-to-page]="true" id="uploadedImage"    [original-size]="true" style="width: max-content;height: max-content" [render-text]="false" [src]="'../../../../../../../assets/images/uploaded/document.pdf'"></pdf-viewer>
+

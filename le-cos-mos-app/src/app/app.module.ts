@@ -77,6 +77,13 @@ import { ExcercicesViewComponent } from './user_Views/admin-views/supports-view-
 import { PlanchageViewComponent } from './user_Views/admin-views/supports-view-admin/support-content/planchage-view/planchage-view.component';
 import { RouterTopComponent } from './user_Views/admin-views/supports-view-admin/router-top/router-top.component';
 import { RouterTop2Component } from './user_Views/admin-views/supports-view-admin/router-top2/router-top2.component';
+import { ListContentDisplayerComponent } from './user_Views/admin-views/supports-view-admin/support-content/list-content-displayer/list-content-displayer.component';
+import { DetailsCmComponent } from './user_Views/admin-views/supports-view-admin/support-content/cm-view/details-cm/details-cm.component';
+import { DetailsAnnalesComponent } from './user_Views/admin-views/supports-view-admin/support-content/annales-view/details-annales/details-annales.component';
+import { DetailsExcercicesComponent } from './user_Views/admin-views/supports-view-admin/support-content/excercices-view/details-excercices/details-excercices.component';
+import { DetailsPlanchagesComponent } from './user_Views/admin-views/supports-view-admin/support-content/planchage-view/details-planchages/details-planchages.component';
+import { DetailsTdComponent } from './user_Views/admin-views/supports-view-admin/support-content/td-view/details-td/details-td.component';
+import { DetailsVideoComponent } from './user_Views/admin-views/supports-view-admin/support-content/video-view/details-video/details-video.component';
 
 const appearance: MatFormFieldDefaultOptions = {
   appearance: 'outline'
@@ -139,29 +146,145 @@ const routes: Routes = [
         },
         { path: 'sante', component: SupporUEComponent},
           {path:'sante/:id',component:ContentBlockListComponent} ,
-          {path:'sante/:id/cm',component:CmViewComponent},
-          {path:'sante/:id/td',component:TdViewComponent},
-          {path:'sante/:id/video',component:VideoViewComponent},
-          {path:'sante/:id/annales',component:AnnalesViewComponent},
-          {path:'sante/:id/excercices',component:ExcercicesViewComponent},
-          {path:'sante/:id/planchage',component:PlanchageViewComponent},
+          {path:'sante/:id/cm',component:CmViewComponent,
+          children:[
+            {path:'details',component:DetailsCmComponent},
+            {path:'list',component:ListContentDisplayerComponent}
+            ,
+            {path:'list/:id',component:DetailsCmComponent}
+        ]
+        },
+          {path:'sante/:id/td',component:TdViewComponent,
+          children:[
+            {path:'details',component:DetailsTdComponent},
+            {path:'list',component:ListContentDisplayerComponent}
+            ,
+            {path:'list/:id',component:DetailsTdComponent}
+        ]},
+          {path:'sante/:id/video',component:VideoViewComponent,
+          children:[
+            {path:'details',component:DetailsVideoComponent},
+            {path:'list',component:ListContentDisplayerComponent}
+            ,
+            {path:'list/:id',component:DetailsVideoComponent}
+        ]},
+          {path:'sante/:id/annales',component:AnnalesViewComponent,
+          children:[
+            {path:'details',component:DetailsAnnalesComponent},
+            {path:'list',component:ListContentDisplayerComponent}
+            ,
+            {path:'list/:id',component:DetailsAnnalesComponent}
+        ]},
+          {path:'sante/:id/excercices',component:ExcercicesViewComponent,
+          children:[
+            {path:'details',component:DetailsExcercicesComponent},
+            {path:'list',component:ListContentDisplayerComponent}
+            ,
+            {path:'list/:id',component:DetailsExcercicesComponent}
+        ]},
+          {path:'sante/:id/planchage',component:PlanchageViewComponent,
+          children:[
+            {path:'details',component:DetailsPlanchagesComponent},
+            {path:'list',component:ListContentDisplayerComponent}
+            ,
+            {path:'list/:id',component:DetailsPlanchagesComponent}
+        ]},
           { path: 'transversal', component: TransversalBlockListComponent},
-          {path:'transversal/:id',component:ContentBlockListComponent},
-          {path:'transversal/:id/cm',component:CmViewComponent},
-          {path:'transversal/:id/td',component:TdViewComponent},
-          {path:'transversal/:id/video',component:VideoViewComponent},
-          {path:'transversal/:id/annales',component:AnnalesViewComponent},
-          {path:'transversal/:id/excercices',component:ExcercicesViewComponent},
-          {path:'transversal/:id/planchage',component:PlanchageViewComponent},
+          {path:'transversal/:id',component:ContentBlockListComponent,
+
+          children:[
+            {path:'details',component:DetailsCmComponent},
+            {path:'list',component:ListContentDisplayerComponent}
+            ,
+            {path:'list/:id',component:DetailsCmComponent}
+        ]},
+          {path:'transversal/:id/cm',component:CmViewComponent,
+          children:[
+            {path:'details',component:DetailsCmComponent},
+            {path:'list',component:ListContentDisplayerComponent}
+            ,
+            {path:'list/:id',component:DetailsCmComponent}
+        ]},
+          {path:'transversal/:id/td',component:TdViewComponent,
+          children:[
+            {path:'details',component:DetailsTdComponent},
+            {path:'list',component:ListContentDisplayerComponent}
+            ,
+            {path:'list/:id',component:DetailsTdComponent}
+        ]},
+          {path:'transversal/:id/video',component:VideoViewComponent,
+          children:[
+            {path:'details',component:DetailsVideoComponent},
+            {path:'list',component:ListContentDisplayerComponent}
+            ,
+            {path:'list/:id',component:DetailsVideoComponent}
+        ]},
+          {path:'transversal/:id/annales',component:AnnalesViewComponent,
+          children:[
+            {path:'details',component:DetailsAnnalesComponent},
+            {path:'list',component:ListContentDisplayerComponent}
+            ,
+            {path:'list/:id',component:DetailsAnnalesComponent}
+        ]},
+          {path:'transversal/:id/excercices',component:ExcercicesViewComponent,
+          children:[
+            {path:'details',component:DetailsExcercicesComponent},
+            {path:'list',component:ListContentDisplayerComponent}
+            ,
+            {path:'list/:id',component:DetailsExcercicesComponent}
+        ]},
+          {path:'transversal/:id/planchage',component:PlanchageViewComponent,
+          children:[
+            {path:'details',component:DetailsPlanchagesComponent},
+            {path:'list',component:ListContentDisplayerComponent}
+            ,
+            {path:'list/:id',component:DetailsPlanchagesComponent}
+        ]},
 
         { path: 'hors_sante', component: HsBlockListComponent},
         {path:'hors_sante/:id',component:ContentBlockListComponent},
-        {path:'hors_sante/:id/cm',component:CmViewComponent},
-        {path:'hors_sante/:id/td',component:TdViewComponent},
-        {path:'hors_sante/:id/video',component:VideoViewComponent},
-        {path:'hors_sante/:id/annales',component:AnnalesViewComponent},
-        {path:'hors_sante/:id/excercices',component:ExcercicesViewComponent},
-        {path:'hors_sante/:id/planchage',component:PlanchageViewComponent}]
+        {path:'hors_sante/:id/cm',component:CmViewComponent,
+        children:[
+          {path:'details',component:DetailsCmComponent},
+          {path:'list',component:ListContentDisplayerComponent}
+          ,
+          {path:'list/:id',component:DetailsCmComponent}
+      ]},
+        {path:'hors_sante/:id/td',component:TdViewComponent,
+        children:[
+          {path:'details',component:DetailsTdComponent},
+          {path:'list',component:ListContentDisplayerComponent}
+          ,
+          {path:'list/:id',component:DetailsTdComponent}
+      ]},
+        {path:'hors_sante/:id/video',component:VideoViewComponent,
+        children:[
+          {path:'details',component:DetailsVideoComponent},
+          {path:'list',component:ListContentDisplayerComponent}
+          ,
+          {path:'list/:id',component:DetailsVideoComponent}
+      ]},
+        {path:'hors_sante/:id/annales',component:AnnalesViewComponent,
+        children:[
+          {path:'details',component:DetailsAnnalesComponent},
+          {path:'list',component:ListContentDisplayerComponent}
+          ,
+          {path:'list/:id',component:DetailsAnnalesComponent}
+      ]},
+        {path:'hors_sante/:id/excercices',component:ExcercicesViewComponent,
+        children:[
+          {path:'details',component:DetailsExcercicesComponent},
+          {path:'list',component:ListContentDisplayerComponent}
+          ,
+          {path:'list/:id',component:DetailsExcercicesComponent}
+      ]},
+        {path:'hors_sante/:id/planchage',component:PlanchageViewComponent,
+        children:[
+          {path:'details',component:DetailsPlanchagesComponent},
+          {path:'list',component:ListContentDisplayerComponent}
+          ,
+          {path:'list/:id',component:DetailsPlanchagesComponent}
+      ]}]
       },
 
 
@@ -229,7 +352,15 @@ const routes: Routes = [
     CmViewComponent,
     ExcercicesViewComponent,
     RouterTopComponent,
-    RouterTop2Component
+    RouterTop2Component,
+    ListContentDisplayerComponent,
+    DetailsCmComponent,
+    DetailsAnnalesComponent,
+    DetailsExcercicesComponent,
+    DetailsPlanchagesComponent,
+    DetailsTdComponent,
+    DetailsVideoComponent
+
 
   ],
   providers: [HttpService, { provide: HTTP_INTERCEPTORS, useClass: WebReqInterceptorService, multi: true }, { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: appearance }, AuthGuard, HttpService], //Mettre par default tous les input en "outline"
