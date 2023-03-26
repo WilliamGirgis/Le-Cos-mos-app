@@ -120,5 +120,10 @@ button {
 
 label {
   cursor: pointer;
+  transition: 350ms ease-in-out;
+  &:hover {
+
+    color: var(--dblue-them-color);
+  }
   }
 

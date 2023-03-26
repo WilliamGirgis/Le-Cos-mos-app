@@ -4,7 +4,7 @@
     <img  src="../../../../assets/images/arrow-left.svg">
   </div>
   <div id="top-btn-wrp">
-    <button mat-button>Ajouter</button>
-    <button mat-button>Tout supprimer</button>
+    <button (click)=" !(isDetails != 'list') ? openAddItemDialog() : openModifyItemDialog()"  mat-button>{{ isDetails != 'list' ? 'Modifier' : 'Ajouter'}}</button>
+    <button *ngIf="!(isDetails != 'list')" mat-button>Tout supprimer</button>
   </div>
 </div>

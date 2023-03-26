@@ -1,3 +1,16 @@
-<img id="uploadedImage" *ngIf="imgLink !== undefined && imgFile != undefined && imgExtension != 'pdf' && imgExtension != undefined" [src]="imgFile">
-<pdf-viewer [zoom]="0.8" [fit-to-page]="true" id="uploadedImage"    [original-size]="true" style="width: max-content;height: max-content" [render-text]="false" [src]="'../../../../../../../assets/images/uploaded/document.pdf'"></pdf-viewer>
+<div id="wrapper">
 
+  <mat-card>
+
+   <h2>{{documentTitle}}</h2>
+   <h3>Chapitre {{documentChapter}}</h3>
+
+  </mat-card>
+
+
+
+<img id="uploadedImage" *ngIf="imgLink !== undefined && imgFile != undefined && imgExtension != 'pdf' && imgExtension != undefined" [src]="imgFile">
+<pdf-viewer [zoom]="0.8" [fit-to-page]="true" id="uploadedImage"    [original-size]="true" style="width: 80vw;height: 166vh" [render-text]="false" [src]="'../../../../../../../assets/images/uploaded/document.pdf'"></pdf-viewer>
+
+
+</div>

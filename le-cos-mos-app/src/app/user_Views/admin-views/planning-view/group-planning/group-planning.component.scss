@@ -1,5 +1,6 @@
 #global {
   margin-top: -5vh;
+  min-height: 100vh;
 }
 
 #leftWrp {
@@ -43,7 +44,7 @@
 
 #rightWrp {
   width: 75%;
-min-height: max-content;
+ height: max-content;
 
 
   #validateBtnWrp {
@@ -59,6 +60,7 @@ min-height: max-content;
     }
 
     button {
+      min-width: max-content;
       color: var(--white-them-color);
       background-color: var(--blue-them-color);
     }
@@ -229,7 +231,6 @@ label {
 .datePicker {
   min-width: max-content;
   margin-top: -10vh;
-  margin-left: 12vw;
   font-size: 7px;
   color: var(--dblue-them-color);
   mat-date-range-input {

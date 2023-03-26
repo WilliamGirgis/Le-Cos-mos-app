@@ -92,11 +92,6 @@
     <h2>Semaine du {{week}}</h2>
       <img width="40vw" src="../../../../assets/images/arrow-right.svg" id="right">
     </span>
-
-    <img  [style]="{'width': touched ? '0' : '5vw'}"  src="../../../../../assets/images/check-lg.svg">
-
-    <img *ngIf="!isExpanded" style="cursor:pointer" src="../../../../../assets/images/arrows-expand.svg">
-    <img *ngIf="isExpanded" style="cursor:pointer" src="../../../../../assets/images/arrows-collapse.svg">
     <mat-form-field class="datePicker" [floatLabel]="'always'">
 
         <mat-label>Choisissez une semaine</mat-label>
@@ -112,6 +107,7 @@
         <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
 
     </mat-form-field>
+    <img style="margin-left:1vw"  [style]="{'width': touched ? '0' : '5vw'}"  src="../../../../../assets/images/check-lg.svg">
   </div>
 <div  id="borderTableWrp" fxLayoutAlign="end center" fxFill>
 

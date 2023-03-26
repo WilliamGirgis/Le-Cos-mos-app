@@ -1,0 +1,24 @@
+<form (submit)="addFiles()"  novalidate>
+  <mat-form-field [floatLabel]="'always'">
+<mat-label>
+  Nom du fichier
+</mat-label>
+<input placeholder="Nom du fichier"  matInput>
+  </mat-form-field >
+
+  <mat-form-field [floatLabel]="'always'">
+    <mat-label>
+      Chapitre
+    </mat-label>
+    <input placeholder="N° du chapitre" matInput>
+  </mat-form-field>
+  <mat-form-field [floatLabel]="'always'">
+    <mat-label>
+      Ajouter vos fichiers
+    </mat-label>
+    <input  matInput>
+  </mat-form-field>
+
+  <button type="submit" mat-button>Ajouter et quitter</button>
+
+</form>

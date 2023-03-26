@@ -63,8 +63,11 @@ button {
 }
 
 label {
+  transition: 350ms ease-in-out;
 cursor: pointer;
-
+&:hover {
+  color: var(--dblue-them-color);
+}
 &::after {
   display: none;
   content: " ";

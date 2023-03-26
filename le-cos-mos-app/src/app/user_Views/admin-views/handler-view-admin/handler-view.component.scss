@@ -55,11 +55,42 @@
   }*/
 }
 
+#logout {
+  height: 5vh;
+  z-index: 12;
+}
+
+#power {
+  z-index: 12;
+  height: 5vh;
+}
+
+.preferences-link {
+
+  transition: 350ms ease-in-out;
+  position: relative;
+  display: block;
+  &::after {
+    border-radius: 21px;
+   animation: appear 350ms ease-in-out both;
+    display: block;
+    content: " ";
+    width: 0;
+    position: relative;
+    height: 5px;
+    background-color: var(--blue-them-color);
+    bottom: 0;
+    z-index: 12;
+  }
+}
+
 
 #top-but-set {
   display: flex;
   align-self: flex-end;
   margin: 3vh 2vw 3vh auto;
+  z-index: 10;
+  width: fit-content;
 }
 
 /* width */
@@ -79,4 +110,18 @@
   background: var(--dblue-them-color);
   border-radius: 5px 5px 5px 5px;
 
+}
+
+
+
+@keyframes appear {
+
+  0% {
+    width: 0%;
+  }
+
+  100% {
+    width: 100%;
+  }
+  
 }

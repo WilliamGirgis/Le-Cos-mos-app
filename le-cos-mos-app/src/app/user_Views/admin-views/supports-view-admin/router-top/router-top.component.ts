@@ -1,19 +1,39 @@
-import { AfterContentInit, Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewInit, Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AddItemDialogComponent } from './add-item-dialog/add-item-dialog.component';
+import { ModifyItemDialogComponent } from './modify-item-dialog/modify-item-dialog.component';
 
 @Component({
   selector: 'app-router-top',
   templateUrl: './router-top.component.html',
   styleUrls: ['./router-top.component.scss']
 })
-export class RouterTopComponent implements OnInit {
+export class RouterTopComponent implements OnInit,AfterContentChecked {
 
-  constructor(private router:Router,private route: ActivatedRoute) { }
+  constructor(public dialog:MatDialog,private router:Router,private route: ActivatedRoute) {
+    dialog.afterAllClosed.subscribe((res) => {
 
+    })
+  }
+  ngAfterContentChecked(): void {
+    this.isDetails = this.router.url.split(/\//g)[this.router.url.split(/\//g).length - 1]
+
+  }
+
+
+  openAddItemDialog() {
+    this.dialog.open(AddItemDialogComponent, {width:'50vw',height:'70vh',data: {publication:'null',imgLink:'imgLink'} })
+
+  }
+  openModifyItemDialog() {
+    this.dialog.open(ModifyItemDialogComponent, {width:'50vw',height:'70vh',data: {routeUrl:this.router.url,imgLink:'imgLink'} })
+
+  }
   navigateBack(): void {
-    this.test = this.router.url.split(/\//g)[this.router.url.split(/\//g).length - 1]
-    if((this.test == 'list')) {
+    this.isDetails = this.router.url.split(/\//g)[this.router.url.split(/\//g).length - 1]
+    if((this.isDetails == 'list')) {
       this.router.navigate(['..'], { relativeTo: this.route });
 
     } else {
@@ -34,12 +54,10 @@ export class RouterTopComponent implements OnInit {
   lvl4BlockClean = this.lvl4Block.replace(/%20/g,' ').replace(/%C3%A9/g,'e')
   //
 
-  test!:string
+  isDetails:string = this.router.url.split(/\//g)[this.router.url.split(/\//g).length - 1]
 
 
   ngOnInit(): void {
-console.log(this.router.url.split(/\//g))
-
   }
 
 }

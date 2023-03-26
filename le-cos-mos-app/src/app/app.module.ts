@@ -58,7 +58,7 @@ import { GroupPlanningComponent } from './user_Views/admin-views/planning-view/g
 import { AddUserToGroupComponent } from './user_Views/admin-views/planning-view/group/add-user-to-group/add-user-to-group.component';
 import { DragDropModule } from '@angular/cdk/drag-drop'
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatCommonModule, MatNativeDateModule } from '@angular/material/core';
 import { HomeViewEtudiantComponent } from './user_Views/etudiant-views/home-view-etudiant/home-view-etudiant.component';
 import { SupportBlocksComponent } from './user_Views/admin-views/supports-view-admin/support-blocks/support-blocks.component';
 import { SupporUEComponent } from './user_Views/admin-views/supports-view-admin/support-blocks/sante-blocks/support-ue-list/suppor-ue.component';
@@ -84,6 +84,11 @@ import { DetailsExcercicesComponent } from './user_Views/admin-views/supports-vi
 import { DetailsPlanchagesComponent } from './user_Views/admin-views/supports-view-admin/support-content/planchage-view/details-planchages/details-planchages.component';
 import { DetailsTdComponent } from './user_Views/admin-views/supports-view-admin/support-content/td-view/details-td/details-td.component';
 import { DetailsVideoComponent } from './user_Views/admin-views/supports-view-admin/support-content/video-view/details-video/details-video.component';
+import { AddItemDialogComponent } from './user_Views/admin-views/supports-view-admin/router-top/add-item-dialog/add-item-dialog.component';
+import { ModifyItemDialogComponent } from './user_Views/admin-views/supports-view-admin/router-top/modify-item-dialog/modify-item-dialog.component';
+import { LogoutDialogComponentComponent } from './user_Views/admin-views/handler-view-admin/logout-dialog-component/logout-dialog-component.component';
+import { PreferencesViewComponent } from './user_Views/preferences-view/preferences-view.component';
+import { SaveRouteService } from './services/save-route.service';
 
 const appearance: MatFormFieldDefaultOptions = {
   appearance: 'outline'
@@ -116,6 +121,11 @@ const routes: Routes = [
     ,
     children: [
       {
+        path: 'preferences',
+        component: PreferencesViewComponent,
+        data: { animation: 'Preferences' },
+      },
+      {
         path: 'home',
         component: HomeViewComponent,
         data: { animation: 'Accueil' },
@@ -128,11 +138,13 @@ const routes: Routes = [
         children: [
           {
             path: 'group',
-            component: GroupComponent
+            component: GroupComponent,
+            data: { animation: 'GroupList' },
           },
           {
             path: ':id',
-            component: GroupPlanningComponent
+            component: GroupPlanningComponent,
+            data: { animation: 'SelectedGroup' },
           }
         ]
       },
@@ -359,11 +371,15 @@ const routes: Routes = [
     DetailsExcercicesComponent,
     DetailsPlanchagesComponent,
     DetailsTdComponent,
-    DetailsVideoComponent
+    DetailsVideoComponent,
+    AddItemDialogComponent,
+    ModifyItemDialogComponent,
+    LogoutDialogComponentComponent,
+    PreferencesViewComponent
 
 
   ],
-  providers: [HttpService, { provide: HTTP_INTERCEPTORS, useClass: WebReqInterceptorService, multi: true }, { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: appearance }, AuthGuard, HttpService], //Mettre par default tous les input en "outline"
+  providers: [HttpService, { provide: HTTP_INTERCEPTORS, useClass: WebReqInterceptorService, multi: true }, { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: appearance }, AuthGuard, HttpService,SaveRouteService ], //Mettre par default tous les input en "outline"
   bootstrap: [AppComponent],
   imports: [
     BrowserModule,
@@ -400,7 +416,7 @@ const routes: Routes = [
     DragDropModule,
     MatDatepickerModule,
     MatNativeDateModule,
-
+    MatCommonModule
 
   ]
 })
