@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-transversal-blocks',
   templateUrl: './transversal-blocks.component.html',

@@ -156,77 +156,77 @@ const routes: Routes = [
         { path: 'sante', component: SupporUEComponent,
         data: { animation: 'Sante' }, }, // The courses selection
         { path: 'sante/:id', component: ContentBlockListComponent,
-        data: { animation: 'Sante' } }, // The List of action-related item (Cours magistraux ; Travaux Dirigées ; Annales ; etc..)
+        data: { animation: 'Sante2' } }, // The List of action-related item (Cours magistraux ; Travaux Dirigées ; Annales ; etc..)
         {
           path: 'sante/:id/cm', component: CmViewComponent,
-          data: { animation: 'Sante' },
+          data: { animation: 'Sante3' },
            // The list of items inside the 'Cours magistraux' rubrique
           children: [
             { path: 'list', component: ListContentDisplayerComponent,
-            data: { animation: 'Sante' } }
+            data: { animation: 'Sante4' } }
             ,
             { path: 'list/:id', component: DetailsCmComponent
             ,
-            data: { animation: 'Sante' } 
+            data: { animation: 'Sante5' } 
            }
           ]
         },
         {
           path: 'sante/:id/td', component: TdViewComponent,
-            data: { animation: 'Sante' } ,
+            data: { animation: 'Sante3' } ,
           children: [
             { path: 'list', component: ListContentDisplayerComponent
             ,
-            data: { animation: 'Sante' }  }
+            data: { animation: 'Sante4' }  }
             ,
             { path: 'list/:id', component: DetailsTdComponent
             ,
-            data: { animation: 'Sante' }  }
+            data: { animation: 'Sante5' }  }
           ]
         },
         {
           path: 'sante/:id/video', component: VideoViewComponent,
-          data: { animation: 'Sante' } ,
+          data: { animation: 'Sante3' } ,
           children: [
             { path: 'list', component: ListContentDisplayerComponent,
-            data: { animation: 'Sante' } 
+            data: { animation: 'Sante4' } 
            }
             ,
             { path: 'list/:id', component: DetailsVideoComponent,
-            data: { animation: 'Sante' }  }
+            data: { animation: 'Sante5' }  }
           ]
         },
         {
           path: 'sante/:id/annales', component: AnnalesViewComponent,
-          data: { animation: 'Sante' } ,
+          data: { animation: 'Sante3' } ,
           children: [
             { path: 'list', component: ListContentDisplayerComponent,
-            data: { animation: 'Sante' }  }
+            data: { animation: 'Sante4' }  }
             ,
             { path: 'list/:id', component: DetailsAnnalesComponent,
-            data: { animation: 'Sante' }  }
+            data: { animation: 'Sante5' }  }
           ]
         },
         {
           path: 'sante/:id/excercices', component: ExcercicesViewComponent,
-          data: { animation: 'Sante' } ,
+          data: { animation: 'Sante3' } ,
           children: [
             { path: 'list', component: ListContentDisplayerComponent ,
-            data: { animation: 'Sante' }  }
+            data: { animation: 'Sante4' }  }
             ,
             { path: 'list/:id', component: DetailsExcercicesComponent ,
-            data: { animation: 'Sante' }  }
+            data: { animation: 'Sante5' }  }
           ]
         },
         {
           path: 'sante/:id/planchage', component: PlanchageViewComponent,
-          data: { animation: 'Sante' },
+          data: { animation: 'Sante3' },
           children: [
             { path: 'list', component: ListContentDisplayerComponent,
-            data: { animation: 'Sante' }  }
+            data: { animation: 'Sante4' }  }
             ,
             { path: 'list/:id', component: DetailsPlanchagesComponent,
-            data: { animation: 'Sante' }  }
+            data: { animation: 'Sante5' }  }
           ]
         },
         { path: 'transversal', component: TransversalBlockListComponent
@@ -235,78 +235,72 @@ const routes: Routes = [
         {
           path: 'transversal/:id', component: ContentBlockListComponent
           ,
-          data: { animation: 'Transversal' },
-          children: [
-            { path: 'list', component: ListContentDisplayerComponent,
-            data: { animation: 'Transversal' }, }
-            ,
-            { path: 'list/:id', component: DetailsCmComponent,
-            data: { animation: 'Transversal' }, }
-          ]
+          data: { animation: 'Transversal2' },
         },
         {
           path: 'transversal/:id/cm', component: CmViewComponent,
-          data: { animation: 'Transversal' },
+          data: { animation: 'Transversal3' },
           children: [
             { path: 'list', component: ListContentDisplayerComponent,
-            data: { animation: 'Transversal' }, }
+            data: { animation: 'Transversal4' }, }
             ,
             { path: 'list/:id', component: DetailsCmComponent,
-            data: { animation: 'Transversal' }, }
+            data: { animation: 'Transversal5' }, }
           ]
         },
         {
           path: 'transversal/:id/td', component: TdViewComponent,
-          data: { animation: 'Transversal' },
+          data: { animation: 'Transversal3' },
           children: [
             { path: 'list', component: ListContentDisplayerComponent,
-            data: { animation: 'Transversal' }, }
+            data: { animation: 'Transversal4' }, }
             ,
             { path: 'list/:id', component: DetailsTdComponent,
-            data: { animation: 'Transversal' }, }
+            data: { animation: 'Transversal5' }, }
           ]
         },
         {
           path: 'transversal/:id/video', component: VideoViewComponent,
-          data: { animation: 'Transversal' },
+          data: { animation: 'Transversal3' },
           children: [
             { path: 'list', component: ListContentDisplayerComponent,
-            data: { animation: 'Transversal' }, }
+            data: { animation: 'Transversal4' }, }
             ,
             { path: 'list/:id', component: DetailsVideoComponent,
-            data: { animation: 'Transversal' }, }
+            data: { animation: 'Transversal5' }, }
           ]
         },
         {
           path: 'transversal/:id/annales', component: AnnalesViewComponent,
+          data: { animation: 'Transversal3' }, 
           children: [
             { path: 'list', component: ListContentDisplayerComponent,
-            data: { animation: 'Transversal' }, }
+            data: { animation: 'Transversal4' }, }
             ,
             { path: 'list/:id', component: DetailsAnnalesComponent,
-            data: { animation: 'Transversal' }, }
+            data: { animation: 'Transversal5' }, }
           ]
         },
         {
           path: 'transversal/:id/excercices', component: ExcercicesViewComponent,
-          data: { animation: 'Transversal' },
+          data: { animation: 'Transversal3' },
           children: [
             { path: 'list', component: ListContentDisplayerComponent,
-            data: { animation: 'Transversal' }, }
+            data: { animation: 'Transversal4' }, }
             ,
             { path: 'list/:id', component: DetailsExcercicesComponent,
-            data: { animation: 'Transversal' }, }
+            data: { animation: 'Transversal5' }, }
           ]
         },
         {
           path: 'transversal/:id/planchage', component: PlanchageViewComponent,
-          data: { animation: 'Transversal' },
+          data: { animation: 'Transversal3' },
           children: [
             { path: 'list', component: ListContentDisplayerComponent,
-            data: { animation: 'Transversal' }, }
+            data: { animation: 'Transversal4' }, }
             ,
             { path: 'list/:id', component: DetailsPlanchagesComponent,
-            data: { animation: 'Transversal' }, }
+            data: { animation: 'Transversal5' }, }
           ]
         },
 
@@ -314,70 +308,71 @@ const routes: Routes = [
         ,
         data: { animation: 'HS' } },
         { path: 'hors_sante/:id', component: ContentBlockListComponent,
-        data: { animation: 'HS' } },
+        data: { animation: 'HS2' } },
         {
           path: 'hors_sante/:id/cm', component: CmViewComponent,
-          data: { animation: 'HS' },
+          data: { animation: 'HS3' },
           children: [
             { path: 'list', component: ListContentDisplayerComponent,
-            data: { animation: 'HS' } }
+            data: { animation: 'HS4' } }
             ,
             { path: 'list/:id', component: DetailsCmComponent,
-            data: { animation: 'HS' } }
+            data: { animation: 'HS5' } }
           ]
         },
         {
           path: 'hors_sante/:id/td', component: TdViewComponent,
-          data: { animation: 'HS' },
+          data: { animation: 'HS3' },
           children: [
             { path: 'list', component: ListContentDisplayerComponent,
-            data: { animation: 'HS' } }
+            data: { animation: 'HS4' } }
             ,
             { path: 'list/:id', component: DetailsTdComponent,
-            data: { animation: 'HS' } }
+            data: { animation: 'HS5' } }
           ]
         },
         {
           path: 'hors_sante/:id/video', component: VideoViewComponent,
+          data: { animation: 'HS3' },
           children: [
             { path: 'list', component: ListContentDisplayerComponent,
-            data: { animation: 'HS' } }
+            data: { animation: 'HS4' } }
             ,
             { path: 'list/:id', component: DetailsVideoComponent,
-            data: { animation: 'HS' } }
+            data: { animation: 'HS5' } }
           ]
         },
         {
           path: 'hors_sante/:id/annales', component: AnnalesViewComponent,
-          data: { animation: 'HS' },
+          data: { animation: 'HS3' },
           children: [
             { path: 'list', component: ListContentDisplayerComponent,
-            data: { animation: 'HS' } }
+            data: { animation: 'HS4' } }
             ,
             { path: 'list/:id', component: DetailsAnnalesComponent,
-            data: { animation: 'HS' } }
+            data: { animation: 'HS5' } }
           ]
         },
         {
           path: 'hors_sante/:id/excercices', component: ExcercicesViewComponent,
-          data: { animation: 'HS' },
+          data: { animation: 'HS3' },
           children: [
             { path: 'list', component: ListContentDisplayerComponent,
-            data: { animation: 'HS' } }
+            data: { animation: 'HS4' } }
             ,
             { path: 'list/:id', component: DetailsExcercicesComponent,
-            data: { animation: 'HS' } }
+            data: { animation: 'HS5' } }
           ]
         },
         {
           path: 'hors_sante/:id/planchage', component: PlanchageViewComponent,
-          data: { animation: 'HS' },
+          data: { animation: 'HS3' },
           children: [
             { path: 'list', component: ListContentDisplayerComponent,
-            data: { animation: 'HS' } }
+            data: { animation: 'HS4' } }
             ,
             { path: 'list/:id', component: DetailsPlanchagesComponent,
-            data: { animation: 'HS' } }
+            data: { animation: 'HS5' } }
           ]
         }]
       },

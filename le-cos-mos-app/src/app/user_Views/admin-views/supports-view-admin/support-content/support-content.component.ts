@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
+
+
 
 @Component({
   selector: 'app-support-content',
@@ -9,6 +11,9 @@ import { ActivatedRoute } from '@angular/router';
 export class SupportContentComponent implements OnInit {
 
   constructor() { }
+  prepareRoute(outlet: RouterOutlet) {
+    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
+  }
   ngOnInit(): void {
   }
 
