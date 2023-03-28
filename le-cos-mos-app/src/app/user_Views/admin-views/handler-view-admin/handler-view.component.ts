@@ -18,7 +18,7 @@ import { LogoutDialogComponentComponent } from './logout-dialog-component/logout
           opacity: 0,
 
         }),
-        animate('1000ms ease-in-out', style({ opacity: 1 }))// Fin de l'animation à l'entrer
+        animate('500ms ease-in-out', style({ opacity: 1 }))// Fin de l'animation à l'entrer
       ], { optional: true })
     ]),
   ])]
@@ -41,7 +41,7 @@ logout() {
     ngOnInit(): void {
     // this.router.navigate(['admin/supports/UE/Block santé']); // Navigue vers la vue 'accueil' par default
     // this.router.navigate(['admin/supports/sante/UE1 Chimie/cm/list']); // Navigue vers la vue 'accueil' par default
-    this.router.navigate(['/admin/preferences']); // Navigue vers la vue 'accueil' par default
+    this.router.navigate(['/admin/supports/sante/UE1%20Chimie']); // Navigue vers la vue 'accueil' par default
 //Composition de la matière_I
   }
 

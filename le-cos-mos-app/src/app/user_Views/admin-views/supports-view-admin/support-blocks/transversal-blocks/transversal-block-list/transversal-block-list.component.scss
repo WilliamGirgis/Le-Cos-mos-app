@@ -1,15 +1,14 @@
 
 #supports-wrp {
+  position: relative;
   border-radius: 10px;
   display:flex;
-margin: auto auto auto auto;
+  width: 85vw;
+left: 0;
   cursor: pointer;
-  top: 0;
-  height: 80vh;
-
-  width: 90vw;
-  flex-flow: row wrap;
+height: fit-content;
   align-content: center;
+  margin-top: 5vh;
   mat-card {
     width: 33%;
   }

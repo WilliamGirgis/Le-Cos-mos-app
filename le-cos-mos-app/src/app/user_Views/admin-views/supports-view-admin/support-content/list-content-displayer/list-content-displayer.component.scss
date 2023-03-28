@@ -1,7 +1,12 @@
 #wrapper {
+  display: grid;
   overflow-y: scroll;
-  height: 77vh;
+  max-height: 71vh;
 
+  width: 85vw;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
 }
 li {
   align-self: baseline;

@@ -2,12 +2,12 @@
 #supports-wrp {
   border-radius: 10px;
   display:flex;
-margin: auto auto auto auto;
+margin: -11vh auto auto auto;
   cursor: pointer;
   top: 0;
   height: 80vh;
 
-  width: 90vw;
+  width: 85vw;
   flex-flow: row wrap;
   align-content: center;
   mat-card {
@@ -54,76 +54,75 @@ border: 3px solid var(--blue-them-color);
   cursor: pointer;
   }
 
-
-#top-wrp {
-  position: absolute;
-  top: 3vh;
-  width: fit-content;
-  height: max-content;
-  display: flex;
-  flex-direction: row;
-gap: 3vw;
- left: 3vw;
-  #img-hover {
-    align-self: center;
-    min-width: fit-content;
+  label {
     cursor: pointer;
-    width: max-content;
-
+    transition: 350ms ease-in-out;
     &:hover {
-     img {
+  
+      color: var(--dblue-them-color);
+    }
+    }
+  
+  
 
-      transform: translateX(-30px);
+
+    #top-wrp {
+      position: relative;
+      top: -11vh;
+      width: fit-content;
+      height: max-content;
+      display: flex;
+      flex-direction: row;
+    left: 3vw;
+    gap: 3vw;
+      #img-hover {
+        align-self: center;
+        min-width: fit-content;
+        cursor: pointer;
+        &:hover {
+         img {
+          transform: translateX(-30px);
+         }
+        }
+      }
+    
+    img {
+      height: 7vh;
+      align-self: center;
+    
+      transition: 350ms ease-in-out;
+    
+    }
+    
+    
+    h2 {
+      font-size: 100%;
+      color: var(--blue-them-color);
+    min-width: max-content;
+    }
+    
+    #top-btn-wrp {
+      width: 100%;
+    color: var(--blue-them-color);
+    gap: 1vw;
+      display: flex;
+      align-items: center;
+    
+    button {
+      font-weight: bold;
+     border-radius: 10px;
+     transition: 350ms ease-in-out;
+    font-size: 70%;
+     &:first-of-type {
+      border: 1px solid var(--blue-them-color);
+     }
+    
+     &:last-of-type {
+      background-color:var(--blue-them-color) ;
+      color: var(--white-them-color);
      }
     }
-  }
-
-img {
-  height: 7vh;
-  align-self: center;
-  transition: 350ms ease-in-out;
-
-}
-
-
-h2 {
-  color: var(--blue-them-color);
-  font-size: 100%;
-min-width: max-content;
-
-}
-
-#top-btn-wrp {
-
-  width: 100%;
-color: var(--blue-them-color);
-gap: 3vw;
-  display: flex;
-  align-items: center;
-
-button {
-  font-weight: bold;
- border-radius: 10px;
- transition: 350ms ease-in-out;
-
- &:first-of-type {
-  border: 1px solid var(--blue-them-color);
- }
-
- &:last-of-type {
-  background-color:var(--blue-them-color) ;
-  color: var(--white-them-color);
- }
-}
-}
-}
-
-label {
-  cursor: pointer;
-  transition: 350ms ease-in-out;
-  &:hover {
-
-    color: var(--dblue-them-color);
-  }
-  }
-
+    }
+    }
+    
+    

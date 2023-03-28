@@ -2,12 +2,11 @@
 #supports-wrp {
   border-radius: 10px;
   display:flex;
-margin: auto auto auto auto;
+margin: -10vh auto auto auto;
   cursor: pointer;
-  top: 0;
-  height: 80vh;
+  height: fit-content;
 
-  width: 90vw;
+  width: 85vw;
   flex-flow: row wrap;
   align-content: center;
   mat-card {
