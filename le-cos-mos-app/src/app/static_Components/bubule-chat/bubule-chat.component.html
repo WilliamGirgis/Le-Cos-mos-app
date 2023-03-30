@@ -1,0 +1,32 @@
+
+<div (click)="isWindowOpen = !isWindowOpen" class="bubleChatOutline" id="wrapper">
+<img  *ngIf="!isWindowOpen" id="bubleChat" src="../../../assets/images/chat-right-fill.svg">
+<img *ngIf="isWindowOpen"  id="bubleChat" src="../../../assets/images/chat-right-fill-dark.svg">
+</div>
+
+<div  [ngClass]="isWindowOpen ? 'open' : 'close'" id="window">
+<div   id="leftWrp">
+  <div  id="three-buttons" *ngIf="isWindowOpen">
+    <a title="Discussions générales">
+      <img src="../../../assets/images/chat-images/people-fill.svg">
+    </a>
+    <a title="Discussions privées">
+      <img src="../../../assets/images/chat-images/person-fill.svg">
+    </a>
+      <a title="Créer une discussion">
+        <img src="../../../assets/images/chat-images/person-fill-add.svg">
+      </a>
+
+  </div>
+
+<div id="discussion" *ngIf="isWindowOpen">
+  <div *ngFor="let item of availableDiscussionTest">
+{{item.name}}
+  </div>
+</div>
+</div>
+
+<div  id="rightWrp">
+
+</div>
+</div>

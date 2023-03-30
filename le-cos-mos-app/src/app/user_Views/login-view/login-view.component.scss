@@ -105,6 +105,8 @@ letter-spacing: 2px;
   mat-label {
     color: var(--blue-them-color);
 text-align: center;
+background-color: transparent;
+padding: 0 7px 0 7px;
   }
   mat-form-field {
     height: 10px;

@@ -1,0 +1,141 @@
+#wrapper {
+  position: relative;
+  display: flex;
+  cursor: pointer;
+
+}
+
+#bubleChat {
+position: relative;
+height: 4vh;
+
+}
+
+
+#window {
+  position: absolute;
+background-color: var(--white-them-color);
+
+transition: 200ms ease-in-out;
+  top: 13vh;
+  right: 5%;
+  z-index: 20;
+display: flex;
+justify-content: space-between;
+border-radius: 21px;
+overflow: hidden;
+}
+
+#leftWrp {
+  border-radius: 21px 0 0 21px;
+  border: 2px solid var(--dblue-them-color);
+width: 25%;
+background-color: var(--white-them-color);
+
+}
+#three-buttons {
+display: flex;
+
+
+flex-direction: row;
+justify-content: center;
+min-height: 7vh;
+
+  border: 1px solid var(--dblue-them-color);
+  border-width: 0 0 2px 0;
+
+  a {
+display: flex;
+overflow: hidden;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    img {
+      height: 75%;
+    }
+    &:first-of-type {
+      border-radius: 18px 0 0 0;
+
+    }
+cursor: pointer;
+transition: 250ms ease-in-out;
+    &:hover {
+      background-color: var(--blue-them-color);
+    }
+  }
+}
+
+#rightWrp {
+  border: 2px solid var(--dblue-them-color);
+  border-radius: 0 21px 21px 0;
+
+  width: 74.5%;
+  background-color: var(--white-them-color);
+}
+
+
+.open {
+  width: 90%;
+  height: 75vh;
+
+}
+
+.close {
+  width: 0;
+  height: 0;
+}
+
+#discussion {
+  position: relative;
+
+  height: 90.7%;
+  border-radius: 0 0 0 20px;
+  display: grid;
+overflow-y: scroll;
+  width: 100%;
+
+  div{
+    font-weight: bold;
+transition: 275ms ease-in-out;
+    &:hover {
+      background-color: var(--blue-them-color);
+    }
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    cursor: pointer;
+    color: var(--dblue-them-color);
+    min-height: 7vh;
+    height: 100%;
+    width: 100%;
+
+
+&:last-of-type {
+
+  border-radius: 0 0 0 20px;
+}
+  }
+}
+
+
+::-webkit-scrollbar {
+  width: 10px;
+
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgb(199, 205, 207);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--dblue-them-color);
+
+
+}
+
+
+
+

@@ -89,6 +89,7 @@ import { ModifyItemDialogComponent } from './user_Views/admin-views/supports-vie
 import { LogoutDialogComponentComponent } from './user_Views/admin-views/handler-view-admin/logout-dialog-component/logout-dialog-component.component';
 import { PreferencesViewComponent } from './user_Views/preferences-view/preferences-view.component';
 import { SaveRouteService } from './services/save-route.service';
+import { BubuleChatComponent } from './static_Components/bubule-chat/bubule-chat.component';
 
 const appearance: MatFormFieldDefaultOptions = {
   appearance: 'outline'
@@ -453,7 +454,8 @@ const routes: Routes = [
     AddItemDialogComponent,
     ModifyItemDialogComponent,
     LogoutDialogComponentComponent,
-    PreferencesViewComponent
+    PreferencesViewComponent,
+    BubuleChatComponent
 
 
   ],
