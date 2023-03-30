@@ -58,11 +58,19 @@
 #logout {
   height: 5vh;
   z-index: 12;
+
+
 }
 
 #power {
   z-index: 12;
   height: 5vh;
+
+}
+#chat {
+  z-index: 12;
+  height: fit-content;
+  margin-bottom: 2px;
 }
 
 .preferences-link {
@@ -123,5 +131,5 @@
   100% {
     width: 100%;
   }
-  
+
 }

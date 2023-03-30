@@ -81,6 +81,23 @@ justify-items: center;
 
 }
 
+
+
+// Style for input in the 'message window'
+.messageSubWrp .mat-form-field-outline-end {
+
+  color: var(--dblue-them-color);
+
+}
+.messageSubWrp .mat-form-field-outline-start  {
+
+  color: var(--dblue-them-color);
+}
+.messageSubWrp .mat-form-field-outline-gap  {
+  color:var(--dblue-them-color);
+
+}
+
   // Style pour les input de la vue de la bulle de message
   .bubleChatOutline .mat-form-field-outline-end {
 
