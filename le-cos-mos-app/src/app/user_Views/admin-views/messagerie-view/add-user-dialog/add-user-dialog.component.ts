@@ -10,13 +10,12 @@ import { User } from 'src/app/shared/user';
   styleUrls: ['./add-user-dialog.component.scss']
 })
 export class AddUserDialogComponent implements OnInit {
-  readonly addUserToGroupRoute = "http://localhost:4200/chat/user/add"
-  constructor(public dialogRef:MatDialogRef<AddUserDialogComponent>,@Inject(MAT_DIALOG_DATA) public data:{globalIndex:number,name?:string,userList:User[]},private http:HttpClient) {
+  readonly addUserToGroupRoute = "http://localhost:4200/chat/discussion/user/add"
+  constructor(public dialogRef:MatDialogRef<AddUserDialogComponent>,@Inject(MAT_DIALOG_DATA) public data:{name?:string,userList:User[]},private http:HttpClient) {
 
 
 
   }
-  globalIndex = this.data.globalIndex
   name = this.data.name
   readonly getUserListRoute = "http://localhost:4200/user/users/id"
   userList:User [] = []

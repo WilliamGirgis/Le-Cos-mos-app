@@ -15,6 +15,10 @@ name : {
   required:true,
   unique:true
 },
+discussionType: {
+  type:String,
+  required:false
+},
 user_list : [
   {
     firstname: {

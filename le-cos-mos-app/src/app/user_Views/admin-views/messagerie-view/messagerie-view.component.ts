@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { map } from 'rxjs';
 import { GroupDefinission } from 'src/app/shared/group';
 import { User } from 'src/app/shared/user';
+import { Discussion } from 'src/app/static_Components/bubule-chat/discussion';
 import { AddUserDialogComponent } from './add-user-dialog/add-user-dialog.component';
 
 
@@ -14,32 +15,25 @@ import { AddUserDialogComponent } from './add-user-dialog/add-user-dialog.compon
   styleUrls: ['./messagerie-view.component.scss']
 })
 export class MessagerieViewComponent implements OnInit {
-  readonly getGroupeDiscussionRoute = "http://localhost:4200/chat/discussion"
+
   readonly modifyGroupeDiscussionRoute = "http://localhost:4200/chat/discussion/modify"
-  readonly createGroupeDiscussionRoute = "http://localhost:4200/chat/create"
   readonly delUserUrlRoute = "http://localhost:4200/chat/user/del"
   readonly delDiscussionUrlRoute = "http://localhost:4200/chat/discussion/del"
 
-  groupsDiscussionsTest?: GroupDefinission[] = [{ ID: 0, name: 'TEST', user_list: [{ email: 'Will@gmail.com', firstname: 'Willy', ID: 0, lastname: 'Girgis' }, { email: 'DanielAkgul@gmail.com', firstname: 'Daniel', ID: 1, lastname: 'Akgul' }] }, { ID: 2, name: 'TEST', user_list: [] }]
-  groupsDiscussions: GroupDefinission[] = []
-  userList: User[] = []
-
   readonly: boolean = true
-  groupName?: string = 'New group'
   globalIndex: number = 0
-
-  userListTest?: User[] = this.groupsDiscussionsTest![this.globalIndex].user_list
 
   constructor(private http: HttpClient, public dialog: MatDialog) {
 
-    this.dialog.afterAllClosed.pipe(map((data) => { this.getGroupDiscussions(' ') })).subscribe(res => { })
+    this.dialog.afterAllClosed.pipe(map((data) => {
+      this.getGlobalDiscussionList()
+      this.getPrivateDiscussionList() })).subscribe(res => { })
   }
 
   openSaveUserPostForm() {
-    this.dialog.open(AddUserDialogComponent, { width: '50vw', height: '80vh', data: { globalIndex: this.globalIndex, name: this.groupsDiscussions[this.globalIndex].name, userList: this.userList } })
+    const groupDiscussion =  this.discussionTypeView == 'global' ?  this.globalDiscussionList[this.globalIndex] : this.privateDiscussionList[this.globalIndex]
+    this.dialog.open(AddUserDialogComponent, { width: '50vw', height: '80vh', data: {name: groupDiscussion.name, userList: groupDiscussion.user_list} })
   }
-
-
 
   suppressReadOnly(i: number, text: string) {
     this.readonly = !this.readonly
@@ -57,7 +51,8 @@ export class MessagerieViewComponent implements OnInit {
       this.http.post(this.modifyGroupeDiscussionRoute, { newName: text, oldName: oldName, responseType: 'text' }).pipe(map(async (data) => {
 
 
-        await this.getGroupDiscussions(' ')
+        this.getGlobalDiscussionList()
+        this.getPrivateDiscussionList()
 
       })).subscribe((res) => {
 
@@ -67,44 +62,64 @@ export class MessagerieViewComponent implements OnInit {
 
   }
 
+/* Create-discussion function */
+
+  readonly createPrivateGroupeDiscussionRoute = "http://localhost:4200/chat/discussion/create"
+  createDiscussionGroup(groupName:string) {
 
 
-  createDiscussionGroup() {
+    return this.http.post(this.createPrivateGroupeDiscussionRoute, { name: groupName,discussionType:this.discussionTypeView, responseType: 'text' }).pipe(map(async (data) => {
 
-
-    return this.http.post(this.createGroupeDiscussionRoute, { name: this.groupName, responseType: 'text' }).pipe(map(async (data) => {
-
-
-      await this.getGroupDiscussions(' ')
-
+      this.getGlobalDiscussionList()
+      this.getPrivateDiscussionList()
     })).subscribe((res) => {
 
     })
   }
 
-  async getGroupDiscussions(groupName: string) {
-    const querParam = new HttpParams().set('groupName', groupName);
-    return this.http.get(this.getGroupeDiscussionRoute, { params: querParam, responseType: 'text' }).pipe(map((data) => {
-      this.groupsDiscussions = JSON.parse(data)
-      this.userList = this.groupsDiscussions[this.globalIndex].user_list!
+  // Get related discussion
+  readonly getGlobalDiscussionListRoute = 'http://localhost:4200/chat/discussion/global'
+  readonly getPrivateDiscussionListRoute = 'http://localhost:4200/chat/discussion/private'
+  globalDiscussionListTest?: Discussion[] = [{name: 'Global', user_list: [{ email: 'Will@gmail.com', firstname: 'Willy', ID: 0, lastname: 'Girgis' }, { email: 'DanielAkgul@gmail.com', firstname: 'Daniel Global', ID: 1, lastname: 'Akgul' }] }, { name: 'Global 2', user_list: [] }]
+  privateDiscussionListTest?: Discussion[] = [{name: 'Private', user_list: [{ email: 'Will@gmail.com', firstname: 'Willy', ID: 0, lastname: 'Girgis' }, { email: 'DanielAkgul@gmail.com', firstname: 'Daniel Private', ID: 1, lastname: 'Akgul' }] }, { name: 'Private 2', user_list: [] }]
+  globalDiscussionList:Discussion[] = []
+  privateDiscussionList:Discussion[] = []
+  // Get global discussion list
+  getGlobalDiscussionList() {
+    return this.http.get(this.getGlobalDiscussionListRoute, {responseType: 'text' }).pipe(map((data) => {
+    this.globalDiscussionList = JSON.parse(data)
+    console.log(this.globalDiscussionList)
     })).subscribe(res => { })
+
+}
+
+  getPrivateDiscussionList() {
+    return this.http.get(this.getPrivateDiscussionListRoute, {responseType: 'text' }).pipe(map((data) => {
+    this.privateDiscussionList = JSON.parse(data)
+    console.log(this.privateDiscussionList)
+    })).subscribe(res => { })
+
+}
+
+  /*Select discussion related method */
+  discussionTypeView:string = 'global'
+  selectDiscussion(index: number) {
+    this.globalIndex = index
   }
 
-  selectGroup(index: number) {
-    this.globalIndex = index
-    this.userList = this.groupsDiscussions[this.globalIndex].user_list!
-  }
+
 
   deletUser(user: User) {
     if (!window.confirm("Are you sure you wanna delete the user " + user.firstname + " ?")) {
 
       return
     }
+let groupName = this.discussionTypeView == 'global' ? this.globalDiscussionList[this.globalIndex].name : this.privateDiscussionList[this.globalIndex].name
 
-    return this.http.post(this.delUserUrlRoute, { user: user, groupName: this.groupsDiscussions[this.globalIndex].name, responseType: 'text' }).pipe(map(async (data) => {
+    return this.http.post(this.delUserUrlRoute, { user: user, groupName: groupName, responseType: 'text' }).pipe(map(async (data) => {
 
-
-      this.getGroupDiscussions(' ')
+      this.getGlobalDiscussionList()
+      this.getPrivateDiscussionList()
 
     })).subscribe((res) => {
 
@@ -113,16 +128,17 @@ export class MessagerieViewComponent implements OnInit {
   }
 
 
-  delDiscussionGroup(index: number) {
-    if (!window.confirm("Are you sure you wanna delete the group " + this.groupsDiscussions[index].name + " ?")) {
+  delDiscussionGroup(index: number,groupName:string) {
+    if (!window.confirm("Are you sure you wanna delete the group " + groupName + " ?")) {
 
       return
     }
 
-    return this.http.post(this.delDiscussionUrlRoute, { groupName: this.groupsDiscussions[index].name, responseType: 'text' }).pipe(map(async (data) => {
+    return this.http.post(this.delDiscussionUrlRoute, { groupName: groupName, responseType: 'text' }).pipe(map(async (data) => {
 
 
-      this.getGroupDiscussions(' ')
+      this.getGlobalDiscussionList()
+      this.getPrivateDiscussionList()
 
     })).subscribe((res) => {
 
@@ -133,8 +149,9 @@ export class MessagerieViewComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.getGroupDiscussions(' ')
 
+    this.getGlobalDiscussionList()
+    this.getPrivateDiscussionList()
   }
 
 }

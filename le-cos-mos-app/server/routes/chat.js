@@ -21,22 +21,65 @@ let authenticate = (req,res,next) => {  /* MIDDLEWARE for checking if the access
   })
 }
 
-
-router.get("/discussion",authenticate, async function (req, res, next) {
-
-  //let name = req.body.name
-  var groupName = req.query.groupName
-  let groupList = []
+const pipeline = [ { $match: { runtime: { $lt: 15 } } } ];
+Group.watch(pipeline)
 
 
- await Group.find({id:{$regex: groupName, $options: "i" }}).then((group) => {
- return res.send(group).status(200)
+const sendMessage = router.post("/discussion/message/send",authenticate, async function (req, res, next) {
+
+  let groupName = req.query.groupName
+
+  var message = req.body.messageMetaData
+  // console.log(groupName)
+  // console.log(message)
+
+  let parsedMessage = {message:message.message,emiter:message.emiter,date:message.date}
+
+
+
+ await Group.find({name: groupName}).then((group) => {
+  // group.message_list.push(parsedMessage)
+  group[0].message_list.push(parsedMessage)
+
+  // group.user_list
+  group[0].save()
+ return res.send(group[0].message_list).status(200)
  })
 
 })
 
 
-router.post("/discussion/modify",authenticate, async function (req, res, next) {
+/* //////////////////////////// Getrelated method //////////////////////////// */
+const getPrivateDiscussionGroup = router.get("/discussion/private",authenticate, async function (req, res, next) {
+  await  Group.find({discussionType: 'private'}).then((group) => {
+    return res.send(group).status(200)
+    })
+})
+
+
+const getGlobalDiscussionGroup = router.get("/discussion/global",authenticate, async function (req, res, next) {
+ await  Group.find({discussionType: 'global'}).then((group) => {
+ return res.send(group).status(200)
+ })
+
+})
+
+const getMessageList = router.get("/discussion/message/list",authenticate, async function (req, res, next) {
+
+  //let name = req.body.name
+  var groupName = req.query.groupName
+  console.log("NAME = " + groupName)
+  // return
+
+ await Group.find({name:groupName}).then((group) => {
+
+ return res.send(group[0].message_list).status(200)
+ })
+
+})
+
+
+let modifyDiscussionName = router.post("/discussion/modify",authenticate, async function (req, res, next) {
 let newName = req.body.newName
 let oldName = req.body.oldName
 if(oldName === newName) {
@@ -49,7 +92,7 @@ return res.status(200).send()
 
 })
 
-router.post("/discussion/del",authenticate, async function (req, res, next) {
+const delDiscussion = router.post("/discussion/del",authenticate, async function (req, res, next) {
   let name = req.body.groupName
 
   Group.findOneAndDelete({name:name}).then((data) => {})
@@ -57,17 +100,13 @@ router.post("/discussion/del",authenticate, async function (req, res, next) {
   return res.status(200).send()
   })
 
-
-
-
-  router.post("/create",authenticate, async function (req, res, next) {
+  const createDiscussion = router.post("/discussion/create",authenticate, async function (req, res, next) {
 
     let body = req.body;
     let name = body.name
-
-    name = 'new Group'
-
-    let newDiscussion = new Group({name:name})
+console.log(body)
+let discussionType = body.discussionType
+    let newDiscussion = new Group({name:name,discussionType:discussionType})
 
     const response = await newDiscussion.save();
     return res.status(200).send()
@@ -77,7 +116,7 @@ router.post("/discussion/del",authenticate, async function (req, res, next) {
 
 
 
-    const setUserInConversation = router.post("/user/add",/*authenticate,*/ function (req, res, next) {
+const setUserInConversation = router.post("/discussion/user/add",/*authenticate,*/ function (req, res, next) {
 
       let groupName = req.body.name
       let userList = req.body.userList
@@ -95,7 +134,7 @@ return res.status(200).send()
    })
 
 
-   const delUserFromConversation = router.post("/user/del",/*authenticate,*/ function (req, res, next) {
+   const delUserFromConversation = router.post("/discussion/user/del",/*authenticate,*/ function (req, res, next) {
 
     let user = req.body.user
     let groupName = req.body.groupName

@@ -168,7 +168,7 @@ const routes: Routes = [
             ,
             { path: 'list/:id', component: DetailsCmComponent
             ,
-            data: { animation: 'Sante5' } 
+            data: { animation: 'Sante5' }
            }
           ]
         },
@@ -190,7 +190,7 @@ const routes: Routes = [
           data: { animation: 'Sante3' } ,
           children: [
             { path: 'list', component: ListContentDisplayerComponent,
-            data: { animation: 'Sante4' } 
+            data: { animation: 'Sante4' }
            }
             ,
             { path: 'list/:id', component: DetailsVideoComponent,
@@ -273,7 +273,7 @@ const routes: Routes = [
         },
         {
           path: 'transversal/:id/annales', component: AnnalesViewComponent,
-          data: { animation: 'Transversal3' }, 
+          data: { animation: 'Transversal3' },
           children: [
             { path: 'list', component: ListContentDisplayerComponent,
             data: { animation: 'Transversal4' }, }

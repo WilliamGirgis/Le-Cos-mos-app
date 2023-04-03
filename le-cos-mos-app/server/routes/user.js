@@ -166,6 +166,7 @@ router.get("/users/id",authenticate, (req, res) => {
 router.get("/users/_id",authenticate, (req, res) => {
   let id = req.query.id;
   User.findOne({ id }).then((user) => {
+    console.log(user._id)
     return res.send(user._id.toString());
   }).catch((e) => {
 
@@ -206,6 +207,16 @@ router.post("/users/modify",authenticate, (req, res) => {
       });
     });
   });*/
+});
+
+// Get specific user
+router.get("/user/get",authenticate, (req, res) => {
+  let id = req.query.id;
+  // console.log(id)
+    User.find({ _id: id }).then((user) => {
+      // console.log(user)
+      return res.status(200).send(user);
+    });
 });
 
 module.exports = router;

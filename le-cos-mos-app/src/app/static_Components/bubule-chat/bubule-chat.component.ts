@@ -1,35 +1,113 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { AfterContentChecked, Component, OnInit } from '@angular/core';
+import { map } from 'rxjs/operators';
+import { Discussion } from './discussion';
+import { Message } from './message';
 
 @Component({
   selector: 'app-bubule-chat',
   templateUrl: './bubule-chat.component.html',
   styleUrls: ['./bubule-chat.component.scss']
 })
-export class BubuleChatComponent implements OnInit {
+export class BubuleChatComponent implements OnInit,AfterContentChecked {
+  globalIndex:number = 0
+  constructor(private http:HttpClient) {
 
-  constructor() { }
-  isWindowOpen?:boolean = true
-  selectedGroup:string = 'dg' // dg -> discussions générales ; pri -> discussion privées
 
-  availablePrivateDiscussionTest = [{name:'Private Discussion 1',amount_people:2},{name:'Private Discussion 2',amount_people:5},{name:'Private Discussion 3',amount_people:12},{name:'Private Discussion 4',amount_people:2},{name:'Private Discussion 5',amount_people:8},{name:'Private Discussion 6',amount_people:5},{name:'Private Discussion 7',amount_people:4},{name:'Private Discussion 8',amount_people:10},{name:'Private Discussion 9',amount_people:15},{name:'Private Discussion 10',amount_people:3} ]
-  availableGlobalDiscussionTest = [{name:'Global Discussion 1',amount_people:12},{name:'Global Discussion 2',amount_people:11},{name:'Global Discussion 3',amount_people:8},{name:'Global Discussion 4',amount_people:4},{name:'Global Discussion 5',amount_people:30},{name:'Global Discussion 6',amount_people:9},{name:'Global Discussion 7',amount_people:9},{name:'Global Discussion 8',amount_people:5},{name:'Global Discussion 9',amount_people:6},{name:'Global Discussion 10',amount_people:12} ]
-  selectedDiscussion:string = this.availableGlobalDiscussionTest[0].name
-
-  messageDisplayed = [{id:1,content:"Wesh le Sang c'est comment ?",user:'William',time:'0'},{id:2,content:"Tranquille et toi ?",user:'Samuel',time:'1'},{id:3,content:"Oue tranquile le S ?",user:'William',time:'2'},{id:4,content:"Et bah alors ça donne plus de nouvelles ?",user:'William',time:'3'},{id:5,content:"Comme tu fais genre ahha",user:'Samuel',time:'5'},{id:6,content:"ça fait quand même 3 mois ta pas donné de nouvelles",user:'William',time:'7'},{id:7,content:"Ouè c'est vrai j'ai un peu abusé le S ahha",user:'Samuel',time:'7'},{id:8,content:"tqt c'est rien mon reuf",user:'William',time:'7'}]
-
-  currentTime?:string
-
-  sendMessage(username:string,message:string) {
-    let time = new Date()
-    this.currentTime = new Date(time.getTime()).toDateString()
-    let transformedHours = time.getHours() + ':' + time.getMinutes()
-    let object = {id:1,content:message,user:username,time: 'le ' + time.toLocaleDateString().replace(/Thu/g,' ') + ' à ' + time.getHours() + ':' + time.getMinutes() }
-    this.messageDisplayed.push(object)
-
-    console.log(transformedHours)
   }
+  ngAfterContentChecked(): void {
+    // this.getMessageList()
+    document.getElementById('blur')!.addEventListener('click', () => {
+      this.isWindowOpen = false
+      document.getElementById('blur')!.removeEventListener('click', () => {
+
+      })
+    })
+  }
+  isWindowOpen?:boolean = false
+  discussionTypeView:string = 'global' // dg -> discussions générales ; pri -> discussion privées
+
+
+  selectedDiscussion:string = ' '
+
+  messageListTest = [{id:1,content:'Oue oue oue',user:'Samuel',time:'le 31/03/2023 à 16:21'},{id:3,content:"Wesh le SS",user:'William',time:'le 31/03/2023 à 16:21'},{id:4,content:"Et bah alors ça donne plus de nouvelles ?",user:'William',time:'le 31/03/2023 à 16:21'},{id:5,content:"Comme tu fais genre ahha",user:'Samuel',time:'le 31/03/2023 à 16:21'},{id:6,content:"ça fait quand même 3 mois ta pas donné de nouvelles",user:'William',time:'le 31/03/2023 à 16:21'},{id:7,content:"Ouè c'est vrai j'ai un peu abusé le S ahha",user:'Samuel',time:'le 31/03/2023 à 16:21'},{id:8,content:"tqt c'est rien mon reuf",user:'William',time:'le 31/03/2023 à 16:21'}]
+
+
+  readonly sentMessageRoute = 'http://localhost:4200/chat/discussion/message/send'
+  sendMessage(message:string) {
+
+    let time = new Date()
+    let messageMetaData:Message   = {message:message,emiter:this.user_id!,date:time.getTime()}
+const querParam = new HttpParams().set('groupName', this.selectedDiscussion);
+        // this.messageDisplayed.push(msg)
+        return this.http.post(this.sentMessageRoute, {messageMetaData, responseType: 'text'}, { params:querParam }).pipe(map((data:any) => {
+
+  this.getMessageList(this.selectedDiscussion)
+        document.getElementById('messageList')!.scrollTo({
+          top: document.getElementById("messageList")!.scrollHeight,
+      behavior:'auto'    })
+        })).subscribe(res => { })
+    }
+
+    textAreaValue?:string = ''
+
+
+
+  // Get the username
+  readonly getUserNameUrl = 'http://localhost:4200/user/user/get'
+  user_id?:string = localStorage.getItem('user-id')!
+  user?:any
+  user_name?:string
+  getUsername() {
+      const querParam = new HttpParams().set('id', this.user_id!);
+      return this.http.get(this.getUserNameUrl, { params: querParam, responseType: 'text' }).pipe(map((data:any) => {
+      this.user_name = data.firstname
+      })).subscribe(res => { })
+
+  }
+  globalDiscussionListTest?: Discussion[] = [{name: 'Global', user_list: [{ email: 'Will@gmail.com', firstname: 'Willy', ID: 0, lastname: 'Girgis' }, { email: 'DanielAkgul@gmail.com', firstname: 'Daniel Global', ID: 1, lastname: 'Akgul' }] }, { name: 'Global 2', user_list: [] }]
+  privateDiscussionListTest?: Discussion[] = [{name: 'Private', user_list: [{ email: 'Will@gmail.com', firstname: 'Willy', ID: 0, lastname: 'Girgis' }, { email: 'DanielAkgul@gmail.com', firstname: 'Daniel Private', ID: 1, lastname: 'Akgul' }] }, { name: 'Private 2', user_list: [] }]
+
+  // Get global discussion list
+  readonly getGlobalDiscussionListRoute = 'http://localhost:4200/chat/discussion/global'
+  globalDiscussionList:Discussion[] = []
+  getGlobalDiscussionList() {
+    return this.http.get(this.getGlobalDiscussionListRoute, {responseType: 'text' }).pipe(map((data) => {
+    this.globalDiscussionList = JSON.parse(data)
+    console.log(this.globalDiscussionList)
+    })).subscribe(res => { })
+
+}
+  // Get private discussion list
+  readonly getPrivateDiscussionListRoute = 'http://localhost:4200/chat/discussion/private'
+  privateDiscussionList:Discussion [] = []
+  getPrivateDiscussionList() {
+    return this.http.get(this.getPrivateDiscussionListRoute, {responseType: 'text' }).pipe(map((data) => {
+    this.privateDiscussionList = JSON.parse(data)
+    console.log(this.privateDiscussionList)
+    })).subscribe(res => { })
+
+}
+
+  // Get message list (paramater : discussion_name)
+  readonly getMessageListRoute = 'http://localhost:4200/chat/discussion/message/list'
+  messageList:Message [] = []
+  getMessageList(item:string) {
+    this.selectedDiscussion = item;
+    const querParam = new HttpParams().set('groupName', this.selectedDiscussion!);
+    return this.http.get(this.getMessageListRoute, { params: querParam, responseType: 'text' }).pipe(map((data:any) => {
+    console.log(data)
+this.messageList = JSON.parse(data)
+    })).subscribe(res => { })
+
+}
+
+
   ngOnInit(): void {
 
+    this.getUsername()
+    this.getGlobalDiscussionList()
+    this.getPrivateDiscussionList()
   }
 
 }
