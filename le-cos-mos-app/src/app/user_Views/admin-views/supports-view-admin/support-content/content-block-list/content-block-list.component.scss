@@ -1,0 +1,128 @@
+
+#supports-wrp {
+  border-radius: 10px;
+  display:flex;
+margin: -11vh auto auto auto;
+  cursor: pointer;
+  top: 0;
+  height: 80vh;
+
+  width: 85vw;
+  flex-flow: row wrap;
+  align-content: center;
+  mat-card {
+    width: 33%;
+  }
+  }
+
+
+  #circle-wrp {
+    border: 0;
+    background-color: transparent;
+    box-shadow: none;
+    text-align: center;
+
+height: fit-content;
+    color: var(--dblue-them-color);
+    font-size: 125%;
+    font-weight: bold;
+    margin: auto;
+    margin-top: 0;
+
+
+height: max-content;
+  }
+
+  #circle {
+    width: 13vw;
+  border-radius: 50%;
+  min-height: 26vh;
+
+margin: 0 auto 5vh auto;
+border: 3px solid var(--blue-them-color);
+
+  }
+
+  #matiere {
+
+  border-radius: 50%;
+
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  box-shadow:0px 0px 15px var(--blue-them-color);
+  cursor: pointer;
+  }
+
+  label {
+    cursor: pointer;
+    transition: 350ms ease-in-out;
+    &:hover {
+  
+      color: var(--dblue-them-color);
+    }
+    }
+  
+  
+
+
+    #top-wrp {
+      position: relative;
+      top: -11vh;
+      width: fit-content;
+      height: max-content;
+      display: flex;
+      flex-direction: row;
+    left: 3vw;
+    gap: 3vw;
+      #img-hover {
+        align-self: center;
+        min-width: fit-content;
+        cursor: pointer;
+        &:hover {
+         img {
+          transform: translateX(-30px);
+         }
+        }
+      }
+    
+    img {
+      height: 7vh;
+      align-self: center;
+    
+      transition: 350ms ease-in-out;
+    
+    }
+    
+    
+    h2 {
+      font-size: 100%;
+      color: var(--blue-them-color);
+    min-width: max-content;
+    }
+    
+    #top-btn-wrp {
+      width: 100%;
+    color: var(--blue-them-color);
+    gap: 1vw;
+      display: flex;
+      align-items: center;
+    
+    button {
+      font-weight: bold;
+     border-radius: 10px;
+     transition: 350ms ease-in-out;
+    font-size: 70%;
+     &:first-of-type {
+      border: 1px solid var(--blue-them-color);
+     }
+    
+     &:last-of-type {
+      background-color:var(--blue-them-color) ;
+      color: var(--white-them-color);
+     }
+    }
+    }
+    }
+    
+    

@@ -34,6 +34,10 @@
   border-radius: 20px;
   margin-right: 1vw;
 
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
 }
 
 .active-link {
@@ -51,10 +55,81 @@
   }*/
 }
 
+#logout {
+  height: 5vh;
+  z-index: 12;
+
+
+}
+
+#power {
+  z-index: 12;
+  height: 5vh;
+
+}
+#chat {
+  z-index: 12;
+  height: fit-content;
+  margin-bottom: 2px;
+}
+
+.preferences-link {
+
+  transition: 350ms ease-in-out;
+  position: relative;
+  display: block;
+  &::after {
+    border-radius: 21px;
+   animation: appear 350ms ease-in-out both;
+    display: block;
+    content: " ";
+    width: 0;
+    position: relative;
+    height: 5px;
+    background-color: var(--blue-them-color);
+    bottom: 0;
+    z-index: 12;
+  }
+}
+
 
 #top-but-set {
   display: flex;
   align-self: flex-end;
   margin: 3vh 2vw 3vh auto;
+  z-index: 10;
+  width: fit-content;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgb(199, 205, 207);
+  border-radius: 5px 5px 5px 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--dblue-them-color);
+  border-radius: 5px 5px 5px 5px;
+
+}
+
+
+
+@keyframes appear {
+
+  0% {
+    width: 0%;
+  }
+
+  100% {
+    width: 100%;
+  }
+
+}

@@ -1,0 +1,98 @@
+#wrapper {
+  display: grid;
+  overflow-y: scroll;
+  max-height: 71vh;
+
+  width: 85vw;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+}
+li {
+  align-self: baseline;
+  list-style: none;
+  width: 75vw;
+min-height: max-content;
+max-height: max-content;
+  color: var(--white-them-color);
+transition: 350ms ease-in-out;
+display: flex;
+flex-direction: column;
+
+  ul {
+    cursor: pointer;
+background-image: url("../../../../../../assets/images/arrow-right-white.svg");
+background-repeat: no-repeat;
+background-size: 10vh;
+background-position: 95%;
+&:hover {
+  background-position: 90%;
+}
+
+    transition: 250ms ease-in-out;
+&:hover {
+  background-color: var(--dblue-them-color);
+}
+    background-color: var(--blue-them-color);
+    width: 95%;
+    min-height: max-content;
+    height: fit-content;
+
+display: flex;
+flex-direction: column;
+    border-radius: 10px;
+    margin: 2vh auto 2vh auto;
+    cursor: pointer;
+    label {
+      width: fit-content;
+      height: fit-content;
+      margin: 0 auto 0 auto;
+    }
+  }
+}
+
+h3 {
+  justify-self: center;
+  margin: 2vh auto 2vh auto;
+
+}
+#header-wrp {
+
+display: flex;
+flex-direction: column;
+justify-self: right;
+align-self: center;
+width: 100%;
+margin-bottom: 2vh;
+
+
+}
+
+#arrowD {
+  transition: 350ms ease-in-out;
+justify-self: center;
+height: 3vh;
+margin-top: 3vh;
+}
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+cursor: pointer;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgb(199, 205, 207);
+  border-radius: 5px 5px 5px 5px;
+  cursor: pointer;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--dblue-them-color);
+  border-radius: 5px 5px 5px 5px;
+  cursor: pointer;
+
+}

@@ -14,3 +14,8 @@ Information : l'identifiant de base de donnée enregistré côté front (localst
 
 2) Comment utiliser plusieurs paginator :
 https://stackoverflow.com/questions/50428605/multiple-material-pagination-in-one-component-doesnt-work-in-angular
+
+
+
+
+Pour qu'une fonction se lance lorsqu'un composant apparait, lui implémenté l'interface AfterContentCheck -> Super puissant

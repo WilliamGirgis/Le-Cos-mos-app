@@ -11,7 +11,7 @@ export class SupportBlocksComponent implements OnInit {
   constructor( ) {
   }
 
-  matiere:any = [{name:'Bloc santé'},{name:'Block disciplines transversal'},{name:'Bloc disciplines hors santé'}]
+  matiere:any = [{name:'Bloc sante'},{name:'Block disciplines transversal'},{name:'Bloc disciplines hors sante'}]
 
 
 

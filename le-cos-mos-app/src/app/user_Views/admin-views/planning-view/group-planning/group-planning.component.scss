@@ -1,5 +1,6 @@
 #global {
   margin-top: -5vh;
+  min-height: 100vh;
 }
 
 #leftWrp {
@@ -43,7 +44,7 @@
 
 #rightWrp {
   width: 75%;
-min-height: max-content;
+ height: max-content;
 
 
   #validateBtnWrp {
@@ -59,6 +60,7 @@ min-height: max-content;
     }
 
     button {
+      min-width: max-content;
       color: var(--white-them-color);
       background-color: var(--blue-them-color);
     }
@@ -204,107 +206,21 @@ border-bottom-width:2px ;
   }
 }
 
-tr.row {
-  font-size: 80%;
-  min-height: 1vh;
-  height: 5.1vh;
-  max-height: 5.1vh;
-  background-color: transparent;
-  margin: -2px;
-  overflow: visible;
-}
 
 .header-row {
   height: 5vh;
+
+
 }
 
 .deleteElement {
   color: red;
-}
-
-.value {
-  background-color: var(--blue-them-color);
-  color: var(--white-them-color);
-  min-height: 1vh;
-  height: 5.1vh;
-  max-height: 5.1vh;
-
-  align-content: center;
-  display: flex;
-  justify-content: center;
-  justify-items: center;
-  margin: -3px 0 0 -1px; // Margin de 1px se trouve par défault dans l'element
-
-  &:hover {
-    border: 1px solid var(--blue-them-color);
-  }
-}
-
-
-
-.rowDaysWrp {
-  position: absolute;
-width: 100%;
-z-index: 3;
-}
-
-.rowDays {
-position: relative;
-align-content: center;
-overflow: visible;
-}
-
-td {
-  overflow: visible;
-position: relative;
-  color: var(--white-them-color);
-  text-align: center;
-  min-width: fit-content;
-  transition: 250ms ease-in-out;
-border: 1px solid var(--white-them-color);
-  // margin: 0; Colle les séance sur le tableau,
-width: 10%;
-  cursor: pointer;
-
-  &:hover {
-    background-color: var(--blue-them-color);
-  }
-  overflow: visible;
-  background-color: rgb(212, 240, 253);
-
-  &:first-of-type {
-    font-size: 90%;
-    background-color: var(--blue-them-color);
-    font-weight: bold;
-    width: 5%;
-    min-width: max-content;
-    cursor: auto;
-
-    &:hover {
-      background-color: var(--blue-them-color);
-      color: var(--white-them-color);
-    }
-
-  }
-
-
-  div {
-    display: grid;
-    flex-direction: column;
-
-    :first-child {
-      font-size: 100%;
-
-    }
-
-    :last-child {
-      font-size: 70%;
-      margin-top: -2px;
-    }
-  }
 
 
 }
+
+
+
 
 label {
   cursor: pointer;
@@ -315,7 +231,6 @@ label {
 .datePicker {
   min-width: max-content;
   margin-top: -10vh;
-  margin-left: 12vw;
   font-size: 7px;
   color: var(--dblue-them-color);
   mat-date-range-input {
@@ -334,6 +249,7 @@ label {
   input {
     max-height: 100%;
     opacity: 1;
+
     color: var(--dblue-them-color);
   }
 
@@ -346,6 +262,164 @@ label {
   mat-hint {
     font-size: 10px;
   }
+}
+
+
+
+
+#t-00 {
+  width: 100%;
+  min-height: calc(15vh / 4);
+height: 25%;
+  max-height:  max-content;
+  cursor: pointer;
+
+  &:hover {
+    border: 1px solid rgb(77, 77, 77);
+  }
+}
+#t-15 {
+  width: 100%;
+  min-height: calc(15vh / 4);
+height: 25%;
+  max-height:  max-content;
+
+  &:hover {
+    border: 1px solid rgb(77, 77, 77);
+  }
+}
+#t-30 {
+  cursor: pointer;
+  width: 100%;
+  min-height: calc(15vh / 4);
+height: 25%;
+  max-height:  max-content;
+
+  &:hover {
+    border: 1px solid rgb(77, 77, 77);
+  }
+}
+#t-45 {
+ cursor: pointer;
+  width: 100%;
+  min-height: calc(15vh / 4);
+height: 25%;
+  max-height: max-content;
+
+  &:hover {
+    border: 1px solid rgb(77, 77, 77);
+  }
+}
+
+.rowDaysWrp {
+  z-index: 3;
+  height: 100%; // Very important // To change for expandable
+
+div {
+  label {
+    font-size: 70%;
+  }
+}
+  }
+
+td {
+  color: var(--white-them-color);
+  text-align: center;
+  min-width: fit-content;
+border: 1px solid rgb(200, 215, 223);
+border-top-width: 0;
+border-right-width: 0;
+border-bottom-width: 0 ;
+width: 10%;
+height: 5vh; // Required to trigger animation
+  overflow: visible;
+  cursor: pointer;
+  background-color: rgb(212, 240, 253);
+margin: 0;
+  &:first-of-type {
+    border-left: 0;
+    font-size: 90%;
+    background-color: var(--blue-them-color);
+    font-weight: bold;
+    width: 5%;
+    min-width: max-content;
+  }
+
+
+label {
+  display: none;
+}
+}
+
+
+tr {
+  transition: 200ms ease-in-out;
+  &:hover {
+    td {
+
+        border-bottom-width: 2px;
+        border-top-width: 2px;
+
+    }
+    label {
+      display: initial;
+    }
+  }
+  &.row {
+    height: 5vh; // Statick height of rows (lines : 8h ; 9h ; 10h ... : 21h)
+    max-height: 5vh;
+
+    &:hover {
+        height: 15vh;
+        max-height: 15vh;
+        #quartDheureList {
+display: flex;
+            }
+    }
+  }
+}
+
+
+#headerContentWrp {
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+#headerheure {
+margin: auto;
+  width:fit-content;
+  height: fit-content;
+  text-shadow:  0;
+}
+
+#quartDheureList {
+  transition: 350ms ease-in-out;
+  overflow: visible;
+  list-style: none;
+  font-size: 75%;
+  flex-direction: column;
+  width:fit-content;
+  height: 100%;
+  display: none;
+align-content: space-between;
+div {
+  z-index: 3;
+&:first-of-type {
+  text-shadow: black -1px -1px 2px;
+  margin-top: -1vh;
+}
+&:last-of-type {
+  text-shadow: black -1px -1px 2px;
+  margin-bottom: -3vh;
+}
+text-shadow: black -1px -1px 2px;
+  height: 100%;
+  align-self: center;
+}
+
 }
 
 /* width */

@@ -1,0 +1,44 @@
+
+  <div id="top-wrp">
+    <div routerLink="{{routeToNavBack}}" id="img-wrp">
+      <img src="../../../assets/images/arrow-left.svg">
+    </div>
+
+    <div class="select" [style]="{'background-color': 'var(--blue-them-color)' ,'color': 'var(--white-them-color)'}"><h3>Comptes</h3></div>  
+
+  
+</div>
+<div id="wrapper">
+  <form class="outline-preferences">
+    <mat-form-field>
+      <mat-label>Prénom</mat-label>
+<input value="Jean" [readonly]="true" type="text" matInput>
+    </mat-form-field>
+      <mat-form-field>
+        <mat-label>Nom</mat-label>
+  <input value="Marc" [readonly]="true" type="text" matInput>
+      </mat-form-field>
+        <mat-form-field>
+          <mat-label>Téléphone</mat-label>
+    <input value="0760650912" [readonly]="true" type="tel" matInput>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input value="WillyleBgdu67@gmail.com" [readonly]="true" type="email" matInput>
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>Mot de passe</mat-label>
+                <input value="Mot de passe" [readonly]="true" type="password" matInput>
+                    </mat-form-field>
+
+                    <button disabled mat-button>Comfirmer les changements</button>
+  </form>
+  <div id="userIconWrp">
+    <img src="../../../assets/images/person-circle.svg">
+    <h2>William Girgis</h2>
+    <h3>Administrateur</h3>
+    </div>
+
+</div>
+

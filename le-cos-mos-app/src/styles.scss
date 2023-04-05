@@ -82,10 +82,40 @@ justify-items: center;
 }
 
 
+
+// Style for input in the 'message window'
+.messageSubWrp .mat-form-field-outline-end {
+
+  color: var(--dblue-them-color);
+
+}
+.messageSubWrp .mat-form-field-outline-start  {
+
+  color: var(--dblue-them-color);
+}
+.messageSubWrp .mat-form-field-outline-gap  {
+  color:var(--dblue-them-color);
+
+}
+
+  // Style pour les input de la vue de la bulle de message
+  .bubleChatOutline .mat-form-field-outline-end {
+
+    color: var(--blue-them-color);
+
+  }
+  .bubleChatOutline .mat-form-field-outline-start  {
+
+    color: var(--blue-them-color);
+  }
+  .bubleChatOutline .mat-form-field-outline-gap  {
+    color:var(--blue-them-color);
+
+  }
+
+
   // Style pour les input de la vue 'add publlication'
 .search .mat-form-field-outline-end {
-  border: var(--outline-input-width) solid; // Placer le "!important" pour forcer le changement de la bordure
-  border-left: 0 ;
   color: var(--blue-them-color);
 }
 .search .mat-form-field-outline-start  {
@@ -105,8 +135,6 @@ justify-items: center;
 
   // Style pour les input de la vue 'gestion'
   .post .mat-form-field-outline-end {
-    border: var(--outline-input-width) solid; // Placer le "!important" pour forcer le changement de la bordure
-    border-left: 0 ;
     color: var(--blue-them-color);
   }
   .post .mat-form-field-outline-start  {
@@ -124,8 +152,6 @@ justify-items: center;
   }
 
   .modifyPub .mat-form-field-outline-end {
-    border: var(--outline-input-width) solid; // Placer le "!important" pour forcer le changement de la bordure
-    border-left: 0 ;
     color: var(--blue-them-color);
   }
   .modifyPub .mat-form-field-outline-start  {
@@ -145,8 +171,6 @@ justify-items: center;
 
 
   .datePicker .mat-form-field-outline-end {
-    border: var(--outline-input-width) solid ; // Placer le "!important" pour forcer le changement de la bordure
-    border-left: 0 ;
     color: var(--blue-them-color);
   }
   .datePicker .mat-form-field-outline-start  {
@@ -164,6 +188,20 @@ justify-items: center;
   }
 
 
+  .outline-preferences .mat-form-field-outline-end {
 
+    color: var(--blue-them-color);
+  }
+  .outline-preferences .mat-form-field-outline-start  {
+    border: var(--outline-input-width) solid;  // Placer le "!important" pour forcer le changement de la bordure
+    border-right: 0 ;
+    color: var(--blue-them-color);
+  }
+  .outline-preferences .mat-form-field-outline-gap  {
+    border: var(--outline-input-width) solid ;  // Placer le "!important" pour forcer le changement de la bordure
+    border-right: 0 ;
+    border-left: 0 ;
+    border-top: 0;
+    color:var(--blue-them-color);
 
-
+  }
