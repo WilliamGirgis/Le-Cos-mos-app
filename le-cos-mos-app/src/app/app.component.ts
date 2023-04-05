@@ -4,6 +4,10 @@ import {trigger, transition, style, animateChild, group, animate,query } from '@
 import { RouterOutlet } from '@angular/router';
 import { HttpService } from './services/http.services';
 
+import { Socket } from 'ngx-socket-io';
+import { map } from 'rxjs';
+import { ChatService } from './app.module';
+
 
 
 export const slide =
@@ -63,21 +67,25 @@ export const slide =
   ]);
 
 
-
   @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  animations :[slide]
+  animations: [slide]
 })
 export class AppComponent {
   title = 'le-cos-mos-app';
   constructor(private httpService:HttpService) {
+
     if(localStorage.getItem('user-id')!!) {
       this.httpService.getUserType()
 
     }
+
+
+
   }
+
 
 
   prepareRoute(outlet: RouterOutlet) {

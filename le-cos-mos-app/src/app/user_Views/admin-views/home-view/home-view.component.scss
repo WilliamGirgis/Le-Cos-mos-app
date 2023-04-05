@@ -1,7 +1,7 @@
 #wrapper {
   overflow-y: scroll;
   width: 85vw;
-  height: 80vh;
+  height: 75vh;
 margin: auto;
 text-align: center;
 }
@@ -11,7 +11,7 @@ text-align: center;
 #btn-wrapper {
 position: absolute;
 top: 5vh;
-right: 15vw;
+right: 20vw;
 color: var(--white-them-color);
 & button {
   font-weight: bolder;

@@ -2,23 +2,40 @@
 <div id="wrapper">
   <div id="leftwrp">
     <h1>DISCUSSIONS</h1>
+    <div id="discussionTypeSelect">
+
+      <button [style]="{'background-color': discussionTypeView == 'global' ? 'var(--blue-them-color)' : '','color': discussionTypeView == 'global' ? 'var(--white-them-color)' : ''}" mat-button (click)="discussionTypeView = 'global'">Global</button>
+      <button [style]="{'background-color': discussionTypeView == 'private' ? 'var(--blue-them-color)' : '','color': discussionTypeView == 'private' ? 'var(--white-them-color)' : ''}" mat-button  (click)="discussionTypeView = 'private'">Private</button>
+    </div>
   <div id="leftSide">
-    <mat-card [style]="{'opacity': globalIndex == i ? '1' : '0.7'}" (click)="selectGroup(i)"  class="group-card" *ngFor="let group of groupsDiscussions;index as i">
+    <mat-card [style]="{'opacity': globalIndex == i ? '1' : '0.7'}" (click)="selectDiscussion(i)"  class="group-card" *ngFor="let group of  (discussionTypeView == 'global' ? globalDiscussionList : privateDiscussionList);index as i">
 
-<textarea class="addGroup" name="groups" #text>{{group.name}}</textarea>
+<textarea readonly class="addGroup" name="groups" #text>{{group.name}}</textarea>
 
-      <button (click)="delDiscussionGroup(i)"  mat-button><img  width="25px" height="25px" src="../../../../assets/images/trash3-fill.svg"></button>
+      <button (click)="delDiscussionGroup(i,group.name)"  mat-button><img  width="25px" height="25px" src="../../../../assets/images/trash3-fill.svg"></button>
 <button (click)="suppressReadOnly(i,text.value)" mat-button><img  src="../../../../assets/images/pencil-fill.svg"></button>
 
     </mat-card>
   </div>
-  <img class="add" (click)="createDiscussionGroup()"  width="50px" height="50px" src="../../../../assets/images/plus-square-fill.svg">
+  <img [matMenuTriggerFor]="menu"  class="add"   width="50px" height="50px" src="../../../../assets/images/plus-square-fill.svg">
+  <mat-menu #menu matMenu="menu">
+    <mat-form-field
+      (click)="$event.stopPropagation()"
+      floatLabel="always"
+    >
+      <mat-label>Nom du group</mat-label>
+      <input #groupName matInput />
+    </mat-form-field>
+    <button (click)="createDiscussionGroup(groupName.value)" style="border: 1px solid var(--dblue-them-color)" mat-button>
+      Créer le group {{ groupName.value }}
+    </button>
+  </mat-menu>
 </div>
 
 <div id="rightWrp">
   <div id="rightSide">
 
-    <mat-card class="user-card" *ngFor="let user of userList">
+    <mat-card class="user-card" *ngFor="let user of (discussionTypeView == 'global' ? globalDiscussionList[globalIndex].user_list : privateDiscussionList[globalIndex].user_list)">
       <mat-label>{{user.firstname}}</mat-label>
       <button (click)="deletUser(user)"  mat-button><img width="20vw" height="100%" src="../../../../assets/images/trash3-fill.svg"></button>
     </mat-card>

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Injectable, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -58,11 +58,39 @@ import { GroupPlanningComponent } from './user_Views/admin-views/planning-view/g
 import { AddUserToGroupComponent } from './user_Views/admin-views/planning-view/group/add-user-to-group/add-user-to-group.component';
 import { DragDropModule } from '@angular/cdk/drag-drop'
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatCommonModule, MatNativeDateModule } from '@angular/material/core';
 import { HomeViewEtudiantComponent } from './user_Views/etudiant-views/home-view-etudiant/home-view-etudiant.component';
 import { SupportBlocksComponent } from './user_Views/admin-views/supports-view-admin/support-blocks/support-blocks.component';
-import { SupporUEComponent } from './user_Views/admin-views/supports-view-admin/suppor-ue/suppor-ue.component';
+import { SupporUEComponent } from './user_Views/admin-views/supports-view-admin/support-blocks/sante-blocks/support-ue-list/suppor-ue.component';
 import { SupportContentComponent } from './user_Views/admin-views/supports-view-admin/support-content/support-content.component';
+import { TransversalBlocksComponent } from './user_Views/admin-views/supports-view-admin/support-blocks/transversal-blocks/transversal-blocks.component';
+import { HorsSanteBlocksComponent } from './user_Views/admin-views/supports-view-admin/support-blocks/hors-sante-blocks/hors-sante-blocks.component';
+import { TdViewComponent } from './user_Views/admin-views/supports-view-admin/support-content/td-view/td-view.component';
+import { VideoViewComponent } from './user_Views/admin-views/supports-view-admin/support-content/video-view/video-view.component';
+import { AnnalesViewComponent } from './user_Views/admin-views/supports-view-admin/support-content/annales-view/annales-view.component';
+import { CmViewComponent } from './user_Views/admin-views/supports-view-admin/support-content/cm-view/cm-view.component';
+import { TransversalBlockListComponent } from './user_Views/admin-views/supports-view-admin/support-blocks/transversal-blocks/transversal-block-list/transversal-block-list.component';
+import { SanteBlocksComponent } from './user_Views/admin-views/supports-view-admin/support-blocks/sante-blocks/support-ue-list.component';
+import { HsBlockListComponent } from './user_Views/admin-views/supports-view-admin/support-blocks/hors-sante-blocks/hs-block-list/hs-block-list.component';
+import { ContentBlockListComponent } from './user_Views/admin-views/supports-view-admin/support-content/content-block-list/content-block-list.component';
+import { ExcercicesViewComponent } from './user_Views/admin-views/supports-view-admin/support-content/excercices-view/excercices-view.component';
+import { PlanchageViewComponent } from './user_Views/admin-views/supports-view-admin/support-content/planchage-view/planchage-view.component';
+import { RouterTopComponent } from './user_Views/admin-views/supports-view-admin/router-top/router-top.component';
+import { RouterTop2Component } from './user_Views/admin-views/supports-view-admin/router-top2/router-top2.component';
+import { ListContentDisplayerComponent } from './user_Views/admin-views/supports-view-admin/support-content/list-content-displayer/list-content-displayer.component';
+import { DetailsCmComponent } from './user_Views/admin-views/supports-view-admin/support-content/cm-view/details-cm/details-cm.component';
+import { DetailsAnnalesComponent } from './user_Views/admin-views/supports-view-admin/support-content/annales-view/details-annales/details-annales.component';
+import { DetailsExcercicesComponent } from './user_Views/admin-views/supports-view-admin/support-content/excercices-view/details-excercices/details-excercices.component';
+import { DetailsPlanchagesComponent } from './user_Views/admin-views/supports-view-admin/support-content/planchage-view/details-planchages/details-planchages.component';
+import { DetailsTdComponent } from './user_Views/admin-views/supports-view-admin/support-content/td-view/details-td/details-td.component';
+import { DetailsVideoComponent } from './user_Views/admin-views/supports-view-admin/support-content/video-view/details-video/details-video.component';
+import { AddItemDialogComponent } from './user_Views/admin-views/supports-view-admin/router-top/add-item-dialog/add-item-dialog.component';
+import { ModifyItemDialogComponent } from './user_Views/admin-views/supports-view-admin/router-top/modify-item-dialog/modify-item-dialog.component';
+import { LogoutDialogComponentComponent } from './user_Views/admin-views/handler-view-admin/logout-dialog-component/logout-dialog-component.component';
+import { PreferencesViewComponent } from './user_Views/preferences-view/preferences-view.component';
+import { SaveRouteService } from './services/save-route.service';
+import { BubuleChatComponent } from './static_Components/bubule-chat/bubule-chat.component';
+import { Socket, SocketIoModule } from 'ngx-socket-io';
 
 const appearance: MatFormFieldDefaultOptions = {
   appearance: 'outline'
@@ -74,9 +102,6 @@ const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full',
   },
-  /*{ path: JSON.toString(), component: (() => {
-    return LoginViewComponent
-  })() },*/
   {
     path: 'login',
     component: LoginViewComponent,
@@ -95,6 +120,11 @@ const routes: Routes = [
     ,
     children: [
       {
+        path: 'preferences',
+        component: PreferencesViewComponent,
+        data: { animation: 'Preferences' },
+      },
+      {
         path: 'home',
         component: HomeViewComponent,
         data: { animation: 'Accueil' },
@@ -107,31 +137,251 @@ const routes: Routes = [
         children: [
           {
             path: 'group',
-            component: GroupComponent
+            component: GroupComponent,
+            data: { animation: 'GroupList' },
           },
           {
             path: ':id',
-            component: GroupPlanningComponent
+            component: GroupPlanningComponent,
+            data: { animation: 'SelectedGroup' },
           }
         ]
       },
       {
         path: 'supports',
         component: SupportsViewComponent,
-        data: { animation: 'Supports' },
-        children: [
-          {
-            path: 'blocks',
-            component: SupportBlocksComponent
-          },
-          {
-            path: 'UE/:id',
-            component: SupporUEComponent
-          },{path:'UE/:id/:id',component:SupportContentComponent}
+        children: [{
+          path: 'blocks',
+          component: SupportBlocksComponent,
+          data: { animation: 'SupportsBlocks' },
+        },
+        { path: 'sante', component: SupporUEComponent,
+        data: { animation: 'Sante' }, }, // The courses selection
+        { path: 'sante/:id', component: ContentBlockListComponent,
+        data: { animation: 'Sante2' } }, // The List of action-related item (Cours magistraux ; Travaux Dirigées ; Annales ; etc..)
+        {
+          path: 'sante/:id/cm', component: CmViewComponent,
+          data: { animation: 'Sante3' },
+           // The list of items inside the 'Cours magistraux' rubrique
+          children: [
+            { path: 'list', component: ListContentDisplayerComponent,
+            data: { animation: 'Sante4' } }
+            ,
+            { path: 'list/:id', component: DetailsCmComponent
+            ,
+            data: { animation: 'Sante5' }
+           }
+          ]
+        },
+        {
+          path: 'sante/:id/td', component: TdViewComponent,
+            data: { animation: 'Sante3' } ,
+          children: [
+            { path: 'list', component: ListContentDisplayerComponent
+            ,
+            data: { animation: 'Sante4' }  }
+            ,
+            { path: 'list/:id', component: DetailsTdComponent
+            ,
+            data: { animation: 'Sante5' }  }
+          ]
+        },
+        {
+          path: 'sante/:id/video', component: VideoViewComponent,
+          data: { animation: 'Sante3' } ,
+          children: [
+            { path: 'list', component: ListContentDisplayerComponent,
+            data: { animation: 'Sante4' }
+           }
+            ,
+            { path: 'list/:id', component: DetailsVideoComponent,
+            data: { animation: 'Sante5' }  }
+          ]
+        },
+        {
+          path: 'sante/:id/annales', component: AnnalesViewComponent,
+          data: { animation: 'Sante3' } ,
+          children: [
+            { path: 'list', component: ListContentDisplayerComponent,
+            data: { animation: 'Sante4' }  }
+            ,
+            { path: 'list/:id', component: DetailsAnnalesComponent,
+            data: { animation: 'Sante5' }  }
+          ]
+        },
+        {
+          path: 'sante/:id/excercices', component: ExcercicesViewComponent,
+          data: { animation: 'Sante3' } ,
+          children: [
+            { path: 'list', component: ListContentDisplayerComponent ,
+            data: { animation: 'Sante4' }  }
+            ,
+            { path: 'list/:id', component: DetailsExcercicesComponent ,
+            data: { animation: 'Sante5' }  }
+          ]
+        },
+        {
+          path: 'sante/:id/planchage', component: PlanchageViewComponent,
+          data: { animation: 'Sante3' },
+          children: [
+            { path: 'list', component: ListContentDisplayerComponent,
+            data: { animation: 'Sante4' }  }
+            ,
+            { path: 'list/:id', component: DetailsPlanchagesComponent,
+            data: { animation: 'Sante5' }  }
+          ]
+        },
+        { path: 'transversal', component: TransversalBlockListComponent
+        ,
+        data: { animation: 'Transversal' }, },
+        {
+          path: 'transversal/:id', component: ContentBlockListComponent
+          ,
+          data: { animation: 'Transversal2' },
+        },
+        {
+          path: 'transversal/:id/cm', component: CmViewComponent,
+          data: { animation: 'Transversal3' },
+          children: [
+            { path: 'list', component: ListContentDisplayerComponent,
+            data: { animation: 'Transversal4' }, }
+            ,
+            { path: 'list/:id', component: DetailsCmComponent,
+            data: { animation: 'Transversal5' }, }
+          ]
+        },
+        {
+          path: 'transversal/:id/td', component: TdViewComponent,
+          data: { animation: 'Transversal3' },
+          children: [
+            { path: 'list', component: ListContentDisplayerComponent,
+            data: { animation: 'Transversal4' }, }
+            ,
+            { path: 'list/:id', component: DetailsTdComponent,
+            data: { animation: 'Transversal5' }, }
+          ]
+        },
+        {
+          path: 'transversal/:id/video', component: VideoViewComponent,
+          data: { animation: 'Transversal3' },
+          children: [
+            { path: 'list', component: ListContentDisplayerComponent,
+            data: { animation: 'Transversal4' }, }
+            ,
+            { path: 'list/:id', component: DetailsVideoComponent,
+            data: { animation: 'Transversal5' }, }
+          ]
+        },
+        {
+          path: 'transversal/:id/annales', component: AnnalesViewComponent,
+          data: { animation: 'Transversal3' },
+          children: [
+            { path: 'list', component: ListContentDisplayerComponent,
+            data: { animation: 'Transversal4' }, }
+            ,
+            { path: 'list/:id', component: DetailsAnnalesComponent,
+            data: { animation: 'Transversal5' }, }
+          ]
+        },
+        {
+          path: 'transversal/:id/excercices', component: ExcercicesViewComponent,
+          data: { animation: 'Transversal3' },
+          children: [
+            { path: 'list', component: ListContentDisplayerComponent,
+            data: { animation: 'Transversal4' }, }
+            ,
+            { path: 'list/:id', component: DetailsExcercicesComponent,
+            data: { animation: 'Transversal5' }, }
+          ]
+        },
+        {
+          path: 'transversal/:id/planchage', component: PlanchageViewComponent,
+          data: { animation: 'Transversal3' },
+          children: [
+            { path: 'list', component: ListContentDisplayerComponent,
+            data: { animation: 'Transversal4' }, }
+            ,
+            { path: 'list/:id', component: DetailsPlanchagesComponent,
+            data: { animation: 'Transversal5' }, }
+          ]
+        },
 
-
-        ]
+        { path: 'hors_sante', component: HsBlockListComponent
+        ,
+        data: { animation: 'HS' } },
+        { path: 'hors_sante/:id', component: ContentBlockListComponent,
+        data: { animation: 'HS2' } },
+        {
+          path: 'hors_sante/:id/cm', component: CmViewComponent,
+          data: { animation: 'HS3' },
+          children: [
+            { path: 'list', component: ListContentDisplayerComponent,
+            data: { animation: 'HS4' } }
+            ,
+            { path: 'list/:id', component: DetailsCmComponent,
+            data: { animation: 'HS5' } }
+          ]
+        },
+        {
+          path: 'hors_sante/:id/td', component: TdViewComponent,
+          data: { animation: 'HS3' },
+          children: [
+            { path: 'list', component: ListContentDisplayerComponent,
+            data: { animation: 'HS4' } }
+            ,
+            { path: 'list/:id', component: DetailsTdComponent,
+            data: { animation: 'HS5' } }
+          ]
+        },
+        {
+          path: 'hors_sante/:id/video', component: VideoViewComponent,
+          data: { animation: 'HS3' },
+          children: [
+            { path: 'list', component: ListContentDisplayerComponent,
+            data: { animation: 'HS4' } }
+            ,
+            { path: 'list/:id', component: DetailsVideoComponent,
+            data: { animation: 'HS5' } }
+          ]
+        },
+        {
+          path: 'hors_sante/:id/annales', component: AnnalesViewComponent,
+          data: { animation: 'HS3' },
+          children: [
+            { path: 'list', component: ListContentDisplayerComponent,
+            data: { animation: 'HS4' } }
+            ,
+            { path: 'list/:id', component: DetailsAnnalesComponent,
+            data: { animation: 'HS5' } }
+          ]
+        },
+        {
+          path: 'hors_sante/:id/excercices', component: ExcercicesViewComponent,
+          data: { animation: 'HS3' },
+          children: [
+            { path: 'list', component: ListContentDisplayerComponent,
+            data: { animation: 'HS4' } }
+            ,
+            { path: 'list/:id', component: DetailsExcercicesComponent,
+            data: { animation: 'HS5' } }
+          ]
+        },
+        {
+          path: 'hors_sante/:id/planchage', component: PlanchageViewComponent,
+          data: { animation: 'HS3' },
+          children: [
+            { path: 'list', component: ListContentDisplayerComponent,
+            data: { animation: 'HS4' } }
+            ,
+            { path: 'list/:id', component: DetailsPlanchagesComponent,
+            data: { animation: 'HS5' } }
+          ]
+        }]
       },
+
+
+
+
       {
         path: 'examens',
         component: ExamensViewComponent,
@@ -154,10 +404,27 @@ const routes: Routes = [
       }
     ]
   }
+]
 
-];
 
+import {SocketIoConfig } from 'ngx-socket-io';
+import { map } from 'rxjs';
+@Injectable({
+  providedIn: 'root'
+})
+export class ChatService {
+  constructor(private socket: Socket) {}
 
+  sendMessage(msg: string) {
+    this.socket.emit('message', msg);
+  }
+  getMessage() {
+    return this.socket.fromEvent('message').pipe(map((data:any) => {data.msg
+    console.log("Message received : " + data)
+    }));
+  }
+}
+const config: SocketIoConfig = { url: 'http://localhost:3000', options: {transports: ['websocket'],withCredentials:true,} };
 @NgModule({
   declarations: [
     AppComponent,
@@ -181,10 +448,37 @@ const routes: Routes = [
     HomeViewEtudiantComponent,
     SupportBlocksComponent,
     SupporUEComponent,
-    SupportContentComponent
+    SupportContentComponent,
+    HorsSanteBlocksComponent,
+    TdViewComponent,
+    TransversalBlocksComponent,
+    TransversalBlockListComponent,
+    SanteBlocksComponent,
+    HsBlockListComponent,
+    ContentBlockListComponent,
+    PlanchageViewComponent,
+    AnnalesViewComponent,
+    VideoViewComponent,
+    CmViewComponent,
+    ExcercicesViewComponent,
+    RouterTopComponent,
+    RouterTop2Component,
+    ListContentDisplayerComponent,
+    DetailsCmComponent,
+    DetailsAnnalesComponent,
+    DetailsExcercicesComponent,
+    DetailsPlanchagesComponent,
+    DetailsTdComponent,
+    DetailsVideoComponent,
+    AddItemDialogComponent,
+    ModifyItemDialogComponent,
+    LogoutDialogComponentComponent,
+    PreferencesViewComponent,
+    BubuleChatComponent
+
 
   ],
-  providers: [HttpService, { provide: HTTP_INTERCEPTORS, useClass: WebReqInterceptorService, multi: true }, { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: appearance }, AuthGuard, HttpService], //Mettre par default tous les input en "outline"
+  providers: [ChatService,HttpService, { provide: HTTP_INTERCEPTORS, useClass: WebReqInterceptorService, multi: true }, { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: appearance }, AuthGuard, HttpService, SaveRouteService], //Mettre par default tous les input en "outline"
   bootstrap: [AppComponent],
   imports: [
     BrowserModule,
@@ -221,10 +515,12 @@ const routes: Routes = [
     DragDropModule,
     MatDatepickerModule,
     MatNativeDateModule,
-
+    MatCommonModule,
+    SocketIoModule.forRoot(config)
 
   ]
 })
+
 
 
 export class AppModule {

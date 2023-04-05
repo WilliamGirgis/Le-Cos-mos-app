@@ -1,23 +1,27 @@
 <div  id="wrapper">
   <mat-list fxLayout="column" fxLayoutAlign="space-between center">
-    <mat-list-item [routerLinkActiveOptions]="{ exact: false}" routerLinkActive="active-link" routerLink="./home" fxLayoutAlign="center center">Accueil</mat-list-item>
-    <mat-list-item [routerLinkActiveOptions]="{ exact: false}" routerLinkActive="active-link" routerLink="./planning/group" fxLayoutAlign="center center">Planning</mat-list-item>
-    <mat-list-item [routerLinkActiveOptions]="{ exact: false}" routerLinkActive="active-link" routerLink="./supports/blocks" fxLayoutAlign="center center">Supports</mat-list-item>
-    <mat-list-item [routerLinkActiveOptions]="{ exact: false}" routerLinkActive="active-link" routerLink="./examens" fxLayoutAlign="center center">Examens</mat-list-item>
-    <mat-list-item [routerLinkActiveOptions]="{ exact: false}" routerLinkActive="active-link" routerLink="./messagerie" fxLayoutAlign="center center">Messagerie</mat-list-item>
-    <mat-list-item [routerLinkActiveOptions]="{ exact: false}" routerLinkActive="active-link" routerLink="./statistiques" fxLayoutAlign="center center">Statistiques</mat-list-item>
-    <mat-list-item  [routerLinkActiveOptions]="{ exact: false}" routerLinkActive="active-link" routerLink="./gestion" fxLayoutAlign="center center">Gestion</mat-list-item>
+    <mat-list-item [routerLinkActiveOptions]="{ exact: false}" routerLinkActive="active-link" routerLink="home" fxLayoutAlign="center center">Accueil</mat-list-item>
+    <mat-list-item [routerLinkActiveOptions]="{ exact: false}" routerLinkActive="active-link" routerLink="planning/group" fxLayoutAlign="center center">Planning</mat-list-item>
+    <mat-list-item [routerLinkActiveOptions]="{ exact: false}" routerLinkActive="active-link" routerLink="supports/blocks" fxLayoutAlign="center center">Supports</mat-list-item>
+    <mat-list-item [routerLinkActiveOptions]="{ exact: false}" routerLinkActive="active-link" routerLink="examens" fxLayoutAlign="center center">Examens</mat-list-item>
+    <mat-list-item [routerLinkActiveOptions]="{ exact: false}" routerLinkActive="active-link" routerLink="messagerie" fxLayoutAlign="center center">Messagerie</mat-list-item>
+    <mat-list-item [routerLinkActiveOptions]="{ exact: false}" routerLinkActive="active-link" routerLink="statistiques" fxLayoutAlign="center center">Statistiques</mat-list-item>
+    <mat-list-item  [routerLinkActiveOptions]="{ exact: false}" routerLinkActive="active-link" routerLink="gestion" fxLayoutAlign="center center">Gestion</mat-list-item>
   </mat-list>
 
-  <mat-card [@routeAnimations]="prepareRoute(outlet)" id="white-window">
-    <div fxLayout="row" fxLayoutGap="2vw" fxLayoutAlign="end flex-end" id="top-but-set">
-   <img (click)="logout()" style="cursor:pointer" id="power" width="30px" height="30px" src="../../../../assets/images/power.svg">
-   <img style="cursor:pointer" id="power" width="30px" height="30px" src="../../../../assets/images/gear-fill.svg">
+  <mat-card [@shade]="prepareRoute(outlet)" id="white-window">
+    <div fxLayout="row" fxLayoutGap="3vw" fxLayoutAlign="end flex-end" id="top-but-set">
+
+      <app-bubule-chat id="chat" ></app-bubule-chat>
+   <div id="logout"><img (click)="logout()" style="cursor:pointer" id="power" width="30px" height="30px" src="../../../../assets/images/power.svg"></div>
+   <div id="power" [routerLinkActiveOptions]="{ exact: false}" routerLinkActive="preferences-link" routerLink="./preferences" style="cursor:pointer">
+    <img  width="30px" height="30px" src="../../../../assets/images/gear-fill.svg">
+  </div>
   </div>
       <router-outlet #outlet="outlet"></router-outlet>
 
 
 
   </mat-card>
-
 </div>
+

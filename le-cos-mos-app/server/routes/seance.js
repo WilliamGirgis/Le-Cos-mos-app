@@ -13,10 +13,15 @@ const readJsonFile = require("jsonfile");
 const getSeance = router.get("/get", async function (req, res, next) {
   var folder = publicationFolder
   var groupName = req.query.groupName.replace(/ /g,'_')
+  console.log(groupName)
   let result = []
 let index = 0
 let funded = false
    fs.readdir(folder, async (err, files) => {
+if(files.length == 0) {
+  return  res.status(200).send(fs.writeFileSync(folder + '/' + groupName + '.json', '[]', async function (data) {
+  }))
+}
      files.forEach(async file => {
       index++
       if(file.search(`${groupName}.json`) == 0) {

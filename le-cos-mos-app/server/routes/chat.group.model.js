@@ -15,6 +15,10 @@ name : {
   required:true,
   unique:true
 },
+discussionType: {
+  type:String,
+  required:false
+},
 user_list : [
   {
     firstname: {
@@ -25,9 +29,9 @@ user_list : [
       type:String,
       required:true,
     },
-    role: {
+    userType: {
       type:String,
-      required:true
+      required:false
     }
   }
 ],
@@ -50,6 +54,8 @@ message_list: [
 ]
 
 })
+
+const group = mongoose.model('Group',groupSchema);
 
 
 

@@ -51,8 +51,8 @@ export class GroupComponent implements OnInit {
     })).subscribe((res) =>{})
   }
 
-  createGroup(){
-    return this.http.post(this.createGroupRoute,{name:this.selectedLeftItem,responseType:'text'}).pipe(map(async (data) =>{
+  createGroup(groupName:string){
+    return this.http.post(this.createGroupRoute,{name:groupName,responseType:'text'}).pipe(map(async (data) =>{
        this.getGroups(' ')
     })).subscribe((res) => {})
   }

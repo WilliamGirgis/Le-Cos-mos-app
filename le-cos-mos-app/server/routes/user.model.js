@@ -11,6 +11,7 @@ mongoose.connect('mongodb+srv://test:Samsam123@cluster0.pcin2.mongodb.net/myFirs
 
 })
 
+
 // Definir la table User ici
 const userSchema = new mongoose.Schema({
 
@@ -70,9 +71,6 @@ const userSchema = new mongoose.Schema({
         }
       ]
 })
-function arrayLimit(val) {
-  return val.length <= 10;
-}
 
 // Definir la table Cour ici
 

@@ -16,7 +16,14 @@
 
     </mat-card>
   </div>
-  <img *ngIf="view == 'Group'" (click)="createGroup()" class="add"  width="50px" height="50px" src="../../../../assets/images/plus-square-fill.svg">
+  <img  [matMenuTriggerFor]="menu" *ngIf="view == 'Group'"  class="add"  width="50px" height="50px" src="../../../../assets/images/plus-square-fill.svg">
+  <mat-menu #menu="matMenu">
+    <mat-form-field (click)="$event.stopPropagation()">
+      <input #groupName placeholder="Group Name" matInput>
+    </mat-form-field>
+    <button  (click)="createGroup(groupName.value)" mat-button>Créer le groupe</button>
+
+  </mat-menu>
 </div>
 
 <div id="rightWrp">

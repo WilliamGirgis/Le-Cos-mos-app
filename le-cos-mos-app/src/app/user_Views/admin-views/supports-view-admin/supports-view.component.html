@@ -1,6 +1,6 @@
-<div id="wrapper">
+<div [@slide]="prepareRoute(outlet)" id="wrapper">
 
 
-<router-outlet></router-outlet>
+<router-outlet #outlet="outlet"></router-outlet>
 
 </div>
