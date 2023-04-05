@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Injectable, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -90,6 +90,7 @@ import { LogoutDialogComponentComponent } from './user_Views/admin-views/handler
 import { PreferencesViewComponent } from './user_Views/preferences-view/preferences-view.component';
 import { SaveRouteService } from './services/save-route.service';
 import { BubuleChatComponent } from './static_Components/bubule-chat/bubule-chat.component';
+import { Socket, SocketIoModule } from 'ngx-socket-io';
 
 const appearance: MatFormFieldDefaultOptions = {
   appearance: 'outline'
@@ -406,6 +407,24 @@ const routes: Routes = [
 ]
 
 
+import {SocketIoConfig } from 'ngx-socket-io';
+import { map } from 'rxjs';
+@Injectable({
+  providedIn: 'root'
+})
+export class ChatService {
+  constructor(private socket: Socket) {}
+
+  sendMessage(msg: string) {
+    this.socket.emit('message', msg);
+  }
+  getMessage() {
+    return this.socket.fromEvent('message').pipe(map((data:any) => {data.msg
+    console.log("Message received : " + data)
+    }));
+  }
+}
+const config: SocketIoConfig = { url: 'http://localhost:3000', options: {transports: ['websocket'],withCredentials:true,} };
 @NgModule({
   declarations: [
     AppComponent,
@@ -459,7 +478,7 @@ const routes: Routes = [
 
 
   ],
-  providers: [HttpService, { provide: HTTP_INTERCEPTORS, useClass: WebReqInterceptorService, multi: true }, { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: appearance }, AuthGuard, HttpService, SaveRouteService], //Mettre par default tous les input en "outline"
+  providers: [ChatService,HttpService, { provide: HTTP_INTERCEPTORS, useClass: WebReqInterceptorService, multi: true }, { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: appearance }, AuthGuard, HttpService, SaveRouteService], //Mettre par default tous les input en "outline"
   bootstrap: [AppComponent],
   imports: [
     BrowserModule,
@@ -496,10 +515,12 @@ const routes: Routes = [
     DragDropModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatCommonModule
+    MatCommonModule,
+    SocketIoModule.forRoot(config)
 
   ]
 })
+
 
 
 export class AppModule {

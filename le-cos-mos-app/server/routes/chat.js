@@ -2,12 +2,10 @@ const express = require("express");
 const router = express.Router();
 const Group = require("./chat.group.model");
 const User = require("./user.model");
-
-
+const Io = require("../../server")
 
 
 const jwt = require('jsonwebtoken');
-
 let authenticate = (req,res,next) => {  /* MIDDLEWARE for checking if the access-token has expired */
   let token = req.header('x-access-token') // We intercept each request, taking the access-Token of the current user logged in
   jwt.verify(token,User.getJWTSecret(),(err,decoded)=>{// We decrypt the token, and if it the token is empty or not valid, the user get disconnected
@@ -21,9 +19,10 @@ let authenticate = (req,res,next) => {  /* MIDDLEWARE for checking if the access
   })
 }
 
-const pipeline = [ { $match: { runtime: { $lt: 15 } } } ];
-Group.watch(pipeline)
+Group.watch().on('change', data => {
+  console.log(data)
 
+});
 
 const sendMessage = router.post("/discussion/message/send",authenticate, async function (req, res, next) {
 
@@ -43,6 +42,7 @@ const sendMessage = router.post("/discussion/message/send",authenticate, async f
 
   // group.user_list
   group[0].save()
+
  return res.send(group[0].message_list).status(200)
  })
 

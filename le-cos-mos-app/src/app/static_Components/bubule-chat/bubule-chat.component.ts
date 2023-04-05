@@ -3,6 +3,7 @@ import { AfterContentChecked, Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Discussion } from './discussion';
 import { Message } from './message';
+import { ChatService } from 'src/app/app.module';
 
 @Component({
   selector: 'app-bubule-chat',
@@ -11,10 +12,18 @@ import { Message } from './message';
 })
 export class BubuleChatComponent implements OnInit,AfterContentChecked {
   globalIndex:number = 0
-  constructor(private http:HttpClient) {
+  constructor(private http:HttpClient  ,private chatService:ChatService) {
 
+    this.chatService?.getMessage().pipe(map((data) =>{
+      console.log(data)
+      let discussionList = this.discussionTypeView == 'global' ? this.globalDiscussionList : this.privateDiscussionList
+      this.getMessageList(discussionList[this.globalIndex].name)
+          })).subscribe((res) => {
 
+          })
+          this.chatService?.sendMessage('Hey')
   }
+
   ngAfterContentChecked(): void {
     // this.getMessageList()
     document.getElementById('blur')!.addEventListener('click', () => {
