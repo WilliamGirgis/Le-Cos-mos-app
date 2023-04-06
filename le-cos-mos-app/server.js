@@ -38,7 +38,7 @@ const server = http.createServer(app);
 
 const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost:4300",
+    origin: "http://localhost:3000",
     methods: ["GET", "POST"],
     allowedHeaders:['my-custom-header'],
     credentials:true
@@ -53,7 +53,6 @@ io.on("connect", (socket) => {
   console.log(`User has connected !`);
   const Group = require("./server/routes/chat.group.model");
 Group.watch().on('change', async data => {
-console.log(data)
 socket.send('Message added ! ')
 });
   socket.on('message', (params, callback) => {

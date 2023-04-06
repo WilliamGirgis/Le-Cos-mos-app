@@ -419,8 +419,8 @@ export class ChatService {
     this.socket.emit('message', msg);
   }
   getMessage() {
-    return this.socket.fromEvent('message').pipe(map((data:any) => {data.msg
-    console.log("Message received : " + data)
+    return this.socket.fromEvent('message').pipe(map((data:any) => {
+
     }));
   }
 }

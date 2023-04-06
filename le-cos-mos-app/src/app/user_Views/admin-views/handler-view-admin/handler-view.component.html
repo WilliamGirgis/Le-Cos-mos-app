@@ -11,8 +11,8 @@
 
   <mat-card [@shade]="prepareRoute(outlet)" id="white-window">
     <div fxLayout="row" fxLayoutGap="3vw" fxLayoutAlign="end flex-end" id="top-but-set">
-
-      <app-bubule-chat id="chat" ></app-bubule-chat>
+{{'Messages non lu = ' + hotCount}}
+      <app-bubule-chat   (getHotCount)="getHotCount($event)"> id="chat" ></app-bubule-chat>
    <div id="logout"><img (click)="logout()" style="cursor:pointer" id="power" width="30px" height="30px" src="../../../../assets/images/power.svg"></div>
    <div id="power" [routerLinkActiveOptions]="{ exact: false}" routerLinkActive="preferences-link" routerLink="./preferences" style="cursor:pointer">
     <img  width="30px" height="30px" src="../../../../assets/images/gear-fill.svg">

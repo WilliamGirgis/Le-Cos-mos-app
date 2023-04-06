@@ -5,6 +5,7 @@ import { Router, RouterOutlet } from '@angular/router';
 import { AuthService } from 'src/app/services/AuthService.service';
 import { HttpService } from 'src/app/services/http.services';
 import { LogoutDialogComponentComponent } from './logout-dialog-component/logout-dialog-component.component';
+import { ChatService } from 'src/app/app.module';
 
 
 @Component({
@@ -25,9 +26,16 @@ import { LogoutDialogComponentComponent } from './logout-dialog-component/logout
 })
 
 export class HandlerViewComponent implements OnInit {
+  hotCount:number = 0
+  getHotCount(count:string) {
 
-  constructor(private authService:AuthService,private router: Router,private httpService:HttpService,private matDialog:MatDialog) {
+    let numberCount = Number(count)
+    this.hotCount = numberCount
+    console.log("count insed handler = " +  this.hotCount )
+  }
+  constructor(private chatService: ChatService,private router: Router,private matDialog:MatDialog) {
    }
+
   prepareRoute(outlet: RouterOutlet) {
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }

@@ -19,18 +19,11 @@ let authenticate = (req,res,next) => {  /* MIDDLEWARE for checking if the access
   })
 }
 
-Group.watch().on('change', data => {
-  console.log(data)
-
-});
-
 const sendMessage = router.post("/discussion/message/send",authenticate, async function (req, res, next) {
 
   let groupName = req.query.groupName
 
   var message = req.body.messageMetaData
-  // console.log(groupName)
-  // console.log(message)
 
   let parsedMessage = {message:message.message,emiter:message.emiter,date:message.date}
 
@@ -68,8 +61,6 @@ const getMessageList = router.get("/discussion/message/list",authenticate, async
 
   //let name = req.body.name
   var groupName = req.query.groupName
-  console.log("NAME = " + groupName)
-  // return
 
  await Group.find({name:groupName}).then((group) => {
 
@@ -104,8 +95,7 @@ const delDiscussion = router.post("/discussion/del",authenticate, async function
 
     let body = req.body;
     let name = body.name
-console.log(body)
-let discussionType = body.discussionType
+    let discussionType = body.discussionType
     let newDiscussion = new Group({name:name,discussionType:discussionType})
 
     const response = await newDiscussion.save();

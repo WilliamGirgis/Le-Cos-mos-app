@@ -80,15 +80,24 @@ export class MessagerieViewComponent implements OnInit {
   // Get related discussion
   readonly getGlobalDiscussionListRoute = 'http://localhost:4200/chat/discussion/global'
   readonly getPrivateDiscussionListRoute = 'http://localhost:4200/chat/discussion/private'
-  globalDiscussionListTest?: Discussion[] = [{name: 'Global', user_list: [{ email: 'Will@gmail.com', firstname: 'Willy', ID: 0, lastname: 'Girgis' }, { email: 'DanielAkgul@gmail.com', firstname: 'Daniel Global', ID: 1, lastname: 'Akgul' }] }, { name: 'Global 2', user_list: [] }]
-  privateDiscussionListTest?: Discussion[] = [{name: 'Private', user_list: [{ email: 'Will@gmail.com', firstname: 'Willy', ID: 0, lastname: 'Girgis' }, { email: 'DanielAkgul@gmail.com', firstname: 'Daniel Private', ID: 1, lastname: 'Akgul' }] }, { name: 'Private 2', user_list: [] }]
-  globalDiscussionList:Discussion[] = []
-  privateDiscussionList:Discussion[] = []
+  globalDiscussionList: Discussion[] = [{
+    name: 'Test 123', discussionType: 'global', user_list: [
+      {
+        email: 'Will@gmail.com', firstname: 'Willy', ID: 0, lastname: 'Girgis'
+      }
+    ]
+  }]
+  privateDiscussionList: Discussion[] = [{
+    name: 'Test 123', discussionType: 'global', user_list: [
+      {
+        email: 'Will@gmail.com', firstname: 'Willy', ID: 0, lastname: 'Girgis'
+      }
+    ]
+  }]
   // Get global discussion list
   getGlobalDiscussionList() {
     return this.http.get(this.getGlobalDiscussionListRoute, {responseType: 'text' }).pipe(map((data) => {
     this.globalDiscussionList = JSON.parse(data)
-    console.log(this.globalDiscussionList)
     })).subscribe(res => { })
 
 }
@@ -96,7 +105,6 @@ export class MessagerieViewComponent implements OnInit {
   getPrivateDiscussionList() {
     return this.http.get(this.getPrivateDiscussionListRoute, {responseType: 'text' }).pipe(map((data) => {
     this.privateDiscussionList = JSON.parse(data)
-    console.log(this.privateDiscussionList)
     })).subscribe(res => { })
 
 }

@@ -107,7 +107,8 @@
     <div id="discussion-dg" *ngIf="isWindowOpen">
       <div
       (click)="getMessageList(discussion.name)"
-      *ngFor="let discussion of (discussionTypeView == 'global' ? globalDiscussionList : privateDiscussionList)"
+      (click)="globalIndex = i"
+      *ngFor="let discussion of (discussionTypeView == 'global' ? globalDiscussionList : privateDiscussionList);index as i"
         [style]="{
           'background-color':
           discussion.name == selectedDiscussion ? 'var(--dblue-them-color)' : '',
@@ -130,7 +131,7 @@
     </div>
 
     <div *ngIf="isWindowOpen" id="messageWrapper">
-      <div id="messageList" *ngIf="isWindowOpen">
+      <div (scroll)="onScrollMessageList()" id="messageList" *ngIf="isWindowOpen">
         <div style="margin-top: 3vh;margin-bottom: 3vh;"
           [class]="message.emiter == 'Samuel' ? 'his' : 'yours'"
           *ngFor="let message of messageList"
