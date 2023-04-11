@@ -86,7 +86,7 @@ this.subscribeForm.get('confirmPsw')!.updateValueAndValidity()// Nécessaire pou
     })
   }
 
-  type = 'text'
+  type = 'password'
   showHidePassword() {
 
     if(this.type === 'password') {
@@ -102,7 +102,7 @@ this.subscribeForm.get('confirmPsw')!.updateValueAndValidity()// Nécessaire pou
     let lastname = this.subscribeForm.get('lastname')!.value
     let password = this.subscribeForm.get('password')!.value
     let userType = 'Etudiant' // valeur par défault
-    let user = {userType:userType,email: email,firstname:firstname,lastname:lastname,password:password,planningNameGroupBelonging:[],groupsNameDiscussionBelonging:[]};
+    let user = {userType:userType,email: email.toLowerCase(),firstname:firstname,lastname:lastname,password:password,planningNameGroupBelonging:[],groupsNameDiscussionBelonging:[]};
     return this.http
       .post(this.registerUserURL, user)
       .pipe(

@@ -49,7 +49,7 @@ logout() {
     ngOnInit(): void {
     // this.router.navigate(['admin/supports/UE/Block santé']); // Navigue vers la vue 'accueil' par default
     // this.router.navigate(['admin/supports/sante/UE1 Chimie/cm/list']); // Navigue vers la vue 'accueil' par default
-    this.router.navigate(['/admin/messagerie']); // Navigue vers la vue 'accueil' par default
+    this.router.navigate(['/admin/supports/blocks']); // Navigue vers la vue 'accueil' par default
 //Composition de la matière_I
   }
 

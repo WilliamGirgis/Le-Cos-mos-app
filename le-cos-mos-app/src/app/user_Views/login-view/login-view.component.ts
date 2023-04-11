@@ -78,22 +78,22 @@ export class LoginViewComponent implements OnInit {
     let email = this.loginForm.get('email')!.value
     let password = this.loginForm.get('password')!.value
     this.authService
-      .login(email, password)
+      .login(email.toLowerCase(), password)
       .pipe(
-        map(async (data) => {
+        map(async (data:any) => {
           await this.httpService.getUserType()
           this.router.navigate(['admin']); // Navigue vers la vue 'accueil' par default
           })
       )
       .subscribe((res:any) => {
-        this.msg = res.body
+
 
       });
   }
 
 
 
-  type = 'text'
+  type = 'password'
   showHidePassword() {
 
     if(this.type === 'password') {

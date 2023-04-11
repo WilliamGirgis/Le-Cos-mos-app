@@ -66,9 +66,9 @@ export class MessagerieViewComponent implements OnInit {
 
   readonly createPrivateGroupeDiscussionRoute = "http://localhost:4200/chat/discussion/create"
   createDiscussionGroup(groupName:string) {
+    const querParam = new HttpParams().set('_id', localStorage.getItem('user-id')!);
 
-
-    return this.http.post(this.createPrivateGroupeDiscussionRoute, { name: groupName,discussionType:this.discussionTypeView, responseType: 'text' }).pipe(map(async (data) => {
+    return this.http.post(this.createPrivateGroupeDiscussionRoute, { name: groupName,discussionType:this.discussionTypeView, responseType: 'text' },{params:querParam}).pipe(map(async (data) => {
 
       this.getGlobalDiscussionList()
       this.getPrivateDiscussionList()
@@ -97,6 +97,9 @@ export class MessagerieViewComponent implements OnInit {
   // Get global discussion list
   getGlobalDiscussionList() {
     return this.http.get(this.getGlobalDiscussionListRoute, {responseType: 'text' }).pipe(map((data) => {
+      if(JSON.parse(data).length == 0 ) {
+        return
+      }
     this.globalDiscussionList = JSON.parse(data)
     })).subscribe(res => { })
 
@@ -104,6 +107,9 @@ export class MessagerieViewComponent implements OnInit {
 
   getPrivateDiscussionList() {
     return this.http.get(this.getPrivateDiscussionListRoute, {responseType: 'text' }).pipe(map((data) => {
+      if(JSON.parse(data).length == 0 ) {
+        return
+      }
     this.privateDiscussionList = JSON.parse(data)
     })).subscribe(res => { })
 

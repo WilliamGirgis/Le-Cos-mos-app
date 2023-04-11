@@ -8,6 +8,9 @@ import { Router } from '@angular/router';
 })
 export class TransversalBlockListComponent implements OnInit {
 
+  addItem(itemName:string) {
+    this.block_list.push({name:itemName})
+    }
   constructor(private router: Router) { }
   block_list:any = [{name:'MTU'},{name:'SHS'},{name:'PPP'}]
   globalBlock = this.router.url.split(/\//g)[this.router.url.split(/\//g).length - 1]

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,10 +7,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./router-top2.component.scss']
 })
 export class RouterTop2Component implements OnInit {
-
+  @Output() newItemEvent = new EventEmitter<any>();
   constructor( private router: Router) { }
-
-  hs_block_list:any = [{name:'SVT'},{name:'CHIMIE'},{name:'ECO'},{name:'PSYCHO'},{name:'PHYSIQUE'},{name:'MATHS'},{name:'DROIT'},{name:'STAPS'},{name:'SOCIALE'},{name:'TECHNO'}]
+  addItem(itemName:string) {
+    // this.hs_block_list.push({name:itemName})
+    this.newItemEvent.emit(itemName);
+    }
   globalBlock = this.router.url.split(/\//g)[this.router.url.split(/\//g).length - 1]
 
   ngOnInit(): void {

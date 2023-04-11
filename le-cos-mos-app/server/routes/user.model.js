@@ -92,7 +92,7 @@ userSchema.methods.toJSON = function() {
 userSchema.methods.generateAccessToken = function() {
     const user = this;
     return new Promise((resolve,reject) => {
-        jwt.sign({_id:user._id.toHexString()},jwtScret,{expiresIn:"300m"},(error,token) => { // 5 heures avec de devoir se reconnecter
+        jwt.sign({_id:user._id.toHexString()},jwtScret,{expiresIn:"120m"},(error,token) => { // 5 heures avec de devoir se reconnecter
             if(!error) {
                 resolve(token);
             } else {

@@ -1,5 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-support-blocks',
@@ -10,8 +9,11 @@ export class SupportBlocksComponent implements OnInit {
 
   constructor( ) {
   }
-
-  matiere:any = [{name:'Bloc sante'},{name:'Block disciplines transversal'},{name:'Bloc disciplines hors sante'}]
+  addItem(itemName:string) {
+    // this.hs_block_list.push({name:itemName})
+    this.matieres.push({name:itemName,link:itemName});
+    }
+  matieres:any = [{name:'Bloc sante',link:'sante'},{name:'Block disciplines transversal',link:'transversal'},{name:'Bloc disciplines hors sante',link:'hors_sante'}]
 
 
 

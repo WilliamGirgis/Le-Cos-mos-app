@@ -27,7 +27,7 @@ import { LogSaveService } from './log.save.service';
     isConnected:Boolean = !!localStorage.getItem('user-id')
 
     login(email: string, password: string) {
-      return this.WebService.loginClient(email, password).pipe( // Créer la fonction loginClient
+      return this.WebService.loginClient(email.toLowerCase(), password).pipe( // Créer la fonction loginClient
         shareReplay(), // avoid users starting multiple execution of this method
         tap((res: HttpResponse<any>) => {
           this.setSession(

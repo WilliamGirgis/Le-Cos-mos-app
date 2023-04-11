@@ -117,9 +117,9 @@
         }"
 
       >
-        {{ discussion.name }}
+        {{ discussion ? discussion.name : 'null' }}
         <label style="font-size: 75%; text-align: right; width: 25%"
-          >{{ discussion.user_list.length }} user(s)</label
+          >{{ discussion ? discussion.user_list.length : 'null' }} user(s)</label
         >
       </div>
     </div>
@@ -133,7 +133,7 @@
     <div *ngIf="isWindowOpen" id="messageWrapper">
       <div (scroll)="onScrollMessageList()" id="messageList" *ngIf="isWindowOpen">
         <div style="margin-top: 3vh;margin-bottom: 3vh;"
-          [class]="message.emiter == 'Samuel' ? 'his' : 'yours'"
+          [class]="message.emiter == user_name + ' ' + user_last_name ? 'yours' : 'his'"
           *ngFor="let message of messageList"
         >
 

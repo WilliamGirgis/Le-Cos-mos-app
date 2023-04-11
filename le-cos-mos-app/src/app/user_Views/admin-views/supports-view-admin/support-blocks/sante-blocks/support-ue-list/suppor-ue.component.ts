@@ -8,8 +8,11 @@ import { Router } from '@angular/router';
 })
 export class SupporUEComponent implements OnInit {
 
+  addItem(itemName:string) {
+  this.ue.push({name:itemName})
+  }
   constructor(private router: Router) { }
-  ue:any = [{name:'UE1 Chimie'},{name:'UE2 Biochimie'},{name:'UE3 Mathématique'},{name:'UE4 Corps humains'},{name:'UE5 Biologie'},{name:'UE6 Physique et biophysique'}]
+  ue = [{name:'UE1 Chimie'},{name:'UE2 Biochimie'},{name:'UE3 Mathématique'},{name:'UE4 Corps humains'},{name:'UE5 Biologie'},{name:'UE6 Physique et biophysique'}]
 
   globalBlock = this.router.url.split(/\//g)[this.router.url.split(/\//g).length - 1]
 

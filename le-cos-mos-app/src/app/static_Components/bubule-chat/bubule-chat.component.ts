@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+ import { HttpClient, HttpParams } from '@angular/common/http';
 import { AfterContentChecked, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Discussion } from './discussion';
@@ -54,9 +54,6 @@ this.getHotCounts()
 
   selectedDiscussion: string = ' '
 
-  messageListTest = [{ id: 1, content: 'Oue oue oue', user: 'Samuel', time: 'le 31/03/2023 à 16:21' }, { id: 3, content: "Wesh le SS", user: 'William', time: 'le 31/03/2023 à 16:21' }, { id: 4, content: "Et bah alors ça donne plus de nouvelles ?", user: 'William', time: 'le 31/03/2023 à 16:21' }, { id: 5, content: "Comme tu fais genre ahha", user: 'Samuel', time: 'le 31/03/2023 à 16:21' }, { id: 6, content: "ça fait quand même 3 mois ta pas donné de nouvelles", user: 'William', time: 'le 31/03/2023 à 16:21' }, { id: 7, content: "Ouè c'est vrai j'ai un peu abusé le S ahha", user: 'Samuel', time: 'le 31/03/2023 à 16:21' }, { id: 8, content: "tqt c'est rien mon reuf", user: 'William', time: 'le 31/03/2023 à 16:21' }]
-
-
   readonly sentMessageRoute = 'http://localhost:4200/chat/discussion/message/send'
   sendMessage(message: string) {
     setTimeout(() => { // This setTimeout is called because the content value of this.messageList is not updated in the DOM
@@ -66,7 +63,7 @@ this.getHotCounts()
 
     }, 10)
     let time = new Date()
-    let messageMetaData: Message = { message: message, emiter: this.user_name!, date: time.getTime() }
+    let messageMetaData: Message = { message: message, emiter: this.user_name! + ' ' + this.user_last_name!, date: time.getTime() }
     const querParam = new HttpParams().set('groupName', this.selectedDiscussion);
     // this.messageDisplayed.push(msg)
     return this.http.post(this.sentMessageRoute, { messageMetaData, responseType: 'text' }, { params: querParam }).pipe(map(async (data: any) => {
@@ -84,16 +81,17 @@ this.getHotCounts()
   user_id?: string = localStorage.getItem('user-id')!
   user?: any
   user_name?: string
+  user_last_name?:string
   getUsername() {
     const querParam = new HttpParams().set('id', this.user_id!);
     return this.http.get(this.getUserNameUrl, { params: querParam, responseType: 'text' }).pipe(map((data: any) => {
 let parsedArray = JSON.parse(data)
+console.log(parsedArray)
       this.user_name = parsedArray.firstname
+      this.user_last_name = parsedArray.lastname
     })).subscribe(res => { })
 
   }
-  globalDiscussionListTest?: Discussion[] = [{ name: 'Global', user_list: [{ email: 'Will@gmail.com', firstname: 'Willy', ID: 0, lastname: 'Girgis' }, { email: 'DanielAkgul@gmail.com', firstname: 'Daniel Global', ID: 1, lastname: 'Akgul' }] }, { name: 'Global 2', user_list: [] }]
-  privateDiscussionListTest?: Discussion[] = [{ name: 'Private', user_list: [{ email: 'Will@gmail.com', firstname: 'Willy', ID: 0, lastname: 'Girgis' }, { email: 'DanielAkgul@gmail.com', firstname: 'Daniel Private', ID: 1, lastname: 'Akgul' }] }, { name: 'Private 2', user_list: [] }]
 
   // Get global discussion list
   readonly getGlobalDiscussionListRoute = 'http://localhost:4200/chat/discussion/global'
@@ -104,14 +102,19 @@ let parsedArray = JSON.parse(data)
       }
     ]
   }]
-  getGlobalDiscussionList() {
-    return this.http.get(this.getGlobalDiscussionListRoute, { responseType: 'text' }).pipe(map((data) => {
+  async getGlobalDiscussionList() {
+    return await Promise.resolve(this.http.get(this.getGlobalDiscussionListRoute, { responseType: 'text' }).pipe(map((data) => {
+      if(JSON.parse(data).length == 0 ) {
+        return
+      }
       this.globalDiscussionList = JSON.parse(data)
+
     })).subscribe(res => { })
 
-  }
+  )}
   // Get private discussion list
   readonly getPrivateDiscussionListRoute = 'http://localhost:4200/chat/discussion/private'
+
   privateDiscussionList: Discussion[] = [{
     name: 'Test 123', discussionType: 'global', user_list: [
       {
@@ -121,6 +124,9 @@ let parsedArray = JSON.parse(data)
   }]
   getPrivateDiscussionList() {
     return this.http.get(this.getPrivateDiscussionListRoute, { responseType: 'text' }).pipe(map((data) => {
+      if(JSON.parse(data).length == 0 ) {
+        return
+      }
       this.privateDiscussionList = JSON.parse(data)
     })).subscribe(res => { })
 
@@ -135,12 +141,20 @@ let parsedArray = JSON.parse(data)
     this.selectedDiscussion = item;
     const querParam = new HttpParams().set('groupName', this.selectedDiscussion!);
     this.http.get(this.getMessageListRoute, { params: querParam, responseType: 'text' }).pipe(map(async (data: any) => {
+      if(JSON.parse(data).length == 0 ) {
+        return
+      }
       await Promise.resolve(
         this.messageList = JSON.parse(data)
-
       )
       for(let i = 0; i < this.messageList.length; i++) {
-        this.messageList[i].date = new Date(Number(this.messageList[i].date)).toLocaleString()
+
+    let date = new Date(Number(this.messageList[i].date))
+    let computed_Hour = date.getHours() < 10 ? '0' + +date.getHours() : +date.getHours()
+    let computed_Minutes = date.getMinutes() < 10 ? '0' + +date.getMinutes() : +date.getMinutes()
+    let final_hour = +computed_Hour + ':' +computed_Minutes
+    console.log(final_hour)
+        this.messageList[i].date = 'Le ' + date.toLocaleDateString() + ' à ' + final_hour
       }
       setTimeout(() => { // This setTimeout is called because the content value of this.messageList is not updated in the DOM
         if (!(document.getElementById('messageList')!.scrollTop <= (document.getElementById('messageList')!.scrollHeight - 500))) {
@@ -160,11 +174,12 @@ let parsedArray = JSON.parse(data)
   }
 
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
 
     this.getUsername()
-    this.getGlobalDiscussionList()
+    await this.getGlobalDiscussionList()
     this.getPrivateDiscussionList()
+    this.getMessageList(this.globalDiscussionList[0].name)
   }
 
 }

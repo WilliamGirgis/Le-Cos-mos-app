@@ -37,6 +37,8 @@ const sendMessage = router.post("/discussion/message/send",authenticate, async f
   group[0].save()
 
  return res.send(group[0].message_list).status(200)
+ }).catch((e) => {
+  res.status(404).send("User not Found")
  })
 
 })
@@ -45,14 +47,20 @@ const sendMessage = router.post("/discussion/message/send",authenticate, async f
 /* //////////////////////////// Getrelated method //////////////////////////// */
 const getPrivateDiscussionGroup = router.get("/discussion/private",authenticate, async function (req, res, next) {
   await  Group.find({discussionType: 'private'}).then((group) => {
-    return res.send(group).status(200)
+    if(group.length == 0) {
+      return res.status(400).send()
+    }
+    return res.status(200).send(group)
     })
 })
 
 
 const getGlobalDiscussionGroup = router.get("/discussion/global",authenticate, async function (req, res, next) {
  await  Group.find({discussionType: 'global'}).then((group) => {
- return res.send(group).status(200)
+  if(group.length == 0) {
+    return res.status(400).send()
+  }
+  return res.status(200).send(group)
  })
 
 })
@@ -61,16 +69,21 @@ const getMessageList = router.get("/discussion/message/list",authenticate, async
 
   //let name = req.body.name
   var groupName = req.query.groupName
-
+if(!groupName) {
+  return res.status(404).send()
+}
  await Group.find({name:groupName}).then((group) => {
 
- return res.send(group[0].message_list).status(200)
+  if(group.length == 0) {
+    return res.status(400).send()
+  }
+ return res.status(200).send(group[0].message_list)
  })
 
 })
 
 
-let modifyDiscussionName = router.post("/discussion/modify",authenticate, async function (req, res, next) {
+const modifyDiscussionName = router.post("/discussion/modify",authenticate, async function (req, res, next) {
 let newName = req.body.newName
 let oldName = req.body.oldName
 if(oldName === newName) {
@@ -94,14 +107,23 @@ const delDiscussion = router.post("/discussion/del",authenticate, async function
   const createDiscussion = router.post("/discussion/create",authenticate, async function (req, res, next) {
 
     let body = req.body;
+    let user_id = req.query._id
+    console.log(user_id )
+
     let name = body.name
+    if((name == ' ') || (name == '') || (body.length == 0)) {
+      return res.status(400).send()
+    }
     let discussionType = body.discussionType
     let newDiscussion = new Group({name:name,discussionType:discussionType})
 
     const response = await newDiscussion.save();
-    return res.status(200).send()
-
-
+    if(discussionType == 'private') {
+      User.findOneAndUpdate({_id:user_id},{ $push: {groupsNameDiscussionBelonging:name}}).then((user) => {
+console.log(user)
+return res.status(200).send()
+      })
+    }
     });
 
 
