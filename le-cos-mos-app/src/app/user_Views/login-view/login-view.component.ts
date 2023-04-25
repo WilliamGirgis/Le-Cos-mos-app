@@ -82,6 +82,7 @@ export class LoginViewComponent implements OnInit {
       .pipe(
         map(async (data:any) => {
           await this.httpService.getUserType()
+          await this.httpService.getUsername()
           this.router.navigate(['admin']); // Navigue vers la vue 'accueil' par default
           })
       )

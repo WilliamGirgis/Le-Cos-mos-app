@@ -19,7 +19,8 @@ import { LogSaveService } from './log.save.service';
       private http: HttpClient,
       private WebService: HttpService,
       private router: Router,
-      private logService:LogSaveService
+      private logService:LogSaveService,
+
 
     ) {}
 
@@ -40,11 +41,13 @@ import { LogSaveService } from './log.save.service';
       )
     }
 
-    private setSession(id: string, accessToken: string, refreshToken: string) {
+    private async setSession(id: string, accessToken: string, refreshToken: string) {
       localStorage.setItem('user-id', id);
       localStorage.setItem('access-Token', accessToken);
       localStorage.setItem('refresh-Token', refreshToken);
       this.isConnected = !!localStorage.getItem('user-id')
+      await this.WebService.getUsername()
+
     }
 
     private removeSession() {
@@ -52,6 +55,8 @@ import { LogSaveService } from './log.save.service';
       localStorage.removeItem('access-Token');
       localStorage.removeItem('refresh-Token');
       localStorage.removeItem('user-type')
+      localStorage.removeItem('fname');
+      localStorage.removeItem('lname')
       this.isConnected = !!localStorage.getItem('user-id')
     }
 

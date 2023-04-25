@@ -24,7 +24,7 @@ const sendMessage = router.post("/discussion/message/send",authenticate, async f
   let groupName = req.query.groupName
 
   var message = req.body.messageMetaData
-
+console.log("Emiter = " + message.emiter)
   let parsedMessage = {message:message.message,emiter:message.emiter,date:message.date}
 
 

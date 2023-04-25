@@ -478,7 +478,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {transpo
 
 
   ],
-  providers: [ChatService,HttpService, { provide: HTTP_INTERCEPTORS, useClass: WebReqInterceptorService, multi: true }, { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: appearance }, AuthGuard, HttpService, SaveRouteService], //Mettre par default tous les input en "outline"
+  providers: [ChatService, { provide: HTTP_INTERCEPTORS, useClass: WebReqInterceptorService, multi: true }, { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: appearance }, AuthGuard, HttpService, SaveRouteService], //Mettre par default tous les input en "outline"
   bootstrap: [AppComponent],
   imports: [
     BrowserModule,
