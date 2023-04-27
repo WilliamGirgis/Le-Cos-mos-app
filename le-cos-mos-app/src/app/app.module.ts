@@ -395,7 +395,17 @@ const routes: Routes = [
       {
         path: 'statistiques',
         component: StatistiquesViewComponent,
-        data: { animation: 'Statistiques' },
+        data: {animation: 'Statistiques'},
+        children: [
+          {
+            path: 'list',
+            component: UserListComponent,
+          },
+          {
+            path: ':id',
+            component: StatsDetailsComponent,
+          }
+        ]   
       },
       {
         path: 'gestion',
@@ -409,6 +419,8 @@ const routes: Routes = [
 
 import {SocketIoConfig } from 'ngx-socket-io';
 import { map } from 'rxjs';
+import { UserListComponent } from './user_Views/admin-views/statistiques-view-admin/user-list/user-list.component';
+import { StatsDetailsComponent } from './user_Views/admin-views/statistiques-view-admin/stats-details/stats-details.component';
 @Injectable({
   providedIn: 'root'
 })
@@ -476,9 +488,8 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {transpo
     PreferencesViewComponent,
     BubuleChatComponent
 
-
   ],
-  providers: [ChatService, { provide: HTTP_INTERCEPTORS, useClass: WebReqInterceptorService, multi: true }, { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: appearance }, AuthGuard, HttpService, SaveRouteService], //Mettre par default tous les input en "outline"
+  providers: [ChatService,HttpService, { provide: HTTP_INTERCEPTORS, useClass: WebReqInterceptorService, multi: true }, { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: appearance }, AuthGuard, HttpService, SaveRouteService], //Mettre par default tous les input en "outline"
   bootstrap: [AppComponent],
   imports: [
     BrowserModule,

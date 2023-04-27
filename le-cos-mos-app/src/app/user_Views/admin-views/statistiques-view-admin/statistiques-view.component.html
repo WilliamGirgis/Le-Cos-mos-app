@@ -1,1 +1,11 @@
-<p>statistiques-view works!</p>
+<div class="statistiques">Statistiques</div>
+<div class="main">
+    <div class="eleves"> 
+        <button class="style" *ngFor="let groupe of eleves">{{groupe.eleve}}</button>
+    </div>
+    <div class="notes">
+        <button class="style" >Notes Présentiels</button>
+        <button class="style" >QCM Entrainements</button>
+        <button class="style" >QCM Examens</button>
+    </div>
+</div>
