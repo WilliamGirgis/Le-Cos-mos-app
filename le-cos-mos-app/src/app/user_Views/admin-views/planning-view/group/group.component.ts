@@ -27,7 +27,7 @@ export class GroupComponent implements OnInit {
   groups:any[] = []
   groupsTest?:any[] = [{ID:0,groupName:'Tronc Commun',firstname:'HEY',lastname:'HEYLN',user_list:[{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''},{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''},{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''},{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''},{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''}]},{ID:1,groupName:'Group de physique chimie',firstname:'HEY2',lastname:'HEY2LN',user_list:[]}]
 
-  selectedLeftItem?:string | String = 'NoGroup'
+  selectedLeftItem?:string | String = 'NoGroupDevEnv' //'NoGroup' -> Production valeur
 
   constructor(private http:HttpClient,public dialog:MatDialog) {
     this.dialog.afterAllClosed.pipe(map((data) => {this.getGroups(' ')})).subscribe(res => {})
