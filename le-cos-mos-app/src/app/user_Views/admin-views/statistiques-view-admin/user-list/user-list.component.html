@@ -1,1 +1,9 @@
-<p>user-list works!</p>
+<div class="statistiques">Statistiques</div>
+<div class="main">
+    <div class="eleves"> 
+        <button [style]="{'background-color': globalIndex == i ? 'var(--blue-them-color)' : 'var(--light-blue-them-color)'}" class="style" (click)="globalIndex=i"  *ngFor="let eleve of eleves; index as i">{{eleve.eleveName}}</button>
+    </div>
+    <div class="notes">
+        <button  *ngFor="let matiere of eleves[globalIndex].matieres">{{matiere.matiereName}}</button>
+    </div>
+</div>

@@ -486,7 +486,10 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {transpo
     ModifyItemDialogComponent,
     LogoutDialogComponentComponent,
     PreferencesViewComponent,
-    BubuleChatComponent
+    BubuleChatComponent,
+    UserListComponent,
+    StatsDetailsComponent
+
 
   ],
   providers: [ChatService,HttpService, { provide: HTTP_INTERCEPTORS, useClass: WebReqInterceptorService, multi: true }, { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: appearance }, AuthGuard, HttpService, SaveRouteService], //Mettre par default tous les input en "outline"
