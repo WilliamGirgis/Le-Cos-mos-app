@@ -20,180 +20,402 @@ export class UserListComponent implements OnInit {
 
   globalIndex: number = 0;
 
+
+
   eleves = [
+
+  /**************** QAMBAR *****************/
+
     {
       eleveName: "Qambar",
-      matieres: [
+      types : [
         { 
-          matiereName: "Maths", 
-            notes: [
-              {note : 12},
-              {note : 18},
-              {note : 7},
-              {note : 5},
-              {note : 10}
-            ]    
+          typeName: "Notes", 
+          matieres: [
+            { 
+              matiereName: "Maths", 
+                notes: [
+                  {note : 12},
+                  {note : 18},
+                  {note : 10}
+                ]    
+            },
+            { 
+              matiereName: "Svt",
+                notes: [
+                  {note : 7},
+                  {note : 5},
+                  {note : 10}
+                ]  
+            },
+            { 
+              matiereName: "Physique",
+                notes: [
+                  {note : 12},
+                  {note : 18},
+                  {note : 7}
+                ]  
+            },
+            { 
+              matiereName: "Corps humains",
+                notes: [
+                  {note : 12},
+                  {note : 18},
+                  {note : 7},
+                  {note : 5}
+                ]  
+            },
+          ]
         },
-        { 
-          matiereName: "Svt",
-            notes: [
-              {note : 12},
-              {note : 18},
-              {note : 7},
-              {note : 5},
-              {note : 10}
-            ]  
-        },
-        { 
-          matiereName: "Physique",
-            notes: [
-              {note : 12},
-              {note : 18},
-              {note : 7},
-              {note : 5},
-              {note : 10}
-            ]  
-        },
-        { 
-          matiereName: "Corps humains",
-            notes: [
-              {note : 12},
-              {note : 18},
-              {note : 7},
-              {note : 5},
-              {note : 10}
-            ]  
-        },
+        {
+          typeName: "QCM entrainements", 
+        }
       ]
     },
+
+  /**************** Yassine *****************/
+
     {
       eleveName: "Yassine",
-      matieres: [
+      types : [
         { 
-          matiereName: "Maths", 
-            notes: [
-              {note : 12},
-              {note : 18},
-              {note : 7},
-              {note : 5},
-              {note : 10}
-            ]    
-        },
-        { 
-          matiereName: "Svt",
-            notes: [
-              {note : 12},
-              {note : 18},
-              {note : 7},
-              {note : 5},
-              {note : 10}
-            ]  
-        },
-        { 
-          matiereName: "Physique",
-            notes: [
-              {note : 12},
-              {note : 18},
-              {note : 7},
-              {note : 5},
-              {note : 10}
-            ]  
-        },
-        { 
-          matiereName: "Corps humains",
-            notes: [
-              {note : 12},
-              {note : 18},
-              {note : 7},
-              {note : 5},
-              {note : 10}
-            ]  
-        },
+          typeName: "Notes", 
+          matieres: [
+            { 
+              matiereName: "Maths", 
+                notes: [
+                  {note : 12},
+                  {note : 18},
+                  {note : 10}
+                ]    
+            },
+            { 
+              matiereName: "Svt",
+                notes: [
+                  {note : 7},
+                  {note : 5},
+                  {note : 10}
+                ]  
+            },
+            { 
+              matiereName: "Physique",
+                notes: [
+                  {note : 12},
+                  {note : 18},
+                  {note : 7}
+                ]  
+            },
+            { 
+              matiereName: "Corps humains",
+                notes: [
+                  {note : 12},
+                  {note : 18},
+                  {note : 7},
+                  {note : 5}
+                ]  
+            },
+          ]
+        }
       ]
     },
+
+      /**************** Nais *****************/
 
     {
       eleveName: "Nais",
-      matieres: [
+      types : [
         { 
-          matiereName: "Svt",
-            notes: [
-              {note : 12},
-              {note : 18},
-              {note : 7},
-              {note : 5},
-              {note : 10}
-            ]  
+          typeName: "Notes", 
+          matieres: [
+            { 
+              matiereName: "Maths", 
+                notes: [
+                  {note : 12},
+                  {note : 18},
+                  {note : 10}
+                ]    
+            },
+            { 
+              matiereName: "Svt",
+                notes: [
+                  {note : 7},
+                  {note : 5},
+                  {note : 10}
+                ]  
+            },
+            { 
+              matiereName: "Physique",
+                notes: [
+                  {note : 12},
+                  {note : 18},
+                  {note : 7}
+                ]  
+            },
+            { 
+              matiereName: "Corps humains",
+                notes: [
+                  {note : 12},
+                  {note : 18},
+                  {note : 7},
+                  {note : 5}
+                ]  
+            },
+          ]
         },
-        { 
-          matiereName: "Physique",
-            notes: [
-              {note : 12},
-              {note : 18},
-              {note : 7},
-              {note : 5},
-              {note : 10}
-            ]  
+        {
+          typeName: "QCM entrainements", 
         },
-        { 
-          matiereName: "Corps humains",
-            notes: [
-              {note : 12},
-              {note : 18},
-              {note : 7},
-              {note : 5},
-              {note : 10}
-            ]  
-        },
+        {
+          typeName: "QCM examens", 
+        }
       ]
     },
+
+      /**************** Wiliam *****************/
+
+    {
+      eleveName: "Wiliam",
+      types : [
+        { 
+          typeName: "Notes", 
+          matieres: [
+            { 
+              matiereName: "Maths", 
+                notes: [
+                  {note : 12},
+                  {note : 18},
+                  {note : 10}
+                ]    
+            },
+            { 
+              matiereName: "Svt",
+                notes: [
+                  {note : 7},
+                  {note : 5},
+                  {note : 10}
+                ]  
+            },
+            { 
+              matiereName: "Physique",
+                notes: [
+                  {note : 12},
+                  {note : 18},
+                  {note : 7}
+                ]  
+            },
+            { 
+              matiereName: "Corps humains",
+                notes: [
+                  {note : 12},
+                  {note : 18},
+                  {note : 7},
+                  {note : 5}
+                ]  
+            },
+          ]
+        }
+      ]
+    },
+
+      /**************** Maria *****************/
+
+    {
+      eleveName: "Maria",
+      types : [
+        { 
+          typeName: "Notes", 
+          matieres: [
+            { 
+              matiereName: "Maths", 
+                notes: [
+                  {note : 12},
+                  {note : 18},
+                  {note : 10}
+                ]    
+            },
+            { 
+              matiereName: "Svt",
+                notes: [
+                  {note : 7},
+                  {note : 5},
+                  {note : 10}
+                ]  
+            },
+            { 
+              matiereName: "Physique",
+                notes: [
+                  {note : 12},
+                  {note : 18},
+                  {note : 7}
+                ]  
+            },
+            { 
+              matiereName: "Corps humains",
+                notes: [
+                  {note : 12},
+                  {note : 18},
+                  {note : 7},
+                  {note : 5}
+                ]  
+            },
+          ]
+        }
+      ]
+    },
+
+      /**************** Ugur *****************/
+
+    {
+      eleveName: "Ugur",
+      types : [
+        { 
+          typeName: "Notes", 
+          matieres: [
+            { 
+              matiereName: "Maths", 
+                notes: [
+                  {note : 12},
+                  {note : 18},
+                  {note : 10}
+                ]    
+            },
+            { 
+              matiereName: "Svt",
+                notes: [
+                  {note : 7},
+                  {note : 5},
+                  {note : 10}
+                ]  
+            },
+            { 
+              matiereName: "Physique",
+                notes: [
+                  {note : 12},
+                  {note : 18},
+                  {note : 7}
+                ]  
+            },
+            { 
+              matiereName: "Corps humains",
+                notes: [
+                  {note : 12},
+                  {note : 18},
+                  {note : 7},
+                  {note : 5}
+                ]  
+            },
+          ]
+        },
+        {
+          typeName: "QCM entrainements", 
+        }
+      ]
+    },
+
+        /**************** Eva *****************/
+
+    {
+      eleveName: "Eva",
+      types : [
+        { 
+          typeName: "Notes", 
+          matieres: [
+            { 
+              matiereName: "Maths", 
+                notes: [
+                  {note : 12},
+                  {note : 18},
+                  {note : 10}
+                ]    
+            },
+            { 
+              matiereName: "Svt",
+                notes: [
+                  {note : 7},
+                  {note : 5},
+                  {note : 10}
+                ]  
+            },
+            { 
+              matiereName: "Physique",
+                notes: [
+                  {note : 12},
+                  {note : 18},
+                  {note : 7}
+                ]  
+            },
+            { 
+              matiereName: "Corps humains",
+                notes: [
+                  {note : 12},
+                  {note : 18},
+                  {note : 7},
+                  {note : 5}
+                ]  
+            },
+          ]
+        },
+        {
+          typeName: "QCM entrainements", 
+        },
+        {
+          typeName: "QCM examens", 
+        }
+      ]
+    },
+
+      /**************** Maehra *****************/
+
     {
       eleveName: "Maehra",
-      matieres: [
+      types : [
         { 
-          matiereName: "Maths", 
-            notes: [
-              {note : 12},
-              {note : 18},
-              {note : 7},
-              {note : 5},
-              {note : 10}
-            ]    
+          typeName: "Notes", 
+          matieres: [
+            { 
+              matiereName: "Maths", 
+                notes: [
+                  {note : 12},
+                  {note : 18},
+                  {note : 10}
+                ]    
+            },
+            { 
+              matiereName: "Svt",
+                notes: [
+                  {note : 7},
+                  {note : 5},
+                  {note : 10}
+                ]  
+            },
+            { 
+              matiereName: "Physique",
+                notes: [
+                  {note : 12},
+                  {note : 18},
+                  {note : 7}
+                ]  
+            },
+            { 
+              matiereName: "Corps humains",
+                notes: [
+                  {note : 12},
+                  {note : 18},
+                  {note : 7},
+                  {note : 5}
+                ]  
+            },
+          ]
         },
-        { 
-          matiereName: "Svt",
-            notes: [
-              {note : 12},
-              {note : 18},
-              {note : 7},
-              {note : 5},
-              {note : 10}
-            ]  
+        {
+          typeName: "QCM entrainements", 
         },
-        { 
-          matiereName: "Physique",
-            notes: [
-              {note : 12},
-              {note : 18},
-              {note : 7},
-              {note : 5},
-              {note : 10}
-            ]  
-        },
-        { 
-          matiereName: "Corps humains",
-            notes: [
-              {note : 12},
-              {note : 18},
-              {note : 7},
-              {note : 5},
-              {note : 10}
-            ]  
+        {
+          typeName: "QCM examens", 
         }
       ]
     }
- ]
-
-
+  ]
+          
 
 }

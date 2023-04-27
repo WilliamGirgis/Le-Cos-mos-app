@@ -402,8 +402,38 @@ const routes: Routes = [
             component: UserListComponent,
           },
           {
-            path: ':id',
+            path: ':id/matiere',
             component: StatsDetailsComponent,
+           /* children: [
+              {
+                path: 'list-notes',
+                component: NotesListComponent,
+              },
+              {
+                path: ':id',
+                component: NotesDetailsComponent,
+              }
+            ]
+          },
+          {
+            path: ':id/qcm',
+            component: DetailsQCMComponent,
+            children: [
+              {
+                path: ':id',
+                component: QCMComponent,
+              }
+            ]
+          },
+          {
+            path: ':id/exam',
+            component: DetailsExamComponent,
+            children: [
+              {
+                path: ':id',
+                component: ExamenComponent,
+              }
+            ]*/
           }
         ]   
       },

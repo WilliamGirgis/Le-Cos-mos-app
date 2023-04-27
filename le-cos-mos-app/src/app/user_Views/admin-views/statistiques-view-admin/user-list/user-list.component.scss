@@ -22,15 +22,9 @@ grid-gap: 10px;
 
 button.style {
     background-color : $button-color;
-    color : $text-color;
+    color : white;
     padding : 10px;
     margin : 10px;
     border : none; 
     border-radius: 20px;
-    background-color: $button-over-color;
-}
-
-button.style:hover {
-        background-color : $button-over-color;
-        color : $text-over-color; 
 }
