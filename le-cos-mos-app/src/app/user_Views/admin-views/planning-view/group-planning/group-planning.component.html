@@ -8,7 +8,7 @@
   <img src="../../../../../assets/images/arrow-bar-down.svg">
 </div>
   <mat-menu  #displayGroups="matMenu" id="groupListWrp">
-    <button [style]="{'background-color': seanceItemGroupIndex == i ? 'var(--dblue-them-color)' : 'var(--white-them-color)','color': seanceItemGroupIndex == i ? 'var(--white-them-color)':'var(--dblue-them-color)' }"  (click)="selectGroup(group.groupName,i)" mat-button *ngFor="let group of groupList;index as i">
+    <button [style]="{'background-color': group.groupName == selectedSeanceGroup ? 'var(--dblue-them-color)' : 'var(--white-them-color)','color': group.groupName == selectedSeanceGroup ? 'var(--white-them-color)':'var(--dblue-them-color)' }"  (click)="selectGroup(group.groupName,i)" mat-button *ngFor="let group of groupList;index as i">
       {{"Seances group " + group.groupName}}
 
     </button>

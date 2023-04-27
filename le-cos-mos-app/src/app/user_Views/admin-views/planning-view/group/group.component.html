@@ -1,4 +1,5 @@
-<div id="wrapper">
+<mat-spinner *ngIf="selectedLeftItem == 'NoGroup'"></mat-spinner>
+<div *ngIf="selectedLeftItem != 'NoGroup'" id="wrapper">
   <div id="leftwrp">
     <h1>Gestion des plannings</h1>
     <div id="switch">

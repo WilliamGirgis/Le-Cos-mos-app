@@ -663,9 +663,7 @@ this.getPlanning()
         if(element.type === 'Group') {
           this.groupList!.push(element)
         }
-        this.selectedSeanceGroup = this.groupList![0].groupName
       })
-
       this.getPlanning()
     })).subscribe((res) =>{
     })
