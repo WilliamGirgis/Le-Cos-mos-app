@@ -1,21 +1,26 @@
 <div class="statistiques">Statistiques</div>
+
+<mat-form-field [floatLabel]="'always'">
+  <mat-label>Chercher un élève</mat-label>
+  <input matInput (keyup)="applyFilter($event)" #input  placeholder="Nom,Prénom, mail, etc .. ">
+</mat-form-field>
 <div class="main">
-    <div class="eleves"> 
-        <button 
-        [ngStyle]="globalIndex == i ? {'background-color': 'var(--blue-them-color)'} : {'color':'black'}"   
-        class="style" 
-        (click)="globalIndex=i"  
-        *ngFor="let eleve of eleves; index as i">
+    <div class="eleves">
+        <button
+        [ngStyle]="globalIndex == i ? {'background-color': 'var(--blue-them-color)'} : {'color':'black'}"
+        class="style"
+        (click)="globalIndex=i"
+        *ngFor="let eleve of  eleve_List; index as i">
 
         {{eleve.eleveName}}
 
         </button>
     </div>
     <div class="notes">
-        <button 
-            class="style"  
-            *ngFor="let matiere of eleves[globalIndex].types">
-            
+        <button
+            class="style"
+            *ngFor="let matiere of eleve_List[globalIndex].types">
+
             {{matiere.typeName}}
         </button>
     </div>

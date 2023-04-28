@@ -1,7 +1,6 @@
 <div id="btn-wrapper">
   <button (click)="openSavePostForm()" mat-button>Ajouter</button>
 </div>
-<router-outlet></router-outlet>
 <div id="wrapper">
     <div *ngFor="let publication of publicationList;index as i" class="blocks">
         <h1 [innerHTML]="publication.title">

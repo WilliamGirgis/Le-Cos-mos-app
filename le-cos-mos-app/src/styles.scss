@@ -61,20 +61,12 @@ justify-items: center;
 
   // Style pour les input des vues "login" et "register"
 .form-register .mat-form-field-outline-end {
-  border: var(--outline-input-width) solid; // Placer le "!important" pour forcer le changement de la bordure
-  border-left: 0 ;
   color: var(--blue-them-color);
 }
 .form-register .mat-form-field-outline-start  {
-  border: var(--outline-input-width) solid;  // Placer le "!important" pour forcer le changement de la bordure
-  border-right: 0 ;
   color: var(--blue-them-color);
 }
 .form-register .mat-form-field-outline-gap  {
-  border: var(--outline-input-width) solid ;  // Placer le "!important" pour forcer le changement de la bordure
-  border-right: 0 ;
-  border-left: 0 ;
-  border-top: 0;
   color:var(--blue-them-color);
 
 }
@@ -117,15 +109,11 @@ justify-items: center;
   color: var(--blue-them-color);
 }
 .search .mat-form-field-outline-start  {
-  border: var(--outline-input-width) solid;  // Placer le "!important" pour forcer le changement de la bordure
-  border-right: 0 ;
+
   color: var(--blue-them-color);
 }
 .search .mat-form-field-outline-gap  {
-  border: var(--outline-input-width) solid ;  // Placer le "!important" pour forcer le changement de la bordure
-  border-right: 0 ;
-  border-left: 0 ;
-  border-top: 0;
+
   color:var(--blue-them-color);
 
 }
@@ -136,15 +124,9 @@ justify-items: center;
     color: var(--blue-them-color);
   }
   .post .mat-form-field-outline-start  {
-    border: var(--outline-input-width) solid;  // Placer le "!important" pour forcer le changement de la bordure
-    border-right: 0 ;
     color: var(--blue-them-color);
   }
   .post .mat-form-field-outline-gap  {
-    border: var(--outline-input-width) solid ;  // Placer le "!important" pour forcer le changement de la bordure
-    border-right: 0 ;
-    border-left: 0 ;
-    border-top: 0;
     color:var(--blue-them-color);
 
   }
@@ -153,15 +135,9 @@ justify-items: center;
     color: var(--blue-them-color);
   }
   .modifyPub .mat-form-field-outline-start  {
-    border: var(--outline-input-width) solid;  // Placer le "!important" pour forcer le changement de la bordure
-    border-right: 0 ;
     color: var(--blue-them-color);
   }
   .modifyPub .mat-form-field-outline-gap  {
-    border: var(--outline-input-width) solid ;  // Placer le "!important" pour forcer le changement de la bordure
-    border-right: 0 ;
-    border-left: 0 ;
-    border-top: 0;
     color:var(--blue-them-color);
 
   }
@@ -172,15 +148,11 @@ justify-items: center;
     color: var(--blue-them-color);
   }
   .datePicker .mat-form-field-outline-start  {
-    border: var(--outline-input-width) solid  ;  // Placer le "!important" pour forcer le changement de la bordure
-    border-right: 0 ;
+
     color: var(--blue-them-color);
   }
 
   .datePicker .mat-form-field-outline-gap  {
-    border: var(--outline-input-width) solid var(--blue-them-color);  // Placer le "!important" pour forcer le changement de la bordure
-    border-right: 0 ;
-    border-left: 0 ;
     color:var(--blue-them-color);
 
   }
@@ -191,15 +163,9 @@ justify-items: center;
     color: var(--blue-them-color);
   }
   .outline-preferences .mat-form-field-outline-start  {
-    border: var(--outline-input-width) solid;  // Placer le "!important" pour forcer le changement de la bordure
-    border-right: 0 ;
     color: var(--blue-them-color);
   }
   .outline-preferences .mat-form-field-outline-gap  {
-    border: var(--outline-input-width) solid ;  // Placer le "!important" pour forcer le changement de la bordure
-    border-right: 0 ;
-    border-left: 0 ;
-    border-top: 0;
     color:var(--blue-them-color);
 
   }

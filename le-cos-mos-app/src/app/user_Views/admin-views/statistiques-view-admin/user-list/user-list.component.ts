@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { User } from 'src/app/shared/user';
 
 @Component({
@@ -19,56 +20,59 @@ export class UserListComponent implements OnInit {
   }
 
   globalIndex: number = 0;
+  applyFilter(event: Event) {
+      const filterValue = (event.target as HTMLInputElement).value;
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+      }
 
 
-
-  eleves = [
+  eleve_List = [
 
   /**************** QAMBAR *****************/
 
     {
       eleveName: "Qambar",
       types : [
-        { 
-          typeName: "Notes", 
+        {
+          typeName: "Notes",
           matieres: [
-            { 
-              matiereName: "Maths", 
+            {
+              matiereName: "Maths",
                 notes: [
                   {note : 12},
                   {note : 18},
                   {note : 10}
-                ]    
+                ]
             },
-            { 
+            {
               matiereName: "Svt",
                 notes: [
                   {note : 7},
                   {note : 5},
                   {note : 10}
-                ]  
+                ]
             },
-            { 
+            {
               matiereName: "Physique",
                 notes: [
                   {note : 12},
                   {note : 18},
                   {note : 7}
-                ]  
+                ]
             },
-            { 
+            {
               matiereName: "Corps humains",
                 notes: [
                   {note : 12},
                   {note : 18},
                   {note : 7},
                   {note : 5}
-                ]  
+                ]
             },
           ]
         },
         {
-          typeName: "QCM entrainements", 
+          typeName: "QCM entrainements",
         }
       ]
     },
@@ -78,41 +82,41 @@ export class UserListComponent implements OnInit {
     {
       eleveName: "Yassine",
       types : [
-        { 
-          typeName: "Notes", 
+        {
+          typeName: "Notes",
           matieres: [
-            { 
-              matiereName: "Maths", 
+            {
+              matiereName: "Maths",
                 notes: [
                   {note : 12},
                   {note : 18},
                   {note : 10}
-                ]    
+                ]
             },
-            { 
+            {
               matiereName: "Svt",
                 notes: [
                   {note : 7},
                   {note : 5},
                   {note : 10}
-                ]  
+                ]
             },
-            { 
+            {
               matiereName: "Physique",
                 notes: [
                   {note : 12},
                   {note : 18},
                   {note : 7}
-                ]  
+                ]
             },
-            { 
+            {
               matiereName: "Corps humains",
                 notes: [
                   {note : 12},
                   {note : 18},
                   {note : 7},
                   {note : 5}
-                ]  
+                ]
             },
           ]
         }
@@ -124,49 +128,49 @@ export class UserListComponent implements OnInit {
     {
       eleveName: "Nais",
       types : [
-        { 
-          typeName: "Notes", 
+        {
+          typeName: "Notes",
           matieres: [
-            { 
-              matiereName: "Maths", 
+            {
+              matiereName: "Maths",
                 notes: [
                   {note : 12},
                   {note : 18},
                   {note : 10}
-                ]    
+                ]
             },
-            { 
+            {
               matiereName: "Svt",
                 notes: [
                   {note : 7},
                   {note : 5},
                   {note : 10}
-                ]  
+                ]
             },
-            { 
+            {
               matiereName: "Physique",
                 notes: [
                   {note : 12},
                   {note : 18},
                   {note : 7}
-                ]  
+                ]
             },
-            { 
+            {
               matiereName: "Corps humains",
                 notes: [
                   {note : 12},
                   {note : 18},
                   {note : 7},
                   {note : 5}
-                ]  
+                ]
             },
           ]
         },
         {
-          typeName: "QCM entrainements", 
+          typeName: "QCM entrainements",
         },
         {
-          typeName: "QCM examens", 
+          typeName: "QCM examens",
         }
       ]
     },
@@ -176,41 +180,41 @@ export class UserListComponent implements OnInit {
     {
       eleveName: "Wiliam",
       types : [
-        { 
-          typeName: "Notes", 
+        {
+          typeName: "Notes",
           matieres: [
-            { 
-              matiereName: "Maths", 
+            {
+              matiereName: "Maths",
                 notes: [
                   {note : 12},
                   {note : 18},
                   {note : 10}
-                ]    
+                ]
             },
-            { 
+            {
               matiereName: "Svt",
                 notes: [
                   {note : 7},
                   {note : 5},
                   {note : 10}
-                ]  
+                ]
             },
-            { 
+            {
               matiereName: "Physique",
                 notes: [
                   {note : 12},
                   {note : 18},
                   {note : 7}
-                ]  
+                ]
             },
-            { 
+            {
               matiereName: "Corps humains",
                 notes: [
                   {note : 12},
                   {note : 18},
                   {note : 7},
                   {note : 5}
-                ]  
+                ]
             },
           ]
         }
@@ -222,41 +226,41 @@ export class UserListComponent implements OnInit {
     {
       eleveName: "Maria",
       types : [
-        { 
-          typeName: "Notes", 
+        {
+          typeName: "Notes",
           matieres: [
-            { 
-              matiereName: "Maths", 
+            {
+              matiereName: "Maths",
                 notes: [
                   {note : 12},
                   {note : 18},
                   {note : 10}
-                ]    
+                ]
             },
-            { 
+            {
               matiereName: "Svt",
                 notes: [
                   {note : 7},
                   {note : 5},
                   {note : 10}
-                ]  
+                ]
             },
-            { 
+            {
               matiereName: "Physique",
                 notes: [
                   {note : 12},
                   {note : 18},
                   {note : 7}
-                ]  
+                ]
             },
-            { 
+            {
               matiereName: "Corps humains",
                 notes: [
                   {note : 12},
                   {note : 18},
                   {note : 7},
                   {note : 5}
-                ]  
+                ]
             },
           ]
         }
@@ -268,46 +272,46 @@ export class UserListComponent implements OnInit {
     {
       eleveName: "Ugur",
       types : [
-        { 
-          typeName: "Notes", 
+        {
+          typeName: "Notes",
           matieres: [
-            { 
-              matiereName: "Maths", 
+            {
+              matiereName: "Maths",
                 notes: [
                   {note : 12},
                   {note : 18},
                   {note : 10}
-                ]    
+                ]
             },
-            { 
+            {
               matiereName: "Svt",
                 notes: [
                   {note : 7},
                   {note : 5},
                   {note : 10}
-                ]  
+                ]
             },
-            { 
+            {
               matiereName: "Physique",
                 notes: [
                   {note : 12},
                   {note : 18},
                   {note : 7}
-                ]  
+                ]
             },
-            { 
+            {
               matiereName: "Corps humains",
                 notes: [
                   {note : 12},
                   {note : 18},
                   {note : 7},
                   {note : 5}
-                ]  
+                ]
             },
           ]
         },
         {
-          typeName: "QCM entrainements", 
+          typeName: "QCM entrainements",
         }
       ]
     },
@@ -317,49 +321,49 @@ export class UserListComponent implements OnInit {
     {
       eleveName: "Eva",
       types : [
-        { 
-          typeName: "Notes", 
+        {
+          typeName: "Notes",
           matieres: [
-            { 
-              matiereName: "Maths", 
+            {
+              matiereName: "Maths",
                 notes: [
                   {note : 12},
                   {note : 18},
                   {note : 10}
-                ]    
+                ]
             },
-            { 
+            {
               matiereName: "Svt",
                 notes: [
                   {note : 7},
                   {note : 5},
                   {note : 10}
-                ]  
+                ]
             },
-            { 
+            {
               matiereName: "Physique",
                 notes: [
                   {note : 12},
                   {note : 18},
                   {note : 7}
-                ]  
+                ]
             },
-            { 
+            {
               matiereName: "Corps humains",
                 notes: [
                   {note : 12},
                   {note : 18},
                   {note : 7},
                   {note : 5}
-                ]  
+                ]
             },
           ]
         },
         {
-          typeName: "QCM entrainements", 
+          typeName: "QCM entrainements",
         },
         {
-          typeName: "QCM examens", 
+          typeName: "QCM examens",
         }
       ]
     },
@@ -369,53 +373,54 @@ export class UserListComponent implements OnInit {
     {
       eleveName: "Maehra",
       types : [
-        { 
-          typeName: "Notes", 
+        {
+          typeName: "Notes",
           matieres: [
-            { 
-              matiereName: "Maths", 
+            {
+              matiereName: "Maths",
                 notes: [
                   {note : 12},
                   {note : 18},
                   {note : 10}
-                ]    
+                ]
             },
-            { 
+            {
               matiereName: "Svt",
                 notes: [
                   {note : 7},
                   {note : 5},
                   {note : 10}
-                ]  
+                ]
             },
-            { 
+            {
               matiereName: "Physique",
                 notes: [
                   {note : 12},
                   {note : 18},
                   {note : 7}
-                ]  
+                ]
             },
-            { 
+            {
               matiereName: "Corps humains",
                 notes: [
                   {note : 12},
                   {note : 18},
                   {note : 7},
                   {note : 5}
-                ]  
+                ]
             },
           ]
         },
         {
-          typeName: "QCM entrainements", 
+          typeName: "QCM entrainements",
         },
         {
-          typeName: "QCM examens", 
+          typeName: "QCM examens",
         }
       ]
     }
   ]
-          
+  dataSource = new MatTableDataSource(this.eleve_List) // Si le tableau de production des utilisateurs n'est pas définit on affiche le test
+
 
 }
