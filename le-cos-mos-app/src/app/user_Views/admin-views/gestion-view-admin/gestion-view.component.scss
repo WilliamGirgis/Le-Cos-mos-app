@@ -1,4 +1,8 @@
 
+mat-row, mat-header-row, mat-footer-row, th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+  border-color : transparent;
+  border-bottom:unset
+}
 
 #wrapper {
   margin: auto;
@@ -56,6 +60,7 @@ height: 7vh;
 
 
 table, th, td {
+
   border:transparent;
 }
 
@@ -330,13 +335,13 @@ width: fit-content;
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: var(--light-blue-them-color);
+  background: var(--blue-them-color);
   border-radius: 5px 5px 5px 5px;
 
 }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: var(--blue-them-color);
+// /* Handle on hover */
+// ::-webkit-scrollbar-thumb:hover {
+//   background: var(--blue-them-color);
 
-}
+// }
