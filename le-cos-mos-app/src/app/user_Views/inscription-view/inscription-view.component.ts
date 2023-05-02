@@ -91,6 +91,9 @@ this.subscribeForm.get('confirmPsw')!.updateValueAndValidity()// Nécessaire pou
 
     if(this.type === 'password') {
       this.type = 'text'
+      setTimeout(() => {
+        this.type == 'text' ? this.type = 'password' : this.type
+      },2500)
     } else {
     this.type = 'password'
     }

@@ -35,10 +35,9 @@
             <input formControlName="password" type="{{type}}" matInput #psw1>
             <mat-error>{{formErrors.password}}</mat-error>
             <div id="mff-psw">
-            <button *ngIf="psw1.value"  mat-icon-button aria-label="Clear" (click)="psw1.value = ''">
+            <button *ngIf="psw1.value.length > 0"  mat-icon-button aria-label="Clear" (click)="psw1.value = ''">
                 <mat-icon tabindex="0" style="font-size:140%;" >close</mat-icon>
-              </button>
-              <button fxFlex="7"  mat-icon-button><mat-icon style="font-size:150%;" (click)="showHidePassword()">remove_red_eye</mat-icon></button>
+              </button><mat-icon *ngIf="psw1.value.length > 0" style="font-size:150%;align-self: center;cursor:pointer" (click)="showHidePassword()">remove_red_eye</mat-icon>
             </div>
         </mat-form-field>
 
@@ -47,10 +46,9 @@
             <input formControlName="confirmPsw" type="{{type}}" matInput #psw2>
             <mat-error>{{formErrors.confirmPsw}}</mat-error>
             <div id="mff-psw">
-            <button *ngIf="psw2.value" mat-icon-button aria-label="Clear" (click)="psw2.value =''">
+            <button *ngIf="psw2.value.length > 0" mat-icon-button aria-label="Clear" (click)="psw2.value =''">
                 <mat-icon tabindex="0" style="font-size:140%;" >close</mat-icon>
-              </button>
-              <button fxFlex="7" mat-icon-button><mat-icon style="font-size:150%;" (click)="showHidePassword()">remove_red_eye</mat-icon></button>
+              </button><mat-icon *ngIf="psw2.value.length > 0" style="font-size:150%;align-self: center;cursor:pointer" (click)="showHidePassword()" >remove_red_eye</mat-icon>
             </div>
             </mat-form-field>
 
