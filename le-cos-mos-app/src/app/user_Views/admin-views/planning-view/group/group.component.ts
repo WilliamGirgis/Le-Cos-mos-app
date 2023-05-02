@@ -25,26 +25,32 @@ export class GroupComponent implements OnInit {
   userListTest:User [] = [{email:'Willy@gmail.com',firstname:'Willy',ID:1,lastname:'Girgis',userType:'Professeur'},{email:'Adrien@gmail.com',firstname:'Adrien',ID:2,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'}]
 
   groups:any[] = []
-  groupsTest?:any[] = [{ID:0,groupName:'Tronc Commun',firstname:'HEY',lastname:'HEYLN',user_list:[{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''},{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''},{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''},{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''},{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''}]},{ID:1,groupName:'Group de physique chimie',firstname:'HEY2',lastname:'HEY2LN',user_list:[]}]
+  groupsTest?:any[] = [{ID:0,groupName:'Tronc_Commun_B',firstname:'HEY',lastname:'HEYLN',user_list:[{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''},{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''},{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''},{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''},{email:'',firstname:'Willy',ID:'',lastname:''},{email:'',firstname:'Willy2',ID:1,lastname:''}]},{ID:1,groupName:'Group de physique chimie',firstname:'HEY2',lastname:'HEY2LN',user_list:[]}]
 
-  selectedLeftItem?:string | String = 'NoGroupDevEnv' //'NoGroup' -> Production valeur
+  selectedLeftItem:string = 'NoGroupDevEnv' //'NoGroup' -> Production valeur
 
   constructor(private http:HttpClient,public dialog:MatDialog) {
     this.dialog.afterAllClosed.pipe(map((data) => {this.getGroups(' ')})).subscribe(res => {})
   }
 
+  replaceSpace(string:string):string {
+
+    return string.replace(/\s/g, '_')
+  }
   getGroups(groupName:string) {
     const querParam = new HttpParams().set('groupName', groupName);
     this.http.get(this.getGroupsURL,{params:querParam,responseType:'text'}).pipe(map(async (data) =>{
       this.groups = [] // Remettre à zero, car on push les elements dans le tableau
-     let tempArray = JSON.parse(data)
+     var tempArray:any = JSON.parse(data)
       // console.log(this.groups)
 
-     await tempArray.forEach((element:any) => {
-        if(element.type === 'Group') {
-          this.groups.push(element)
-        }
-      });
+      for(let i = 0;i < tempArray.length;i++) {
+        if(tempArray[i].type === 'Group') {
+          tempArray[i].groupName = tempArray[i].groupName.replace(/_/g, ' ')
+           this.groups.push(tempArray[i])
+
+         }
+      }
 
       this.userList = this.groups[this.globalIndex].user_list!
       this.selectedLeftItem = this.groups[this.globalIndex].groupName
@@ -52,13 +58,14 @@ export class GroupComponent implements OnInit {
   }
 
   createGroup(groupName:string){
+    // groupName has the ' ' character replaced by '_' character in the back-end
     return this.http.post(this.createGroupRoute,{name:groupName,responseType:'text'}).pipe(map(async (data) =>{
        this.getGroups(' ')
     })).subscribe((res) => {})
   }
 
   openSaveUserPostForm() {
-    this.dialog.open(AddUserToGroupComponent, {width:'50vw',height:'80vh',data:{globalIndex:this.globalIndex,name:this.groups[this.globalIndex].groupName,userList:this.userList}})
+    this.dialog.open(AddUserToGroupComponent, {width:'50vw',height:'80vh',data:{globalIndex:this.globalIndex,name:this.replaceSpace(this.groups[this.globalIndex].groupName),userList:this.userList}})
   }
 
   suppressReadOnly(i:number,text:string) {
@@ -88,7 +95,7 @@ export class GroupComponent implements OnInit {
     if(!window.confirm("Are you sure you wanna delete the user " + user.firstname  + " ?")) {
       return
         }
-    return this.http.post(this.delUserUrlRoute,{user:user,groupName:this.groups[this.globalIndex].groupName,responseType:'text'}).pipe(map(async (data) =>{
+    return this.http.post(this.delUserUrlRoute,{user:user,groupName:this.replaceSpace(this.groups[this.globalIndex].groupName),responseType:'text'}).pipe(map(async (data) =>{
        this.getGroups(' ')
 
     })).subscribe((res) => {})
@@ -98,7 +105,7 @@ export class GroupComponent implements OnInit {
     if(!window.confirm("Are you sure you wanna delete the group " + this.groups[index].groupName  + " ?")) {
       return
         }
-    return this.http.post(this.delGroupUrlRoute,{groupName:this.groups[index].groupName,responseType:'text'}).pipe(map(async (data) =>{
+    return this.http.post(this.delGroupUrlRoute,{groupName:this.replaceSpace(this.groups[index].groupName),responseType:'text'}).pipe(map(async (data) =>{
       this.getGroups(' ')
 
    })).subscribe((res) => {})

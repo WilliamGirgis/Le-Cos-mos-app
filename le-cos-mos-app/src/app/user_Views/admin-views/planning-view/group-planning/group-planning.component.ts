@@ -620,6 +620,11 @@ this.getPlanning()
        .subscribe((response) => {});
    }
 
+   replaceUnderScore(string:string):string {
+
+    return string.replace(/_/g, ' ')
+  }
+
    async newSeance(name:string,type:string,room:string,duration:string,creneau:string) {
     let seance: string[] = ['',type,name,'',room,duration,creneau];
     const querParam = new HttpParams().set('groupName',this.selectedSeanceGroup!)

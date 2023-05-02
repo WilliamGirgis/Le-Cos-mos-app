@@ -9,11 +9,11 @@
   <div id="leftSide">
     <mat-card (click)="selectLeftItem(i)" [style]="{'opacity': globalIndex == i ? '1' : '0.7'}"   class="group-card" *ngFor="let group of groups;index as i">
 
-<textarea readonly class="planningOwner" name="groups" #text>{{group.groupName || group.firstname + ' ' + group.lastname}}</textarea>
+<textarea readonly class="planningOwner" name="groups" #text>{{group.groupName.replace('_',' ') || group.firstname + ' ' + group.lastname}}</textarea>
 
 
-      <button *ngIf="view == 'Group' && !(group.groupName == 'Tronc Commun Class A' || group.groupName == 'Tronc Commun Class B')"  (click)="delDiscussionGroup(i)"  mat-button><img  width="25px" height="25px" src="../../../../assets/images/trash3-fill.svg"></button>
-<button *ngIf="view == 'Group' && !(group.groupName == 'Tronc Commun Class A' || group.groupName == 'Tronc Commun Class B')" (click)="suppressReadOnly(i,text.value)"  mat-button><img  src="../../../../assets/images/pencil-fill.svg"></button>
+      <button  (click)="delDiscussionGroup(i)"  mat-button><img  width="25px" height="25px" src="../../../../assets/images/trash3-fill.svg"></button>
+<button (click)="suppressReadOnly(i,text.value)"  mat-button><img  src="../../../../assets/images/pencil-fill.svg"></button>
 
     </mat-card>
   </div>
@@ -36,7 +36,7 @@
     </mat-card>
       </div>
 
-      <div id="planning-wrp" routerLink="../{{selectedLeftItem}}">
+      <div id="planning-wrp" routerLink="../{{replaceSpace(selectedLeftItem)}}">
         <span>Gérer le planning {{(view == 'Enseignant' ? 'de ': '') + selectedLeftItem}} </span>
         <img id="planning" src="../../../../../assets/images/arrow-right.svg" >
       </div>

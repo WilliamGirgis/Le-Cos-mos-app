@@ -22,9 +22,14 @@ export class UserListComponent implements OnInit {
   globalIndex: number = 0;
   applyFilter(event: Event) {
       const filterValue = (event.target as HTMLInputElement).value;
-      this.dataSource.filter = filterValue.trim().toLowerCase();
-      }
 
+      for(let i = 0;i < this.userList.length;i++) {
+        this.checkCorrespondance(this.userList[i],filterValue)
+      }
+      }
+      checkCorrespondance(user:User,regex:string) {
+
+      }
 
   eleve_List = [
 
