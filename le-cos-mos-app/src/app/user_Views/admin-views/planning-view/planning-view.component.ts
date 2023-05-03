@@ -13,7 +13,7 @@ export class PlanningViewComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.router.navigate(['admin/planning/group']); // Navigue vers la vue 'accueil' par default
+    this.router.navigate(['admin/planning/NoGroupDevEnv']); // Navigue vers la vue 'accueil' par default
 
   }
 

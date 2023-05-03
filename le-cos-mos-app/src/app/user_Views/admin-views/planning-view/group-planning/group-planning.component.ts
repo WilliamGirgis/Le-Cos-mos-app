@@ -18,6 +18,7 @@ export class DateRangePickerOverviewExample {
 @Injectable()
 export class FiveDayRangeSelectionStrategy<D> implements MatDateRangeSelectionStrategy<D> {
   constructor(private _dateAdapter: DateAdapter<D>) {
+    this._dateAdapter.setLocale('fr-FR')
   }
 
 
@@ -72,7 +73,7 @@ export class GroupPlanningComponent implements OnInit {
     return date?.getDay()! == 1 ;
   };
 
-  getFirstMondayOfTheWeek():string {
+  getFirstMondayOfTheWeek() {
     let now:number = Date.now()
     let date = new Date(now)
     let stringDateParsed = date.toDateString().split(' ')
@@ -102,59 +103,80 @@ export class GroupPlanningComponent implements OnInit {
     for(let i = 0; i < daysAfterMonOfTheWeek;i++) {
        now -= 24 * 60 * 60 * 1000; // Roll back 1 day ago
     }
+    let dateInSevenDays = new Date(now + (6*24 * 60 * 60 * 1000)) // The next monday
+   let parsedDateInSevenDays = dateInSevenDays.toDateString().split(' ')
+   let parsedYearInSevenDays = parsedDateInSevenDays[3]
+   let parsedDayInSevenDays = parsedDateInSevenDays[2]
+   let parsedMonthInSevenDays = this.switchDateMonth(parsedDateInSevenDays[1])
+   this.week2 = parsedDayInSevenDays + '/' + parsedMonthInSevenDays + '/' + parsedYearInSevenDays
    date = new Date(now)
    let parsedDate = date.toDateString().split(' ')
    let year = parsedDate[3]
    let day = parsedDate[2]
-   let month = parsedDate[1]
-   switch(month) {
-    case 'Jan':
-      month = "01"
-      break;
-      case 'Feb':
-        month = "02"
-        break;
-        case 'Mar':
-          month = "03"
-          break;
-          case 'Apr':
-            month = "04"
-            break;
-            case 'May':
-              month = "05"
-              break;
-              case 'Jun':
-                month = "06"
-                break;
-                case 'Jul':
-                  month = "07"
-                  break;
-                  case 'Aug':
-                    month = "08"
-                    break;
-                    case 'Sep':
-                      month = "09"
-                      break;
-                      case 'Oct':
-                        month = "10"
-                        break;
-                        case 'Nov':
-                          month = "11"
-                          break;
-                          case 'Dec':
-                            month = "12"
-                            break;
-   }
+   let month = this.switchDateMonth(parsedDate[1])
+   this.week = day  + '/' + month + '/' + year
 
-    return day + '/' + month + '/' + year
 
+  }
+  nextMonday() {
+
+    let splitedWeek = this.week.split('/')
+    this.week = splitedWeek[1] + '/' + splitedWeek[0] + '/' + splitedWeek[2]
+    let newDate = new Date(this.week).getTime()
+    let newDateNumber:Date = new Date(newDate - (7 * 24 * 60 * 60 * 1000))
+    this.week = newDateNumber.toLocaleDateString()
+    this.getPlanning()
+  }
+  previousMonDay() {
+
+    let splitedWeek = this.week.split('/')
+    this.week = splitedWeek[1] + '/' + splitedWeek[0] + '/' + splitedWeek[2]
+   let newDate = new Date(this.week).getTime()
+   let newDateNumber:Date = new Date(newDate + (7 * 24 * 60 * 60 * 1000))
+   this.week = newDateNumber.toLocaleDateString()
+
+   this.getPlanning()
+  }
+  switchDateMonth(month:string) {
+    switch(month) {
+      case 'Jan':
+        return  "01";
+        case 'Feb':
+          return "02";
+          case 'Mar':
+            return "03";
+            case 'Apr':
+              return "04";
+              case 'May':
+                return "05";
+                case 'Jun':
+                  return "06";
+                  case 'Jul':
+                    return "07";
+                    case 'Aug':
+                      return "08";
+                      case 'Sep':
+                        return "09";
+                        case 'Oct':
+                          return "10";
+                          case 'Nov':
+                            return "11";
+                            case 'Dec':
+                              return "12";
+                              default:
+                                return "01"
+
+     }
   }
 
 
   heureIndex:number = 0
   dayIndex:number= 0
   touched:boolean = false
-  week:string = this.getFirstMondayOfTheWeek()
+  week:string = ''
+
+  week2 = ''
+
 
 
   groupLink = this.route.snapshot.paramMap.get('id')
@@ -173,10 +195,8 @@ export class GroupPlanningComponent implements OnInit {
 
   getSelectedDate(date:string) {
 let seperatedDate = date.split('/')
-seperatedDate[1] = +seperatedDate[1] < 10 ? '0' + seperatedDate[1] : seperatedDate[1]
-seperatedDate[0] = +seperatedDate[0] < 10 ? '0' + seperatedDate[0] : seperatedDate[0]
 
-this.week = seperatedDate[1] + '/' + seperatedDate[0] + '/' + seperatedDate[2]
+this.week =  seperatedDate[0]  + '/' + seperatedDate[1] + '/' + seperatedDate[2]
 this.getPlanning()
 }
 

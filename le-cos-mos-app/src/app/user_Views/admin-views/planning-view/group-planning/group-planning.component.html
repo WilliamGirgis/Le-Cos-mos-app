@@ -195,12 +195,14 @@
 
         <span>
           <img
+          (click)="nextMonday()"
             width="40vw"
             src="../../../../assets/images/arrow-left.svg"
             id="left"
           />
           <h2>Semaine du {{ week }}</h2>
           <img
+            (click)="previousMonDay()"
             width="40vw"
             src="../../../../assets/images/arrow-right.svg"
             id="right"
@@ -218,9 +220,9 @@
                 #date
                 (dateChange)="getSelectedDate(date.value)"
                 matStartDate
-                value="{{week}}"
+                placeholder="{{ week }}"
               />
-              <input disabled matEndDate placeholder="Date de fin" />
+              <input disabled matEndDate placeholder="{{ week2 }}" />
             </mat-date-range-input>
 
             <mat-datepicker-toggle
