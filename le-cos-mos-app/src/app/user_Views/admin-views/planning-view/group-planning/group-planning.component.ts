@@ -65,7 +65,6 @@ export class GroupPlanningComponent implements OnInit {
   readonly delSeanceUrl = "http://localhost:4200/seance/del"
   readonly savePlanningUrl = "http://localhost:4200/planning/set"
   readonly getPlanningURL = "http://localhost:4200/planning/group/planning"
-
 //https://material.angular.io/components/datepicker/examples
   //https://stackoverflow.com/questions/69322172/angular-material-date-range-date-filter-get-date-date-boolean-is-not-ass?rq=1
   rangeFilter: DateFilterFn<Date> = (date: Date | null) => { // Filtre pour le datePicker
@@ -119,20 +118,26 @@ export class GroupPlanningComponent implements OnInit {
 
   }
   nextMonday() {
-
+    this.date = ''
+    this.dateEnd = ''
     let splitedWeek = this.week.split('/')
     this.week = splitedWeek[1] + '/' + splitedWeek[0] + '/' + splitedWeek[2]
     let newDate = new Date(this.week).getTime()
     let newDateNumber:Date = new Date(newDate - (7 * 24 * 60 * 60 * 1000))
+    let newDateNumberInSevenDays:Date = new Date(newDateNumber.getTime() + (6 * 24 * 60 * 60 * 1000))
+    this.week2 = newDateNumberInSevenDays.toLocaleDateString()
     this.week = newDateNumber.toLocaleDateString()
     this.getPlanning()
   }
   previousMonDay() {
-
+this.date = ''
+this.dateEnd = ''
     let splitedWeek = this.week.split('/')
     this.week = splitedWeek[1] + '/' + splitedWeek[0] + '/' + splitedWeek[2]
    let newDate = new Date(this.week).getTime()
    let newDateNumber:Date = new Date(newDate + (7 * 24 * 60 * 60 * 1000))
+   let newDateNumberInSevenDays:Date = new Date(newDateNumber.getTime() + (6 * 24 * 60 * 60 * 1000))
+   this.week2 = newDateNumberInSevenDays.toLocaleDateString()
    this.week = newDateNumber.toLocaleDateString()
 
    this.getPlanning()
@@ -193,9 +198,15 @@ export class GroupPlanningComponent implements OnInit {
     })
   }
 
+  @Input() date:string = ''
+  @Input() dateEnd:string = ''
   getSelectedDate(date:string) {
 let seperatedDate = date.split('/')
-
+let temp = seperatedDate[1] + '/' + seperatedDate[0] + '/' + seperatedDate[2]
+let newDate = new Date(temp).getTime()
+let newDateNumber:Date = new Date(newDate)
+let newDateNumberInSevenDays:Date = new Date(newDateNumber.getTime() + (6 * 24 * 60 * 60 * 1000))
+this.week2 = newDateNumberInSevenDays.toLocaleDateString()
 this.week =  seperatedDate[0]  + '/' + seperatedDate[1] + '/' + seperatedDate[2]
 this.getPlanning()
 }
@@ -292,6 +303,7 @@ this.getPlanning()
       }
 
       let duree  = event.container.data[5]
+      console.log(duree)
       switch(duree) {
         case '25':
           switch(this.creneauIndex) {

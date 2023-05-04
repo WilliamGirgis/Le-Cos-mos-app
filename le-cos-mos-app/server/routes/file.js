@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const multer = require("multer");
-const folder = "src/assets/images/uploaded";
+
 const jwt = require('jsonwebtoken');
+const path = require('path');
+const folder = path.join(__dirname,'assets/images/home_images/');
 module.exports = router;
 const fs = require("fs");
 const User = require("./user.model");
@@ -27,8 +29,8 @@ let authenticate = (req,res,next) => {
 const getImages = router.get("/images",authenticate, function (req, res, next) {
     // API used in adminview.component.ts
     const filename = req.query.imageName;
-    return res.sendFile("src/assets/images/uploaded/" + filename,
-    { root: "C:/Users/William/Desktop/Le Cosm'os app/Le-Cos-mos-app/Le-Cos-mos-app/le-cos-mos-app" },
+    return res.sendFile("assets/images/home_images/" + filename,
+    { root: __dirname },
     function (err) {
       if (err) {
         next(err);
