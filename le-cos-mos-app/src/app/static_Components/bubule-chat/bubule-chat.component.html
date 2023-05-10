@@ -106,8 +106,7 @@
 
     <div id="discussion-dg" *ngIf="isWindowOpen">
       <div
-      (click)="getMessageList(discussion.name)"
-      (click)="globalIndex = i"
+      (click)="getMessageList(discussion.name,'click');globalIndex = i"
       *ngFor="let discussion of (discussionTypeView == 'global' ? globalDiscussionList : privateDiscussionList);index as i"
         [style]="{
           'background-color':
@@ -159,7 +158,18 @@
           </div>
 
 
-          <label id="msg" style="height: max-content" >{{ message.message }}</label>
+          <div style="display:grid">
+            <label id="msg" style="height: max-content" >{{ message.message }}</label>
+            <span [matMenuTriggerFor]="menu" id="messageFileName" *ngFor="let filename of message.filesName">{{filename}}
+              <mat-menu  #menu="matMenu">
+
+                <button (click)="downloadFile(filename)" mat-button>Télécharger le fichier {{filename}}</button>
+
+              </mat-menu>
+            </span>
+
+          </div>
+
 
 
 
@@ -178,9 +188,31 @@
             matInput
           ></textarea>
         </mat-form-field>
+
+        <div id="queueWrapper">
+
+          <span id="fileName" style="font-size:60%;min-width:max-content" *ngFor="let file of uploader.queue;index as i">
+            {{file._file.name || "No file uploaded yet."}}
+            <img id="trash-file" height="25px" width="15px" (click)="uploader.removeFromQueue(uploader.queue[i])" src="../../../assets/images/trash3-fill.svg">
+          </span>
+
+        </div>
+
+        <button style="cursor: pointer;" mat-mini-fab color="primary"
+
+        >   <mat-icon>attach_file</mat-icon>
+        <input
+        type="file"
+        id="fileUpload"
+        ng2FileSelect
+        accept=".pdf,.jpg,.png,.jpeg"
+        [uploader]="uploader!"
+        multiple
+        />
+        </button>
         <button
-        [disabled]="message.value == ''"
-        [style]="{'opacity': message.value == '' ? '0.4' : '1','background-color':message.value == '' ? 'var(--white-them-color)':'','color':message.value == '' ? 'var(--dblue-them-color)':'' }"
+        [disabled]="message.value == '' && uploader.queue.length == 0"
+        [style]="{'opacity': message.value == '' && (uploader.queue.length == 0) ? '0.4' : '1','background-color':message.value == '' ? 'var(--white-them-color)':'','color':message.value == '' ? 'var(--dblue-them-color)':'' }"
           (click)="sendMessage(message.value); message.value = ''"
           mat-button
         >

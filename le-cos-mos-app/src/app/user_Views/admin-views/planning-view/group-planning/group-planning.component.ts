@@ -102,7 +102,7 @@ export class GroupPlanningComponent implements OnInit {
     for(let i = 0; i < daysAfterMonOfTheWeek;i++) {
        now -= 24 * 60 * 60 * 1000; // Roll back 1 day ago
     }
-    let dateInSevenDays = new Date(now + (6*24 * 60 * 60 * 1000)) // The next monday
+    let dateInSevenDays = new Date(now + (7 * 24 * 60 * 60 * 1000)) // The next monday
    let parsedDateInSevenDays = dateInSevenDays.toDateString().split(' ')
    let parsedYearInSevenDays = parsedDateInSevenDays[3]
    let parsedDayInSevenDays = parsedDateInSevenDays[2]
@@ -117,26 +117,26 @@ export class GroupPlanningComponent implements OnInit {
 
 
   }
-  nextMonday() {
+  previousMonDay() {
     this.date = ''
     this.dateEnd = ''
     let splitedWeek = this.week.split('/')
     this.week = splitedWeek[1] + '/' + splitedWeek[0] + '/' + splitedWeek[2]
     let newDate = new Date(this.week).getTime()
-    let newDateNumber:Date = new Date(newDate - (7 * 24 * 60 * 60 * 1000))
-    let newDateNumberInSevenDays:Date = new Date(newDateNumber.getTime() + (6 * 24 * 60 * 60 * 1000))
+    let newDateNumber:Date = new Date(newDate - (7 * 24 * 60 * 60 * 1000 * 0.95))
+    let newDateNumberInSevenDays:Date = new Date(newDateNumber.getTime() + (7 * 24 * 60 * 60 * 1000))
     this.week2 = newDateNumberInSevenDays.toLocaleDateString()
     this.week = newDateNumber.toLocaleDateString()
     this.getPlanning()
   }
-  previousMonDay() {
+  nextMonday() {
 this.date = ''
 this.dateEnd = ''
     let splitedWeek = this.week.split('/')
     this.week = splitedWeek[1] + '/' + splitedWeek[0] + '/' + splitedWeek[2]
    let newDate = new Date(this.week).getTime()
    let newDateNumber:Date = new Date(newDate + (7 * 24 * 60 * 60 * 1000))
-   let newDateNumberInSevenDays:Date = new Date(newDateNumber.getTime() + (6 * 24 * 60 * 60 * 1000))
+   let newDateNumberInSevenDays:Date = new Date(newDateNumber.getTime() + (7 * 24 * 60 * 60 * 1000))
    this.week2 = newDateNumberInSevenDays.toLocaleDateString()
    this.week = newDateNumber.toLocaleDateString()
 

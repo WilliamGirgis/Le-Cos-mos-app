@@ -7,7 +7,7 @@ import { formErrors } from 'src/app/interface&classe/interfaces';
 import { PublicationModel } from './publication-model';
 import { FileUploader } from 'ng2-file-upload';
 
-const endpointUploadFile = "http://localhost:4200/file/upload"
+const endpointUploadFile = "http://localhost:4200/chat/upload"
 const folderPath = "http://localhost:4200/assets/images/"
 
 @Component({
@@ -113,7 +113,7 @@ filename?:string
       })
       .pipe(
         map((data) => {
-          //this.uploader.uploadAll()
+          this.uploader.uploadAll()
           this.getPublication();
 
           this.dialogRef.close()

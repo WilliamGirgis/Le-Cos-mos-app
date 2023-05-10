@@ -201,8 +201,6 @@ router.get("/user/get",authenticate, (req, res) => {
   let id = req.query.id;
 
     User.findOne({ _id: id }).then((user) => {
-      console.log("Firstname = " + user.firstname)
-      console.log("Lastname = " + user.lastname)
       return res.status(200).send(user);
     });
 });

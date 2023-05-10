@@ -5,12 +5,33 @@
 
 }
 
+#messageFileName {
+cursor: pointer;
+transition: 350ms ease-in-out;
+&:hover {
+  text-decoration: underline;
+}
+}
+
+#fileName {
+align-self: center;
+}
+
 #bubleChat {
 position: relative;
 height: 4vh;
 
 }
 
+#fileUpload {
+  position: absolute;
+  opacity: 0;
+  width: 50px;
+  height: 50px;
+left: 0;
+content: none;
+cursor: pointer;
+}
 
 #window {
   position: fixed;
@@ -121,6 +142,19 @@ label {
 }
 }
 
+#trash-file {
+align-self: center;
+cursor: pointer;
+}
+#queueWrapper {
+  max-height: 10vh;
+  min-width: max-content;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display:grid;
+  text-align: center;
+}
+
 
 #messageWrapper {
 position: relative;
@@ -134,7 +168,7 @@ flex-direction: column;
 mat-form-field {
   margin: auto auto 2vh initial;
   font-size: 40%;
-  width: 75%;
+  width: 40vw;
   align-self: flex-end;
 margin-left: 2vw;
 

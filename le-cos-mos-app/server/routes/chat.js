@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const Group = require("./chat.group.model");
 const User = require("./user.model");
-const Io = require("../../server")
 
 
 const jwt = require('jsonwebtoken');
@@ -19,15 +18,26 @@ let authenticate = (req,res,next) => {  /* MIDDLEWARE for checking if the access
   })
 }
 
+// File related
+const url = "mongodb+srv://test:Samsam123@cluster0.pcin2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+const multer = require("multer");
+const {GridFsStorage} = require('multer-gridfs-storage');
+const storage = new GridFsStorage({ url:url,
+   file: (req, file) => {
+    console.log(file)
+        return {
+          filename: file.originalname.toString('utf8') // Set the filename here
+        }
+}  });
+const upload = multer({ storage:storage }).array("file"); // Single for 1 file, array for multiple
+
+// End File related
+
+
 const sendMessage = router.post("/discussion/message/send",authenticate, async function (req, res, next) {
-
   let groupName = req.query.groupName
-
   var message = req.body.messageMetaData
-console.log("Emiter = " + message.emiter)
-  let parsedMessage = {message:message.message,emiter:message.emiter,date:message.date}
-
-
+  let parsedMessage = {message:message.message,emiter:message.emiter,date:message.date,filesName:message.filesName}
 
  await Group.find({name: groupName}).then((group) => {
   // group.message_list.push(parsedMessage)
@@ -36,11 +46,24 @@ console.log("Emiter = " + message.emiter)
   // group.user_list
   group[0].save()
 
- return res.send(group[0].message_list).status(200)
+ return res.status(200).send(group[0].message_list)
  }).catch((e) => {
   res.status(404).send("User not Found")
  })
 
+})
+
+const saveMessageFile = router.post("/discussion/message/file/save", async function (req, res, next) {
+    upload(req, res, function (err) {
+  if (err) {
+    return res.status(501).json({ error: err }).send();
+  }
+  // for(let i = 0;i < req.files.length ; i++) {
+  //   // storage.db.collection('fs.files').findOneAndUpdate({filename:req.files[i].filename},{filename:originalname}).then((file) => {
+
+  // }
+return res.status(200).send()
+    });
 })
 
 
@@ -108,8 +131,6 @@ const delDiscussion = router.post("/discussion/del",authenticate, async function
 
     let body = req.body;
     let user_id = req.query._id
-    console.log(user_id )
-
     let name = body.name
     if((name == ' ') || (name == '') || (body.length == 0)) {
       return res.status(400).send()
@@ -120,7 +141,6 @@ const delDiscussion = router.post("/discussion/del",authenticate, async function
     const response = await newDiscussion.save();
     if(discussionType == 'private') {
       User.findOneAndUpdate({_id:user_id},{ $push: {groupsNameDiscussionBelonging:name}}).then((user) => {
-console.log(user)
 return res.status(200).send()
       })
     }

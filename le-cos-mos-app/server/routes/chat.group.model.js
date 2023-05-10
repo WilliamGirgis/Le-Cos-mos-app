@@ -1,7 +1,8 @@
 
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb+srv://test:Samsam123@cluster0.pcin2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',{useNewUrlParser:true,useUnifiedTopology:true}).then(()=>{
+const url = "mongodb+srv://test:Samsam123@cluster0.pcin2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+mongoose.connect(url,{useNewUrlParser:true,useUnifiedTopology:true}).then(()=>{
     //console.log('Connected successfuly')
 
 })
@@ -46,17 +47,17 @@ message_list: [
   date: {
     type:String
         },
-  file: {
+  filesName: [
+    {
     type:String,
     required:false
         }
+      ]
   }
 ]
 
 })
-
 const group = mongoose.model('Group',groupSchema);
-
 
 
 

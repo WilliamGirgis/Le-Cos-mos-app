@@ -50,7 +50,6 @@ io.listen(3000,(req,res) =>{
 
 })
 io.on("connect", (socket) => {
-  console.log(`User has connected !`);
   const Group = require("./server/routes/chat.group.model");
 Group.watch().on('change', async data => {
 socket.send('Message added ! ')

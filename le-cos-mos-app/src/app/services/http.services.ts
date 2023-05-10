@@ -20,16 +20,16 @@ constructor(private http:HttpClient) {
   user?: any
   user_name?: string
   user_last_name?:string
-  async getUsername():Promise<void> {
+   getUsername() {
     const querParam = new HttpParams().set('id', this.user_id! ? this.user_id: localStorage.getItem('user-id')!);
-     await Promise.resolve(this.http.get(this.getUserNameUrl, { params: querParam, responseType: 'text' }).pipe(map((data: any) => {
+     return this.http.get(this.getUserNameUrl, { params: querParam, responseType: 'text' }).pipe(map((data: any) => {
   let parsedArray = JSON.parse(data)
-  console.log("GetUsername in bubule" + parsedArray)
+
       this.user_name = parsedArray.firstname
       this.user_last_name = parsedArray.lastname
       localStorage.setItem('fname',parsedArray.firstname);
       localStorage.setItem('lname',parsedArray.lastname)
-    })).subscribe(res => { }))
+    }))
 
   }
 

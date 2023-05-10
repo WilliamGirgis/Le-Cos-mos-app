@@ -3,14 +3,14 @@ const jwt = require('jsonwebtoken');
 const lod = require('lodash');
 const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
-const { defaults } = require('lodash');
 const jwtScret = "363926530498868229847hzerjherjeerverjyu51780120711262069gegerherher26"
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb+srv://test:Samsam123@cluster0.pcin2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',{useNewUrlParser:true,useUnifiedTopology:true}).then(()=>{
+let bucket;
+const url = 'mongodb+srv://test:Samsam123@cluster0.pcin2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+mongoose.connect(url,{useNewUrlParser:true,useUnifiedTopology:true}).then(()=>{
     console.log('Connected successfuly')
 
 })
-
 
 // Definir la table User ici
 const userSchema = new mongoose.Schema({

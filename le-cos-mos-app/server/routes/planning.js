@@ -23,7 +23,6 @@ let authenticate = (req, res, next) => {  /* MIDDLEWARE for checking if the acce
 router.post("/group/modify", authenticate, async function (req, res, next) {
   let newName = req.body.newName.replace(/ /g,'_')
   let oldName = req.body.oldName.replace(/ /g,'_')
-  console.log(oldName)
   fs.renameSync(publicationFolder + '/' + oldName + '.json',publicationFolder + '/' + newName + '.json');
 
   let isTronCommun = false
@@ -65,10 +64,9 @@ router.post("/set", authenticate, async function (req, res, next) {
     }
   }
 
-  console.log(transformedarray)
+
 
   await Planning.findOne({ groupName: owner }).then(async (group) => {
-// console.log(owner)
     for (let i = 0; i < group.week.length; i++) {
       // If the week already exists, we change it's seance list and then save the changes
       if (group.week[i].weekDate == week) {
@@ -78,7 +76,6 @@ router.post("/set", authenticate, async function (req, res, next) {
 
         }
         await group.save();
-        console.log('SAVED ! ')
         return res.status(200).send("Seance Updated ! ")
 
       }
