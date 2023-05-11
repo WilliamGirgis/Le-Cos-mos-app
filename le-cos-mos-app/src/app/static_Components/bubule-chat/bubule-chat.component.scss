@@ -4,13 +4,42 @@
   cursor: pointer;
 
 }
+#lock {
+width: 2vw;
+height: 3vh;
+position: absolute;
+right: 50%;
+top: 3%;
+cursor: pointer;
+z-index: 4;
+}
+#unlock {
+  width: 2vw;
+  height: 3vh;
+right: 50%;
+  position: absolute;
+  top: 3%;
+  z-index: 4;
+
+  cursor: pointer;
+}
 
 #messageFileName {
-cursor: pointer;
-transition: 350ms ease-in-out;
+
+  width: 100%;
+
+ label {
+  justify-self: right;
+  margin-top: 0;
+  margin-bottom: 0;
+  cursor: pointer;
+     width: fit-content;
+   max-width: 50%;
+  transition: 350ms ease-in-out;
 &:hover {
   text-decoration: underline;
 }
+ }
 }
 
 #fileName {

@@ -128,9 +128,11 @@
     <div id="title" *ngIf="isWindowOpen">
       <label>{{ selectedDiscussion }}</label>
     </div>
-
     <div *ngIf="isWindowOpen" id="messageWrapper">
+      <img (click)="isScrollLocked = !isScrollLocked" *ngIf="isScrollLocked" id="lock" src="../../../assets/images/lock-fill.svg">
+      <img (click)="isScrollLocked = !isScrollLocked" *ngIf="!isScrollLocked" id="unlock" src="../../../assets/images/unlock-fill.svg">
       <div (scroll)="onScrollMessageList()" id="messageList" *ngIf="isWindowOpen">
+
         <div style="margin-top: 3vh;margin-bottom: 3vh;"
           [class]="message.emiter == user_name + ' ' + user_last_name ? 'yours' : 'his'"
           *ngFor="let message of messageList"
@@ -160,12 +162,16 @@
 
           <div style="display:grid">
             <label id="msg" style="height: max-content" >{{ message.message }}</label>
-            <span [matMenuTriggerFor]="menu" id="messageFileName" *ngFor="let filename of message.filesName">{{filename}}
+            <span  id="messageFileName" *ngFor="let filename of message.filesName">
+             <label [matMenuTriggerFor]="menu"> {{filename}}
+
               <mat-menu  #menu="matMenu">
 
                 <button (click)="downloadFile(filename)" mat-button>Télécharger le fichier {{filename}}</button>
 
               </mat-menu>
+            </label>
+
             </span>
 
           </div>

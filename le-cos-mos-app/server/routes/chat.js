@@ -95,12 +95,17 @@ const getMessageList = router.get("/discussion/message/list",authenticate, async
 if(!groupName) {
   return res.status(404).send()
 }
- await Group.find({name:groupName}).then((group) => {
+ await Group.findOne({name:groupName}).then((group) => {
 
-  if(group.length == 0) {
-    return res.status(400).send()
+  if(group.message_list.length == 0) {
+    return res.status(200).send([])
   }
- return res.status(200).send(group[0].message_list)
+  let limit_message_length = req.query.message_length || 25
+  let list = []
+  for(let i = 1; i < limit_message_length && i < group.message_list.length ;i++) { // We just take the 25 last messages
+ list.push(group.message_list[group.message_list.length - i])
+  }
+ return res.status(200).send(list.reverse())
  })
 
 })
