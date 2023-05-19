@@ -1,23 +1,44 @@
-<form (submit)="addFiles()"  novalidate>
+<form (submit)="addFiles()">
   <mat-form-field [floatLabel]="'always'">
 <mat-label>
   Nom du fichier
 </mat-label>
-<input placeholder="Nom du fichier"  matInput>
+<input #filename placeholder="Nom du fichier"  matInput>
   </mat-form-field >
 
   <mat-form-field [floatLabel]="'always'">
     <mat-label>
       Chapitre
     </mat-label>
-    <input placeholder="N° du chapitre" matInput>
+    <input #chapter placeholder="N° du chapitre" matInput>
   </mat-form-field>
-  <mat-form-field [floatLabel]="'always'">
+  <div>
     <mat-label>
       Ajouter vos fichiers
     </mat-label>
-    <input  matInput>
-  </mat-form-field>
+    <button style="cursor: pointer;width: 5vw;height:7vh" mat-mini-fab color="primary"
+
+    >   <mat-icon>attach_file</mat-icon>
+    <input
+    type="file"
+    id="fileUpload"
+    ng2FileSelect
+    accept=".pdf,.jpg,.png,.jpeg"
+    [uploader]="uploader!"
+    multiple
+    />
+    </button>
+  </div>
+
+
+  <div id="queueWrapper">
+
+    <span id="fileName" style="font-size:60%;min-width:max-content" *ngFor="let file of uploader.queue;index as i">
+      {{file._file.name || "No file uploaded yet."}}
+      <img id="trash-file" height="25px" width="15px" (click)="uploader.removeFromQueue(uploader.queue[i])" src="../../../../../../assets/images/trash3-fill.svg">
+    </span>
+
+  </div>
 
   <button type="submit" mat-button>Ajouter et quitter</button>
 

@@ -2,7 +2,14 @@ const express = require("express");
 const router = express.Router();
 const Group = require("./chat.group.model");
 const User = require("./user.model");
+// Download File  //
+const url = "mongodb+srv://test:Samsam123@cluster0.pcin2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+const co = mongoose.connect(url,{useNewUrlParser:true,useUnifiedTopology:true}).then(()=>{
+    //console.log('Connected successfuly')
 
+})
 
 const jwt = require('jsonwebtoken');
 let authenticate = (req,res,next) => {  /* MIDDLEWARE for checking if the access-token has expired */
@@ -19,14 +26,13 @@ let authenticate = (req,res,next) => {  /* MIDDLEWARE for checking if the access
 }
 
 // File related
-const url = "mongodb+srv://test:Samsam123@cluster0.pcin2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 const multer = require("multer");
 const {GridFsStorage} = require('multer-gridfs-storage');
 const storage = new GridFsStorage({ url:url,
    file: (req, file) => {
     console.log(file)
         return {
-          filename: file.originalname.toString('utf8') // Set the filename here
+          filename: file.originalname.replace(/â/,'\'').normalize("NFD").replace(/[\u0300-\u036f]|[\x80-\x99]/g, ""),
         }
 }  });
 const upload = multer({ storage:storage }).array("file"); // Single for 1 file, array for multiple
@@ -54,18 +60,72 @@ const sendMessage = router.post("/discussion/message/send",authenticate, async f
 })
 
 const saveMessageFile = router.post("/discussion/message/file/save", async function (req, res, next) {
-    upload(req, res, function (err) {
-  if (err) {
-    return res.status(501).json({ error: err }).send();
-  }
-  // for(let i = 0;i < req.files.length ; i++) {
-  //   // storage.db.collection('fs.files').findOneAndUpdate({filename:req.files[i].filename},{filename:originalname}).then((file) => {
+  await new Promise((reject,resolve) =>{
+    upload(req, res, async function (err) {
+      if (err) {
 
-  // }
-return res.status(200).send()
-    });
+        return reject() ;
+      } else {
+        return resolve()
+      }
+  })}).then((resolvedData) =>{
+    return res.status(200).send()
+  }).catch((rejectData) => {
+    return res.status(501).send()
+  })
 })
+const { GridFSBucket } = require('mongodb');
 
+let gfs
+let con = mongoose.connection.once('open',() => {
+  const { mongo } = mongoose;
+  const db = con.db;
+  const bucket = new GridFSBucket(db);
+  gfs = { bucket };
+})
+// const mongoDriver = mongoose.mongo;
+// const db = mongoDriver.DBRef;
+// let bucket = new GridFSBucket(con)
+
+
+
+// Route pour télécharger un fichier
+const downLoadFile = router.get('/file', (req, res) => {
+  console.log(req.query.filename)
+  const filename = req.query.filename.replace(/’/g,'\'');
+  console.log(filename)
+  // Recherche du fichier dans GridFS
+    // Création d'un flux de lecture pour le fichier
+    // Envoi du fichier au client
+
+    storage.db.collection('fs.files').findOne({filename:filename}).then((file) => {
+      console.log(file)
+      if(file == undefined || file == null) {
+        return res.status(404).send("File not found")
+      } else {
+
+        const fileToSend = gfs.bucket.openDownloadStreamByName(filename);
+
+        res.set('Content-Disposition', `attachment; filename="${filename}"`);
+        res.set('Content-Type', 'application/octet-stream');
+        res.set('Content',fileToSend)
+        res.attachment(filename)
+        fileToSend.pipe(res)
+      }
+    })
+
+
+
+        // do something with the stream
+
+
+
+
+    // return res.status(200).send()
+
+
+
+});
 
 /* //////////////////////////// Getrelated method //////////////////////////// */
 const getPrivateDiscussionGroup = router.get("/discussion/private",authenticate, async function (req, res, next) {
@@ -79,13 +139,21 @@ const getPrivateDiscussionGroup = router.get("/discussion/private",authenticate,
 
 
 const getGlobalDiscussionGroup = router.get("/discussion/global",authenticate, async function (req, res, next) {
- await  Group.find({discussionType: 'global'}).then((group) => {
-  if(group.length == 0) {
-    return res.status(400).send()
-  }
-  return res.status(200).send(group)
- })
+  await new Promise(async (resolve,reject) =>{
+  await Group.find({discussionType: 'global'}).then((group) => {
+    if(group.length == 0) {
+      reject(null)
+    } else {
+      resolve(group)
+    }
+   })
+}).then((groupresolved) =>{
+  return res.status(200).send(groupresolved)
 
+
+}).catch((rejected) =>{
+  return res.status(400).send()
+})
 })
 
 const getMessageList = router.get("/discussion/message/list",authenticate, async function (req, res, next) {
@@ -95,19 +163,25 @@ const getMessageList = router.get("/discussion/message/list",authenticate, async
 if(!groupName) {
   return res.status(404).send()
 }
+let limit_message_length = req.query.message_list_length || 25
+let list = []
+ await new Promise(async (resolve,reject) => {
  await Group.findOne({name:groupName}).then((group) => {
+  if(!group || group == null) {
+    reject(null)
+    return
+  }
+ for(let i = 1; i <= limit_message_length && i <= group.message_list.length ;i++) { // We just take the 25 last messages
+   list.push(group.message_list[group.message_list.length - i])
+    }
+   resolve(null)
+   })
 
-  if(group.message_list.length == 0) {
-    return res.status(200).send([])
-  }
-  let limit_message_length = req.query.message_length || 25
-  let list = []
-  for(let i = 1; i < limit_message_length && i < group.message_list.length ;i++) { // We just take the 25 last messages
- list.push(group.message_list[group.message_list.length - i])
-  }
- return res.status(200).send(list.reverse())
+ }).then((resolved) => {
+  return res.status(200).send(list.reverse())
+ }).catch((rejected) => {
+  return res.status(200).send([])
  })
-
 })
 
 

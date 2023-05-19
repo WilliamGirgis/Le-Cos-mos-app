@@ -13,7 +13,6 @@ const readJsonFile = require("jsonfile");
 const getSeance = router.get("/get", async function (req, res, next) {
   var folder = publicationFolder
   var groupName = req.query.groupName.replace(/ /g,'_')
-  console.log(groupName)
   let result = []
 let index = 0
 let funded = false

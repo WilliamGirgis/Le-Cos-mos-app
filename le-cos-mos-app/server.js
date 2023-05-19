@@ -6,7 +6,7 @@ const mailRoutes = require('./server/routes/mail')
 const logRoutes = require('./server/routes/log')
 const msgRoutes = require('./server/routes/chat')
 const planningRoutes = require('./server/routes/planning')
-
+const supportsRoutes = require('./server/routes/support')
 const publicationRoutes = require('./server/routes/publication')
 
 const seanceRoutes = require('./server/routes/seance')
@@ -28,6 +28,7 @@ app.use('/log',logRoutes);
 app.use('/chat',msgRoutes);
 app.use('/planning',planningRoutes);
 app.use('/seance',seanceRoutes)
+app.use('/support',supportsRoutes)
 
 
 app.get('*',(req,res) => { //Catch all others routes request and return  the index

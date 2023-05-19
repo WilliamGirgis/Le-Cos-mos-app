@@ -9,7 +9,24 @@ width: 60%;
 margin: auto auto 2vh auto;
 text-align: center;
 }
+#img-hover {
+  align-self: center;
+  min-width: fit-content;
+  cursor: pointer;
+  margin: -7vh 0 0 0;
 
+  &:hover {
+   img {
+    transform: translateX(-30px);
+   }
+  }
+}
+
+#arrow {
+  height: 12vh;
+  width: 7vw;
+  transition:350ms ease-in-out
+}
 
 
 h2 {

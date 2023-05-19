@@ -1,6 +1,7 @@
+<app-router-top (dialogClosedPing)="getFileList()"></app-router-top>
 <div id="wrapper">
 <li>
-  <ul routerLink="./{{item.name + '_' + item.chapter }}" (click)="displayDetails(i)" *ngFor="let item of contentListTest; index as i">
+  <ul routerLink="./{{item.name + '_' + item.chapter }}" (click)="displayDetails(i)" *ngFor="let item of contentList; index as i">
 
     <div id="header-wrp">
     <h3>Chapitre {{item.chapter}}</h3>

@@ -104,7 +104,7 @@
       </a>
     </div>
 
-    <div id="discussion-dg" *ngIf="isWindowOpen">
+    <div id="discussion-dg">
       <div
       (click)="getMessageList(discussion.name,'click');globalIndex = i"
       *ngFor="let discussion of (discussionTypeView == 'global' ? globalDiscussionList : privateDiscussionList);index as i"
@@ -125,10 +125,10 @@
   </div>
 
   <div id="rightWrp">
-    <div id="title" *ngIf="isWindowOpen">
-      <label>{{ selectedDiscussion }}</label>
+    <div id="title">
+      <label>{{ selectedDiscussion }} | {{messageList.length}} Messages affichés</label>
     </div>
-    <div *ngIf="isWindowOpen" id="messageWrapper">
+    <div  id="messageWrapper">
       <img (click)="isScrollLocked = !isScrollLocked" *ngIf="isScrollLocked" id="lock" src="../../../assets/images/lock-fill.svg">
       <img (click)="isScrollLocked = !isScrollLocked" *ngIf="!isScrollLocked" id="unlock" src="../../../assets/images/unlock-fill.svg">
       <div (scroll)="onScrollMessageList()" id="messageList" *ngIf="isWindowOpen">
@@ -163,11 +163,11 @@
           <div style="display:grid">
             <label id="msg" style="height: max-content" >{{ message.message }}</label>
             <span  id="messageFileName" *ngFor="let filename of message.filesName">
-             <label [matMenuTriggerFor]="menu"> {{filename}}
+             <label  [matMenuTriggerFor]="menu"> {{filename}}
 
-              <mat-menu  #menu="matMenu">
+              <mat-menu   #menu="matMenu">
 
-                <button (click)="downloadFile(filename)" mat-button>Télécharger le fichier {{filename}}</button>
+                <button  (click)="downloadFile(filename)" mat-button>Télécharger le fichier</button>
 
               </mat-menu>
             </label>

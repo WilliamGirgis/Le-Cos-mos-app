@@ -435,7 +435,7 @@ const routes: Routes = [
               }
             ]*/
           }
-        ]   
+        ]
       },
       {
         path: 'gestion',
@@ -451,10 +451,24 @@ import {SocketIoConfig } from 'ngx-socket-io';
 import { map } from 'rxjs';
 import { UserListComponent } from './user_Views/admin-views/statistiques-view-admin/user-list/user-list.component';
 import { StatsDetailsComponent } from './user_Views/admin-views/statistiques-view-admin/stats-details/stats-details.component';
+
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
+  constructor(private socket: Socket) {}
+
+  sendMessage(msg: string) {
+    this.socket.emit('message', msg);
+  }
+  getMessage() {
+    return this.socket.fromEvent('message').pipe(map((data:any) => {
+
+    }));
+  }
+}
+
+export class SupportService {
   constructor(private socket: Socket) {}
 
   sendMessage(msg: string) {

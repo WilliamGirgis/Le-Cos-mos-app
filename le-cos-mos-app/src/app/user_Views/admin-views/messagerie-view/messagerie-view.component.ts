@@ -68,7 +68,7 @@ export class MessagerieViewComponent implements OnInit {
   createDiscussionGroup(groupName:string) {
     const querParam = new HttpParams().set('_id', localStorage.getItem('user-id')!);
 
-    return this.http.post(this.createPrivateGroupeDiscussionRoute, { name: groupName,discussionType:this.discussionTypeView, responseType: 'text' },{params:querParam}).pipe(map(async (data) => {
+    return this.http.post(this.createPrivateGroupeDiscussionRoute, { name: groupName,discussionType:this.discussionTypeView, responseType: 'text' },{params:querParam}).pipe(map( (data) => {
 
       this.getGlobalDiscussionList()
       this.getPrivateDiscussionList()

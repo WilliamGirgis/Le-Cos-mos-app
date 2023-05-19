@@ -1,7 +1,6 @@
-import { AfterContentChecked, AfterContentInit, AfterViewInit, Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AfterContentChecked, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { AddItemDialogComponent } from './add-item-dialog/add-item-dialog.component';
 import { ModifyItemDialogComponent } from './modify-item-dialog/modify-item-dialog.component';
 
@@ -12,9 +11,11 @@ import { ModifyItemDialogComponent } from './modify-item-dialog/modify-item-dial
 })
 export class RouterTopComponent implements OnInit,AfterContentChecked {
 
+
+
   constructor(public dialog:MatDialog,private router:Router,private route: ActivatedRoute) {
     dialog.afterAllClosed.subscribe((res) => {
-
+      this.dialogClosedPing.emit()
     })
   }
   ngAfterContentChecked(): void {
@@ -34,7 +35,7 @@ export class RouterTopComponent implements OnInit,AfterContentChecked {
   navigateBack(): void {
     this.isDetails = this.router.url.split(/\//g)[this.router.url.split(/\//g).length - 1]
     if((this.isDetails == 'list')) {
-      this.router.navigate(['..'], { relativeTo: this.route });
+      this.router.navigate(['../..'], { relativeTo: this.route });
 
     } else {
       this.router.navigate(['./list'], { relativeTo: this.route })
@@ -46,7 +47,7 @@ export class RouterTopComponent implements OnInit,AfterContentChecked {
   lvl2Block = this.router.url.split(/\//g)[4]
   lvl3Block = this.router.url.split(/\//g)[5]
   lvl4Block = this.router.url.split(/\//g)[6]
-
+@Output() dialogClosedPing:EventEmitter<any> = new EventEmitter()
 
   lvl1BlockClean =  this.lvl1Block.replace(/%20/g,' ').replace(/%C3%A9/g,'e')
   lvl2BlockClean = this.lvl2Block.replace(/%20/g,' ').replace(/%C3%A9/g,'e')
