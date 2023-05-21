@@ -16,10 +16,10 @@ export class ListContentDisplayerComponent implements OnInit,AfterViewInit {
 
   contentList:FileDescription[] = []
 
-  cour_name= decodeURIComponent(this.route.url.split(/\//g)[this.route.url.split(/\//g).length - 3])
+  cour_name = decodeURIComponent(this.route.url.split(/\//g)[this.route.url.split(/\//g).length - 3])
     blockContentList = this.route.url.split(/\//g)[this.route.url.split(/\//g).length - 2]
-  cleanContent = this.blockContentList.replace(/%20/g,' ')
-  contentType = this.cleanContent.replace(/%20/g,' ').replace(/%C3%A9/g,'e')
+  cleanContent = decodeURIComponent(this.blockContentList.replace(/%20/g,' '))
+  contentType = decodeURIComponent(this.cleanContent)
   constructor(private http:HttpClient,private router:ActivatedRoute,private route:Router) { }
   // ngAfterViewChecked(): void {
   //   this.getFileList()
@@ -28,6 +28,16 @@ export class ListContentDisplayerComponent implements OnInit,AfterViewInit {
 this.getFileList()
   }
 
+  readonly deletDocumentRoute = 'http://localhost:4200/support/file/del'
+
+  deleteDocument(i:number) {
+    this.http.post(this.deletDocumentRoute,{courName:this.cour_name,contentType:this.contentType,documentName:this.contentList[i].name}).pipe(map((data)=>{
+      this.getFileList()
+    })).subscribe((res) =>{
+
+    })
+
+  }
   getFileList() {
 
 

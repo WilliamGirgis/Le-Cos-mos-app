@@ -1,6 +1,13 @@
 form {
   display: grid;
   height: 100%;
+
+}
+
+#filesWrp {
+  margin: auto;
+  display: grid;
+  gap: 5vh;
 }
 
 
@@ -11,16 +18,17 @@ button {
   min-width: max-content;
   justify-self: center;
   max-height: 7vh;
+  overflow: hidden;
+
 }
 
 #fileUpload {
   position: absolute;
   opacity: 0;
-  width: 50px;
-  height: 50px;
+  width: 55vw;
+  height:75vh;
 left: 0;
 content: none;
-cursor: pointer;
 }
 
 #queueWrapper {

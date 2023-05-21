@@ -1,22 +1,28 @@
-<form (submit)="addFiles(chapter.value)">
-  <mat-form-field [floatLabel]="'always'">
-<mat-label>
-  Nom du fichier
-</mat-label>
-<input #filename placeholder="Nom du fichier"  matInput>
-  </mat-form-field >
+<form [formGroup]="formGroup!" (submit)="addFiles()">
+  <ng-container *ngFor="let item of uploader.queue; index as i">
+    <h3>Fichier n°{{i + 1}}</h3>
+    <img id="trash-file" height="25px" width="15px" (click)="uploader.removeFromQueue(uploader.queue[i])" src="../../../../../../assets/images/trash3-fill.svg">
+    <mat-form-field  [floatLabel]="'always'">
+      <mat-label>
+        Nom du fichier
+      </mat-label>
+      <input   [formControlName]="'name' + i" placeholder="Nom du fichier"  matInput>
+      <h4 style="margin:0">{{imgExtension[i]}}</h4>
+        </mat-form-field >
 
-  <mat-form-field [floatLabel]="'always'">
-    <mat-label>
-      Chapitre
-    </mat-label>
-    <input  #chapter placeholder="N° du chapitre" matInput>
-  </mat-form-field>
-  <div>
+        <mat-form-field   [floatLabel]="'always'">
+          <mat-label>
+            Chapitre
+          </mat-label>
+          <input [formControlName]="'chapter' + i" placeholder="N° du chapitre" matInput>
+        </mat-form-field>
+  </ng-container>
+
+  <div id="filesWrp">
     <mat-label>
       Ajouter vos fichiers
     </mat-label>
-    <button style="cursor: pointer;width: 5vw;height:7vh" mat-mini-fab color="primary"
+    <button type="button" style="cursor: pointer;width: 5vw;height:7vh" mat-mini-fab color="primary"
 
     >   <mat-icon>attach_file</mat-icon>
     <input
@@ -28,18 +34,11 @@
     multiple
     />
     </button>
+    <button *ngIf="!isSending && !(uploader.queue.length == 0)" type="submit" mat-button>Ajouter et quitter</button>
+    
   </div>
-
-
-  <div id="queueWrapper">
-
-    <span id="fileName" style="font-size:60%;min-width:max-content" *ngFor="let file of uploader.queue;index as i">
-      {{file._file.name || "No file uploaded yet."}}
-      <img id="trash-file" height="25px" width="15px" (click)="uploader.removeFromQueue(uploader.queue[i])" src="../../../../../../assets/images/trash3-fill.svg">
-    </span>
-
-  </div>
-
-  <button type="submit" mat-button>Ajouter et quitter</button>
 
 </form>
+
+
+<mat-spinner style="margin:auto" *ngIf="isSending"></mat-spinner>

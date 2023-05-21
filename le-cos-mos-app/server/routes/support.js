@@ -32,8 +32,10 @@ let annal_bucket_FS
 let video_bucket_FS
 let exercice_bucket_FS
 let planchage_bucket_FS
+let dbg
 let con = mongoose.connection.once('open',() => {
   const db = con.db;
+  dbg = db
   const td_bucket = new GridFSBucket(db,{ bucketName: 'td_bucket.fs' });
   td_bucket_FS = { td_bucket };
   const cm_bucket = new GridFSBucket(db,{ bucketName: 'cm_bucket.fs' });
@@ -339,6 +341,167 @@ const saveFile = router.post("/file/save", async function (req, res, next) {
                   return res.status(200).send()
                 }).catch((rejectData) => {
                   return res.status(501).send()
+                })
+                break;
+  }
+})
+const delFile = router.post("/file/del", async function (req, res, next) {
+  let courName = req.body.courName;
+  let contentType = req.body.contentType
+  let documentName = req.body.documentName
+console.log(courName)
+console.log(contentType)
+console.log(documentName)
+  switch(contentType) {
+    case 'td':
+      if(td_file_storage.db.collection('td_bucket.fs.files') == null) {
+        return res.status(404).send()
+      }
+      td_file_storage.db.collection('td_bucket.fs.files').findOneAndDelete({filename:documentName},{'metadata.courName':courName}).then((result) => {
+        const deletedFileId = result.value._id
+        console.log(result)
+        const bucket = new GridFSBucket(dbg, { bucketName: 'tq_bucket.fs' });
+        bucket.delete(deletedFileId).then((res) => {
+            // File successfully deleted from the GridFS bucket
+            return res.status(200).send();
+        }).catch((e) => {
+          if (e) {
+
+            // To make sure the client request getFiles() again.
+            // "File not found for id 646a849c5aea81a3d4a74519" Was triggered, even though the chuks were all deleted
+            return res.status(200).send();
+          }
+        });
+        return res.status(200).send()
+      }).catch((e) =>{
+        console.log(e)
+        return res.status(404).send(e)
+      })
+      break;
+      case 'cm':
+        if(cm_file_storage.db.collection('cm_bucket.fs.files') == null) {
+          return res.status(404).send()
+        }
+        cm_file_storage.db.collection('cm_bucket.fs.files').findOneAndDelete({filename:documentName},{'metadata.courName':courName}).then((result) => {
+          const deletedFileId = result.value._id
+          console.log(result)
+          const bucket = new GridFSBucket(dbg, { bucketName: 'cm_bucket.fs' });
+          bucket.delete(deletedFileId).then((res) => {
+              // File successfully deleted from the GridFS bucket
+              return res.status(200).send();
+          }).catch((e) => {
+            if (e) {
+              console.error(e);
+              // To make sure the client request getFiles() again.
+              // "File not found for id 646a849c5aea81a3d4a74519" Was triggered, even though the chuks were all deleted
+              return res.status(200).send();
+            }
+          });
+          return res.status(200).send()
+        }).catch((e) =>{
+          console.log(e)
+          return res.status(404).send(e)
+        })
+        break;
+        case 'annales':
+          if(annal_file_storage.db.collection('annal_bucket.fs.files') == null) {
+            return res.status(404).send()
+          }
+          annal_file_storage.db.collection('annal_bucket.fs.files').findOneAndDelete({filename:documentName},{'metadata.courName':courName}).then((result) => {
+            const deletedFileId = result.value._id
+            console.log(result)
+            const bucket = new GridFSBucket(dbg, { bucketName: 'annal_bucket.fs' });
+            bucket.delete(deletedFileId).then((res) => {
+                // File successfully deleted from the GridFS bucket
+                return res.status(200).send();
+            }).catch((e) => {
+              if (e) {
+                console.error(e);
+                // To make sure the client request getFiles() again.
+                // "File not found for id 646a849c5aea81a3d4a74519" Was triggered, even though the chuks were all deleted
+                return res.status(200).send();
+              }
+            });
+            return res.status(200).send()
+          }).catch((e) =>{
+            console.log(e)
+            return res.status(404).send(e)
+          })
+          break;
+          case 'video':
+            if(video_file_storage.db.collection('video_bucket.fs.files') == null) {
+              return res.status(404).send()
+            }
+            video_file_storage.db.collection('video_bucket.fs.files').findOneAndDelete({filename:documentName},{'metadata.courName':courName}).then((result) => {
+              const deletedFileId = result.value._id
+              console.log(result)
+              const bucket = new GridFSBucket(dbg, { bucketName: 'video_bucket.fs' });
+              bucket.delete(deletedFileId).then((res) => {
+                  // File successfully deleted from the GridFS bucket
+                  return res.status(200).send();
+              }).catch((e) => {
+                if (e) {
+                  console.error(e);
+                  // To make sure the client request getFiles() again.
+                  // "File not found for id 646a849c5aea81a3d4a74519" Was triggered, even though the chuks were all deleted
+                  return res.status(200).send();
+                }
+              });
+              return res.status(200).send()
+            }).catch((e) =>{
+              console.log(e)
+              return res.status(404).send(e)
+            })
+          
+            break;
+            case 'excercices':
+              if(exercice_file_storage.db.collection('exercice_bucket.fs.files') == null) {
+                return res.status(404).send()
+              }
+              exercice_file_storage.db.collection('exercice_bucket.fs.files').findOneAndDelete({filename:documentName},{'metadata.courName':courName}).then((result) => {
+                const deletedFileId = result.value._id
+                console.log(result)
+                const bucket = new GridFSBucket(dbg, { bucketName: 'exercice_bucket.fs' });
+                bucket.delete(deletedFileId).then((res) => {
+                    // File successfully deleted from the GridFS bucket
+                    return res.status(200).send();
+                }).catch((e) => {
+                  if (e) {
+                    console.error(e);
+                    // To make sure the client request getFiles() again.
+                    // "File not found for id 646a849c5aea81a3d4a74519" Was triggered, even though the chuks were all deleted
+                    return res.status(200).send();
+                  }
+                });
+                return res.status(200).send()
+              }).catch((e) =>{
+                console.log(e)
+                return res.status(404).send(e)
+              })
+              break;
+              case 'planchage':
+                if(planchage_file_storage.db.collection('planchage_bucket.fs.files') == null) {
+                  return res.status(404).send()
+                }
+                planchage_file_storage.db.collection('planchage_bucket.fs.files').findOneAndDelete({filename:documentName},{'metadata.courName':courName}).then((result) => {
+                  const deletedFileId = result.value._id
+                  console.log(result)
+                  const bucket = new GridFSBucket(dbg, { bucketName: 'planchage_bucket.fs' });
+                  bucket.delete(deletedFileId).then((res) => {
+                      // File successfully deleted from the GridFS bucket
+                      return res.status(200).send();
+                  }).catch((e) => {
+                    if (e) {
+                      console.error(e);
+                      // To make sure the client request getFiles() again.
+                      // "File not found for id 646a849c5aea81a3d4a74519" Was triggered, even though the chuks were all deleted
+                      return res.status(200).send();
+                    }
+                  });
+    
+                }).catch((e) =>{
+                  console.log(e)
+                  return res.status(404).send(e)
                 })
                 break;
   }

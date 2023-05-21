@@ -8,6 +8,37 @@
   justify-items: center;
   align-items: center;
 }
+
+#trash {
+  margin: auto;
+position: relative;
+
+
+}
+.modifyUser {
+  min-width: max-content;
+  width: fit-content;
+  align-self: center;
+  margin-bottom: 5px;
+}
+.titles {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  height: max-content; // On set le 'height' et non le 'min-height' car le texte peut overflow et créer un scoll
+  min-width: max-content;
+  width: fit-content;
+  margin: auto;
+  border: none;
+  background-color: transparent;
+  text-align: center;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  color: var(--white-them-color);
+  outline: none;
+  resize: none;
+  z-index: 10;
+  cursor: pointer;
+}
 li {
   align-self: baseline;
   list-style: none;
@@ -27,19 +58,19 @@ background-size: 10vh;
 background-position: 95%;
 &:hover {
   background-position: 90%;
-}
-
-    transition: 250ms ease-in-out;
-&:hover {
   background-color: var(--dblue-them-color);
+#trash {
+  fill:white;
 }
+}
+    transition: 250ms ease-in-out;
     background-color: var(--blue-them-color);
     width: 95%;
     min-height: max-content;
     height: fit-content;
 
 display: flex;
-flex-direction: column;
+flex-direction: row;
     border-radius: 10px;
     margin: 2vh auto 2vh auto;
     cursor: pointer;
@@ -96,3 +127,5 @@ cursor: pointer;
   cursor: pointer;
 
 }
+/* <button  (click)="setModifyView()" class="modifyUser" mat-button ><img width="20px" height="20px" src="../../../../../../assets/images/pencil-fill-white.svg">
+</button>*/
