@@ -27,7 +27,12 @@ text-align: center;
   width: 7vw;
   transition:350ms ease-in-out
 }
-
+#uploadedImage {
+  min-height: max-content;
+min-width: max-content;
+width: 33vw;
+height: 77vh;
+}
 
 h2 {
   text-align: center;

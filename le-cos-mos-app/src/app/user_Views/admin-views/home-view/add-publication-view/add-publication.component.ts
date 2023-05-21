@@ -93,7 +93,7 @@ filename?:string
 
 
 
-    }) // Encapsuler en promesse pour être sûr que la mise en ligne se réalise ne premier
+    }) // Encapsuler en promesse pour être sûr que la mise en ligne se réalise en premier
     let ext:string [] = this.filename?.split(/\./)!
     let extension
     let index:number = 0

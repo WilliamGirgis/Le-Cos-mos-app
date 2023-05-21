@@ -1,8 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const { GridFSBucket } = require('mongodb');
-const multer = require("multer");
-const {GridFsStorage} = require('multer-gridfs-storage');
 const User = require("./user.model");
 const url = "mongodb+srv://test:Samsam123@cluster0.pcin2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 const mongoose = require('mongoose');
@@ -24,18 +21,44 @@ let authenticate = (req,res,next) => {  /* MIDDLEWARE for checking if the access
 }
 
 
+const { GridFSBucket } = require('mongodb');
+const multer = require("multer");
+const {GridFsStorage} = require('multer-gridfs-storage');
 
+// Files buckets initialisation
+let td_bucket_FS
+let cm_bucket_FS
+let annal_bucket_FS
+let video_bucket_FS
+let exercice_bucket_FS
+let planchage_bucket_FS
+let con = mongoose.connection.once('open',() => {
+  const db = con.db;
+  const td_bucket = new GridFSBucket(db,{ bucketName: 'td_bucket.fs' });
+  td_bucket_FS = { td_bucket };
+  const cm_bucket = new GridFSBucket(db,{ bucketName: 'cm_bucket.fs' });
+  cm_bucket_FS = { cm_bucket };
+  const annal_bucket = new GridFSBucket(db,{ bucketName: 'annal_bucket.fs' });
+  annal_bucket_FS = { annal_bucket };
+
+  const video_bucket = new GridFSBucket(db,{ bucketName: 'video_bucket.fs' });
+  video_bucket_FS = { video_bucket };
+  const  exercice_bucket = new GridFSBucket(db,{ bucketName: 'exercice_bucket.fs' });
+  exercice_bucket_FS = { exercice_bucket };
+  const planchage_bucket = new GridFSBucket(db,{ bucketName: 'planchage_bucket.fs' });
+  planchage_bucket_FS = { planchage_bucket };
+})
 
 //
 const td_file_storage = new GridFsStorage({ url:url,
   file: (req, file) => {
-    console.log(file)
        return {
          filename: file.originalname.replace(/â/,'\'').normalize("NFD").replace(/[\u0300-\u036f]|[\x80-\x99]/g, ""),
          bucketName:'td_bucket.fs',
          metadata:{
           'type':'Travaux dirigés',
-          'courName':req.additionalData.courName
+          'courName':req.additionalData.courName,
+          'chapter':req.additionalData.chapter
          }
        }
 }  });
@@ -48,7 +71,8 @@ const cm_file_storage = new GridFsStorage({ url:url,
          bucketName:'cm_bucket.fs',
          metadata:{
           'type':'Cours Magistraux',
-          'courName':req.additionalData.courName
+          'courName':req.additionalData.courName,
+          'chapter':req.additionalData.chapter
          }
        }
 }  });
@@ -61,7 +85,8 @@ const annal_file_storage = new GridFsStorage({ url:url,
          bucketName:'annal_bucket.fs',
          metadata:{
           'type':'Annal',
-          'courName':req.additionalData.courName
+          'courName':req.additionalData.courName,
+          'chapter':req.additionalData.chapter
          }
        }
 }  });
@@ -75,7 +100,8 @@ const video_file_storage = new GridFsStorage({ url:url,
          bucketName:'video_bucket.fs',
          metadata:{
           'type':'Video',
-          'courName':req.additionalData.courName
+          'courName':req.additionalData.courName,
+          'chapter':req.additionalData.chapter
          }
        }
 }  });
@@ -89,7 +115,8 @@ const exercice_file_storage = new GridFsStorage({ url:url,
          bucketName:'exercice_bucket.fs',
          metadata:{
           'type':'Exercice',
-          'courName':req.additionalData.courName
+          'courName':req.additionalData.courName,
+          'chapter':req.additionalData.chapter
          }
        }
 }  });
@@ -103,7 +130,8 @@ const planchage_file_storage = new GridFsStorage({ url:url,
          bucketName:'planchage_bucket.fs',
          metadata:{
           'type':'Planchage',
-          'courName':req.additionalData.courName
+          'courName':req.additionalData.courName,
+          'chapter':req.additionalData.chapter
          }
        }
 }  });
@@ -112,43 +140,21 @@ const upload_planchage_file = multer({ storage:planchage_file_storage }).array("
 
 // End File related
 
-// Files buckets initialisation
-let td_bucket_FS
-let cm_bucket_FS
-let annal_bucket_FS
-let video_bucket_FS
-let exercice_bucket_FS
-let planchage_bucket_FS
-let con = mongoose.connection.once('open',() => {
-  const db = con.db;
-  const td_bucket = new GridFSBucket(db,{ bucketName: 'td_bucket.fs.files' });
-  td_bucket_FS = { td_bucket };
-  const cm_bucket = new GridFSBucket(db,{ bucketName: 'cm_bucket.fs.files' });
-  cm_bucket_FS = { cm_bucket };
-  const annal_bucket = new GridFSBucket(db,{ bucketName: 'annal_bucket.fs.files' });
-  annal_bucket_FS = { annal_bucket };
 
-  const video_bucket = new GridFSBucket(db,{ bucketName: 'video_bucket.fs.files' });
-  video_bucket_FS = { video_bucket };
-  const  exercice_bucket = new GridFSBucket(db,{ bucketName: 'exercice_bucket.fs.files' });
-  exercice_bucket_FS = { exercice_bucket };
-  const planchage_bucket = new GridFSBucket(db,{ bucketName: 'planchage_bucket.fs.files' });
-  planchage_bucket_FS = { planchage_bucket };
-})
 
 const downLoadFile = router.get('/file/download',authenticate, (req, res) => {
   let filename = req.query.filename;
   let contentType = req.query.contentType
-console.log(filename)
-console.log(contentType)
+
+
   switch(contentType) {
 
     case 'td':
-      td_file_storage.db.collection('td_bucket.fs').findOne({filename:filename.replace(/\’/,'\'')}).then((file) => {
+      td_file_storage.db.collection('td_bucket.fs.files').findOne({filename:filename.replace(/\’/,'\'')}).then((file) => {
         if(file == undefined || file == null) {
           return res.status(404).send("File not found")
         } else {
-          const fileToSend = td_bucket_FS.bucket.openDownloadStreamByName(filename.replace(/\’/,'\''));
+          const fileToSend = td_bucket_FS.td_bucket.openDownloadStreamByName(filename.replace(/\’/,'\''));
           res.set('Content-Disposition', `attachment; filename="${filename.replace(/\’/,'\'')}"`);
           res.set('Content-Type', 'application/octet-stream');
           res.set('Content',fileToSend)
@@ -159,11 +165,11 @@ console.log(contentType)
 
       break;
       case 'cm':
-        cm_file_storage.db.collection('cm_bucket.fs').findOne({filename:filename.replace(/\’/,'\'')}).then((file) => {
+        cm_file_storage.db.collection('cm_bucket.fs.files').findOne({filename:filename.replace(/\’/,'\'')}).then((file) => {
           if(file == undefined || file == null) {
             return res.status(404).send("File not found")
           } else {
-            const fileToSend = cm_bucket_FS.bucket.openDownloadStreamByName(filename.replace(/\’/,'\''));
+            const fileToSend = cm_bucket_FS.cm_bucket.openDownloadStreamByName(filename.replace(/\’/,'\''));
             res.set('Content-Disposition', `attachment; filename="${filename.replace(/\’/,'\'')}"`);
             res.set('Content-Type', 'application/octet-stream');
             res.set('Content',fileToSend)
@@ -173,11 +179,11 @@ console.log(contentType)
         })
         break;
         case 'annal':
-          annal_file_storage.db.collection('annal_bucket.fs').findOne({filename:filename.replace(/\’/,'\'')}).then((file) => {
+          annal_file_storage.db.collection('annal_bucket.fs.files').findOne({filename:filename.replace(/\’/,'\'')}).then((file) => {
             if(file == undefined || file == null) {
               return res.status(404).send("File not found")
             } else {
-              const fileToSend = annal_bucket_FS.bucket.openDownloadStreamByName(filename.replace(/\’/,'\''));
+              const fileToSend = annal_bucket_FS.annal_bucket.openDownloadStreamByName(filename.replace(/\’/,'\''));
               res.set('Content-Disposition', `attachment; filename="${filename.replace(/\’/,'\'')}"`);
               res.set('Content-Type', 'application/octet-stream');
               res.set('Content',fileToSend)
@@ -187,11 +193,12 @@ console.log(contentType)
           })
           break;
           case 'video':
-            video_file_storage.db.collection('video_bucket.fs').findOne({filename:filename.replace(/\’/,'\'')}).then((file) => {
+            video_file_storage.db.collection('video_bucket.fs.files').findOne({filename:filename.replace(/\’/,'\'')}).then((file) => {
               if(file == undefined || file == null) {
+                console.log("File not found")
                 return res.status(404).send("File not found")
               } else {
-                const fileToSend = video_bucket_FS.bucket.openDownloadStreamByName(filename.replace(/\’/,'\''));
+                const fileToSend = video_bucket_FS.video_bucket.openDownloadStreamByName(filename.replace(/\’/,'\''));
                 res.set('Content-Disposition', `attachment; filename="${filename.replace(/\’/,'\'')}"`);
                 res.set('Content-Type', 'application/octet-stream');
                 res.set('Content',fileToSend)
@@ -201,11 +208,11 @@ console.log(contentType)
             })
             break;
             case 'excercices':
-              exercice_file_storage.db.collection('exercice_bucket.fs').findOne({filename:filename.replace(/\’/,'\'')}).then((file) => {
+              exercice_file_storage.db.collection('exercice_bucket.fs.files').findOne({filename:filename.replace(/\’/,'\'')}).then((file) => {
                 if(file == undefined || file == null) {
                   return res.status(404).send("File not found")
                 } else {
-                  const fileToSend = exercice_bucket_FS.bucket.openDownloadStreamByName(filename.replace(/\’/,'\''));
+                  const fileToSend = exercice_bucket_FS.exercice_bucket.openDownloadStreamByName(filename.replace(/\’/,'\''));
                   res.set('Content-Disposition', `attachment; filename="${filename.replace(/\’/,'\'')}"`);
                   res.set('Content-Type', 'application/octet-stream');
                   res.set('Content',fileToSend)
@@ -216,11 +223,11 @@ console.log(contentType)
               break;
               case 'planchage':
 
-                planchage_file_storage.db.collection('planchage_bucket.fs').findOne({filename:filename.replace(/\’/,'\'')}).then((file) => {
+                planchage_file_storage.db.collection('planchage_bucket.fs.files').findOne({filename:filename.replace(/\’/,'\'')}).then((file) => {
                   if(file == undefined || file == null) {
                     return res.status(404).send("File not found")
                   } else {
-                    const fileToSend = planchage_bucket_FS.bucket.openDownloadStreamByName(filename.replace(/\’/,'\''));
+                    const fileToSend = planchage_bucket_FS.planchage_bucket.openDownloadStreamByName(filename.replace(/\’/,'\''));
                     res.set('Content-Disposition', `attachment; filename="${filename.replace(/\’/,'\'')}"`);
                     res.set('Content-Type', 'application/octet-stream');
                     res.set('Content',fileToSend)
@@ -236,10 +243,10 @@ const saveFile = router.post("/file/save", async function (req, res, next) {
   // let cour_name = req.query.cour_name;
   let contentType = req.headers.content_type
   let courName = req.headers.cour_name
-  console.log(contentType)
-  console.log(courName)
+  let chapter = req.headers.chapter
   req.additionalData = {
     courName: courName,
+    chapter:chapter
     // Add more additional data fields as needed
   };
   switch(contentType) {
@@ -345,8 +352,13 @@ const getFiles = router.get("/file", async function (req, res, next) {
   let files_list = []
   switch(contentType) {
     case 'td':
+      if(td_file_storage.db.collection('td_bucket.fs.files') == null) {
+        return res.status(404).send()
+      }
       td_file_storage.db.collection('td_bucket.fs.files').find({filename:{$regex:'',$options:"i"}}).forEach((file) => {
-        files_list.push({name:file.filename,chapter:file.chapter})
+        if(file.metadata.courName == cour_name) {
+          files_list.push({name:file.filename,chapter:file.metadata.chapter})
+        }
       }).then((result) => {
         return res.status(200).send(files_list)
       }).catch((e) =>{
@@ -354,15 +366,25 @@ const getFiles = router.get("/file", async function (req, res, next) {
       })
       break;
       case 'cm':
+        if(cm_file_storage.db.collection('cm_bucket.fs.files') == null) {
+          return res.status(404).send()
+        }
         cm_file_storage.db.collection('cm_bucket.fs.files').find({filename:{$regex:'',$options:"i"}}).forEach((file) => {
-          files_list.push({name:file.filename,chapter:file.chapter})
+          if(file.metadata.courName == cour_name) {
+            files_list.push({name:file.filename,chapter:file.metadata.chapter})
+          }
         }).then((result) => {
           return res.status(200).send(files_list)
         })
         break;
         case 'annales':
+          if(annal_file_storage.db.collection('annal_bucket.fs.files') == null) {
+            return res.status(404).send()
+          }
           annal_file_storage.db.collection('annal_bucket.fs.files').find({filename:{$regex:'',$options:"i"}}).forEach((file) => {
-            files_list.push({name:file.filename,chapter:file.chapter})
+            if(file.metadata.courName == cour_name) {
+              files_list.push({name:file.filename,chapter:file.metadata.chapter})
+            }
 
           }).then((result) => {
             return res.status(200).send(files_list)
@@ -370,26 +392,37 @@ const getFiles = router.get("/file", async function (req, res, next) {
           break;
           case 'video':
             if(video_file_storage.db.collection('video_bucket.fs.files') == null) {
-
+              return res.status(404).send()
             }
             video_file_storage.db.collection('video_bucket.fs.files').find({filename:{$regex:'',$options:"i"}}).forEach((file) => {
-              files_list.push({name:file.filename,chapter:file.chapter})
+              if(file.metadata.courName == cour_name) {
+                files_list.push({name:file.filename,chapter:file.metadata.chapter})
+              }
 
             }).then((result) => {
               return res.status(200).send(files_list)
             })
             break;
             case 'excercices':
+              if(exercice_file_storage.db.collection('exercice_bucket.fs.files') == null) {
+                return res.status(404).send()
+              }
               exercice_file_storage.db.collection('exercice_bucket.fs.files').find({filename:{$regex:'',$options:"i"}}).forEach((file) => {
-                files_list.push({name:file.filename,chapter:file.chapter})
-
+                if(file.metadata.courName == cour_name) {
+                  files_list.push({name:file.filename,chapter:file.metadata.chapter})
+                }
               }).then((result) => {
                 return res.status(200).send(files_list)
               })
               break;
               case 'planchage':
+                if(planchage_file_storage.db.collection('planchage_bucket.fs.files') == null) {
+                  return res.status(404).send()
+                }
                 planchage_file_storage.db.collection('planchage_bucket.fs.files').find({filename:{$regex:'',$options:"i"}}).forEach((file) => {
-                  files_list.push({name:file.filename,chapter:file.chapter})
+                  if(file.metadata.courName == cour_name) {
+                    files_list.push({name:file.filename,chapter:file.metadata.chapter})
+                  }
                 }).then((result) => {
                   return res.status(200).send(files_list)
                 })

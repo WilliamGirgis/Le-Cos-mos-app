@@ -1,12 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FileItem, FileUploader } from 'ng2-file-upload';
-import { Observable } from 'rxjs';
-import { formErrors } from 'src/app/interface&classe/interfaces';
+import { FileUploader } from 'ng2-file-upload';
 const uploadFileRoute = 'http://localhost:4200/support/file/save'
 
 @Component({
@@ -19,7 +16,7 @@ export class AddItemDialogComponent implements OnInit {
   contentListTest = [{name:'Composition de la matière',chapter:'I'},{name:'Composition de la matière',chapter:'II'},{name:'Composition de la matière',chapter:'III'},{name:'Composition de la matière',chapter:'IV'},{name:'Composition de la matière',chapter:'V'},{name:'Composition de la matière',chapter:'VI'}]
 
 
-  cour_name= this.route.url.split(/\//g)[this.route.url.split(/\//g).length - 3]
+  cour_name= decodeURIComponent(this.route.url.split(/\//g)[this.route.url.split(/\//g).length - 3])
   blockContentList = this.route.url.split(/\//g)[this.route.url.split(/\//g).length - 2]
   cleanContent = this.blockContentList.replace(/%20/g,' ')
   contentType = this.cleanContent.replace(/%20/g,' ').replace(/%C3%A9/g,'e')
@@ -70,14 +67,13 @@ export class AddItemDialogComponent implements OnInit {
    }
 
 
-  formErrors:formErrors = { email:'' ,firstname: '', lastname: '',password:'',confirmPsw:'' };
-
-  addFiles() {
+  addFiles(chapter:string) {
     // const querParam = new HttpParams().set('cour_name', this.cour_name!).set('content_type',this.contentType);
 console.log("Triggered !")
 this.uploader.setOptions({headers:[
   { name: 'content_type', value: this.contentType },
-  {name: 'cour_name',  value: this.cour_name.replace(/%20/g,' ')}]
+  {name: 'cour_name',  value: this.cour_name},
+{name:'chapter',value:chapter}]
 });
 this.uploader.uploadAll()
 

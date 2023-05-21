@@ -113,18 +113,6 @@ const downLoadFile = router.get('/file', (req, res) => {
         fileToSend.pipe(res)
       }
     })
-
-
-
-        // do something with the stream
-
-
-
-
-    // return res.status(200).send()
-
-
-
 });
 
 /* //////////////////////////// Getrelated method //////////////////////////// */

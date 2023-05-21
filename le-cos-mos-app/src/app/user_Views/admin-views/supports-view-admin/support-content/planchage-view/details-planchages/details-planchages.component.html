@@ -12,8 +12,8 @@
 
 
 
-<img id="uploadedImage" *ngIf="imgLink !== undefined && imgFile != undefined && imgExtension != 'pdf' && imgExtension != undefined" [src]="imgFile">
-<pdf-viewer [zoom]="0.8" [fit-to-page]="true" id="uploadedImage"    [original-size]="true" style="width: 80vw;height: 166vh" [render-text]="false" [src]="'../../../../../../../assets/images/uploaded/document.pdf'"></pdf-viewer>
+  <img id="uploadedImage" *ngIf="imgFile != undefined && imgExtension != 'pdf'" [src]="imgFile">
+  <pdf-viewer id="uploadedImage"  *ngIf="imgExtension == 'pdf' && imgFile != undefined"[zoom]="0.8" [fit-to-page]="true" id="uploadedImage"    [original-size]="true" style="width: 80vw;height: 166vh" [render-text]="false" [src]="imgFile"></pdf-viewer>
 
 
 </div>
