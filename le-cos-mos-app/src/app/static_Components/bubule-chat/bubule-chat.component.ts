@@ -16,7 +16,7 @@ const sentMessageRoute = 'http://localhost:4200/chat/discussion/message/send'
   templateUrl: './bubule-chat.component.html',
   styleUrls: ['./bubule-chat.component.scss']
 })
-export class BubuleChatComponent implements OnInit, AfterContentChecked,OnChanges {
+export class BubuleChatComponent implements OnInit,OnChanges {
   globalIndex: number = 0
   hotCount: number = 0
   isScrollLocked:boolean = true
@@ -26,6 +26,7 @@ export class BubuleChatComponent implements OnInit, AfterContentChecked,OnChange
   getHotCounts() {
     return this.getHotCount.emit(`${this.hotCount}`)
   }
+
   onScrollMessageList() {
     if ((document.getElementById('messageList')!.scrollTop >= (document.getElementById('messageList')!.scrollHeight - document.getElementById('messageList')!.offsetHeight))) {
       // code executed if scroll of the message list window is at the bottom
@@ -93,17 +94,7 @@ return
     queueLimit: 5,
     method: 'post',
   });
-  ngAfterContentChecked() {
-    // this.getMessageList()
 
-    document.getElementById('blur')!.addEventListener('click', () => {
-      this.isWindowOpen = false
-      document.getElementById('blur')!.removeEventListener('click', () => {
-
-      })
-    })
-
-  }
   isWindowOpen?: boolean = false
   discussionTypeView: string = 'global' // dg -> discussions générales ; pri -> discussion privées
 

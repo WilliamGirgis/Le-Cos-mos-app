@@ -493,17 +493,17 @@ const delFile = router.post("/file/del", async function (req, res, next) {
   let contentType = req.body.contentType
   let documentName = req.body.documentName
   console.log(courName)
-  console.log(contentType)
   console.log(documentName)
-  return res.status(200).send();
+
   switch (contentType) {
     case 'td':
       if (td_file_storage.db.collection('td_bucket.fs.files') == null) {
         return res.status(404).send()
       }
       td_file_storage.db.collection('td_bucket.fs.files').findOneAndDelete({ filename: documentName }, { 'metadata.courName': courName }).then((result) => {
+        console.log(result)
         const deletedFileId = result.value._id
-        const bucket = new GridFSBucket(dbg, { bucketName: 'tq_bucket.fs' });
+        const bucket = new GridFSBucket(dbg, { bucketName: 'td_bucket.fs' });
         bucket.delete(deletedFileId).then((res) => {
           // File successfully deleted from the GridFS bucket
           return res.status(200).send();
@@ -518,8 +518,9 @@ const delFile = router.post("/file/del", async function (req, res, next) {
         return res.status(200).send()
       }).catch((e) => {
         console.log(e)
-        return res.status(404).send(e)
+        return res.status(200).send(e) // Need 200 to call next http quest on client side. To fixe
       })
+
       break;
     case 'cm':
       if (cm_file_storage.db.collection('cm_bucket.fs.files') == null) {
@@ -543,7 +544,7 @@ const delFile = router.post("/file/del", async function (req, res, next) {
         return res.status(200).send()
       }).catch((e) => {
         console.log(e)
-        return res.status(404).send(e)
+        return res.status(200).send(e)
       })
       break;
     case 'annales':
@@ -552,7 +553,7 @@ const delFile = router.post("/file/del", async function (req, res, next) {
       }
       annal_file_storage.db.collection('annal_bucket.fs.files').findOneAndDelete({ filename: documentName }, { 'metadata.courName': courName }).then((result) => {
         const deletedFileId = result.value._id
-        console.log(result)
+
         const bucket = new GridFSBucket(dbg, { bucketName: 'annal_bucket.fs' });
         bucket.delete(deletedFileId).then((res) => {
           // File successfully deleted from the GridFS bucket
@@ -568,7 +569,7 @@ const delFile = router.post("/file/del", async function (req, res, next) {
         return res.status(200).send()
       }).catch((e) => {
         console.log(e)
-        return res.status(404).send(e)
+        return res.status(200).send(e)
       })
       break;
     case 'video':
@@ -577,7 +578,6 @@ const delFile = router.post("/file/del", async function (req, res, next) {
       }
       video_file_storage.db.collection('video_bucket.fs.files').findOneAndDelete({ filename: documentName }, { 'metadata.courName': courName }).then((result) => {
         const deletedFileId = result.value._id
-        console.log(result)
         const bucket = new GridFSBucket(dbg, { bucketName: 'video_bucket.fs' });
         bucket.delete(deletedFileId).then((res) => {
           // File successfully deleted from the GridFS bucket
@@ -592,8 +592,7 @@ const delFile = router.post("/file/del", async function (req, res, next) {
         });
         return res.status(200).send()
       }).catch((e) => {
-        console.log(e)
-        return res.status(404).send(e)
+        return res.status(200).send(e)
       })
 
       break;
@@ -603,14 +602,12 @@ const delFile = router.post("/file/del", async function (req, res, next) {
       }
       exercice_file_storage.db.collection('exercice_bucket.fs.files').findOneAndDelete({ filename: documentName }, { 'metadata.courName': courName }).then((result) => {
         const deletedFileId = result.value._id
-        console.log(result)
         const bucket = new GridFSBucket(dbg, { bucketName: 'exercice_bucket.fs' });
         bucket.delete(deletedFileId).then((res) => {
           // File successfully deleted from the GridFS bucket
           return res.status(200).send();
         }).catch((e) => {
           if (e) {
-            console.error(e);
             // To make sure the client request getFiles() again.
             // "File not found for id 646a849c5aea81a3d4a74519" Was triggered, even though the chuks were all deleted
             return res.status(200).send();
@@ -618,8 +615,7 @@ const delFile = router.post("/file/del", async function (req, res, next) {
         });
         return res.status(200).send()
       }).catch((e) => {
-        console.log(e)
-        return res.status(404).send(e)
+        return res.status(200).send(e)
       })
       break;
     case 'planchage':
@@ -644,7 +640,7 @@ const delFile = router.post("/file/del", async function (req, res, next) {
 
       }).catch((e) => {
         console.log(e)
-        return res.status(404).send(e)
+        return res.status(200).send(e)
       })
       break;
   }

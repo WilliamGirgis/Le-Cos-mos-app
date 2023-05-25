@@ -74,18 +74,21 @@ export class ListContentDisplayerComponent implements OnInit, AfterViewInit {
   readonly deletDocumentRoute = 'http://localhost:4200/support/file/del'
   readonly updateFolderRoute = 'http://localhost:4200/support/file/unlink'
   deleteDocument(i: number) {
-
+ let tempFileName:string = this.contentList[i].name!
     this.contentList.splice(i, 1);
-    this.http.post(this.deletDocumentRoute,{courName:this.cour_name,contentType:this.contentType,documentName:this.contentList[i].name}).pipe(map((data)=>{
- this.http.post(this.updateFolderRoute,{parentFolderNames:this.routerFolder,contentType:this.contentType,cour_name:this.cour_name,contentList:this.contentList}).pipe(map((data) =>{
 
-  console.log("Done !")
- })).subscribe((res) =>{
+    this.http.post(this.deletDocumentRoute,{courName:this.cour_name,contentType:this.contentType,documentName:tempFileName}).pipe(map((data)=>{ // + 1 (because of the splice())
 
- })
     })).subscribe((res) =>{
 
     })
+
+    this.http.post(this.updateFolderRoute,{parentFolderNames:this.routerFolder,contentType:this.contentType,cour_name:this.cour_name,contentList:this.contentList}).pipe(map((data) =>{
+
+      console.log("Done !")
+     })).subscribe((res) =>{
+
+     })
 
   }
   getFileList() {
