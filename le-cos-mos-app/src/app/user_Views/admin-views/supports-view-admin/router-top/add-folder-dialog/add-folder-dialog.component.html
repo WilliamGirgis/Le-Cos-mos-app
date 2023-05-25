@@ -1,0 +1,22 @@
+<form [formGroup]="formGroup!" (submit)="addFolder(name.value)">
+  <h2 *ngIf="currentFolder" style="margin-top:0">Dossier actuel : {{currentFolder}}</h2>
+  <h4 style="margin:0">
+    Ajouter un nouveau dossier
+  </h4>
+    <mat-form-field  [floatLabel]="'always'">
+      <mat-label>
+        Nom du dossier
+      </mat-label>
+      <input #name placeholder="Nom du dossier"  matInput>
+        </mat-form-field >
+  <div id="filesWrp">
+
+
+    <button  type="submit" mat-button>Ajouter et quitter</button>
+    
+  </div>
+
+</form>
+
+
+<mat-spinner style="margin:auto" *ngIf="false"></mat-spinner>

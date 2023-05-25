@@ -1,7 +1,10 @@
 
 export class FileDescription {
-  ID?:number
-  name?:string | String
+  name?:string
   chapter?:string | null
+  document_list?:FileDescription []
+  parentFolderNames?:string
+  courName?:string
 
 }
+

@@ -1,0 +1,48 @@
+form {
+  display: grid;
+  height: 100%;
+
+}
+
+#filesWrp {
+  margin: auto;
+  display: grid;
+  gap: 5vh;
+}
+
+
+button {
+  background-color: var(--blue-them-color);
+  color: var(--white-them-color);
+  width: 33%;
+  min-width: max-content;
+  justify-self: center;
+  max-height: 7vh;
+  overflow: hidden;
+
+}
+
+#fileUpload {
+  position: absolute;
+  opacity: 0;
+  width: 55vw;
+  height:75vh;
+left: 0;
+content: none;
+}
+
+#queueWrapper {
+  max-height: 10vh;
+  min-width: max-content;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display:grid;
+  text-align: center;
+}
+#trash-file {
+  align-self: center;
+  cursor: pointer;
+  }
+  #fileName {
+    align-self: center;
+    }

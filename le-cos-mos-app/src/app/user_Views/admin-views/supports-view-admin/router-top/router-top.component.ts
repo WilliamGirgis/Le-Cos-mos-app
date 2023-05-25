@@ -1,8 +1,9 @@
-import { AfterContentChecked, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AfterContentChecked, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddItemDialogComponent } from './add-item-dialog/add-item-dialog.component';
-import { ModifyItemDialogComponent } from './modify-item-dialog/modify-item-dialog.component';
+import { AddFolderDialogComponent } from './add-folder-dialog/add-folder-dialog.component';
+import { FileDescription } from 'src/app/shared/file_description';
 
 @Component({
   selector: 'app-router-top',
@@ -16,8 +17,11 @@ export class RouterTopComponent implements OnInit,AfterContentChecked {
   constructor(public dialog:MatDialog,private router:Router,private route: ActivatedRoute) {
     dialog.afterAllClosed.subscribe((res) => {
       this.dialogClosedPing.emit()
+
     })
   }
+
+
   ngAfterContentChecked(): void {
     this.isDetails = this.router.url.split(/\//g)[this.router.url.split(/\//g).length - 1]
 
@@ -25,13 +29,19 @@ export class RouterTopComponent implements OnInit,AfterContentChecked {
 
 
   openAddItemDialog() {
-    this.dialog.open(AddItemDialogComponent, {width:'50vw',height:'70vh',data: {publication:'null',imgLink:'imgLink'} })
+    this.dialog.open(AddItemDialogComponent, {width:'50vw',height:'70vh',data: {publication:'null',imgLink:'imgLink',currentFolderName:this.selectedFolder,parentFolderNames:this.parentFolderNames,cour_name:this.courName,contentType:this.contentType,contentList:this.contentList} })
 
   }
-  openModifyItemDialog() {
-    this.dialog.open(ModifyItemDialogComponent, {width:'50vw',height:'70vh',data: {routeUrl:this.router.url,imgLink:'imgLink'} })
+  openAddFolderItemDialog() {
+    this.dialog.open(AddFolderDialogComponent, {width:'50vw',height:'70vh',data: {routeUrl:this.router.url,imgLink:'imgLink',currentFolderName:this.selectedFolder,parentFolderNames:this.parentFolderNames,contentType:this.contentType,cour_name:this.courName,contentList:this.contentList} })
 
   }
+
+  @Input() selectedFolder?:string
+  @Input() parentFolderNames?:FileDescription []
+  @Input() contentType?:string
+  @Input() courName?:string
+  @Input() contentList?:FileDescription[]
   navigateBack(): void {
     this.isDetails = this.router.url.split(/\//g)[this.router.url.split(/\//g).length - 1]
     if((this.isDetails == 'list')) {

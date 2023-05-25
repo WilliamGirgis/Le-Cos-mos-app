@@ -1,4 +1,5 @@
 <form [formGroup]="formGroup!" (submit)="addFiles()">
+  <h2 *ngIf="currentFolder" style="margin-top:0">Dossier actuel : {{currentFolder}}</h2>
   <ng-container *ngFor="let item of uploader.queue; index as i">
     <h3>Fichier n°{{i + 1}}</h3>
     <img id="trash-file" height="25px" width="15px" (click)="uploader.removeFromQueue(uploader.queue[i])" src="../../../../../../assets/images/trash3-fill.svg">

@@ -31,6 +31,11 @@ const userSchema = new mongoose.Schema({
         trim:true,
         unique:true
     },
+    tel:{
+      type:String,
+      required:false
+    }
+    ,
     firstname: {
       type:String,
       required:true,
@@ -38,6 +43,10 @@ const userSchema = new mongoose.Schema({
     lastname: {
       type:String,
       required:true,
+    },
+
+    profilePicture:{
+
     },
 
     password: {

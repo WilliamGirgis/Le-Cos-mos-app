@@ -4,6 +4,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FileUploader } from 'ng2-file-upload';
+import { Observable, map } from 'rxjs';
+import { FileDescription } from 'src/app/shared/file_description';
 const uploadFileRoute = 'http://localhost:4200/support/file/save'
 
 @Component({
@@ -20,6 +22,7 @@ export class AddItemDialogComponent implements OnInit {
   cleanContent = this.blockContentList.replace(/%20/g,' ')
   contentType = this.cleanContent.replace(/%20/g,' ').replace(/%C3%A9/g,'e')
 
+  currentFolder?:string
   public uploader: FileUploader = new FileUploader({
     url: uploadFileRoute,
     queueLimit:10,
@@ -34,43 +37,33 @@ export class AddItemDialogComponent implements OnInit {
   });
 
   imgExtension:any [] = []
-  constructor( private route:Router,public dialogRef:MatDialogRef<AddItemDialogComponent>,@Inject(MAT_DIALOG_DATA) public data:{publication:string,imgLink:string},private formBuilder:FormBuilder) {
+  readonly addFileNamesRoute = 'http://localhost:4200/support/file/name/save'
+  constructor(private http:HttpClient, private route:Router,public dialogRef:MatDialogRef<AddItemDialogComponent>,@Inject(MAT_DIALOG_DATA) public data:{publication:string,imgLink:string,currentFolderName:string,parentFolderNames:FileDescription[],cour_name:string,contentList:FileDescription[],contentType:string},private formBuilder:FormBuilder) {
+   this.currentFolder =  this.data.currentFolderName
     this.formGroup = this.formBuilder.group({});
     this.uploader!.onCompleteAll = () => {
-      // When the upload queue is completely done, we refresh the page to output it correctly
-      // this.filename = undefined
       this.uploader.clearQueue()
-
       this.isSending = false
-      this.dialogRef.close()
-
+      this.saveFilesName()
     }
-
     this.uploader.onCompleteItem = (file) => {
-    // file.formData = {
-    //   'cour_name': this.cour_name,
-    //   'content_type':this.contentType
-    // }
-    // file.alias = file._file.name
-    // let chapter = this.formGroup!.get(`chapter${this.uploader.getIndexOfItem(file)}`)!.value
-    //   this.uploader.setOptions({headers:[
-    //     { name: 'content_type', value: this.contentType },
-    //     {name: 'cour_name',  value: this.cour_name},
-    //   {name:'chapter',value:chapter}
-    //   ]
-    //   });
-
+      let chapter = this.formGroup!.get(`chapter${this.uploader.getIndexOfItem(file)}`)!.value
+      this.data.contentList.push({name:this.uploader.queue[this.uploader.getIndexOfItem(file)]._file.name,chapter:chapter})
     }
-
-
     this.uploader.onBeforeUploadItem = (file) => {
       let name = this.formGroup!.get(`name${this.uploader.getIndexOfItem(file)}`)!.value.split(/\./g)[0]
       let extension = this.imgExtension[this.uploader.getIndexOfItem(file)]
       let chapter = this.formGroup!.get(`chapter${this.uploader.getIndexOfItem(file)}`)!.value
+
+
+
+
       this.uploader.setOptions({headers:[
         { name: 'content_type', value: this.contentType },
         {name: 'cour_name',  value: this.cour_name},
-      {name:'chapter',value:chapter}
+      {name:'chapter',value:chapter},
+      {name:'parentFolderNames',value:this.data.parentFolderNames},
+      {name:'contentList',value:this.data.contentList}
       ]
       });
 
@@ -93,11 +86,23 @@ export class AddItemDialogComponent implements OnInit {
    isSending:boolean = false
 
 
+   saveFilesName() {
+    this.http.post(this.addFileNamesRoute,{parentFolderNames:this.data.parentFolderNames,contentType:this.data.contentType,cour_name:this.data.cour_name,contentList:this.data.contentList}).pipe(map((data)=>{
+      this.dialogRef.close()
+
+    })).subscribe((res) =>{
+
+    })
+   }
+
   addFiles() {
     this.isSending = true
     // const querParam = new HttpParams().set('cour_name', this.cour_name!).set('content_type',this.contentType);
 
+
+
 this.uploader.uploadAll()
+
 
 
   }

@@ -85,7 +85,6 @@ import { DetailsPlanchagesComponent } from './user_Views/admin-views/supports-vi
 import { DetailsTdComponent } from './user_Views/admin-views/supports-view-admin/support-content/td-view/details-td/details-td.component';
 import { DetailsVideoComponent } from './user_Views/admin-views/supports-view-admin/support-content/video-view/details-video/details-video.component';
 import { AddItemDialogComponent } from './user_Views/admin-views/supports-view-admin/router-top/add-item-dialog/add-item-dialog.component';
-import { ModifyItemDialogComponent } from './user_Views/admin-views/supports-view-admin/router-top/modify-item-dialog/modify-item-dialog.component';
 import { LogoutDialogComponentComponent } from './user_Views/admin-views/handler-view-admin/logout-dialog-component/logout-dialog-component.component';
 import { PreferencesViewComponent } from './user_Views/preferences-view/preferences-view.component';
 import { SaveRouteService } from './services/save-route.service';
@@ -451,6 +450,7 @@ import {SocketIoConfig } from 'ngx-socket-io';
 import { map } from 'rxjs';
 import { UserListComponent } from './user_Views/admin-views/statistiques-view-admin/user-list/user-list.component';
 import { StatsDetailsComponent } from './user_Views/admin-views/statistiques-view-admin/stats-details/stats-details.component';
+import { AddFolderDialogComponent } from './user_Views/admin-views/supports-view-admin/router-top/add-folder-dialog/add-folder-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -527,12 +527,12 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {transpo
     DetailsTdComponent,
     DetailsVideoComponent,
     AddItemDialogComponent,
-    ModifyItemDialogComponent,
     LogoutDialogComponentComponent,
     PreferencesViewComponent,
     BubuleChatComponent,
     UserListComponent,
-    StatsDetailsComponent
+    StatsDetailsComponent,
+    AddFolderDialogComponent
 
 
   ],

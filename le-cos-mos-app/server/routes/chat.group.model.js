@@ -57,7 +57,7 @@ message_list: [
 ]
 
 })
-const group = mongoose.model('Group',groupSchema);
+
 
 
 

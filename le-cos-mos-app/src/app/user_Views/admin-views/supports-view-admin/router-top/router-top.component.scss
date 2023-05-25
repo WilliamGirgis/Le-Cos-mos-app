@@ -45,7 +45,7 @@ gap: 1vw;
   display: flex;
   align-items: center;
 
-button {
+#del, #add {
   font-weight: bold;
  border-radius: 10px;
  transition: 350ms ease-in-out;
@@ -54,7 +54,7 @@ button {
   border: 1px solid var(--blue-them-color);
  }
 
- &:last-of-type {
+ &:nth-child(2n) {
   background-color:var(--blue-them-color) ;
   color: var(--white-them-color);
  }
