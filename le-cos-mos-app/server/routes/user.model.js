@@ -45,10 +45,6 @@ const userSchema = new mongoose.Schema({
       required:true,
     },
 
-    profilePicture:{
-
-    },
-
     password: {
             type:String,
             required:true,

@@ -98,7 +98,7 @@ const appearance: MatFormFieldDefaultOptions = {
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'admin/home',
     pathMatch: 'full',
   },
   {

@@ -1,12 +1,10 @@
 
-  <div id="top-wrp">
-    <div routerLink="{{routeToNavBack}}" id="img-wrp">
+  <div *ngIf="routeToNavBack" id="top-wrp">
+    <div [routerLink]="routeToNavBack" id="img-wrp">
       <img src="../../../assets/images/arrow-left.svg">
     </div>
 
-    <div class="select" [style]="{'background-color': 'var(--blue-them-color)' ,'color': 'var(--white-them-color)'}"><h3>Comptes</h3></div>  
-
-  
+    <div class="select" [style]="{'background-color': 'var(--blue-them-color)' ,'color': 'var(--white-them-color)'}"><h3>Comptes</h3></div>
 </div>
 <div id="wrapper">
   <form class="outline-preferences">
@@ -27,15 +25,34 @@
           <input value="WillyleBgdu67@gmail.com" [readonly]="true" type="email" matInput>
               </mat-form-field>
 
-              <mat-form-field>
+              <mat-form-field id="mff-mdp" [floatLabel]="'always'">
                 <mat-label>Mot de passe</mat-label>
-                <input value="Mot de passe" [readonly]="true" type="password" matInput>
-                    </mat-form-field>
+                <div id="subWrp">
+                <input (change)="this.pswTouched = true;" #psw placeholder="*******" [readonly]="!pswEditable" type="password" matInput>
+                <button (click)="pswEditable = !pswEditable;psw.value = '*******'" mat-button id="psw"><img  src="../../../assets/images/pencil-fill.svg"></button>
+               </div>
+              </mat-form-field>
+              <div style="display: flex;gap:10vw;align-items: center;">
+               <div id="successMsg">
+                <span>{{successMsgSaved}}</span>
+                <button id="save" (click)="saveModifications( psw.value)" [disabled]="imgTouched || this.pswTouched ? false : true" mat-button>Comfirmer les changements</button>
 
-                    <button disabled mat-button>Comfirmer les changements</button>
+               </div>
+              </div>
+
+
   </form>
   <div id="userIconWrp">
-    <img src="../../../assets/images/person-circle.svg">
+   <button id="pencil" mat-button><img  src="../../../assets/images/pencil-fill.svg">    <input
+    type="file"
+    id="fileUpload"
+    ng2FileSelect
+    accept=".jpg,.png,.jpeg"
+    [uploader]="uploader"
+    /></button>
+    <img *ngIf="!imgFile && !isLoading" id="personCircle"  src="../../../assets/images/person-circle.svg">
+    <mat-spinner *ngIf="isLoading" id="custom" ></mat-spinner>
+    <img *ngIf="imgFile && !isLoading" id="custom"  [src]="imgFile">
     <h2>William Girgis</h2>
     <h3>Administrateur</h3>
     </div>

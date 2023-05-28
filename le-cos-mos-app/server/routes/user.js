@@ -205,4 +205,100 @@ router.get("/user/get",authenticate, (req, res) => {
     });
 });
 
+
+
+const { GridFSBucket } = require('mongodb');
+const multer = require("multer");
+const { GridFsStorage } = require('multer-gridfs-storage');
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+const url = "mongodb+srv://test:Samsam123@cluster0.pcin2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+const co = mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
+})
+
+// Files buckets initialisation
+let profil_bucket_FS
+let dbg
+let con = mongoose.connection.once('open', () => {
+  const db = con.db;
+  dbg = db
+  const profil_bucket = new GridFSBucket(db, { bucketName: 'profil_bucket.fs' });
+  profil_bucket_FS = { profil_bucket };
+})
+
+const profil_file_storage = new GridFsStorage({
+  url: url,
+  file: (req, file) => {
+    return {
+      filename: file.originalname.replace(/â/, '\'').normalize("NFD").replace(/[\u0300-\u036f]|[\x80-\x99]/g, ""),
+      bucketName: 'profil_bucket.fs',
+      metadata: {
+        'type': 'Profil picture',
+      }
+    }
+  }
+});
+const upload_profil_file = multer({ storage: profil_file_storage }).single("file");
+
+
+
+router.post("/user/profil/file/save", (req, res) => {
+
+  let _id = req.headers._id
+console.log(_id)
+  req.additionalData = {
+    _id: _id,
+    // Add more additional data fields as needed
+  };
+
+  upload_profil_file(req, res, async function (err) {
+
+    if (err) {
+
+    } else {
+
+    }
+  })
+});
+
+router.get("/user/profil/file/get",authenticate, (req, res) => {
+  let _id = req.query._id
+  profil_file_storage.db.collection('profil_bucket.fs.files').findOne({ filename: _id }).then((file) => {
+    if (file == undefined || file == null) {
+
+      return res.status(404).send("File not found")
+    } else {
+      const fileToSend = profil_bucket_FS.profil_bucket.openDownloadStreamByName(_id);
+      res.set('Content-Disposition', `attachment; filename="${_id}"`);
+      res.set('Content-Type', 'application/octet-stream');
+      res.set('Content', fileToSend)
+      res.attachment(_id)
+      fileToSend.pipe(res)
+    }
+  })
+
+})
+
+
+const bcrypt = require("bcryptjs");
+router.post("/user/profil/psw/modify",authenticate, (req, res) => {
+  let id = req.body._id
+let newPsw = req.body.newPsw
+console.log(id)
+bcrypt.genSalt(10, (err, salt) => {
+  bcrypt.hash(newPsw, salt, (err, hash) => {
+    newPsw = hash;
+    User.updateOne(
+      { _id: id },
+      { $set: { password: newPsw } }
+    ).then((user) => {
+      return  res.status(200).send(user);
+    });
+  });
+});
+
+})
+
+
 module.exports = router;
+

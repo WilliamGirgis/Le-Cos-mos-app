@@ -51,7 +51,7 @@ export class AddItemDialogComponent implements OnInit {
       this.data.contentList.push({name:this.uploader.queue[this.uploader.getIndexOfItem(file)]._file.name,chapter:chapter})
     }
     this.uploader.onBeforeUploadItem = (file) => {
-      let name = this.formGroup!.get(`name${this.uploader.getIndexOfItem(file)}`)!.value.split(/\./g)[0]
+      let name = this.formGroup!.get(`name${this.uploader.getIndexOfItem(file)}`)!.value
       let extension = this.imgExtension[this.uploader.getIndexOfItem(file)]
       let chapter = this.formGroup!.get(`chapter${this.uploader.getIndexOfItem(file)}`)!.value
 
@@ -78,7 +78,9 @@ export class AddItemDialogComponent implements OnInit {
       let name = file._file.name
       this.imgExtension.push('.' + name.split(/\./g)[name.split(/\./g).length -1])
             // https://stackoverflow.com/questions/990904/remove-accents-diacritics-in-a-string-in-javascript
-            this.formGroup!.addControl(inputName, new FormControl(name.split(/\./g)[0]));
+            let tempFileName = name.split(/\./g)
+            tempFileName.splice(name.split(/\./g).length - 1,1)
+            this.formGroup!.addControl(inputName, new FormControl(tempFileName.join('.')));
             this.formGroup!.addControl(chapter, new FormControl());
     }
    }

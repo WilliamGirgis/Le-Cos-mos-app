@@ -7,16 +7,17 @@ const url = "mongodb+srv://test:Samsam123@cluster0.pcin2.mongodb.net/myFirstData
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const co = mongoose.connect(url,{useNewUrlParser:true,useUnifiedTopology:true}).then(()=>{
-    //console.log('Connected successfuly')
 
 })
 
 const jwt = require('jsonwebtoken');
 let authenticate = (req,res,next) => {  /* MIDDLEWARE for checking if the access-token has expired */
-  let token = req.header('x-access-token') // We intercept each request, taking the access-Token of the current user logged in
+
+let token = req.header('x-access-token') // We intercept each request, taking the access-Token of the current user logged in
   jwt.verify(token,User.getJWTSecret(),(err,decoded)=>{// We decrypt the token, and if it the token is empty or not valid, the user get disconnected
    if(err) {
      // Do not Authenticate
+     console.log(err)
      res.status(401).send(err)
    } else {
      req.user_id = decoded._id
@@ -32,7 +33,7 @@ const storage = new GridFsStorage({ url:url,
    file: (req, file) => {
     console.log(file)
         return {
-          filename: file.originalname.replace(/â/,'\'').normalize("NFD").replace(/[\u0300-\u036f]|[\x80-\x99]/g, ""),
+          filename: file.originalname.replace(/â/,'\'').normalize("NFD").replace(/[\u0300-\u036f]|[\x80-\x99]/g, "")
         }
 }  });
 const upload = multer({ storage:storage }).array("file"); // Single for 1 file, array for multiple
@@ -40,7 +41,7 @@ const upload = multer({ storage:storage }).array("file"); // Single for 1 file, 
 // End File related
 
 
-const sendMessage = router.post("/discussion/message/send",authenticate, async function (req, res, next) {
+const sendMessage = router.post("/discussion/message/send", async function (req, res, next) {
   let groupName = req.query.groupName
   var message = req.body.messageMetaData
   let parsedMessage = {message:message.message,emiter:message.emiter,date:message.date,filesName:message.filesName}
@@ -60,6 +61,7 @@ const sendMessage = router.post("/discussion/message/send",authenticate, async f
 })
 
 const saveMessageFile = router.post("/discussion/message/file/save", async function (req, res, next) {
+  console.log("Hey")
   await new Promise((reject,resolve) =>{
     upload(req, res, async function (err) {
       if (err) {
@@ -90,10 +92,9 @@ let con = mongoose.connection.once('open',() => {
 
 
 // Route pour télécharger un fichier
-const downLoadFile = router.get('/file', (req, res) => {
-  console.log(req.query.filename)
-  const filename = req.query.filename.replace(/’/g,'\'');
-  console.log(filename)
+const downLoadFile = router.get('/file', authenticate, (req, res) => {
+
+  const filename = req.query.filename.replace(/’/g,'\'').normalize("NFD").replace(/[\u0300-\u036f]/g, "")
   // Recherche du fichier dans GridFS
     // Création d'un flux de lecture pour le fichier
     // Envoi du fichier au client

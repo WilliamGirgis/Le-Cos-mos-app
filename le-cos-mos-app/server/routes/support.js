@@ -7,6 +7,7 @@ mongoose.Promise = global.Promise;
 const co = mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
 })
 const jwt = require('jsonwebtoken');
+
 let authenticate = (req, res, next) => {  /* MIDDLEWARE for checking if the access-token has expired */
   let token = req.header('x-access-token') // We intercept each request, taking the access-Token of the current user logged in
   jwt.verify(token, User.getJWTSecret(), (err, decoded) => {// We decrypt the token, and if it the token is empty or not valid, the user get disconnected
@@ -192,9 +193,9 @@ const upload_planchage_file = multer({ storage: planchage_file_storage }).array(
 
 
 const downLoadFile = router.get('/file/download', authenticate, (req, res) => {
-  let filename = req.query.filename;
+  let filename = req.query.filename.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
   let contentType = req.query.contentType
-
+console.log(filename)
 
   switch (contentType) {
 
@@ -227,9 +228,10 @@ const downLoadFile = router.get('/file/download', authenticate, (req, res) => {
         }
       })
       break;
-    case 'annal':
+    case 'annales':
       annal_file_storage.db.collection('annal_bucket.fs.files').findOne({ filename: filename.replace(/\’/, '\'') }).then((file) => {
         if (file == undefined || file == null) {
+          console.log("file not found")
           return res.status(404).send("File not found")
         } else {
           const fileToSend = annal_bucket_FS.annal_bucket.openDownloadStreamByName(filename.replace(/\’/, '\''));
@@ -491,7 +493,7 @@ const saveFile = router.post("/file/save", async function (req, res, next) {
 const delFile = router.post("/file/del", async function (req, res, next) {
   let courName = req.body.courName;
   let contentType = req.body.contentType
-  let documentName = req.body.documentName
+  let documentName = req.body.documentName.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
   console.log(courName)
   console.log(documentName)
 
@@ -655,6 +657,7 @@ const getFiles = router.get("/file", async function (req, res, next) {
   // let filename = req.query.file_name
   let files_list = []
   let arrayToSend = []
+  console.log(contentType)
   Folder.findOne({name:contentType,courName:cour_name}).then((document) =>{
 
     if(document == null) {

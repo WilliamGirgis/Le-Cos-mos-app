@@ -17,7 +17,7 @@
     <img  width="30px" height="30px" src="../../../../assets/images/gear-fill.svg">
   </div>
   </div>
-      <router-outlet #outlet="outlet"></router-outlet>
+      <router-outlet (deactivate)='onViewChanges($event)' #outlet="outlet"></router-outlet>
 
 
 
