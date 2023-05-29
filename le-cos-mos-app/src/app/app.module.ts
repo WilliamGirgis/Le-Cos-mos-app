@@ -385,6 +385,20 @@ const routes: Routes = [
         path: 'examens',
         component: ExamensViewComponent,
         data: { animation: 'Examens' },
+        children:[
+          {
+            path:'entrainement',
+            component:EntrainementViewComponent
+          },
+          {
+            path:'exam',
+            component:ExamViewComponent,
+          },
+          {
+            path:'list',
+            component:ListDisplayerComponent,
+          }
+        ]
       },
       {
         path: 'messagerie',
@@ -451,6 +465,9 @@ import { map } from 'rxjs';
 import { UserListComponent } from './user_Views/admin-views/statistiques-view-admin/user-list/user-list.component';
 import { StatsDetailsComponent } from './user_Views/admin-views/statistiques-view-admin/stats-details/stats-details.component';
 import { AddFolderDialogComponent } from './user_Views/admin-views/supports-view-admin/router-top/add-folder-dialog/add-folder-dialog.component';
+import { EntrainementViewComponent } from './user_Views/admin-views/examens-view-admin/entrainement-view/entrainement-view.component';
+import { ExamViewComponent } from './user_Views/admin-views/examens-view-admin/exam-view/exam-view.component';
+import { ListDisplayerComponent } from './user_Views/admin-views/examens-view-admin/list-displayer/list-displayer.component';
 
 @Injectable({
   providedIn: 'root'
@@ -532,7 +549,10 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {transpo
     BubuleChatComponent,
     UserListComponent,
     StatsDetailsComponent,
-    AddFolderDialogComponent
+    AddFolderDialogComponent,
+    EntrainementViewComponent,
+    ExamViewComponent,
+    ListDisplayerComponent
 
 
   ],
