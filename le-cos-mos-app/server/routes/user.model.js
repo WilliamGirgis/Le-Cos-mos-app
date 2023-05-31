@@ -74,7 +74,8 @@ const userSchema = new mongoose.Schema({
           type:String,
           required:false
         }
-      ]
+      ],
+
 })
 
 // Definir la table Cour ici

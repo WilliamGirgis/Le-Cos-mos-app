@@ -52,7 +52,12 @@ message_list: [
     type:String,
     required:false
         }
-      ]
+      ],
+      user_id: {
+        type:String,
+        required:false
+      },
+
   }
 ]
 

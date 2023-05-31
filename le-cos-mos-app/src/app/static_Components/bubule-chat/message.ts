@@ -3,4 +3,5 @@ export class Message {
   emiter!:string
   date!:number | string | Date
   filesName?:string []
+  user_id?:string
 }

@@ -17,7 +17,6 @@ let token = req.header('x-access-token') // We intercept each request, taking th
   jwt.verify(token,User.getJWTSecret(),(err,decoded)=>{// We decrypt the token, and if it the token is empty or not valid, the user get disconnected
    if(err) {
      // Do not Authenticate
-     console.log(err)
      res.status(401).send(err)
    } else {
      req.user_id = decoded._id
@@ -31,12 +30,12 @@ const multer = require("multer");
 const {GridFsStorage} = require('multer-gridfs-storage');
 const storage = new GridFsStorage({ url:url,
    file: (req, file) => {
-    console.log(file)
         return {
           filename: file.originalname.replace(/â/,'\'').normalize("NFD").replace(/[\u0300-\u036f]|[\x80-\x99]/g, "")
         }
 }  });
 const upload = multer({ storage:storage }).array("file"); // Single for 1 file, array for multiple
+
 
 // End File related
 
@@ -44,7 +43,8 @@ const upload = multer({ storage:storage }).array("file"); // Single for 1 file, 
 const sendMessage = router.post("/discussion/message/send", async function (req, res, next) {
   let groupName = req.query.groupName
   var message = req.body.messageMetaData
-  let parsedMessage = {message:message.message,emiter:message.emiter,date:message.date,filesName:message.filesName}
+  let _id = req.query._id
+  let parsedMessage = {message:message.message,emiter:message.emiter,date:message.date,filesName:message.filesName,user_id:_id}
 
  await Group.find({name: groupName}).then((group) => {
   // group.message_list.push(parsedMessage)
@@ -61,7 +61,6 @@ const sendMessage = router.post("/discussion/message/send", async function (req,
 })
 
 const saveMessageFile = router.post("/discussion/message/file/save", async function (req, res, next) {
-  console.log("Hey")
   await new Promise((reject,resolve) =>{
     upload(req, res, async function (err) {
       if (err) {
@@ -79,11 +78,14 @@ const saveMessageFile = router.post("/discussion/message/file/save", async funct
 const { GridFSBucket } = require('mongodb');
 
 let gfs
+let gfs2
 let con = mongoose.connection.once('open',() => {
   const { mongo } = mongoose;
   const db = con.db;
   const bucket = new GridFSBucket(db);
   gfs = { bucket };
+  const profil_bucket = new GridFSBucket(db, { bucketName: 'profil_bucket.fs' });
+  gfs2 = { profil_bucket };
 })
 // const mongoDriver = mongoose.mongo;
 // const db = mongoDriver.DBRef;
@@ -100,7 +102,6 @@ const downLoadFile = router.get('/file', authenticate, (req, res) => {
     // Envoi du fichier au client
 
     storage.db.collection('fs.files').findOne({filename:filename}).then((file) => {
-      console.log(file)
       if(file == undefined || file == null) {
         return res.status(404).send("File not found")
       } else {
@@ -112,6 +113,7 @@ const downLoadFile = router.get('/file', authenticate, (req, res) => {
         res.set('Content',fileToSend)
         res.attachment(filename)
         fileToSend.pipe(res)
+        res.send(fileToSend)
       }
     })
 });
@@ -143,6 +145,52 @@ const getGlobalDiscussionGroup = router.get("/discussion/global",authenticate, a
 }).catch((rejected) =>{
   return res.status(400).send()
 })
+})
+
+const getProfilePictureList = router.get("/discussion/message/profilPicture/list", async function (req, res, next) {
+let user_idList = req.query.user_id
+// let parsed = JSON.parse(user_idList)
+// let listLength = parsed.length
+// let _idList = []
+// for(let i = 0; i < listLength;i++) {
+//   if(parsed[i].user_id) {
+//     _idList.push(parsed[i].user_id)
+//   }
+
+// }
+// delete duplicate _id s : https://dev.to/soyleninjs/3-ways-to-remove-duplicates-in-an-array-in-javascript-259o
+// let unique_Id = [...new Set(_idList)];
+// let uniquePicture = []
+return new Promise(async (resolve, reject) => {
+  await storage.db.collection('profil_bucket.fs.files').findOne({ filename: user_idList }).then((file) => {
+
+
+    // if(!uniquePicture.includes(file.filename)) {
+      // uniquePicture.push(file.filename)
+      const fileStream = gfs2.profil_bucket.openDownloadStreamByName(file.filename);
+     res.set('Content-Disposition', `attachment; filename="${file.filename}"`);
+     res.set('Content-Type', 'application/octet-stream');
+
+
+     fileStream.on('end', () => {
+      resolve();
+    });
+
+    fileStream.on('error', (error) => {
+      reject(error);
+    });
+    fileStream.pipe(res)
+    // }
+  }).then((terminate) =>{
+    return res.status(200) // Do not send()
+  }).catch((e) =>{
+        return res.status(500).send("Internal server error");
+  });
+
+})
+
+
+
 })
 
 const getMessageList = router.get("/discussion/message/list",authenticate, async function (req, res, next) {

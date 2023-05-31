@@ -111,7 +111,7 @@ return
       fileArray.push(this.uploader.queue[i]._file.name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))
     }
     let messageMetaData: Message = { message: message, emiter: this.httpService.user_name + ' ' + this.httpService.user_last_name, date: time.getTime(), filesName: fileArray }
-    const querParam = new HttpParams().set('groupName', this.selectedDiscussion);
+    const querParam = new HttpParams().set('groupName', this.selectedDiscussion).set('_id',localStorage.getItem('user-id')!);
     return this.http.post(sentMessageRoute, { messageMetaData, responseType: 'text' }, { params: querParam }).pipe(map(async (data: any) => {
 
 
@@ -203,8 +203,44 @@ return
   }
   // Get message list (paramater : discussion_name)
   readonly getMessageListRoute = 'http://localhost:4200/chat/discussion/message/list'
-message_limit:number = 25
+  readonly getProfilPicturesListRoute = 'http://localhost:4200/chat/discussion/message/profilPicture/list'
   messageList: Message[] = [{date:0,emiter:'lux',message:'Hey',filesName:['test']},{date:0,emiter:'lux',message:'Hey',filesName:['test']},{date:0,emiter:'lux',message:'Hey',filesName:['test']},{date:0,emiter:'lux',message:'Hey',filesName:['test']},{date:0,emiter:'lux',message:'Hey',filesName:['test']},{date:0,emiter:'lux',message:'Hey',filesName:['test']},{date:0,emiter:'lux',message:'Hey',filesName:['test']}]
+  profilePictureList:any = []
+  imgFile:any = []
+  async getProfilePicture(parsedData:any) {
+this.profilePictureList = []
+    for(let i = 0;i < parsedData.length;i++) {
+      if(parsedData[i].user_id) {
+        const param = new HttpParams().set('user_id', parsedData[i].user_id!)
+        let requ = this.http.get(this.getProfilPicturesListRoute,{params:param,responseType:'blob'}).pipe(map((data:any)=>{
+          this.profilePictureList.push(data)
+          let img  = new File([data!], data.filename! ); // On transform le Blob en fichier
+          let fr = new FileReader(); // On li le fichier et stock le nouveau format
+          fr.readAsDataURL(img)
+          fr.onloadend = () =>{
+            // la donnée à afficher dans le parametre '[src]' de la balise image
+            this.imgFile[i]=fr.result
+          }
+          return Promise.resolve(data)
+        }))
+       await new Promise<void>((resolve,reject) =>{
+
+
+        requ.subscribe((res) =>{
+          resolve()
+        })
+
+       }).then((data) =>{
+       })
+      }
+
+    }
+    console.log(this.profilePictureList)
+
+
+  }
+
+message_limit:number = 25
   async getMessageList(item: string, event?: string) {
     if(event == 'click') {
       this.isScrollLocked = true
@@ -212,17 +248,22 @@ message_limit:number = 25
     }
     this.selectedDiscussion = item;
     const querParam = new HttpParams().set('groupName', this.selectedDiscussion!).set('message_list_length',this.message_limit);
-
+    this.messageList = []
     await  new Promise((resolve,reject) =>{
 
 
     this.http.get(this.getMessageListRoute, { params: querParam, responseType: 'text' }).pipe(map( async (data: any) => {
+
       if (JSON.parse(data).length == 0) {
         this.messageList = []
         return
       }
 
       this.messageList = JSON.parse(data)
+
+        this.getProfilePicture(JSON.parse(data))
+
+
       for (let i = 0; i < this.messageList.length; i++) {
         // Transform the intergers Date in the message list in the local date format
         let date = new Date(Number(this.messageList[i].date))
