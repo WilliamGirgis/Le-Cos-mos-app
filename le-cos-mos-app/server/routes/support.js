@@ -511,7 +511,6 @@ const delFile = router.post("/file/del", async function (req, res, next) {
           return res.status(200).send();
         }).catch((e) => {
           if (e) {
-
             // To make sure the client request getFiles() again.
             // "File not found for id 646a849c5aea81a3d4a74519" Was triggered, even though the chuks were all deleted
             return res.status(200).send();

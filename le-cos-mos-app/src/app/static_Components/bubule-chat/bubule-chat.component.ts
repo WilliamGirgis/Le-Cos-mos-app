@@ -16,7 +16,7 @@ const sentMessageRoute = 'http://localhost:4200/chat/discussion/message/send'
   templateUrl: './bubule-chat.component.html',
   styleUrls: ['./bubule-chat.component.scss']
 })
-export class BubuleChatComponent implements OnInit,OnChanges {
+export class BubuleChatComponent implements OnInit {
   globalIndex: number = 0
   hotCount: number = 0
   isScrollLocked:boolean = true
@@ -37,10 +37,14 @@ export class BubuleChatComponent implements OnInit,OnChanges {
 
     // If the top is reached
     if(document.getElementById('messageList')!.scrollTop <= 0) {
-      console.log("up reached !")
-      this.message_limit += 10
-      this.getMessageList(this.selectedDiscussion,'top')
-      this.isScrollLocked = false
+
+      if(!this.isFetchingMessage) {
+        this.message_limit += 10
+        this.isScrollLocked = false
+        this.getMessageList(this.selectedDiscussion)
+      }
+
+
       // To make sure it is not at the top directly
       // document.getElementById('messageList')!.scrollTo({
       //   top: 300
@@ -50,6 +54,17 @@ export class BubuleChatComponent implements OnInit,OnChanges {
 @Input() inputBblChat?:boolean
   filename?: string
   constructor(private http: HttpClient, private chatService: ChatService, private httpService: HttpService,private ngZone: NgZone) {
+
+    this.ngZone.runOutsideAngular(() => {
+      setTimeout(() => {
+        // Exécuter le code qui doit être exécuté après la mise à jour du template
+          // code executed if scroll of the message list window is at the bottom
+          document.getElementById('messageList')!.scrollTo({
+            top: document.getElementById("messageList")!.scrollHeight
+          })
+
+      });
+    });
     this.uploader!.onCompleteAll = () => {
       // When the upload queue is completely done, we refresh the page to output it correctly
       this.filename = undefined
@@ -69,11 +84,7 @@ export class BubuleChatComponent implements OnInit,OnChanges {
       this.filename = file._file.name
     }
     this.chatService?.getMessage().pipe(map((data) => {
-      if(!this.isWindowOpen) {
-        // Do not trigger requests when the window is closed to get better performance
-        // Instead, do a getMessageList only when the top button is clicked
-return
-      }
+
       let discussionList = this.discussionTypeView == 'global' ? this.globalDiscussionList : this.privateDiscussionList
       this.getMessageList(discussionList[this.globalIndex].name)
       this.hotCount++
@@ -84,29 +95,24 @@ return
     })
     // this.chatService?.sendMessage('Hey')
   }
-  ngOnChanges(changes: SimpleChanges): void {
-   if(this.inputBblChat && this.isWindowOpen) {
-    this.getMessageList(this.selectedDiscussion)
-   }
-  }
+
   public uploader: FileUploader = new FileUploader({
     url: endpointUploadFile,
     queueLimit: 5,
     method: 'post',
   });
 
-  isWindowOpen?: boolean = false
+  @Input()isWindowOpen?:boolean
   discussionTypeView: string = 'global' // dg -> discussions générales ; pri -> discussion privées
 
 
   selectedDiscussion: string = ' '
-
+isFetchingMessage?:boolean = false
   sendMessage(message: string) {
     let time = new Date()
     let fileArray = []
 
     for (let i = 0; i < this.uploader.queue.length; i++) {
-      console.log(this.uploader.queue[i]._file.name)
       // https://stackoverflow.com/questions/990904/remove-accents-diacritics-in-a-string-in-javascript
       fileArray.push(this.uploader.queue[i]._file.name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))
     }
@@ -114,23 +120,14 @@ return
     const querParam = new HttpParams().set('groupName', this.selectedDiscussion).set('_id',localStorage.getItem('user-id')!);
     return this.http.post(sentMessageRoute, { messageMetaData, responseType: 'text' }, { params: querParam }).pipe(map(async (data: any) => {
 
-
-      this.uploader.uploadAll()
-      this.getMessageList(this.selectedDiscussion)
-      if(!this.isScrollLocked) {
-        // If the user has unLocked, then we return before executing scroll down
-return
+      if(this.uploader.queue.length > 0 ) {
+        this.uploader.uploadAll()
       }
-      this.ngZone.runOutsideAngular(() => {
-        setTimeout(() => {
-          // Exécuter le code qui doit être exécuté après la mise à jour du template
+      this.isFetchingMessage = true
+        let discussionList = this.discussionTypeView == 'global' ? this.globalDiscussionList : this.privateDiscussionList
+        this.getMessageList(discussionList[this.globalIndex].name)
 
-          // code executed if scroll of the message list window is at the bottom
-          document.getElementById('messageList')!.scrollTo({
-            top: document.getElementById("messageList")!.scrollHeight
-          })
-        })
-      });
+
     })).subscribe((res) => { })
   }
 
@@ -192,7 +189,6 @@ return
   downloadFile(filename:string) {
     const querParam = new HttpParams().set('filename', filename)
     this.http.get(this.downloadFileRoute, { params: querParam,responseType:'blob' }).pipe(map(async (data: any) => {
-     console.log(filename)
       saveAs(data, filename);
       return
     })).subscribe((res) => {
@@ -201,6 +197,7 @@ return
 
 
   }
+
   // Get message list (paramater : discussion_name)
   readonly getMessageListRoute = 'http://localhost:4200/chat/discussion/message/list'
   readonly getProfilPicturesListRoute = 'http://localhost:4200/chat/discussion/message/profilPicture/list'
@@ -209,9 +206,10 @@ return
   imgFile:any = []
   async getProfilePicture(parsedData:any) {
 this.profilePictureList = []
+parsedData = [...new Set(parsedData)]
     for(let i = 0;i < parsedData.length;i++) {
       if(parsedData[i].user_id) {
-        const param = new HttpParams().set('user_id', parsedData[i].user_id!)
+                const param = new HttpParams().set('user_id', parsedData[i].user_id!)
         let requ = this.http.get(this.getProfilPicturesListRoute,{params:param,responseType:'blob'}).pipe(map((data:any)=>{
           this.profilePictureList.push(data)
           let img  = new File([data!], data.filename! ); // On transform le Blob en fichier
@@ -235,15 +233,15 @@ this.profilePictureList = []
       }
 
     }
-    console.log(this.profilePictureList)
 
 
   }
 
 message_limit:number = 25
   async getMessageList(item: string, event?: string) {
+    this.isFetchingMessage = true
     if(event == 'click') {
-      this.isScrollLocked = true
+
       this.message_limit = 25
     }
     this.selectedDiscussion = item;
@@ -252,7 +250,7 @@ message_limit:number = 25
     await  new Promise((resolve,reject) =>{
 
 
-    this.http.get(this.getMessageListRoute, { params: querParam, responseType: 'text' }).pipe(map( async (data: any) => {
+     this.http.get(this.getMessageListRoute, { params: querParam, responseType: 'text' }).pipe(map( async (data: any) => {
 
       if (JSON.parse(data).length == 0) {
         this.messageList = []
@@ -272,25 +270,31 @@ message_limit:number = 25
         let final_hour = +computed_Hour + ':' + computed_Minutes
         this.messageList[i].date = 'Le ' + date.toLocaleDateString() + ' à ' + final_hour
       }
-      if(!this.isScrollLocked || event == 'top') {
+
+      if( event == 'click') {
+
+        resolve(null)
+      }
+      if(!this.isScrollLocked) {
         // If the user has unLocked, then we return before executing scroll down
        reject(null)
       }
 
+
       resolve(null)
     })).subscribe(res => { })
     }).then((resolvedData) => {
+      this.ngZone.runOutsideAngular(() => {
+        setTimeout(() => {
+          // Exécuter le code qui doit être exécuté après la mise à jour du template
 
-    this.ngZone.runOutsideAngular(() => {
-      setTimeout(() => {
-        // Exécuter le code qui doit être exécuté après la mise à jour du template
           // code executed if scroll of the message list window is at the bottom
           document.getElementById('messageList')!.scrollTo({
             top: document.getElementById("messageList")!.scrollHeight
           })
-
+        })
       });
-    });
+
     return
 
     }).catch((rejectedData) => {

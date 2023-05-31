@@ -250,6 +250,23 @@ console.log(_id)
     _id: _id,
     // Add more additional data fields as needed
   };
+  profil_file_storage.db.collection('profil_bucket.fs.files').findOneAndDelete({ filename: _id }).then((result) => {
+    const deletedFileId = result.value._id
+    const bucket = new GridFSBucket(dbg, { bucketName: 'profil_bucket.fs' });
+    bucket.delete(deletedFileId).then((res) => {
+      // File successfully deleted from the GridFS bucket
+      return res.status(200).send();
+    }).catch((e) => {
+      if (e) {
+        // To make sure the client request getFiles() again.
+        // "File not found for id 646a849c5aea81a3d4a74519" Was triggered, even though the chuks were all deleted
+        return res.status(200).send();
+      }
+    });
+    return res.status(200).send()
+  }).catch((e) => {
+    return res.status(200).send(e)
+  })
 
   upload_profil_file(req, res, async function (err) {
 

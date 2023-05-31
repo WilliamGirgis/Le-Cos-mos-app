@@ -1,5 +1,5 @@
 import { trigger, transition, style, animate,query } from '@angular/animations';
-import { Component, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, NgZone, OnChanges, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, RouterOutlet } from '@angular/router';
 import { LogoutDialogComponentComponent } from './logout-dialog-component/logout-dialog-component.component';
@@ -26,15 +26,32 @@ import { SaveRouteService } from 'src/app/services/save-route.service';
 
 export class HandlerViewComponent implements OnInit {
   hotCount:number = 0
-  @Output() inputBblChat?:boolean
+
+  isWindowOpen?:boolean = false
   pingChild() {
- this.inputBblChat = !this.inputBblChat
+
+ if(!this.isWindowOpen) {
+  this.isWindowOpen = true
+  this.ngZone.runOutsideAngular(() => {
+    setTimeout(() => {
+      // Exécuter le code qui doit être exécuté après la mise à jour du template
+
+      // code executed if scroll of the message list window is at the bottom
+      document.getElementById('messageList')!.scrollTo({
+        top: document.getElementById("messageList")!.scrollHeight
+      })
+    })
+  });
+ } else {
+  this.isWindowOpen = true
+ }
+
   }
   getHotCount(count:string) {
     let numberCount = Number(count)
     this.hotCount = numberCount
   }
-  constructor(private savedRouteService:SaveRouteService,private router: Router,private matDialog:MatDialog) {
+  constructor(private savedRouteService:SaveRouteService,private router: Router,private matDialog:MatDialog,private ngZone: NgZone) {
 
   }
 

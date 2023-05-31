@@ -131,7 +131,7 @@
     <div  id="messageWrapper">
       <img (click)="isScrollLocked = !isScrollLocked" *ngIf="isScrollLocked" id="lock" src="../../../assets/images/lock-fill.svg">
       <img (click)="isScrollLocked = !isScrollLocked" *ngIf="!isScrollLocked" id="unlock" src="../../../assets/images/unlock-fill.svg">
-      <div (scroll)="onScrollMessageList()" id="messageList" *ngIf="isWindowOpen">
+      <div (scroll)="onScrollMessageList()" id="messageList" >
 
         <div style="margin-top: 3vh;margin-bottom: 3vh;"
           [class]="message.emiter == user_name + ' ' + user_last_name ? 'yours' : 'his'"
