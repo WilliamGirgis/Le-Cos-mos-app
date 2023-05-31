@@ -292,12 +292,14 @@ message_limit:number = 25
           document.getElementById('messageList')!.scrollTo({
             top: document.getElementById("messageList")!.scrollHeight
           })
+          this.isFetchingMessage = false
         })
       });
 
     return
 
     }).catch((rejectedData) => {
+      this.isFetchingMessage = false
       return
     })
 
