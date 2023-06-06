@@ -494,8 +494,6 @@ const delFile = router.post("/file/del", async function (req, res, next) {
   let courName = req.body.courName;
   let contentType = req.body.contentType
   let documentName = req.body.documentName.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-  console.log(courName)
-  console.log(documentName)
 
   switch (contentType) {
     case 'td':

@@ -108,12 +108,12 @@ const downLoadFile = router.get('/file', authenticate, (req, res) => {
 
         const fileToSend = gfs.bucket.openDownloadStreamByName(filename);
 
+
         res.set('Content-Disposition', `attachment; filename="${filename}"`);
         res.set('Content-Type', 'application/octet-stream');
         res.set('Content',fileToSend)
         res.attachment(filename)
         fileToSend.pipe(res)
-        res.send(fileToSend)
       }
     })
 });
@@ -149,22 +149,14 @@ const getGlobalDiscussionGroup = router.get("/discussion/global",authenticate, a
 
 const getProfilePictureList = router.get("/discussion/message/profilPicture/list", async function (req, res, next) {
 let user_idList = req.query.user_id
-// let parsed = JSON.parse(user_idList)
-// let listLength = parsed.length
-// let _idList = []
-// for(let i = 0; i < listLength;i++) {
-//   if(parsed[i].user_id) {
-//     _idList.push(parsed[i].user_id)
-//   }
 
-// }
-// delete duplicate _id s : https://dev.to/soyleninjs/3-ways-to-remove-duplicates-in-an-array-in-javascript-259o
-// let unique_Id = [...new Set(_idList)];
-// let uniquePicture = []
 return new Promise(async (resolve, reject) => {
   await storage.db.collection('profil_bucket.fs.files').findOne({ filename: user_idList }).then((file) => {
 
 
+    if(!file) {
+      return res.status(400).send("File not found")
+    }
     // if(!uniquePicture.includes(file.filename)) {
       // uniquePicture.push(file.filename)
       const fileStream = gfs2.profil_bucket.openDownloadStreamByName(file.filename);
@@ -173,6 +165,7 @@ return new Promise(async (resolve, reject) => {
 
 
      fileStream.on('end', () => {
+
       resolve();
     });
 
@@ -184,12 +177,11 @@ return new Promise(async (resolve, reject) => {
   }).then((terminate) =>{
     return res.status(200) // Do not send()
   }).catch((e) =>{
+    console.log(e)
         return res.status(500).send("Internal server error");
   });
 
 })
-
-
 
 })
 

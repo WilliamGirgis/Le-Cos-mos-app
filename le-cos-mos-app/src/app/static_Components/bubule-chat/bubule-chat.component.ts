@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { AfterContentChecked, Component, EventEmitter, OnInit, Output,NgZone, Input, OnChanges, SimpleChanges  } from '@angular/core';
+import { AfterContentChecked, Component, EventEmitter, OnInit, Output, NgZone, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Discussion } from './discussion';
 import { Message } from './message';
@@ -19,10 +19,10 @@ const sentMessageRoute = 'http://localhost:4200/chat/discussion/message/send'
 export class BubuleChatComponent implements OnInit {
   globalIndex: number = 0
   hotCount: number = 0
-  isScrollLocked:boolean = true
+  isScrollLocked: boolean = true
   @Output() getHotCount = new EventEmitter<string>();
 
-  loadingIndexFile?:number
+  loadingIndexFile?: number
   getHotCounts() {
     return this.getHotCount.emit(`${this.hotCount}`)
   }
@@ -36,9 +36,9 @@ export class BubuleChatComponent implements OnInit {
     }
 
     // If the top is reached
-    if(document.getElementById('messageList')!.scrollTop <= 0) {
+    if (document.getElementById('messageList')!.scrollTop <= 0) {
 
-      if(!this.isFetchingMessage) {
+      if (!this.isFetchingMessage) {
         this.message_limit += 10
         this.isScrollLocked = false
         this.getMessageList(this.selectedDiscussion)
@@ -51,17 +51,17 @@ export class BubuleChatComponent implements OnInit {
       // })
     }
   }
-@Input() inputBblChat?:boolean
+  @Input() inputBblChat?: boolean
   filename?: string
-  constructor(private http: HttpClient, private chatService: ChatService, private httpService: HttpService,private ngZone: NgZone) {
+  constructor(private http: HttpClient, private chatService: ChatService, private httpService: HttpService, private ngZone: NgZone) {
 
     this.ngZone.runOutsideAngular(() => {
       setTimeout(() => {
         // Exécuter le code qui doit être exécuté après la mise à jour du template
-          // code executed if scroll of the message list window is at the bottom
-          document.getElementById('messageList')!.scrollTo({
-            top: document.getElementById("messageList")!.scrollHeight
-          })
+        // code executed if scroll of the message list window is at the bottom
+        document.getElementById('messageList')!.scrollTo({
+          top: document.getElementById("messageList")!.scrollHeight
+        })
 
       });
     });
@@ -74,7 +74,7 @@ export class BubuleChatComponent implements OnInit {
 
     }
     this.uploader.onBeforeUploadItem = (file) => {
-            // https://stackoverflow.com/questions/990904/remove-accents-diacritics-in-a-string-in-javascript
+      // https://stackoverflow.com/questions/990904/remove-accents-diacritics-in-a-string-in-javascript
 
       file.file.name = file.file.name.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
     }
@@ -102,12 +102,12 @@ export class BubuleChatComponent implements OnInit {
     method: 'post',
   });
 
-  @Input()isWindowOpen?:boolean
+  @Input() isWindowOpen?: boolean
   discussionTypeView: string = 'global' // dg -> discussions générales ; pri -> discussion privées
 
 
   selectedDiscussion: string = ' '
-isFetchingMessage?:boolean = false
+  isFetchingMessage?: boolean = false
   sendMessage(message: string) {
     let time = new Date()
     let fileArray = []
@@ -116,16 +116,16 @@ isFetchingMessage?:boolean = false
       // https://stackoverflow.com/questions/990904/remove-accents-diacritics-in-a-string-in-javascript
       fileArray.push(this.uploader.queue[i]._file.name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))
     }
-    let messageMetaData: Message = { message: message, emiter: this.httpService.user_name + ' ' + this.httpService.user_last_name, date: time.getTime(), filesName: fileArray }
-    const querParam = new HttpParams().set('groupName', this.selectedDiscussion).set('_id',localStorage.getItem('user-id')!);
+    let messageMetaData: Message = { message: message, emiter: localStorage.getItem('fname')! + ' ' + localStorage.getItem('lname')!, date: time.getTime(), filesName: fileArray }
+      const querParam = new HttpParams().set('groupName', this.selectedDiscussion).set('_id', localStorage.getItem('user-id')!);
     return this.http.post(sentMessageRoute, { messageMetaData, responseType: 'text' }, { params: querParam }).pipe(map(async (data: any) => {
 
-      if(this.uploader.queue.length > 0 ) {
+      if (this.uploader.queue.length > 0) {
         this.uploader.uploadAll()
       }
       this.isFetchingMessage = true
-        let discussionList = this.discussionTypeView == 'global' ? this.globalDiscussionList : this.privateDiscussionList
-        this.getMessageList(discussionList[this.globalIndex].name)
+      let discussionList = this.discussionTypeView == 'global' ? this.globalDiscussionList : this.privateDiscussionList
+      this.getMessageList(discussionList[this.globalIndex].name)
 
 
     })).subscribe((res) => { })
@@ -146,20 +146,20 @@ isFetchingMessage?:boolean = false
   getGlobalDiscussionList() {
 
 
-    new Promise((resolve,reject) =>{
+    new Promise((resolve, reject) => {
 
-    this.http.get(this.getGlobalDiscussionListRoute, { responseType: 'text' }).pipe(map(async (data) => {
-      if (JSON.parse(data).length == 0) {
-        reject(null)
-      }
+      this.http.get(this.getGlobalDiscussionListRoute, { responseType: 'text' }).pipe(map(async (data) => {
+        if (JSON.parse(data).length == 0) {
+          reject(null)
+        }
 
-      this.globalDiscussionList = JSON.parse(data)
-     resolve(null)
+        this.globalDiscussionList = JSON.parse(data)
+        resolve(null)
 
-    })).subscribe(res => { })
+      })).subscribe(res => { })
 
     }).then((resolved) => {
- this.getMessageList(this.globalDiscussionList[0].name)
+      this.getMessageList(this.globalDiscussionList[0].name)
     }).catch((rejected) => {
 
     })
@@ -186,9 +186,9 @@ isFetchingMessage?:boolean = false
   }
 
   readonly downloadFileRoute = 'http://localhost:4200/chat/file'
-  downloadFile(filename:string) {
+  downloadFile(filename: string) {
     const querParam = new HttpParams().set('filename', filename)
-    this.http.get(this.downloadFileRoute, { params: querParam,responseType:'blob' }).pipe(map(async (data: any) => {
+    this.http.get(this.downloadFileRoute, { params: querParam, responseType: 'blob' }).pipe(map(async (data: any) => {
       saveAs(data, filename);
       return
     })).subscribe((res) => {
@@ -201,88 +201,83 @@ isFetchingMessage?:boolean = false
   // Get message list (paramater : discussion_name)
   readonly getMessageListRoute = 'http://localhost:4200/chat/discussion/message/list'
   readonly getProfilPicturesListRoute = 'http://localhost:4200/chat/discussion/message/profilPicture/list'
-  messageList: Message[] = [{date:0,emiter:'lux',message:'Hey',filesName:['test']},{date:0,emiter:'lux',message:'Hey',filesName:['test']},{date:0,emiter:'lux',message:'Hey',filesName:['test']},{date:0,emiter:'lux',message:'Hey',filesName:['test']},{date:0,emiter:'lux',message:'Hey',filesName:['test']},{date:0,emiter:'lux',message:'Hey',filesName:['test']},{date:0,emiter:'lux',message:'Hey',filesName:['test']}]
-  profilePictureList:any = []
-  imgFile:any = []
-  async getProfilePicture(parsedData:any) {
-this.profilePictureList = []
-parsedData = [...new Set(parsedData)]
-    for(let i = 0;i < parsedData.length;i++) {
-      if(parsedData[i].user_id) {
-                const param = new HttpParams().set('user_id', parsedData[i].user_id!)
-        let requ = this.http.get(this.getProfilPicturesListRoute,{params:param,responseType:'blob'}).pipe(map((data:any)=>{
-          this.profilePictureList.push(data)
-          let img  = new File([data!], data.filename! ); // On transform le Blob en fichier
-          let fr = new FileReader(); // On li le fichier et stock le nouveau format
-          fr.readAsDataURL(img)
-          fr.onloadend = () =>{
-            // la donnée à afficher dans le parametre '[src]' de la balise image
-            this.imgFile[i]=fr.result
-          }
-          return Promise.resolve(data)
-        }))
-       await new Promise<void>((resolve,reject) =>{
+  messageList: Message[] = []
+  profilePictureList: any = []
+  imgFile: any = [] // This array is used as a cache : For every new profilPicture loaded, we put it insind. Then, for every message, we get the data from imgFile at the index of the message.user_list occurence in that
+  async getProfilePicture(parsedData: any []) {
 
 
-        requ.subscribe((res) =>{
-          resolve()
-        })
+    for (let i = 0; i < parsedData.length; i++) {
+      if (parsedData[i].user_id) { // Does the message has a user id (_id) ?
+        if (!this.profilePictureList.includes(parsedData[i].user_id)) { // Is the profil picture of the user already generated ?
+          this.profilePictureList[i] = parsedData[i].user_id
+          const param = new HttpParams().set('user_id', parsedData[i].user_id!)
 
-       }).then((data) =>{
-       })
+          let requ = this.http.get(this.getProfilPicturesListRoute, { params: param, responseType: 'blob' }).pipe(map((data: any) => {
+            let img = new File([data!], parsedData[i].user_id!); // On transform le Blob en fichier
+            let fr = new FileReader(); // On li le fichier et stock le nouveau format
+            fr.readAsDataURL(img)
+            fr.onloadend = () => {
+              // la donnée à afficher dans le parametre '[src]' de la balise image
+              this.imgFile[i] = fr.result
+            }
+          })).subscribe((res) =>{
+
+          })
+        }
+
       }
-
     }
 
 
   }
 
-message_limit:number = 25
+  message_limit: number = 25
   async getMessageList(item: string, event?: string) {
     this.isFetchingMessage = true
-    if(event == 'click') {
+    if (event == 'click') {
 
       this.message_limit = 25
     }
     this.selectedDiscussion = item;
-    const querParam = new HttpParams().set('groupName', this.selectedDiscussion!).set('message_list_length',this.message_limit);
+    const querParam = new HttpParams().set('groupName', this.selectedDiscussion!).set('message_list_length', this.message_limit);
     this.messageList = []
-    await  new Promise((resolve,reject) =>{
+    await new Promise((resolve, reject) => {
 
 
-     this.http.get(this.getMessageListRoute, { params: querParam, responseType: 'text' }).pipe(map( async (data: any) => {
+      this.http.get(this.getMessageListRoute, { params: querParam, responseType: 'text' }).pipe(map(async (data: any) => {
 
-      if (JSON.parse(data).length == 0) {
-        this.messageList = []
-        return
-      }
+        if (JSON.parse(data).length == 0) {
+          this.messageList = []
+          return
+        }
 
-      this.messageList = JSON.parse(data)
+        this.messageList = JSON.parse(data)
 
         this.getProfilePicture(JSON.parse(data))
 
 
-      for (let i = 0; i < this.messageList.length; i++) {
-        // Transform the intergers Date in the message list in the local date format
-        let date = new Date(Number(this.messageList[i].date))
-        let computed_Hour = date.getHours() < 10 ? '0' + +date.getHours() : +date.getHours()
-        let computed_Minutes = date.getMinutes() < 10 ? '0' + +date.getMinutes() : +date.getMinutes()
-        let final_hour = +computed_Hour + ':' + computed_Minutes
-        this.messageList[i].date = 'Le ' + date.toLocaleDateString() + ' à ' + final_hour
-      }
+        for (let i = 0; i < this.messageList.length; i++) {
+          // Transform the intergers Date in the message list in the local date format
+          let date = new Date(Number(this.messageList[i].date))
+          let computed_Hour = date.getHours() < 10 ? '0' + +date.getHours() : +date.getHours()
+          let computed_Minutes = date.getMinutes() < 10 ? '0' + +date.getMinutes() : +date.getMinutes()
+          let final_hour = +computed_Hour + ':' + computed_Minutes
+          this.messageList[i].date = 'Le ' + date.toLocaleDateString() + ' à ' + final_hour
+        }
 
-      if( event == 'click') {
+        if (event == 'click') {
+
+          resolve(null)
+        }
+        if (!this.isScrollLocked) {
+          // If the user has unLocked, then we return before executing scroll down
+          reject(null)
+        }
+
 
         resolve(null)
-      }
-      if(!this.isScrollLocked) {
-        // If the user has unLocked, then we return before executing scroll down
-       reject(null)
-      }
-
-
-      resolve(null)
-    })).subscribe(res => { })
+      })).subscribe(res => { })
     }).then((resolvedData) => {
       this.ngZone.runOutsideAngular(() => {
         setTimeout(() => {
@@ -296,7 +291,7 @@ message_limit:number = 25
         })
       });
 
-    return
+      return
 
     }).catch((rejectedData) => {
       this.isFetchingMessage = false
@@ -307,14 +302,16 @@ message_limit:number = 25
 
   user_name = localStorage.getItem('fname')!
   user_last_name = localStorage.getItem('lname')!
+  user_id = localStorage.getItem('user-id')!
 
-   ngOnInit() {
-     this.getGlobalDiscussionList()
-     this.getPrivateDiscussionList()
-    this.httpService.getUsername().subscribe((res) => {
-      this.user_name = this.httpService.user_name!
-      this.user_last_name = this.httpService.user_last_name!
+  @Input() ping:EventEmitter<any> = new EventEmitter()
+  async ngOnInit() {
+    this.ping.asObservable().subscribe((res) =>{
+      console.log("DATA HAS BEEN EMITTED ! : " + res)
     })
+    this.getGlobalDiscussionList()
+    this.getPrivateDiscussionList()
+
   }
 
 

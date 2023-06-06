@@ -7,18 +7,18 @@
   <div id="wrapper">
   <div id="leftSide">
    <mat-form-field class="modifyPub" [floatLabel]="'always'">
-    <input formControlName="title" #title matInput value="{{pub.title}}">
+    <input [formControlName]="'title'" #title matInput value="{{pub.title}}">
     <mat-label>Nouveau titre</mat-label>
    </mat-form-field>
 
 <mat-form-field class="modifyPub" [floatLabel]="'always'">
-  <input formControlName="date" #date matInput value="{{pub.date}}">
+  <input [formControlName]="'date'" #date matInput value="{{pub.date}}">
   <mat-label>Nouvelle date</mat-label>
 </mat-form-field>
 
 
   <mat-form-field class="modifyPub" [floatLabel]="'always'">
-    <textarea [style]="{'resize':'none'}" formControlName="content" #content matInput value="{{pub.content}}"></textarea>
+    <textarea [style]="{'resize':'none'}" [formControlName]="'content'" #content matInput value="{{pub.description}}"></textarea>
     <mat-label>Nouveau contenu</mat-label>
   </mat-form-field>
 </div>

@@ -31,22 +31,29 @@ import { LogSaveService } from './log.save.service';
       return this.WebService.loginClient(email.toLowerCase(), password).pipe( // Créer la fonction loginClient
         shareReplay(), // avoid users starting multiple execution of this method
         tap((res: HttpResponse<any>) => {
+
           this.setSession(
             res.body._id,
             res.headers.get('x-access-token')! , // '!' rajouté
-            res.headers.get('x-refresh-token')! // '!' rajouté
+            res.headers.get('x-refresh-token')!, // '!' rajouté
+            res.body.firstname,
+            res.body.lastname,
+            res.body.userType
           );
           this.logService.saveLog("Connexion").subscribe(() => {})
         })
       )
     }
 
-    private async setSession(id: string, accessToken: string, refreshToken: string) {
+    private async setSession(id: string, accessToken: string, refreshToken: string,fname:string,lname:string,userType:string) {
       localStorage.setItem('user-id', id);
       localStorage.setItem('access-Token', accessToken);
       localStorage.setItem('refresh-Token', refreshToken);
+      localStorage.setItem('fname',fname);
+      localStorage.setItem('lname',lname)
+      localStorage.setItem('user-type',userType)
       this.isConnected = !!localStorage.getItem('user-id')
-      await this.WebService.getUsername()
+
 
     }
 

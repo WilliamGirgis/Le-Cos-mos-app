@@ -9,43 +9,34 @@ import { PublicationModel } from '../add-publication-view/publication-model';
 
 
 
-const endpointUploadFile = "http://localhost:4200/file/upload"
+const endpointUploadFile = "http://localhost:4200/publication/publish"
+const endPointModifyPublicationFile = "http://localhost:4200/publication/publish/modify"
 @Component({
   selector: 'app-modify-publication-view',
   templateUrl: './modify-publication-view.component.html',
   styleUrls: ['./modify-publication-view.component.scss']
 })
 export class ModifyPublicationViewComponent implements OnInit {
-  readonly getImagesURL = "http://localhost:4200/file/images"
-  readonly deleteImagesURL = "http://localhost:4200/file/images/del"
+  readonly getImagesURL = "http://localhost:4200/publication/publishGet"
+  readonly deleteImagesURL = "http://localhost:4200/publication/publish/file/del"
   modifyPostOrigin?:string
 
 
   imgFile:any
-  getImages(imageName?:string) {
-    const querParam = new HttpParams().set('imageName',imageName!);
+  getImages(id?:string) {
+    const querParam = new HttpParams().set('imgid',id!);
+
     return this.http
       .get(this.getImagesURL, { responseType: 'blob',params:querParam})
       .pipe(
         map(async (data) => {
-
           // Les données renvoyer par le back-end sont sous forme Blob
-          let img = new File([data], imageName! ); // On transform le Blob en fichier
-          if(img.size < this.imgSize) { // On check si il n'y a pas eu d'échec lors de l'envoi de donnée, sinon on relance la requête pour le fichier
-             this.getImages(imageName)
-             return
-          }
+
+          let img = new File([data], id!); // On transform le Blob en fichier
           let fr = new FileReader(); // On li le fichier et stock le nouveau format
-          await Promise.resolve(this.uploader.uploadAll()).then((response) =>{
-            fr.readAsDataURL(img)
-          })
+          fr.readAsDataURL(img)
           fr.onloadend = async (eve) =>{
-
-            // la donnée à afficher dans le parametre '[src]' de la balise image
-            await Promise.resolve(this.uploader.uploadAll()).then((response) =>{
-              this.imgFile=fr.result
-            })
-
+            this.imgFile=fr.result
 
           }
 
@@ -55,36 +46,58 @@ export class ModifyPublicationViewComponent implements OnInit {
   }
 
   pub:PublicationModel = this.data.publication
-  imgExtension?:string = this.pub.imgExtension
+  imgExtension?:string = this.pub.extension
   publicationForm:FormGroup = this.formBuilder.group({
 
     title:[this.pub.title,[Validators.required]],
     date:[this.pub.date,[Validators.required]],
-    content: [this.pub.content,[Validators.required]],
+    content: [this.pub.description,[Validators.required]],
    }
    );
 
-   imgSize:any
 
-  constructor(public dialogRef:MatDialogRef<ModifyPublicationViewComponent>,@Inject(MAT_DIALOG_DATA) public data:{publication:PublicationModel,imgLink:string,i:number},private formBuilder:FormBuilder,private http:HttpClient) {
 
-    this.dialogRef.afterOpened().pipe().subscribe((res) => {
+   initialDate = this.pub.date
+   initialTitle = this.pub.title
+  constructor(public dialogRef:MatDialogRef<ModifyPublicationViewComponent>,@Inject(MAT_DIALOG_DATA) public data:{publication:PublicationModel,img_id:string,i:number,modified:boolean},private formBuilder:FormBuilder,private http:HttpClient) {
 
-     this.modifyPostOrigin = undefined
-     if(this.imgLink != undefined) {
-      this.getImages(this.imgLink)
-     }
+    this.dialogRef.afterOpened().subscribe((res) =>{
+      this.getImages(this.pub.img_id)
     })
+    this.uploader.onBeforeUploadItem = (file) => {
+      let name = file._file.name
+      let title = this.publicationForm.get('title')!.value
+      let givenDate = this.publicationForm.get('date')!.value
+      let givenDescription = this.publicationForm.get('content')!.value
+      this.uploader.setOptions({headers:[
+        { name: 'title', value: title },
+        {name: 'givendescription',  value: givenDescription},
+        { name: 'givendate', value: givenDate },
+        {name: 'oldtitle',  value: this.initialTitle},
+        {name: 'olddate',  value: this.initialDate},
+        {name: 'extension',  value: name.split(/\./)[name.split(/\./).length - 1]},
+        {name: 'img_id',  value: this.pub.img_id}
+      ]
 
+      ,url:endPointModifyPublicationFile});
+    }
 
 
     this.uploader!.onCompleteAll =  () => {
       // When the upload queue is completely done, we refresh the page to output it correctly
       this.uploader.clearQueue()
+      this.uploader.setOptions({url:endpointUploadFile});
+
+      if(this.touched = true) {
+        this.dialogRef.close('modified')
+      } else {
+        this.dialogRef.close()
+      }
+
     }
 
     this.uploader.onCompleteItem  = (file) => {
-      this.imgExtension = file._file.name.split(/\./)[1]
+      this.imgExtension = file._file.name.split(/\./)[file._file.name.split(/\./).length -1]
       this.modifyPostOrigin = undefined
       this.imgLink?.split(/\./)!.forEach((splitedArray) => {
         if(splitedArray == 'pdf' || splitedArray ==   'png' || splitedArray ==  'jpg' || splitedArray ==  'jpeg') {
@@ -94,38 +107,54 @@ export class ModifyPublicationViewComponent implements OnInit {
       //this.imgLink = file._file.name
     }
 
+    this.uploader.onWhenAddingFileFailed = (file) => {
+      this.imgExtension = file.name.split(/\./)[file.name.split(/\./).length -1]
+      this.touched = true
+      let img = new File([file.rawFile], file.name); // On transform le Blob en fichier
+      this.uploader.queue.pop()
+      this.uploader.addToQueue([img])
+      let fr = new FileReader(); // On li le fichier et stock le nouveau format
+      fr.readAsDataURL(img)
+      fr.onloadend = () => {
+        // la donnée à afficher dans le parametre '[src]' de la balise image
+        this.imgFile = fr.result
+      }
+    }
 
     this.uploader!.onAfterAddingFile = async (file) => {
-      this.imgLink = file._file.name
-      this.imgSize = file._file.size
-      await Promise.resolve(this.uploader.uploadAll()).then((response) =>{
-      })
-      this.getImages(this.imgLink)
+      this.imgFile = undefined
+      this.touched = true
+      this.imgExtension = file._file.name.split(/\./)[file._file.name.split(/\./).length -1]
+      let img = new File([file.file.rawFile], file._file.name); // On transform le Blob en fichier
+      let fr = new FileReader(); // On li le fichier et stock le nouveau format
+      fr.readAsDataURL(img)
+      fr.onloadend = () => {
+        // la donnée à afficher dans le parametre '[src]' de la balise image
+        this.imgFile = fr.result
+      }
     }
   }
-
-  imgLink?:string = this.data.imgLink
+  touched:boolean = false
+  imgLink?:string = this.data.img_id
   index?:number = this.data.i
-
+  imgSize?:number
 
   deleteImage() {
     if(!window.confirm("Are you sure you wanna delete " +  this.imgLink! + " ?")) {
       return
         }
     return this.http
-      .post(this.deleteImagesURL,{imageName:this.imgLink!}, {
+      .post(this.deleteImagesURL,{img_id:this.pub.img_id!}, {
         responseType: 'text'
       })
       .pipe(
         map((data) => {
-
-// Une fois l'image supprimer, on enlève le lien dans la publication en appelant modifyPost() et ainsi supprimer son lien dans le fichier post.json
+          this.imgFile = undefined
           this.imgLink = undefined
           this.imgExtension = undefined
-          this.modifyPost()
+          this.data.modified = true
         })
-      )
-      .subscribe((result) => {});
+      ).subscribe((result) => {});
   }
 
 public uploader: FileUploader = new FileUploader({
@@ -136,49 +165,10 @@ public uploader: FileUploader = new FileUploader({
 
 
 
-async modifyPost(deltedFromClearQueue?:boolean) {
-  let publication: PublicationModel
-  let title = this.publicationForm.get('title')!.value
-  let date = this.publicationForm.get('date')!.value
-  let content = this.publicationForm.get('content')!.value
+async modifyPost() {
 
-  let ext:string [] = this.imgLink?.split(/\./)!
-  let extension
-  let index:number = 0
-  this.imgLink?.split(/\./)!.forEach((splitedArray) => {
-    if(splitedArray == 'pdf' || splitedArray ==   'png' || splitedArray ==  'jpg' || splitedArray ==  'jpeg') {
-      extension = splitedArray
-    }
-    else {
-      extension = ext[ext.length - 1]
-    }
-    index++
-  })
+  this.uploader.uploadAll()
 
-  if(  this.imgLink != undefined) {
-    publication = { title, date, content,imgName: this.imgLink,imgExtension:extension };
-  } else {
-    publication = { title, date, content };
-  }
-  const querParam = new HttpParams().set('index', this.index!);
-  this.http
-    .post('http://localhost:4200/publication/publish/modify', publication, {
-      params: querParam,
-      responseType: 'json',
-    })
-    .pipe(
-      map((data) => {
-
-        // Si la fonction a été appelé par le button 'Submit', alors on ferme le dialog
-if(this.modifyPostOrigin == "Submit") {
-  this.dialogRef.close()
-}
-
-
-
-      })
-    )
-    .subscribe((response) => {});
 }
 
 

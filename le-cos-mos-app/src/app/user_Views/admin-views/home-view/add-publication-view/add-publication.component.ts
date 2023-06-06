@@ -1,14 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { map } from 'rxjs/internal/operators/map';
 import { formErrors } from 'src/app/interface&classe/interfaces';
 import { PublicationModel } from './publication-model';
 import { FileUploader } from 'ng2-file-upload';
 
-const endpointUploadFile = "http://localhost:4200/chat/upload"
-const folderPath = "http://localhost:4200/assets/images/"
+const endpointUploadFile = "http://localhost:4200/publication/publish"
 
 @Component({
   selector: 'app-add-publication',
@@ -22,11 +21,13 @@ export class AddPublicationComponent implements OnInit {
 
 
 
-  constructor(public dialogRef:MatDialogRef<AddPublicationComponent>,private formBuilder:FormBuilder,private http:HttpClient) {
+  constructor(public dialogRef:MatDialogRef<AddPublicationComponent>,private formBuilder:FormBuilder,@Inject(MAT_DIALOG_DATA) public data:{modified:boolean}) {
     this.uploader!.onCompleteAll = () => {
       // When the upload queue is completely done, we refresh the page to output it correctly
       this.filename = undefined
       this.uploader.clearQueue()
+
+      this.dialogRef.close("added")
     }
     this.uploader.onCompleteItem  = (file) => {
 
@@ -35,6 +36,26 @@ export class AddPublicationComponent implements OnInit {
 
     this.uploader!.onAfterAddingFile = (file) => {
       this.filename = file._file.name
+
+    }
+
+    this.uploader.onBeforeUploadItem = (file) => {
+      let name = file._file.name
+      let title = this.publicationForm.get('title')!.value
+      let content = this.publicationForm.get('content')!.value
+
+
+
+
+      this.uploader.setOptions({headers:[
+        { name: 'title', value: title },
+        {name: 'description',  value: content},
+        {name: 'extension',  value: name.split(/\./)[name.split(/\./).length - 1]}
+      ]
+      });
+
+      file.file.name = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+
     }
   }
   public uploader: FileUploader = new FileUploader({
@@ -56,70 +77,9 @@ filename?:string
    );
   formErrors:formErrors = { email:'' ,firstname: '', lastname: '',password:'',confirmPsw:'' };
 
-  getPublication() {
-    this.http
-      .get('http://localhost:4200/publication/publishGet', {
-        responseType: 'json',
-
-      })
-      .toPromise()
-      .then((data) => {
-        if(data === null) {// if the post.json is empty
-          this.publicationList = []
-          return console.error("No Posts")
-        }
-        this.publicationList = JSON.parse(JSON.stringify(data));
-        /*this.onPickPublication(
-          this.publicationList[this.publicationList.length - 1],
-          JSON.stringify(this.publicationList.length - 1)
-        );*/
-      });
-  }
-
-
-
    async newPublication() {
-
-    let title = this.publicationForm.get('title')!.value
-    let content = this.publicationForm.get('content')!.value
-    let imgLink:string | undefined = undefined
-    if(this.filename) {
-       imgLink = folderPath + this.filename
-    }
-
-
     await Promise.resolve(this.uploader.uploadAll()).then((response) =>{
-
-
-
-
-    }) // Encapsuler en promesse pour être sûr que la mise en ligne se réalise en premier
-    let ext:string [] = this.filename?.split(/\./)!
-    let extension
-    let index:number = 0
-    this.filename?.split(/\./)!.forEach((splitedArray) => {
-      if(splitedArray == 'pdf' || splitedArray ==   'png' || splitedArray ==  'jpg' || splitedArray ==  'jpeg') {
-        extension = splitedArray
-      }
-      else {
-        extension = ext[ext.length - 1]
-      }
-      index++
     })
-    let publication: PublicationModel = { title, date: '', content,imgName:this.filename,imgExtension:extension}; // -> last index ext[ext.length - 1]
-    this.http
-      .post('http://localhost:4200/publication/publish', publication, {
-        responseType: 'json',
-      })
-      .pipe(
-        map((data) => {
-          this.uploader.uploadAll()
-          this.getPublication();
-
-          this.dialogRef.close()
-        })
-      )
-      .subscribe((response) => {});
   }
 
 

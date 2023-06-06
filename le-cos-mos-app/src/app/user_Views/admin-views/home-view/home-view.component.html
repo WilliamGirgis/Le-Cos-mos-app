@@ -8,13 +8,13 @@
       </h1>
       <div id="img-wrp">
         <img (click)="deletePost(i)" width="25px" height="25px" src="../../../../assets/images/trash3-fill.svg">
-        <img (click)="openModifyPublicationView(publication,publication.imgName,i)" src="../../../../assets/images/pencil-fill.svg">
+        <img (click)="openModifyPublicationView(publication,publication.img_id,i)" src="../../../../assets/images/pencil-fill.svg">
       </div>
-      <div (click)="openPublicationView(publication,publication.imgName)" width="25px" height="25px" id="content-block">
-          <p id="content" [innerHTML]="publication.content"></p>
+      <div (click)="openPublicationView(publication,publication.img_id)" width="25px" height="25px" id="content-block">
+          <p id="content" [innerHTML]="publication.description"></p>
       <div *ngIf="loaded" id="imgWrp">
-      <img *ngIf="publication.imgName != undefined && publication.imgExtension != 'pdf' && publication.imgExtension != undefined && imgFile[i] != undefined" id="uploadedImage" [src]="imgFile[i]">
-      <pdf-viewer [zoom]="0.6" [fit-to-page]="true" id="uploadedImage" [original-size]="true" style="width: 100%;height: 100%;" [render-text]="false" *ngIf="publication.imgExtension == 'pdf' && imgFile[i] != undefined" [src]="imgFile[i]"></pdf-viewer>
+      <img *ngIf="publication.title != undefined && publication.extension != 'pdf' && publication.extension != undefined && imgFile[i] != undefined" id="uploadedImage" [src]="imgFile[i]">
+      <pdf-viewer [zoom]="0.6" [fit-to-page]="true" id="uploadedImage" [original-size]="true" style="width: 100%;height: 100%;" [render-text]="false" *ngIf="publication.extension == 'pdf' && imgFile[i] != undefined" [src]="imgFile[i]"></pdf-viewer>
     </div>
     </div>
   <div>

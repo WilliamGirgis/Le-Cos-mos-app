@@ -34,6 +34,7 @@ export class LoginViewComponent implements OnInit {
           }
         }
       }
+
     })
    }
 
@@ -81,9 +82,21 @@ export class LoginViewComponent implements OnInit {
       .login(email.toLowerCase(), password)
       .pipe(
         map(async (data:any) => {
-          await this.httpService.getUserType()
-          await this.httpService.getUsername()
-          this.router.navigate(['admin']); // Navigue vers la vue 'accueil' par default
+          console.log(data.error)
+          let userType = localStorage.getItem('user-type')
+          switch(userType?.toLocaleLowerCase()) {
+            case 'etudiant':
+              this.router.navigate(['etudiant']); // Navigue vers la vue 'accueil' par default
+              break;
+              case 'enseignant':
+                this.router.navigate(['enseignant']); // Navigue vers la vue 'accueil' par default
+                break;
+                case 'admin':
+                  this.router.navigate(['admin']); // Navigue vers la vue 'accueil' par default
+                break;
+                default:
+                  break
+          }
           })
       )
       .subscribe((res:any) => {

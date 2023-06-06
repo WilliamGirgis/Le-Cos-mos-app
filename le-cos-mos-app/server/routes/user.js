@@ -70,7 +70,7 @@ router.post("/users", async (req, res) => {
     .save()
     .then(async () => {
       if(body.userType == "Etudiant") {
-        let user = {firstname:body.firstname,lastname:body.lastname,role:body.userType,email:body.email,planningNameGroupBelonging:''}
+        let user = {firstname:body.firstname,lastname:body.lastname,role:body.userType,email:body.email}
 
         await Planning.updateOne({groupName:'Tronc Commun Class A'},{$push:{user_list:user}}).then((group) => {
 
@@ -94,7 +94,7 @@ router.post("/users/login", (req, res) => {
   let password = req.body.password;
   User.findByCredentials(email, password).then((user) => {
     if(!user) {
-      return res.status(400).send();
+      return res.status(400).send("Aucun utilisateur trouvé");
     }
     return user
       .createSessions()

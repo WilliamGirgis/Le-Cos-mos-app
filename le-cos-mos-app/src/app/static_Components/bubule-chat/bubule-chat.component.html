@@ -134,7 +134,7 @@
       <div (scroll)="onScrollMessageList()" id="messageList" >
 
         <div style="margin-top: 3vh;margin-bottom: 3vh;"
-          [class]="message.emiter == user_name + ' ' + user_last_name ? 'yours' : 'his'"
+          [class]="message.user_id ==  user_id ? 'yours' : 'his'"
           *ngFor="let message of messageList;index as i"
         >
 
@@ -152,7 +152,7 @@
               d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
             />
           </svg>
-          <img *ngIf="message.user_id" id="img2" [src]="imgFile[i]" [class]="message.emiter == user_name + ' ' + user_last_name ? 'yoursImg' : 'hisImg'">
+          <img *ngIf="message.user_id" id="img2" [src]="imgFile[this.profilePictureList.indexOf(message.user_id)]" [class]="message.user_id ==  user_id ? 'yoursImg' : 'hisImg'">
             <label
               >{{  message.emiter
               }}{{ " " + message.date }} :</label

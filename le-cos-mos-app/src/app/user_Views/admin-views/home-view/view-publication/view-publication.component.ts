@@ -12,7 +12,7 @@ import { PublicationModel } from '../add-publication-view/publication-model';
   styleUrls: ['./view-publication.component.scss'],
 })
 export class ViewPublicationComponent implements OnInit {
-  constructor(public dialogRef:MatDialogRef<ViewPublicationComponent>,@Inject(MAT_DIALOG_DATA) public data:{publication:PublicationModel,imgLink:string},private http:HttpClient) {
+  constructor(public dialogRef:MatDialogRef<ViewPublicationComponent>,@Inject(MAT_DIALOG_DATA) public data:{publication:PublicationModel,img_id:string},private http:HttpClient) {
 
 
     this.dialogRef.afterOpened().subscribe(async (res) => {
@@ -24,21 +24,21 @@ export class ViewPublicationComponent implements OnInit {
 
    }
 
-  imgLink?:string = this.data.imgLink
+  imgLink?:string = this.data.img_id
 
   pub:PublicationModel = this.data.publication
-  imgExtension?:string = this.pub.imgExtension
+  imgExtension?:string = this.pub.extension
 
-  readonly getImagesURL = "http://localhost:4200/file/images"
+  readonly getImagesURL = "http://localhost:4200/publication/publishGet"
   imgFile:any
-  async getImages(imageName?:string):Promise<any> {
-    const querParam = new HttpParams().set('imageName',imageName!);
+  async getImages(id?:string):Promise<any> {
+    const querParam = new HttpParams().set('imgid',id!);
     return this.http
       .get(this.getImagesURL, { responseType: 'blob',params:querParam})
       .pipe(
         map((data) => {
           // Les données renvoyer par le back-end sont sous forme Blob
-          let img  = new File([data], imageName! ); // On transform le Blob en fichier
+          let img  = new File([data], id! ); // On transform le Blob en fichier
           let fr = new FileReader(); // On li le fichier et stock le nouveau format
           fr.readAsDataURL(img)
           fr.onloadend = () =>{

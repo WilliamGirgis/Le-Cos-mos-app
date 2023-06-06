@@ -90,7 +90,7 @@ import { PreferencesViewComponent } from './user_Views/preferences-view/preferen
 import { SaveRouteService } from './services/save-route.service';
 import { BubuleChatComponent } from './static_Components/bubule-chat/bubule-chat.component';
 import { Socket, SocketIoModule } from 'ngx-socket-io';
-
+import { NgxMicRecorderModule } from 'ngx-mic-recorder';
 const appearance: MatFormFieldDefaultOptions = {
   appearance: 'outline'
 };
@@ -417,36 +417,6 @@ const routes: Routes = [
           {
             path: ':id/matiere',
             component: StatsDetailsComponent,
-           /* children: [
-              {
-                path: 'list-notes',
-                component: NotesListComponent,
-              },
-              {
-                path: ':id',
-                component: NotesDetailsComponent,
-              }
-            ]
-          },
-          {
-            path: ':id/qcm',
-            component: DetailsQCMComponent,
-            children: [
-              {
-                path: ':id',
-                component: QCMComponent,
-              }
-            ]
-          },
-          {
-            path: ':id/exam',
-            component: DetailsExamComponent,
-            children: [
-              {
-                path: ':id',
-                component: ExamenComponent,
-              }
-            ]*/
           }
         ]
       },
@@ -456,7 +426,47 @@ const routes: Routes = [
         data: { animation: 'Gestion' },
       }
     ]
-  }
+  },
+  {
+    path: 'etudiant',
+    component: HandlerViewComponent,
+    data: { animation: 'Register' },
+    children:[
+      {
+        path: 'preferences',
+        component: PreferencesViewComponent,
+        data: { animation: 'Preferences' },
+      },
+      {
+        path: 'home',
+        component: HomeViewEtudiantComponent,
+        data: { animation: 'Accueil' },
+
+      },
+      {
+        path: 'planning',
+        component: PlanningViewComponent,
+        data: { animation: 'Planning' },
+        children: [
+          {
+            path: 'group',
+            component: GroupComponent,
+            data: { animation: 'GroupList' },
+          },
+          {
+            path: ':id',
+            component: GroupPlanningComponent,
+            data: { animation: 'SelectedGroup' },
+          }
+        ]
+      },
+      // {
+      //   path: 'supports',
+      //   component: ,
+      // }
+    ]
+  },
+
 ]
 
 

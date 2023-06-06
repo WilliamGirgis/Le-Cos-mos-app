@@ -2,9 +2,9 @@ export interface PublicationModel {
 
   title:string,
   date: string,
-  content:string,
-  imgName?:string,
-  imgExtension?:string
+  description:string,
+  extension?:string,
+  img_id?:string
   /* [
     link:string,
     fileType:string

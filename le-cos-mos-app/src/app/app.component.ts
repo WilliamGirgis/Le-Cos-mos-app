@@ -76,16 +76,12 @@ export const slide =
 export class AppComponent {
   title = 'le-cos-mos-app';
   constructor(private httpService:HttpService) {
-
-    if(localStorage.getItem('user-id')!!) {
-      this.httpService.getUserType()
-
-    }
-
-
-
   }
 
+  ping() {
+    console.log("DEACTIVATED")
+
+  }
 
 
   prepareRoute(outlet: RouterOutlet) {
