@@ -1,0 +1,314 @@
+
+
+#rightWrp {
+  margin-top: -7vh;
+  width: 100%;
+ height: max-content;
+
+
+  #validateBtnWrp {
+    width: 60vw;
+    display: inline-flex;
+    align-items: center;
+    align-content: center;
+
+    img {
+      height: 5vh;
+      align-self: center;
+      margin: auto;
+      transition: 350ms ease-in-out;
+    }
+
+    button {
+      min-width: max-content;
+      color: var(--white-them-color);
+      background-color: var(--blue-them-color);
+    }
+  }
+}
+
+#borderTableWrp {
+  border-radius: 10px 10px 10px 10px;
+  width: 100%;
+  min-width: max-content;
+
+}
+
+
+span {
+  height: 5vh;
+  margin: 0 auto auto auto;
+  align-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  justify-content: center;
+  column-gap: 1vw;
+  color: var(--dblue-them-color);
+transform: scale(0.8);
+  img {
+    transition: 200ms ease-in-out;
+    margin-right: auto;
+
+    &:hover {
+      transform: scale(1.2);
+      cursor: pointer;
+    }
+  }
+
+  h2 {
+    font-size: 120%;
+    margin-right: 3vw;
+    margin-left: 3vw;
+
+  }
+}
+
+table {
+  box-shadow: none;
+}
+
+
+th {
+  width: max-content;
+  text-align: center;
+  color: var(--white-them-color);
+  background-color: var(--blue-them-color);
+  border: 1px solid var(--white-them-color);
+border-bottom-width:2px ;
+  font-weight: bold;
+
+  &:first-of-type {
+    border-radius: 10px 0 0 0;
+  }
+
+  &:last-of-type {
+    border-radius: 0 10px 0 0;
+  }
+}
+
+
+.header-row {
+  height: 5vh;
+
+
+}
+
+label {
+  cursor: pointer;
+}
+
+// To change the height of the mat-form-field, increase the font size of children elements, and reduce font size of the container 'datePicker'
+.datePicker {
+  min-width: max-content;
+  margin-top: -10vh;
+  font-size: 7px;
+  color: var(--dblue-them-color);
+  mat-date-range-input {
+    color: var(--dblue-them-color);
+    font-size: 12px;
+    margin: auto auto auto 0.5vw;
+    justify-self: center;
+  }
+  mat-label {
+    color: var(--dblue-them-color);
+
+    margin-left: 7px;
+    font-size: 175%;
+  }
+
+  input {
+    max-height: 100%;
+    opacity: 1;
+
+    color: var(--dblue-them-color);
+  }
+
+  mat-datepicker-toggle {
+    font-size: 80%;
+    color: var(--dblue-them-color);
+    margin: auto auto auto auto;
+  }
+
+  mat-hint {
+    font-size: 10px;
+  }
+}
+
+
+
+
+#t-00 {
+  width: 100%;
+  min-height: calc(15vh / 4);
+height: 25%;
+  max-height:  max-content;
+  cursor: pointer;
+
+  &:hover {
+    border: 1px solid rgb(77, 77, 77);
+  }
+}
+#t-15 {
+  width: 100%;
+  min-height: calc(15vh / 4);
+height: 25%;
+  max-height:  max-content;
+
+  &:hover {
+    border: 1px solid rgb(77, 77, 77);
+  }
+}
+#t-30 {
+  cursor: pointer;
+  width: 100%;
+  min-height: calc(15vh / 4);
+height: 25%;
+  max-height:  max-content;
+
+  &:hover {
+    border: 1px solid rgb(77, 77, 77);
+  }
+}
+#t-45 {
+ cursor: pointer;
+  width: 100%;
+  min-height: calc(15vh / 4);
+height: 25%;
+  max-height: max-content;
+
+  &:hover {
+    border: 1px solid rgb(77, 77, 77);
+  }
+}
+
+.rowDaysWrp {
+  z-index: 3;
+  height: 100%; // Very important // To change for expandable
+
+div {
+  label {
+    font-size: 70%;
+  }
+}
+  }
+
+td {
+  color: var(--white-them-color);
+  text-align: center;
+  min-width: fit-content;
+border: 1px solid rgb(200, 215, 223);
+border-top-width: 0;
+border-right-width: 0;
+border-bottom-width: 0 ;
+width: 10%;
+height: 5vh; // Required to trigger animation
+  overflow: visible;
+  cursor: pointer;
+  background-color: rgb(212, 240, 253);
+margin: 0;
+  &:first-of-type {
+    border-left: 0;
+    font-size: 90%;
+    background-color: var(--blue-them-color);
+    font-weight: bold;
+    width: 5%;
+    min-width: max-content;
+  }
+
+
+label {
+  display: none;
+}
+}
+
+
+tr {
+  // transition: 200ms ease-in-out;
+  // &:hover {
+    td {
+
+        border-bottom-width: 1px;
+        border-top-width: 1px;
+
+    }
+    label {
+      display: initial;
+    }
+  // }
+  &.row {
+    height: 5vh; // Statick height of rows (lines : 8h ; 9h ; 10h ... : 21h)
+    max-height: 5vh;
+
+    // &:hover {
+        height: 15vh;
+        max-height: 15vh;
+        #quartDheureList {
+display: flex;
+            }
+    // }
+  }
+}
+
+
+#headerContentWrp {
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+#headerheure {
+margin: auto;
+  width:fit-content;
+  height: fit-content;
+  text-shadow:  0;
+}
+
+#quartDheureList {
+  transition: 350ms ease-in-out;
+  overflow: visible;
+  list-style: none;
+  font-size: 75%;
+  flex-direction: column;
+  width:fit-content;
+  height: 100%;
+  display: none;
+align-content: space-around;
+div {
+  z-index: 3;
+&:first-of-type {
+  text-shadow: black -1px -1px 2px;
+  margin-top: -1vh;
+}
+&:last-of-type {
+  text-shadow: black -1px -1px 2px;
+  margin-bottom: -3vh;
+}
+text-shadow: black -1px -1px 2px;
+  height: 27%;
+  align-self: center;
+}
+
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgb(199, 205, 207);
+  border-radius: 5px 5px 5px 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--blue-them-color);
+  border-radius: 5px 5px 5px 5px;
+
+}

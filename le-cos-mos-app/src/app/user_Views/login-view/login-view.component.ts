@@ -84,15 +84,15 @@ export class LoginViewComponent implements OnInit {
         map(async (data:any) => {
           console.log(data.error)
           let userType = localStorage.getItem('user-type')
-          switch(userType?.toLocaleLowerCase()) {
+          switch(userType?.toLowerCase()) {
             case 'etudiant':
-              this.router.navigate(['etudiant']); // Navigue vers la vue 'accueil' par default
+              this.router.navigate(['etudiant/home']); // Navigue vers la vue 'accueil' par default
               break;
               case 'enseignant':
-                this.router.navigate(['enseignant']); // Navigue vers la vue 'accueil' par default
+                this.router.navigate(['enseignant/home']); // Navigue vers la vue 'accueil' par default
                 break;
                 case 'admin':
-                  this.router.navigate(['admin']); // Navigue vers la vue 'accueil' par default
+                  this.router.navigate(['admin/home']); // Navigue vers la vue 'accueil' par default
                 break;
                 default:
                   break

@@ -317,5 +317,44 @@ bcrypt.genSalt(10, (err, salt) => {
 })
 
 
+
+router.get("/admin/check", (req, res) => {
+let user_id = req.query._id
+User.findOne({_id:user_id}).then((user) =>{
+  if(user.userType.toLowerCase() == 'admin') {
+return res.status(200).send("OK")
+  } else {
+    return res.status(404).send("NO")
+  }
+})
+})
+router.get("/etudiant/check", (req, res) => {
+  let user_id = req.query._id
+
+  User.findOne({_id:user_id}).then((user) =>{
+    console.log(user)
+    if(user.userType.toLowerCase() == 'etudiant') {
+  return res.status(200).send("OK")
+    } else {
+      return res.status(404).send("NO")
+    }
+  }).catch((e) =>{
+    console.log(e)
+  })
+  })
+
+  router.get("/enseignant/check", (req, res) => {
+    let user_id = req.query._id
+    console.log(user_id)
+    User.findOne({_id:user_id}).then((user) =>{
+      if(user.userType.toLowerCase() == 'enseignant') {
+    return res.status(200).send("OK")
+      } else {
+        return res.status(404).send("NO")
+      }
+    })
+    })
+
+
 module.exports = router;
 

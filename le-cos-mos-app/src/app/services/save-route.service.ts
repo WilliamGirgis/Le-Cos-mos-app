@@ -12,7 +12,7 @@ export class SaveRouteService {
 
   saveRoute(route:string) {
 
-    if(route != '/admin/preferences')
+    if(route != `/${localStorage.getItem('user-type')!!.toLowerCase()}/preferences`)
     this.savedRoute = route
   }
 
@@ -20,7 +20,7 @@ export class SaveRouteService {
 
 
 
-  savedRoute:string = '/admin/home' // Default route in case of reloading on the page on "preference" route
+  savedRoute:string = `/${localStorage.getItem('user-type')!!.toLowerCase()}/home` // Default route in case of reloading on the page on "preference" route
 
 
 

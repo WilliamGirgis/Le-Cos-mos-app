@@ -41,18 +41,16 @@ router.post("/group/modify", authenticate, async function (req, res, next) {
 router.get("/get", authenticate, async function (req, res, next) {
   var groupName = req.query.groupName
   await Planning.find({ id: { $regex: groupName, $options: "i" } }).then((group) => {
+
     return res.status(200).send(group)
   })
 
 })
 
-router.post("/set", authenticate, async function (req, res, next) {
+router.post("/set", async function (req, res, next) {
   const planning = req.body.planning
-
-
   var owner = req.body.planningOwner
   var week = req.body.week
-
   let transformedarray = []
   for (let i = 0; i < planning.length; i++) { // Les 7 jours
     for (let j = 0; j < planning[i].length; j++) { // Les 12 creneaux dans chaque jour
@@ -64,24 +62,47 @@ router.post("/set", authenticate, async function (req, res, next) {
     }
   }
 
-
-
   await Planning.findOne({ groupName: owner }).then(async (group) => {
-    for (let i = 0; i < group.week.length; i++) {
-      // If the week already exists, we change it's seance list and then save the changes
-      if (group.week[i].weekDate == week) {
+    if(group == null) {
+console.log("The group doesn't exist")
+let plan = new Planning({groupName:owner,istronCommun:false,type:'user',week:[{weekDate:week,seance:[]}],user_list:[]})
+plan.save().then(async (resulting) =>{
+  for (let i = 0; i < plan.week.length; i++) {
+    // If the week already exists, we change it's seance list and then save the changes
+    if (plan.week[i].weekDate == week) {
 
-        for (let j = 0; j < transformedarray.length;j++) {
-          group.week[i].seance[j] = transformedarray[j] // La transformation de l'attribut 'creneau' en tableau se fait ici.
-
-        }
-        await group.save();
-        return res.status(200).send("Seance Updated ! ")
+      for (let j = 0; j < transformedarray.length;j++) {
+        plan.week[i].seance[j] = transformedarray[j] // La transformation de l'attribut 'creneau' en tableau se fait ici.
 
       }
+      await plan.save().catch((e) =>{
+        console.log(e)
+      });
+      console.log("DONE")
+      return res.status(200).send("Seance Updated ! ")
+
+    }
+  }
+})
+
+    } else {
+      for (let i = 0; i < group.week.length; i++) {
+        // If the week already exists, we change it's seance list and then save the changes
+        if (group.week[i].weekDate == week) {
+
+          for (let j = 0; j < transformedarray.length;j++) {
+            group.week[i].seance[j] = transformedarray[j] // La transformation de l'attribut 'creneau' en tableau se fait ici.
+
+          }
+          await group.save();
+          return res.status(200).send("Seance Updated ! ")
+
+        }
+      }
+
+      return res.status(404).send('week does not exist in DB')
     }
 
-    return res.status(404).send('week does not exist in DB')
   })
 })
 

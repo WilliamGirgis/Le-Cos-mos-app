@@ -57,7 +57,9 @@ export class HandlerViewComponent implements OnInit {
 
   ping:EventEmitter<any> = new EventEmitter()
   onViewChanges(e:Event) {
-
+this.user_type = localStorage.getItem('user-type')
+this.lname  = localStorage.getItem('lname')
+this.fname  = localStorage.getItem('fname')
 this.savedRouteService.saveRoute(this.router.url.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))
   }
 
@@ -70,6 +72,9 @@ logout() {
 
 
 }
+user_type = localStorage.getItem('user-type')
+lname  = localStorage.getItem('lname')
+fname  = localStorage.getItem('fname')
 
     ngOnInit(): void {
     // this.router.navigate(['admin/supports/UE/Block santé']); // Navigue vers la vue 'accueil' par default
