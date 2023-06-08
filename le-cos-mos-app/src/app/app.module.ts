@@ -90,7 +90,6 @@ import { PreferencesViewComponent } from './user_Views/preferences-view/preferen
 import { SaveRouteService } from './services/save-route.service';
 import { BubuleChatComponent } from './static_Components/bubule-chat/bubule-chat.component';
 import { Socket, SocketIoModule } from 'ngx-socket-io';
-import { NgxMicRecorderModule } from 'ngx-mic-recorder';
 const appearance: MatFormFieldDefaultOptions = {
   appearance: 'outline'
 };

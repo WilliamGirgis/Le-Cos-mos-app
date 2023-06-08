@@ -145,24 +145,18 @@ export class BubuleChatComponent implements OnInit {
   }]
   getGlobalDiscussionList() {
 
+    let params = new HttpParams().set('_id',localStorage.getItem('user-id')!)
 
-    new Promise((resolve, reject) => {
 
-      this.http.get(this.getGlobalDiscussionListRoute, { responseType: 'text' }).pipe(map(async (data) => {
+      this.http.get(this.getGlobalDiscussionListRoute, {params:params, responseType: 'text' }).pipe(map(async (data) => {
         if (JSON.parse(data).length == 0) {
-          reject(null)
         }
-
         this.globalDiscussionList = JSON.parse(data)
-        resolve(null)
+        this.getMessageList(this.globalDiscussionList[0].name)
 
       })).subscribe(res => { })
 
-    }).then((resolved) => {
-      this.getMessageList(this.globalDiscussionList[0].name)
-    }).catch((rejected) => {
 
-    })
 
 
 
@@ -175,7 +169,8 @@ export class BubuleChatComponent implements OnInit {
     ]
   }]
   getPrivateDiscussionList() {
-    this.http.get(this.getPrivateDiscussionListRoute, { responseType: 'text' }).pipe(map(async (data) => {
+    let params = new HttpParams().set('_id',localStorage.getItem('user-id')!)
+    this.http.get(this.getPrivateDiscussionListRoute, {params:params, responseType: 'text' }).pipe(map(async (data) => {
 
       if (JSON.parse(data).length == 0) {
         return
@@ -232,6 +227,16 @@ export class BubuleChatComponent implements OnInit {
 
   }
 
+  readonly createPrivateGroupeDiscussionRoute = "http://localhost:4200/chat/discussion/create"
+  createDiscussionGroup(groupName:string) {
+    const querParam = new HttpParams().set('_id', localStorage.getItem('user-id')!);
+
+    return this.http.post(this.createPrivateGroupeDiscussionRoute, { name: groupName,discussionType:'private', responseType: 'text' },{params:querParam}).pipe(map( (data) => {
+      this.getPrivateDiscussionList()
+    })).subscribe((res) => {
+
+    })
+  }
   message_limit: number = 25
   async getMessageList(item: string, event?: string) {
     this.isFetchingMessage = true

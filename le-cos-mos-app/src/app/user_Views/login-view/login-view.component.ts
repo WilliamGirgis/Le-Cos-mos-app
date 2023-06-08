@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { map } from 'rxjs';
+import { catchError, map, throwError } from 'rxjs';
 import { errorMessages, formErrors } from 'src/app/interface&classe/interfaces';
 import { AuthService } from 'src/app/services/AuthService.service';
 import { HttpService } from 'src/app/services/http.services';
@@ -74,7 +74,7 @@ export class LoginViewComponent implements OnInit {
   formErrors:formErrors = { email:'' ,firstname: '', lastname: '',password:'',confirmPsw:'' };
 
 
-
+  errorMessage?:string
   loginUser() {
     let email = this.loginForm.get('email')!.value
     let password = this.loginForm.get('password')!.value
@@ -82,7 +82,7 @@ export class LoginViewComponent implements OnInit {
       .login(email.toLowerCase(), password)
       .pipe(
         map(async (data:any) => {
-          console.log(data.error)
+
           let userType = localStorage.getItem('user-type')
           switch(userType?.toLowerCase()) {
             case 'etudiant':
@@ -97,6 +97,22 @@ export class LoginViewComponent implements OnInit {
                 default:
                   break
           }
+          }),catchError((res: any) => {
+            // Handle the error here
+            if(res.error == "noUser") {
+              this.errorMessage = "Mot de passe et / ou email incorrect"
+              setTimeout(()=>{
+                this.errorMessage = undefined
+                return
+              },3000)
+            } else {
+              this.errorMessage = "Une erreur inconnue s'est produite"
+              setTimeout(()=>{
+                this.errorMessage = undefined
+                return
+              },3000)
+            }
+            return res; // Re-throw the error to propagate it to the subscriber
           })
       )
       .subscribe((res:any) => {

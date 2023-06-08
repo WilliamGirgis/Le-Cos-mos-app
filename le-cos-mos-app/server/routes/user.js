@@ -94,7 +94,7 @@ router.post("/users/login", (req, res) => {
   let password = req.body.password;
   User.findByCredentials(email, password).then((user) => {
     if(!user) {
-      return res.status(400).send("Aucun utilisateur trouvé");
+      return res.status(404).send("noUser");
     }
     return user
       .createSessions()

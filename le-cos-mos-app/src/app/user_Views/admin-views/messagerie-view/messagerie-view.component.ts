@@ -17,7 +17,7 @@ import { AddUserDialogComponent } from './add-user-dialog/add-user-dialog.compon
 export class MessagerieViewComponent implements OnInit {
 
   readonly modifyGroupeDiscussionRoute = "http://localhost:4200/chat/discussion/modify"
-  readonly delUserUrlRoute = "http://localhost:4200/chat/user/del"
+  readonly delUserUrlRoute = "http://localhost:4200/chat/discussion/user/del"
   readonly delDiscussionUrlRoute = "http://localhost:4200/chat/discussion/del"
 
   readonly: boolean = true
@@ -80,23 +80,12 @@ export class MessagerieViewComponent implements OnInit {
   // Get related discussion
   readonly getGlobalDiscussionListRoute = 'http://localhost:4200/chat/discussion/global'
   readonly getPrivateDiscussionListRoute = 'http://localhost:4200/chat/discussion/private'
-  globalDiscussionList: Discussion[] = [{
-    name: 'Test 123', discussionType: 'global', user_list: [
-      {
-        email: 'Will@gmail.com', firstname: 'Willy', ID: 0, lastname: 'Girgis'
-      }
-    ]
-  }]
-  privateDiscussionList: Discussion[] = [{
-    name: 'Test 123', discussionType: 'global', user_list: [
-      {
-        email: 'Will@gmail.com', firstname: 'Willy', ID: 0, lastname: 'Girgis'
-      }
-    ]
-  }]
+  globalDiscussionList: Discussion[] = []
+  privateDiscussionList: Discussion[] = []
   // Get global discussion list
   getGlobalDiscussionList() {
-    return this.http.get(this.getGlobalDiscussionListRoute, {responseType: 'text' }).pipe(map((data) => {
+    let params = new HttpParams().set('_id',localStorage.getItem('user-id')!)
+    return this.http.get(this.getGlobalDiscussionListRoute, {params:params, responseType: 'text' }).pipe(map((data) => {
       if(JSON.parse(data).length == 0 ) {
         return
       }
@@ -106,11 +95,13 @@ export class MessagerieViewComponent implements OnInit {
 }
 
   getPrivateDiscussionList() {
-    return this.http.get(this.getPrivateDiscussionListRoute, {responseType: 'text' }).pipe(map((data) => {
-      if(JSON.parse(data).length == 0 ) {
+    let params = new HttpParams().set('_id',localStorage.getItem('user-id')!)
+    this.http.get(this.getPrivateDiscussionListRoute, {params:params, responseType: 'text' }).pipe(map(async (data) => {
+
+      if (JSON.parse(data).length == 0) {
         return
       }
-    this.privateDiscussionList = JSON.parse(data)
+      this.privateDiscussionList = JSON.parse(data)
     })).subscribe(res => { })
 
 }

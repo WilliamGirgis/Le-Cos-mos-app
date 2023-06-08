@@ -38,6 +38,7 @@
         </div>
         </mat-form-field>
         </div>
+        <span *ngIf="errorMessage" style="color:red;margin: auto auto auto auto;">{{errorMessage}}</span>
         <mat-label id="oublier">Mot de passe oublié</mat-label>
 
 <button id="login-button" type="submit" mat-button>Connexion</button>

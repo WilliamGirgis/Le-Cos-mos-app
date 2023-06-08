@@ -97,7 +97,7 @@
             <mat-label>Nom du group</mat-label>
             <input #groupName matInput />
           </mat-form-field>
-          <button style="border: 1px solid var(--dblue-them-color)" mat-button>
+          <button (click)="createDiscussionGroup(groupName.value)" style="border: 1px solid var(--dblue-them-color)" mat-button>
             Créer le group {{ groupName.value }}
           </button>
         </mat-menu>

@@ -167,8 +167,19 @@ public uploader: FileUploader = new FileUploader({
 
 async modifyPost() {
 
-  this.uploader.uploadAll()
+  if(this.touched) {
+    this.uploader.uploadAll()
+  } else {
+    let title = this.publicationForm.get('title')!.value
+    let givenDate = this.publicationForm.get('date')!.value
+    let givenDescription = this.publicationForm.get('content')!.value
+    this.http.post('http://localhost:4200/publication/modify',{newTitle:title,newDate:givenDate,newDescription:givenDescription,oldTitle:this.pub.title,oldDate:this.pub.date}).pipe(map((data) =>{
 
+    this.dialogRef.close('modified')
+    })).subscribe((resulting) => {
+
+    })
+  }
 }
 
 

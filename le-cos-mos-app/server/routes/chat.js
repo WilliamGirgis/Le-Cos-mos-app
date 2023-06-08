@@ -120,7 +120,10 @@ const downLoadFile = router.get('/file', authenticate, (req, res) => {
 
 /* //////////////////////////// Getrelated method //////////////////////////// */
 const getPrivateDiscussionGroup = router.get("/discussion/private",authenticate, async function (req, res, next) {
-  await  Group.find({discussionType: 'private'}).then((group) => {
+  let user_id = req.query._id
+  await  Group.find({discussionType: 'private',user_list: {
+    $elemMatch: { _id: user_id }
+  }}).then((group) => {
     if(group.length == 0) {
       return res.status(400).send()
     }
@@ -130,21 +133,15 @@ const getPrivateDiscussionGroup = router.get("/discussion/private",authenticate,
 
 
 const getGlobalDiscussionGroup = router.get("/discussion/global",authenticate, async function (req, res, next) {
-  await new Promise(async (resolve,reject) =>{
-  await Group.find({discussionType: 'global'}).then((group) => {
+  let user_id = req.query._id
+  await  Group.find({discussionType: 'global',user_list: {
+    $elemMatch: { _id: user_id }
+  }}).then((group) => {
     if(group.length == 0) {
-      reject(null)
-    } else {
-      resolve(group)
+      return res.status(400).send()
     }
-   })
-}).then((groupresolved) =>{
-  return res.status(200).send(groupresolved)
-
-
-}).catch((rejected) =>{
-  return res.status(400).send()
-})
+    return res.status(200).send(group)
+    })
 })
 
 const getProfilePictureList = router.get("/discussion/message/profilPicture/list", async function (req, res, next) {
@@ -244,14 +241,27 @@ const delDiscussion = router.post("/discussion/del",authenticate, async function
       return res.status(400).send()
     }
     let discussionType = body.discussionType
+
     let newDiscussion = new Group({name:name,discussionType:discussionType})
 
-    const response = await newDiscussion.save();
-    if(discussionType == 'private') {
-      User.findOneAndUpdate({_id:user_id},{ $push: {groupsNameDiscussionBelonging:name}}).then((user) => {
-return res.status(200).send()
-      })
-    }
+
+    const response = await newDiscussion.save().then((resulting) =>{
+
+        User.findOneAndUpdate({_id:user_id},{ $push: {groupsNameDiscussionBelonging:name}}).then((user) => {
+
+          Group.findOneAndUpdate({name:name},{$push:{user_list:user}}).then((resulting ) =>{
+            return res.status(200).send()
+          })
+
+        })
+
+    }).catch((e) =>{
+      if(e.code == 11000) {
+        return res.status(409).send("Discussion name already exist")
+      }
+      return res.status(400).send("Unknown error")
+    });
+
     });
 
 
@@ -277,6 +287,7 @@ return res.status(200).send()
    const delUserFromConversation = router.post("/discussion/user/del",/*authenticate,*/ function (req, res, next) {
 
     let user = req.body.user
+    console.log(user)
     let groupName = req.body.groupName
     Group.updateOne({name:groupName},{ $pull: {user_list: {_id: { $in: [ user._id] }}}}).then(() => {
       User.updateOne({_id:user._id},{$set:{groupsNameDiscussionBelonging:''}}).then((user) => {

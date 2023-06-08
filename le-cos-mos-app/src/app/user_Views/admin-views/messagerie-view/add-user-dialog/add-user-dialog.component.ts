@@ -32,12 +32,12 @@ export class AddUserDialogComponent implements OnInit {
 
 
     return  this.http.post<string>(this.addUserToGroupRoute,{name:this.name,userList:this.userToAdd_Temp,responseType:'text'}).pipe(map( (data) =>{
-
+      this.dialogRef.close()
 
 
 
     })).subscribe((res) => {
-      this.dialogRef.close()
+
     })
 
 

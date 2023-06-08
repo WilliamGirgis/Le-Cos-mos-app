@@ -197,16 +197,17 @@ let deleteSpecificImage = router.post("/publish/file/del",function (req,res,next
 //https://stackoverflow.com/questions/23774231/how-do-i-remove-all-null-and-empty-string-values-from-an-object
 let delPublicationImg = router.post("/publish/del", function (req, res, next) {
   let img_id = req.body.img_id
+
   if (storage.db.collection('publication_bucket.fs.files') == null) {
     return res.status(404).send()
   }
   storage.db.collection('publication_bucket.fs.files').findOne({ 'metadata.imgid': img_id }).then((result) => {
-console.log(result)
-    if(!result) {
-   Publication.findOneAndDelete({img_id:img_id}).then((result) =>{
-    return res.status(200).send();
-   })
+    Publication.findOneAndDelete({img_id:img_id}).then((result) =>{
 
+     })
+    if(!result) {
+
+      return res.status(200).send();
     }
     const deletedFileId = result._id
     const bucket = new GridFSBucket(dbg, { bucketName: 'publication_bucket.fs' });
@@ -243,6 +244,7 @@ let modifyPublication = router.post(
       publication.description = newContent
       publication.extension = extension
       publication.title = newTitle
+      console.log(publication)
       publication.save().then((resulting )=> {
 
         if (storage.db.collection('publication_bucket.fs.files') == null) {
@@ -306,5 +308,26 @@ let modifyPublication = router.post(
   }
 );
 
+
+
+let modifyPublicationOnly = router.post(
+  "/modify",
+  function (req, res, next) {
+    let oldTitle = req.body.oldTitle
+    let oldDate = req.body.oldDate
+    let newTitle = req.body.newTitle;
+    let newDate = req.body.newDate;
+    let newContent = req.body.newDescription;
+    Publication.findOne({title:oldTitle,date:oldDate}).then((publication) =>{
+      publication.date = newDate
+      publication.description = newContent
+      publication.title = newTitle
+      publication.save().then((resulting )=> {
+
+        return res.status(200).send()
+      })}).catch((e) =>{
+        return res.status(404).send(e)
+      })
+  })
 
 module.exports = router;

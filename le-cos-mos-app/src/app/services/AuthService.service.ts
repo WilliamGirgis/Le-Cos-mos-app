@@ -31,7 +31,6 @@ import { LogSaveService } from './log.save.service';
       return this.WebService.loginClient(email.toLowerCase(), password).pipe( // Créer la fonction loginClient
         shareReplay(), // avoid users starting multiple execution of this method
         tap((res: HttpResponse<any>) => {
-
           this.setSession(
             res.body._id,
             res.headers.get('x-access-token')! , // '!' rajouté
