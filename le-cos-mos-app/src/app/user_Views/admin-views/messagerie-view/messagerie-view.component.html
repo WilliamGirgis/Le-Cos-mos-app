@@ -12,7 +12,7 @@
 
 <textarea readonly class="addGroup" name="groups" #text>{{group.name}}</textarea>
 
-      <button (click)="delDiscussionGroup(i,group.name)"  mat-button><img  width="25px" height="25px" src="../../../../assets/images/trash3-fill.svg"></button>
+      <button (click)="delDiscussionGroup(group._id!)"  mat-button><img  width="25px" height="25px" src="../../../../assets/images/trash3-fill.svg"></button>
 <button (click)="suppressReadOnly(i,text.value)" mat-button><img  src="../../../../assets/images/pencil-fill.svg"></button>
 
     </mat-card>

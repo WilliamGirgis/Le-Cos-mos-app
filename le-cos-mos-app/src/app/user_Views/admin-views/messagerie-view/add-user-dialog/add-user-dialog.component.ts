@@ -11,12 +11,12 @@ import { User } from 'src/app/shared/user';
 })
 export class AddUserDialogComponent implements OnInit {
   readonly addUserToGroupRoute = "http://localhost:4200/chat/discussion/user/add"
-  constructor(public dialogRef:MatDialogRef<AddUserDialogComponent>,@Inject(MAT_DIALOG_DATA) public data:{name?:string,userList:User[]},private http:HttpClient) {
+  constructor(public dialogRef:MatDialogRef<AddUserDialogComponent>,@Inject(MAT_DIALOG_DATA) public data:{discussionId?:string,userList:User[]},private http:HttpClient) {
 
 
 
   }
-  name = this.data.name
+  discussionId = this.data.discussionId
   readonly getUserListRoute = "http://localhost:4200/user/users/id"
   userList:User [] = []
   userListTest:User [] = [{email:'Willy@gmail.com',firstname:'Willy',ID:1,lastname:'Girgis',userType:'Professeur'},{email:'Adrien@gmail.com',firstname:'Adrien',ID:2,lastname:'Akgul',userType:'Etudiant'},{email:'Daniel@gmail.com',firstname:'Daniel',ID:3,lastname:'Akgul',userType:'Etudiant'}]
@@ -31,7 +31,7 @@ export class AddUserDialogComponent implements OnInit {
    addUserToGroup(){
 
 
-    return  this.http.post<string>(this.addUserToGroupRoute,{name:this.name,userList:this.userToAdd_Temp,responseType:'text'}).pipe(map( (data) =>{
+    return  this.http.post<string>(this.addUserToGroupRoute,{discussionId:this.discussionId,userList:this.userToAdd_Temp,responseType:'text'}).pipe(map( (data) =>{
       this.dialogRef.close()
 
 

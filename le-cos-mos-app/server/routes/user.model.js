@@ -70,10 +70,19 @@ const userSchema = new mongoose.Schema({
         }
       ],
         groupsNameDiscussionBelonging:[
-          {
+    {
+      discussionName: {
           type:String,
           required:false
+        },
+        discussionId: {
+          type:String,
+          required:true,
+          unique:true
+
         }
+
+      }
       ],
 
 })

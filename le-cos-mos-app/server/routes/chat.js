@@ -41,12 +41,12 @@ const upload = multer({ storage:storage }).array("file"); // Single for 1 file, 
 
 
 const sendMessage = router.post("/discussion/message/send", async function (req, res, next) {
-  let groupName = req.query.groupName
+  let discussionId = req.query.discussionId
   var message = req.body.messageMetaData
   let _id = req.query._id
   let parsedMessage = {message:message.message,emiter:message.emiter,date:message.date,filesName:message.filesName,user_id:_id}
 
- await Group.find({name: groupName}).then((group) => {
+ await Group.find({_id: discussionId}).then((group) => {
   // group.message_list.push(parsedMessage)
   group[0].message_list.push(parsedMessage)
 
@@ -138,8 +138,10 @@ const getGlobalDiscussionGroup = router.get("/discussion/global",authenticate, a
     $elemMatch: { _id: user_id }
   }}).then((group) => {
     if(group.length == 0) {
+
       return res.status(400).send()
     }
+
     return res.status(200).send(group)
     })
 })
@@ -185,14 +187,14 @@ return new Promise(async (resolve, reject) => {
 const getMessageList = router.get("/discussion/message/list",authenticate, async function (req, res, next) {
 
   //let name = req.body.name
-  var groupName = req.query.groupName
-if(!groupName) {
+  var discussionId = req.query.discussionId
+if(!discussionId) {
   return res.status(404).send()
 }
 let limit_message_length = req.query.message_list_length || 25
 let list = []
  await new Promise(async (resolve,reject) => {
- await Group.findOne({name:groupName}).then((group) => {
+ await Group.findOne({_id:discussionId}).then((group) => {
   if(!group || group == null) {
     reject(null)
     return
@@ -201,6 +203,8 @@ let list = []
    list.push(group.message_list[group.message_list.length - i])
     }
    resolve(null)
+   }).catch((e) =>{
+    return res.status(400).send()
    })
 
  }).then((resolved) => {
@@ -213,21 +217,17 @@ let list = []
 
 const modifyDiscussionName = router.post("/discussion/modify",authenticate, async function (req, res, next) {
 let newName = req.body.newName
-let oldName = req.body.oldName
-if(oldName === newName) {
-  return
-}
-Group.findOneAndUpdate({name:oldName},{ $set: {name:newName}}).then((data) => {
-
+let discussionId = req.body.discussionId
+Group.findOneAndUpdate({_id:discussionId},{ $set: {name:newName}}).then((data) => {
 return res.status(200).send()
 })
 
 })
 
 const delDiscussion = router.post("/discussion/del",authenticate, async function (req, res, next) {
-  let name = req.body.groupName
+  let discussionId = req.body.discussionId
 
-  Group.findOneAndDelete({name:name}).then((data) => {})
+  Group.findOneAndDelete({_id:discussionId}).then((data) => {})
 
   return res.status(200).send()
   })
@@ -237,6 +237,7 @@ const delDiscussion = router.post("/discussion/del",authenticate, async function
     let body = req.body;
     let user_id = req.query._id
     let name = body.name
+
     if((name == ' ') || (name == '') || (body.length == 0)) {
       return res.status(400).send()
     }
@@ -246,10 +247,9 @@ const delDiscussion = router.post("/discussion/del",authenticate, async function
 
 
     const response = await newDiscussion.save().then((resulting) =>{
+        User.findOneAndUpdate({_id:user_id},{ $push: {groupsNameDiscussionBelonging:{discussionName:name,discussionId:newDiscussion._id}}}).then((user) => {
 
-        User.findOneAndUpdate({_id:user_id},{ $push: {groupsNameDiscussionBelonging:name}}).then((user) => {
-
-          Group.findOneAndUpdate({name:name},{$push:{user_list:user}}).then((resulting ) =>{
+          Group.findOneAndUpdate({_id:newDiscussion._id},{$push:{user_list:user}}).then((resulting ) =>{
             return res.status(200).send()
           })
 
@@ -265,16 +265,40 @@ const delDiscussion = router.post("/discussion/del",authenticate, async function
     });
 
 
+    const createSingleDiscussion = router.post("/discussion/single/create", async function (req, res, next) {
+
+      let selectedUser_id = req.body.selectedUser_id
+      let _id = req.body._id
+
+      User.findOne({_id:_id}).then((creator) =>{
+       User.findOne({_id:selectedUser_id}).then((selected)=>{
+        let newGroup = new Group({discussionType:'private',user_list:[creator,selected],name:`${selected.firstname} ${selected.lastname}`,message_list:[]})
+        newGroup.save().then((group) =>{
+        creator.groupsNameDiscussionBelonging.push({discussionId:group._id,discussionName:group.name})
+        creator.save().then((creator) =>{
+          selected.groupsNameDiscussionBelonging.push({discussionId:group._id,discussionName:`${creator.firstname} ${creator.lastname}`})
+          selected.save().then((selected) =>{
+            return res.status(200).send()
+          })
+        })
+
+        })
+       })
+      })
+
+    })
+
 
 const setUserInConversation = router.post("/discussion/user/add",/*authenticate,*/ function (req, res, next) {
 
-      let groupName = req.body.name
+      let discussionId = req.body.discussionId
+      let groupName = req.body.groupName
       let userList = req.body.userList
 
 for(let i = 0;i < userList.length;i++) {
-  Group.updateOne({name:groupName},{$push:{user_list:userList[i]}}).then((group) => {
+  Group.updateOne({_id:discussionId},{$push:{user_list:userList[i]}}).then((group) => {
 
-    User.updateOne({_id:userList[i]._id},{$set:{groupsNameDiscussionBelonging:groupName}}).then((user) => {
+    User.updateOne({_id:userList[i]._id},{$push:{groupsNameDiscussionBelonging:{discussionName:groupName,discussionId:discussionId}}}).then((user) => {
 
     })
 
@@ -287,10 +311,9 @@ return res.status(200).send()
    const delUserFromConversation = router.post("/discussion/user/del",/*authenticate,*/ function (req, res, next) {
 
     let user = req.body.user
-    console.log(user)
-    let groupName = req.body.groupName
-    Group.updateOne({name:groupName},{ $pull: {user_list: {_id: { $in: [ user._id] }}}}).then(() => {
-      User.updateOne({_id:user._id},{$set:{groupsNameDiscussionBelonging:''}}).then((user) => {
+    let discussionId = req.body.discussionId
+    Group.updateOne({_id:discussionId},{ $pull: {user_list: {_id: { $in: [ user._id] }}}}).then(() => {
+      User.updateOne({_id:user._id},{$pull:{groupsNameDiscussionBelonging:{discussionId:discussionId}}}).then((user) => {
 
         return res.status(200).send()
       })

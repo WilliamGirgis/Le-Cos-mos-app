@@ -22,7 +22,7 @@
   <div id="leftWrp">
     <div id="three-buttons" *ngIf="isWindowOpen">
       <a
-        (click)="discussionTypeView = 'global'"
+        (click)="discussionTypeView = 'global';globalIndex = 0"
         [style]="{
           'background-color':
             discussionTypeView == 'global' ? 'var(--dblue-them-color)' : ''
@@ -47,12 +47,11 @@
         </svg>
       </a>
       <a
-        (click)="discussionTypeView = 'private'"
+        (click)="discussionTypeView = 'private';globalIndex = 0"
         [style]="{
           'background-color':
             discussionTypeView == 'private' ? 'var(--dblue-them-color)' : ''
         }"
-        (click)="discussionTypeView = 'private'"
         title="Discussions privées"
       >
         <svg
@@ -102,17 +101,91 @@
           </button>
         </mat-menu>
       </a>
+      <a (click)="setPagination()" [matMenuTriggerFor]="menu2" title="Rechercher un utilisateur">
+        <svg
+         id="img4"
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-person-fill-add"
+        viewBox="0 0 16 16">
+          <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z"/>
+        </svg>
+
+        <mat-menu  #menu2 matMenu="menu">
+<h3 style="text-align: center;">Liste des utilisateurs</h3>
+<div style="margin:auto;width:fit-content">
+          <mat-form-field style="text-align: center;margin:auto" (click)="$event.stopPropagation()" [floatLabel]="'always'" id="search">
+            <input matInput (keyup)="applyFilter($event)" #input>
+            <mat-label>Rechercher un utilisateur</mat-label>
+          </mat-form-field>
+        </div>
+          <table (click)="$event.stopPropagation()" style="width:100%"  [ngClass]="'form'" mat-table
+          [dataSource]="dataSource!" multiTemplateDataRows
+          class="mat-elevation-z8">
+
+     <ng-container matColumnDef="firstname">
+
+       <td fxLayoutAlign="center center" fxFlex="100" style="text-align: center;"   mat-cell *matCellDef="let element">
+         {{element.firstname}}
+       </td>
+
+     </ng-container>
+     <ng-container matColumnDef="lastname">
+
+       <td fxLayoutAlign="center center" fxFlex="100" style="text-align: center;"   mat-cell *matCellDef="let element">
+         {{element.lastname}}
+       </td>
+
+     </ng-container>
+     <ng-container matColumnDef="type">
+
+      <td fxLayoutAlign="center center" fxFlex="100" style="text-align: center;"   mat-cell *matCellDef="let element">
+        ({{element.userType}})
+
+      </td>
+
+    </ng-container>
+
+    <ng-container matColumnDef="button">
+
+      <td fxLayoutAlign="center center" fxFlex="100" style="text-align: center;"   mat-cell *matCellDef="let element">
+        <button (click)="createSingleDiscussion(element._id)"   mat-button
+        ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16">
+          <path d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z"/>
+        </svg></button>
+      </td>
+
+    </ng-container>
+
+
+     <tr mat-row *matRowDef="let element; columns: columnsToDisplayUser;"
+         class="example-element-row"
+         [class.example-expanded-row]="expandedElement === element"
+         >
+
+     </tr>
+
+   </table>
+
+   <mat-paginator style="min-width:max-content;width:50%" (click)="$event.stopPropagation()"   [pageSizeOptions]="[5, 10]"
+showFirstLastButtons
+aria-label="Page">
+</mat-paginator>
+        </mat-menu>
+      </a>
     </div>
 
     <div id="discussion-dg">
       <div
-      (click)="getMessageList(discussion.name,'click');globalIndex = i"
+      (click)="getMessageList(discussion._id!,'click');globalIndex = i"
       *ngFor="let discussion of (discussionTypeView == 'global' ? globalDiscussionList : privateDiscussionList);index as i"
         [style]="{
           'background-color':
-          discussion.name == selectedDiscussion ? 'var(--dblue-them-color)' : '',
+          discussion._id! == selectedDiscussion ? 'var(--dblue-them-color)' : '',
           color:
-          discussion.name == selectedDiscussion ? 'var(--white-them-color)' : ''
+          discussion._id! == selectedDiscussion ? 'var(--white-them-color)' : ''
         }"
 
       >
@@ -126,7 +199,7 @@
 
   <div id="rightWrp">
     <div id="title">
-      <label>{{ selectedDiscussion }} | {{messageList.length}} Messages affichés</label>
+      <label>{{ selectedDiscussionName }} | {{messageList.length}} Messages affichés</label>
     </div>
     <div  id="messageWrapper">
       <img (click)="isScrollLocked = !isScrollLocked" *ngIf="isScrollLocked" id="lock" src="../../../assets/images/lock-fill.svg">

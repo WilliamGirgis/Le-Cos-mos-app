@@ -30,13 +30,13 @@
       </mat-menu>
       <div
         (cdkDropListDropped)="drop($event)"
-        [cdkDropListData]="seanceListAvailableTest[containerIndex]"
+        [cdkDropListData]="seanceListAvailable[containerIndex]"
         [cdkDropListConnectedTo]="[day]"
         #seanceItemList="cdkDropList"
         cdkDropList
         id="seanceWrp"
       >
-        <div *ngFor="let seance of seanceListAvailableTest; index as i">
+        <div *ngFor="let seance of seanceListAvailable; index as i">
           <button
             (mouseenter)="enter(i)"
             cdkDropList

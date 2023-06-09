@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { map } from 'rxjs';
+import { catchError, map } from 'rxjs';
 import { GroupDefinission } from 'src/app/shared/group';
 import { User } from 'src/app/shared/user';
 import { Discussion } from 'src/app/static_Components/bubule-chat/discussion';
@@ -32,7 +32,7 @@ export class MessagerieViewComponent implements OnInit {
 
   openSaveUserPostForm() {
     const groupDiscussion =  this.discussionTypeView == 'global' ?  this.globalDiscussionList[this.globalIndex] : this.privateDiscussionList[this.globalIndex]
-    this.dialog.open(AddUserDialogComponent, { width: '50vw', height: '80vh', data: {name: groupDiscussion.name, userList: groupDiscussion.user_list} })
+    this.dialog.open(AddUserDialogComponent, { width: '50vw', height: '80vh', data: {discussionId: groupDiscussion._id, userList: groupDiscussion.user_list} })
   }
 
   suppressReadOnly(i: number, text: string) {
@@ -80,8 +80,8 @@ export class MessagerieViewComponent implements OnInit {
   // Get related discussion
   readonly getGlobalDiscussionListRoute = 'http://localhost:4200/chat/discussion/global'
   readonly getPrivateDiscussionListRoute = 'http://localhost:4200/chat/discussion/private'
-  globalDiscussionList: Discussion[] = []
-  privateDiscussionList: Discussion[] = []
+  globalDiscussionList: Discussion[] =  [{user_list:[],name:'',_id:'',discussionType:''}]
+  privateDiscussionList: Discussion[] =  [{user_list:[],name:'',_id:'',discussionType:''}]
   // Get global discussion list
   getGlobalDiscussionList() {
     let params = new HttpParams().set('_id',localStorage.getItem('user-id')!)
@@ -119,9 +119,9 @@ export class MessagerieViewComponent implements OnInit {
 
       return
     }
-let groupName = this.discussionTypeView == 'global' ? this.globalDiscussionList[this.globalIndex].name : this.privateDiscussionList[this.globalIndex].name
+let discussionId = this.discussionTypeView == 'global' ? this.globalDiscussionList[this.globalIndex]._id : this.privateDiscussionList[this.globalIndex]._id
 
-    return this.http.post(this.delUserUrlRoute, { user: user, groupName: groupName, responseType: 'text' }).pipe(map(async (data) => {
+    return this.http.post(this.delUserUrlRoute, { user: user, discussionId: discussionId, responseType: 'text' }).pipe(map(async (data) => {
 
       this.getGlobalDiscussionList()
       this.getPrivateDiscussionList()
@@ -133,13 +133,13 @@ let groupName = this.discussionTypeView == 'global' ? this.globalDiscussionList[
   }
 
 
-  delDiscussionGroup(index: number,groupName:string) {
-    if (!window.confirm("Are you sure you wanna delete the group " + groupName + " ?")) {
+  delDiscussionGroup(discussionId:string) {
+    if (!window.confirm("Are you sure you wanna delete the group " + discussionId + " ?")) {
 
       return
     }
 
-    return this.http.post(this.delDiscussionUrlRoute, { groupName: groupName, responseType: 'text' }).pipe(map(async (data) => {
+    return this.http.post(this.delDiscussionUrlRoute, { discussionId: discussionId, responseType: 'text' }).pipe(map(async (data) => {
 
 
       this.getGlobalDiscussionList()

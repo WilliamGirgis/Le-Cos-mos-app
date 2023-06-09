@@ -6,4 +6,5 @@ export class Discussion {
 }
   ]
   discussionType?:string
+  _id?:string
 }

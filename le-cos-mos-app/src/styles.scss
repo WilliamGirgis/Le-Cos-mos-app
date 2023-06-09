@@ -169,3 +169,14 @@ justify-items: center;
     color:var(--blue-them-color);
 
   }
+
+
+  // For making the with of the mat-menus auto
+.mat-menu-panel {
+
+  max-width: none ;
+}
+.mat-menu-content:not(:empty) {
+  padding-top: 0;
+   padding-bottom: 0px;
+}

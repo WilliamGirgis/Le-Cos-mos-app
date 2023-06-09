@@ -104,13 +104,13 @@ export class LoginViewComponent implements OnInit {
               setTimeout(()=>{
                 this.errorMessage = undefined
                 return
-              },3000)
+              },5000)
             } else {
               this.errorMessage = "Une erreur inconnue s'est produite"
               setTimeout(()=>{
                 this.errorMessage = undefined
                 return
-              },3000)
+              },5000)
             }
             return res; // Re-throw the error to propagate it to the subscriber
           })

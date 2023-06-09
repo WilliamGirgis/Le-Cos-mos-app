@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { AfterContentChecked, Component, EventEmitter, OnInit, Output, NgZone, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { AfterContentChecked, Component, EventEmitter, OnInit, Output, NgZone, Input, OnChanges, SimpleChanges, ViewChild, AfterViewInit, ViewChildren, QueryList } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Discussion } from './discussion';
 import { Message } from './message';
@@ -7,6 +7,10 @@ import { ChatService } from 'src/app/app.module';
 import { HttpService } from 'src/app/services/http.services';
 import { FileUploader } from 'ng2-file-upload';
 import { saveAs } from 'file-saver';
+import { User } from 'src/app/shared/user';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 const endpointUploadFile = "http://localhost:4200/chat/discussion/message/file/save"
 
@@ -51,6 +55,11 @@ export class BubuleChatComponent implements OnInit {
       // })
     }
   }
+
+  setPagination() {
+    this.dataSource!.paginator = this.paginator.toArray()[0];
+    this.dataSource!.sort = this.sort.toArray()[0]
+  }
   @Input() inputBblChat?: boolean
   filename?: string
   constructor(private http: HttpClient, private chatService: ChatService, private httpService: HttpService, private ngZone: NgZone) {
@@ -86,7 +95,7 @@ export class BubuleChatComponent implements OnInit {
     this.chatService?.getMessage().pipe(map((data) => {
 
       let discussionList = this.discussionTypeView == 'global' ? this.globalDiscussionList : this.privateDiscussionList
-      this.getMessageList(discussionList[this.globalIndex].name)
+      this.getMessageList(discussionList[this.globalIndex]._id!)
       this.hotCount++
       this.getHotCounts()
 
@@ -95,6 +104,8 @@ export class BubuleChatComponent implements OnInit {
     })
     // this.chatService?.sendMessage('Hey')
   }
+
+
 
   public uploader: FileUploader = new FileUploader({
     url: endpointUploadFile,
@@ -117,7 +128,7 @@ export class BubuleChatComponent implements OnInit {
       fileArray.push(this.uploader.queue[i]._file.name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))
     }
     let messageMetaData: Message = { message: message, emiter: localStorage.getItem('fname')! + ' ' + localStorage.getItem('lname')!, date: time.getTime(), filesName: fileArray }
-      const querParam = new HttpParams().set('groupName', this.selectedDiscussion).set('_id', localStorage.getItem('user-id')!);
+      const querParam = new HttpParams().set('discussionId', this.selectedDiscussion).set('_id', localStorage.getItem('user-id')!);
     return this.http.post(sentMessageRoute, { messageMetaData, responseType: 'text' }, { params: querParam }).pipe(map(async (data: any) => {
 
       if (this.uploader.queue.length > 0) {
@@ -125,7 +136,7 @@ export class BubuleChatComponent implements OnInit {
       }
       this.isFetchingMessage = true
       let discussionList = this.discussionTypeView == 'global' ? this.globalDiscussionList : this.privateDiscussionList
-      this.getMessageList(discussionList[this.globalIndex].name)
+      this.getMessageList(discussionList[this.globalIndex]._id!)
 
 
     })).subscribe((res) => { })
@@ -152,7 +163,8 @@ export class BubuleChatComponent implements OnInit {
         if (JSON.parse(data).length == 0) {
         }
         this.globalDiscussionList = JSON.parse(data)
-        this.getMessageList(this.globalDiscussionList[0].name)
+        this.selectedDiscussionName = this.globalDiscussionList[0].name
+        this.getMessageList(this.globalDiscussionList[0]._id!)
 
       })).subscribe(res => { })
 
@@ -161,6 +173,33 @@ export class BubuleChatComponent implements OnInit {
 
 
   }
+  @ViewChildren(MatPaginator) paginator = new QueryList<MatPaginator>();
+  @ViewChildren(MatSort) sort = new QueryList<MatSort>();
+  userType?: string;
+  userList: User[] = [];
+  expandedElement: any;
+  dataSource?:MatTableDataSource<any> = new MatTableDataSource(this.userList)// Si le tableau de production des utilisateurs n'est pas définit on affiche le test
+  readonly getUserListRoute = "http://localhost:4200/user/users/id"
+  getAllUser() {
+let params = new HttpParams().set('id','')
+    this.http.get(this.getUserListRoute,{params:params}).pipe(map((data:any) =>{
+
+      this.userList = data
+      this.dataSource = new MatTableDataSource(this.userList)
+      this.dataSource.paginator = this.paginator.toArray()[0];
+      this.dataSource.sort = this.sort.toArray()[0];
+
+    })).subscribe((resulting) =>{
+
+    })
+
+  }
+  columnsToDisplayUser = [ 'firstname', 'lastname','type','button'];
+
+  applyFilter(event: Event) {
+     const filterValue = (event.target as HTMLInputElement).value;
+      this.dataSource!.filter = filterValue.trim().toLowerCase();
+      }
   // Get private discussion list
   readonly getPrivateDiscussionListRoute = 'http://localhost:4200/chat/discussion/private'
 
@@ -176,6 +215,7 @@ export class BubuleChatComponent implements OnInit {
         return
       }
       this.privateDiscussionList = JSON.parse(data)
+      this.selectedDiscussionName = this.privateDiscussionList[0].name
     })).subscribe(res => { })
 
   }
@@ -237,15 +277,17 @@ export class BubuleChatComponent implements OnInit {
 
     })
   }
+  selectedDiscussionName?:string
   message_limit: number = 25
   async getMessageList(item: string, event?: string) {
+
     this.isFetchingMessage = true
     if (event == 'click') {
 
       this.message_limit = 25
     }
     this.selectedDiscussion = item;
-    const querParam = new HttpParams().set('groupName', this.selectedDiscussion!).set('message_list_length', this.message_limit);
+    const querParam = new HttpParams().set('discussionId', this.selectedDiscussion!).set('message_list_length', this.message_limit);
     this.messageList = []
     await new Promise((resolve, reject) => {
 
@@ -254,10 +296,13 @@ export class BubuleChatComponent implements OnInit {
 
         if (JSON.parse(data).length == 0) {
           this.messageList = []
+          this.selectedDiscussionName = this.discussionTypeView == 'global' ? this.globalDiscussionList[this.globalIndex].name :this.privateDiscussionList[this.globalIndex].name
+
           return
         }
 
         this.messageList = JSON.parse(data)
+        this.selectedDiscussionName = this.discussionTypeView == 'global' ? this.globalDiscussionList[this.globalIndex].name :this.privateDiscussionList[this.globalIndex].name
 
         this.getProfilePicture(JSON.parse(data))
 
@@ -305,15 +350,30 @@ export class BubuleChatComponent implements OnInit {
 
   }
 
+
+  readonly createSingleDiscussionRoute = "http://localhost:4200/chat/discussion/single/create"
+  createSingleDiscussion(selectedUser_id:string) {
+
+    let body = {
+      _id:localStorage.getItem('user-id')!,
+      selectedUser_id:selectedUser_id
+    }
+    this.http.post(this.createSingleDiscussionRoute,body).pipe(map((data)=> {
+
+    this.getPrivateDiscussionList()
+    })).subscribe((resulting) =>{
+
+    })
+  }
+
   user_name = localStorage.getItem('fname')!
   user_last_name = localStorage.getItem('lname')!
   user_id = localStorage.getItem('user-id')!
 
   @Input() ping:EventEmitter<any> = new EventEmitter()
   async ngOnInit() {
-    this.ping.asObservable().subscribe((res) =>{
-      console.log("DATA HAS BEEN EMITTED ! : " + res)
-    })
+
+    this.getAllUser()
     this.getGlobalDiscussionList()
     this.getPrivateDiscussionList()
 
