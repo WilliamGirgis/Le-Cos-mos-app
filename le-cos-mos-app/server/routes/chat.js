@@ -128,6 +128,8 @@ const getPrivateDiscussionGroup = router.get("/discussion/private",authenticate,
       return res.status(400).send()
     }
     return res.status(200).send(group)
+    }).catch((e) =>{
+      return res.status(400).send()
     })
 })
 
@@ -143,6 +145,8 @@ const getGlobalDiscussionGroup = router.get("/discussion/global",authenticate, a
     }
 
     return res.status(200).send(group)
+    }).catch((e) =>{
+      return res.status(400).send()
     })
 })
 

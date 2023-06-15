@@ -98,8 +98,9 @@ export class LoginViewComponent implements OnInit {
                   break
           }
           }),catchError(async (res: any) => {
+            
             // Handle the error here
-            await new Promise((resolve,reject) =>{
+            return await new Promise((resolve,reject) =>{
               if(res.error == "noUser") {
                 this.errorMessage = "Mot de passe et / ou email incorrect"
                 setTimeout(()=>{

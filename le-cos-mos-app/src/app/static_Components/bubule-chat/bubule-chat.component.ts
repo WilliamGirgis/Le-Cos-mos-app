@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { AfterContentChecked, Component, EventEmitter, OnInit, Output, NgZone, Input, OnChanges, SimpleChanges, ViewChild, AfterViewInit, ViewChildren, QueryList } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { Discussion } from './discussion';
 import { Message } from './message';
 import { ChatService } from 'src/app/app.module';
@@ -64,16 +64,6 @@ export class BubuleChatComponent implements OnInit {
   filename?: string
   constructor(private http: HttpClient, private chatService: ChatService, private httpService: HttpService, private ngZone: NgZone) {
 
-    this.ngZone.runOutsideAngular(() => {
-      setTimeout(() => {
-        // Exécuter le code qui doit être exécuté après la mise à jour du template
-        // code executed if scroll of the message list window is at the bottom
-        document.getElementById('messageList')!.scrollTo({
-          top: document.getElementById("messageList")!.scrollHeight
-        })
-
-      });
-    });
     this.uploader!.onCompleteAll = () => {
       // When the upload queue is completely done, we refresh the page to output it correctly
       this.filename = undefined
@@ -166,8 +156,9 @@ export class BubuleChatComponent implements OnInit {
         this.selectedDiscussionName = this.globalDiscussionList[0].name
         this.getMessageList(this.globalDiscussionList[0]._id!)
 
+      }),catchError(async (e:any) =>{
+        return e
       })).subscribe(res => { })
-
 
 
 
@@ -189,6 +180,8 @@ export class BubuleChatComponent implements OnInit {
           this.dataSource.paginator = this.paginator.toArray()[0];
           this.dataSource.sort = this.sort.toArray()[0];
 
+        }),catchError((e) =>{
+          return e
         })).subscribe((resulting) =>{
 
         })
@@ -222,6 +215,8 @@ export class BubuleChatComponent implements OnInit {
         this.selectedDiscussionName = this.privateDiscussionList[0].name
       }
 
+    }),catchError(async (e:any) =>{
+      return e
     })).subscribe(res => { })
 
   }
