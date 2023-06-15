@@ -181,7 +181,7 @@ export class BubuleChatComponent implements OnInit {
   dataSource?:MatTableDataSource<any> = new MatTableDataSource(this.userList)// Si le tableau de production des utilisateurs n'est pas définit on affiche le test
   readonly getUserListRoute = "http://localhost:4200/user/users/id"
   getAllUser() {
-let params = new HttpParams().set('id','')
+const params = new HttpParams().set('id','').set('_id',this.user_id)
     this.http.get(this.getUserListRoute,{params:params}).pipe(map((data:any) =>{
 
       this.userList = data
@@ -215,7 +215,13 @@ let params = new HttpParams().set('id','')
         return
       }
       this.privateDiscussionList = JSON.parse(data)
-      this.selectedDiscussionName = this.privateDiscussionList[0].name
+      if(this.privateDiscussionList[this.privateDiscussionList.length - 1].user_list.length == 2) {
+        this.selectedDiscussionName = this.privateDiscussionList[this.privateDiscussionList.length - 1].user_list[0]._id == this.user_id ? this.privateDiscussionList[this.privateDiscussionList.length - 1].user_list[1].firstname + ' ' + this.privateDiscussionList[this.privateDiscussionList.length - 1].user_list[1].lastname! : this.privateDiscussionList[this.privateDiscussionList.length - 1].user_list[0].firstname + ' ' + this.privateDiscussionList[this.privateDiscussionList.length - 1].user_list[0].lastname!
+      this.selectedDiscussion = this.privateDiscussionList[this.privateDiscussionList.length - 1]._id!
+      } else {
+        this.selectedDiscussionName = this.privateDiscussionList[0].name
+      }
+
     })).subscribe(res => { })
 
   }
@@ -270,7 +276,6 @@ let params = new HttpParams().set('id','')
   readonly createPrivateGroupeDiscussionRoute = "http://localhost:4200/chat/discussion/create"
   createDiscussionGroup(groupName:string) {
     const querParam = new HttpParams().set('_id', localStorage.getItem('user-id')!);
-
     return this.http.post(this.createPrivateGroupeDiscussionRoute, { name: groupName,discussionType:'private', responseType: 'text' },{params:querParam}).pipe(map( (data) => {
       this.getPrivateDiscussionList()
     })).subscribe((res) => {
@@ -279,6 +284,8 @@ let params = new HttpParams().set('id','')
   }
   selectedDiscussionName?:string
   message_limit: number = 25
+
+
   async getMessageList(item: string, event?: string) {
 
     this.isFetchingMessage = true
@@ -296,13 +303,36 @@ let params = new HttpParams().set('id','')
 
         if (JSON.parse(data).length == 0) {
           this.messageList = []
-          this.selectedDiscussionName = this.discussionTypeView == 'global' ? this.globalDiscussionList[this.globalIndex].name :this.privateDiscussionList[this.globalIndex].name
 
+          if(this.discussionTypeView == 'global') {
+
+            this.selectedDiscussionName = this.globalDiscussionList[this.globalIndex].name
+
+          } else {
+            if(this.privateDiscussionList[this.globalIndex].user_list.length == 2) {
+              this.selectedDiscussionName = this.privateDiscussionList[this.globalIndex].user_list[0]._id != this.user_id ? this.privateDiscussionList[this.globalIndex].user_list[0].firstname + ' ' + this.privateDiscussionList[this.globalIndex].user_list[0].lastname! : this.privateDiscussionList[this.globalIndex].user_list[1].firstname + ' ' + this.privateDiscussionList[this.globalIndex].user_list[1].lastname!
+            } else {
+              this.selectedDiscussionName = this.privateDiscussionList[this.globalIndex].name
+            }
+
+          }
           return
         }
 
         this.messageList = JSON.parse(data)
-        this.selectedDiscussionName = this.discussionTypeView == 'global' ? this.globalDiscussionList[this.globalIndex].name :this.privateDiscussionList[this.globalIndex].name
+        if(this.discussionTypeView == 'global') {
+
+          this.selectedDiscussionName = this.globalDiscussionList[this.globalIndex].name
+
+        } else {
+          if(this.privateDiscussionList[this.globalIndex].user_list.length == 2) {
+            this.selectedDiscussionName = this.privateDiscussionList[this.globalIndex].user_list[0]._id != this.user_id ? this.privateDiscussionList[this.globalIndex].user_list[0].firstname + ' ' + this.privateDiscussionList[this.globalIndex].user_list[0].lastname! : this.privateDiscussionList[this.globalIndex].user_list[1].firstname + ' ' + this.privateDiscussionList[this.globalIndex].user_list[1].lastname!
+          } else {
+            this.selectedDiscussionName = this.privateDiscussionList[this.globalIndex].name
+          }
+
+        }
+
 
         this.getProfilePicture(JSON.parse(data))
 
@@ -353,6 +383,25 @@ let params = new HttpParams().set('id','')
 
   readonly createSingleDiscussionRoute = "http://localhost:4200/chat/discussion/single/create"
   createSingleDiscussion(selectedUser_id:string) {
+    let alreadyExist = false
+    let index = 0
+    for(let i =0; i < this.privateDiscussionList.length && !alreadyExist;i++) {
+      if(this.privateDiscussionList[i].name == (this.user_id + '-' + selectedUser_id ) || this.privateDiscussionList[i].name == (selectedUser_id + '-' + this.user_id ) ) {
+         index = i
+         alreadyExist = true
+      }
+
+    }
+
+    if(alreadyExist) {
+
+      console.log("EXIST !")
+      this.globalIndex = index
+      this.selectedDiscussion = this.privateDiscussionList[index]._id!
+      this.selectedDiscussionName = this.privateDiscussionList[index].user_list[0]._id == this.user_id ? this.privateDiscussionList[index].user_list[1].firstname + ' ' + this.privateDiscussionList[index].user_list[1].lastname! : this.privateDiscussionList[index].user_list[0].firstname + ' ' + this.privateDiscussionList[index].user_list[0].lastname!
+      this.discussionTypeView = 'private'
+      return
+    }
 
     let body = {
       _id:localStorage.getItem('user-id')!,
@@ -361,6 +410,7 @@ let params = new HttpParams().set('id','')
     this.http.post(this.createSingleDiscussionRoute,body).pipe(map((data)=> {
 
     this.getPrivateDiscussionList()
+    this.discussionTypeView = 'private'
     })).subscribe((resulting) =>{
 
     })

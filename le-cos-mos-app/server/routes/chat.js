@@ -272,7 +272,7 @@ const delDiscussion = router.post("/discussion/del",authenticate, async function
 
       User.findOne({_id:_id}).then((creator) =>{
        User.findOne({_id:selectedUser_id}).then((selected)=>{
-        let newGroup = new Group({discussionType:'private',user_list:[creator,selected],name:`${selected.firstname} ${selected.lastname}`,message_list:[]})
+        let newGroup = new Group({discussionType:'private',user_list:[creator,selected],name:`${creator._id}-${selected._id}`,message_list:[]})
         newGroup.save().then((group) =>{
         creator.groupsNameDiscussionBelonging.push({discussionId:group._id,discussionName:group.name})
         creator.save().then((creator) =>{
@@ -282,10 +282,16 @@ const delDiscussion = router.post("/discussion/del",authenticate, async function
           })
         })
 
+        }).catch((e) =>{
+          // Duplicate groupName
+          return res.status(400).send()
         })
+       }).catch((e) =>{
+        return res.status(404).send()
        })
+      }).catch((e) =>{
+        return res.status(404).send()
       })
-
     })
 
 

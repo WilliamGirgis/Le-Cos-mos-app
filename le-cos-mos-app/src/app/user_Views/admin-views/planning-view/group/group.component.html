@@ -9,11 +9,11 @@
   <div id="leftSide">
     <mat-card (click)="selectLeftItem(i)" [style]="{'opacity': globalIndex == i ? '1' : '0.7'}"   class="group-card" *ngFor="let group of groups;index as i">
 
-<textarea readonly class="planningOwner" name="groups" #text>{{group.groupName.replace('_',' ') || group.firstname + ' ' + group.lastname}}</textarea>
+<textarea readonly class="planningOwner" name="groups" #text>{{group.groupName || group.firstname + ' ' + group.lastname}}</textarea>
 
 
-      <button  (click)="delDiscussionGroup(i)"  mat-button><img  width="25px" height="25px" src="../../../../assets/images/trash3-fill.svg"></button>
-<button (click)="suppressReadOnly(i,text.value)"  mat-button><img  src="../../../../assets/images/pencil-fill.svg"></button>
+      <button *ngIf="!group.firstname"   (click)="delDiscussionGroup(i)"  mat-button><img  width="25px" height="25px" src="../../../../assets/images/trash3-fill.svg"></button>
+<button *ngIf="!group.firstname"  (click)="suppressReadOnly(i,text.value)"  mat-button><img  src="../../../../assets/images/pencil-fill.svg"></button>
 
     </mat-card>
   </div>

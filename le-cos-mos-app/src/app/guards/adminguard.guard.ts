@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +25,11 @@ const params = new HttpParams().set('_id',localStorage.getItem('user-id')!)
           reject(null)
         }
 
-      })).subscribe((result) =>{
+      }),catchError((e) =>{
+        reject(null)
+        return e
+
+      } )).subscribe((result) =>{
 
       })
     }).then((resolved) =>{

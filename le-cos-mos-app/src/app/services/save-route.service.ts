@@ -12,8 +12,18 @@ export class SaveRouteService {
 
   saveRoute(route:string) {
 
-    if(route != `/${localStorage.getItem('user-type')!!.toLowerCase()}/preferences`)
-    this.savedRoute = route
+    if(!localStorage.getItem('user-type')) {
+      return
+    } else {
+      if( route != `/${localStorage.getItem('user-type')!!.toLowerCase()}/preferences`) {
+        this.savedRoute = route
+        return
+      }
+
+
+    }
+
+
   }
 
 

@@ -129,6 +129,7 @@ router.get("/users/me/access-Token", verify, (req, res) => {
 
 router.get("/users/id",authenticate, (req, res) => {
   let regex = req.query.id;
+  let _id = req.query._id
   let users = [];
   if(regex == "" || regex == " ") {
     User.find({$regex:regex,$options:"i"})
@@ -136,7 +137,10 @@ router.get("/users/id",authenticate, (req, res) => {
 
       users2.forEach((user) => {
 
-          users.push({userType:user.userType,firstname:user.firstname,lastname:user.lastname,email:user.email,_id:user._id,planningNameGroupBelonging:user.planningNameGroupBelonging,groupsNameDiscussionBelonging:user.groupsNameDiscussionBelonging});
+if(user._id != _id) {
+  users.push({userType:user.userType,firstname:user.firstname,lastname:user.lastname,email:user.email,_id:user._id,planningNameGroupBelonging:user.planningNameGroupBelonging,groupsNameDiscussionBelonging:user.groupsNameDiscussionBelonging});
+
+}
 
 
       });
@@ -352,6 +356,8 @@ router.get("/etudiant/check", (req, res) => {
       } else {
         return res.status(404).send("NO")
       }
+    }).catch((e) =>{
+      return res.status(400).send()
     })
     })
 

@@ -97,22 +97,29 @@ export class LoginViewComponent implements OnInit {
                 default:
                   break
           }
-          }),catchError((res: any) => {
+          }),catchError(async (res: any) => {
             // Handle the error here
-            if(res.error == "noUser") {
-              this.errorMessage = "Mot de passe et / ou email incorrect"
-              setTimeout(()=>{
-                this.errorMessage = undefined
-                return
-              },5000)
-            } else {
-              this.errorMessage = "Une erreur inconnue s'est produite"
-              setTimeout(()=>{
-                this.errorMessage = undefined
-                return
-              },5000)
-            }
-            return res; // Re-throw the error to propagate it to the subscriber
+            await new Promise((resolve,reject) =>{
+              if(res.error == "noUser") {
+                this.errorMessage = "Mot de passe et / ou email incorrect"
+                setTimeout(()=>{
+                  this.errorMessage = undefined
+                  resolve(null)
+                },5000)
+              } else {
+                this.errorMessage = "Une erreur inconnue s'est produite"
+                setTimeout(()=>{
+                  this.errorMessage = undefined
+                  resolve(null)
+                },5000)
+              }
+
+            }).catch((rejected) =>{
+              return res
+            }).then((resolved) =>{
+              return res
+            })
+
           })
       )
       .subscribe((res:any) => {

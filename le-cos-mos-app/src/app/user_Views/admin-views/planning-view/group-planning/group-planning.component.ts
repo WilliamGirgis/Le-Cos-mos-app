@@ -914,7 +914,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
           this.semaineJours[0][x -8][0][2] =  planningSeance.seance[i].type
           this.semaineJours[0][x -8][0][3] = planningSeance.seance[i].day
           this.semaineJours[0][x -8][0][4] =   planningSeance.seance[i].room
-          this.semaineJours[0][x -8][0][5] =   planningSeance.seance[i].duration
+          this.semaineJours[0][x -8][0][5] =   planningSeance.seance[i].duree
           this.semaineJours[0][x -8][0][6] =  planningSeance.seance[i].quartDheure
           break;
           case '15':
@@ -923,7 +923,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
             this.semaineJours[0][x -8][1][2] =  planningSeance.seance[i].type
             this.semaineJours[0][x -8][1][3] = planningSeance.seance[i].day
             this.semaineJours[0][x -8][1][4] =   planningSeance.seance[i].room
-            this.semaineJours[0][x -8][1][5] =   planningSeance.seance[i].duration
+            this.semaineJours[0][x -8][1][5] =   planningSeance.seance[i].duree
             this.semaineJours[0][x -8][1][6] =  planningSeance.seance[i].quartDheure
             break;
             case '30':
@@ -932,7 +932,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
               this.semaineJours[0][x -8][2][2] =  planningSeance.seance[i].type
               this.semaineJours[0][x -8][2][3] = planningSeance.seance[i].day
               this.semaineJours[0][x -8][2][4] =   planningSeance.seance[i].room
-              this.semaineJours[0][x -8][2][5] =   planningSeance.seance[i].duration
+              this.semaineJours[0][x -8][2][5] =   planningSeance.seance[i].duree
               this.semaineJours[0][x -8][2][6] =  planningSeance.seance[i].quartDheure
               break;
               case '45':
@@ -941,7 +941,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                 this.semaineJours[0][x -8][3][2] =  planningSeance.seance[i].type
                 this.semaineJours[0][x -8][3][3] = planningSeance.seance[i].day
                 this.semaineJours[0][x -8][3][4] =   planningSeance.seance[i].room
-                this.semaineJours[0][x -8][3][5] =   planningSeance.seance[i].duration
+                this.semaineJours[0][x -8][3][5] =   planningSeance.seance[i].duree
                 this.semaineJours[0][x -8][3][6] =  planningSeance.seance[i].quartDheure
                 break;
 
@@ -956,7 +956,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
               this.semaineJours[1][x -8][0][2] =  planningSeance.seance[i].type
               this.semaineJours[1][x -8][0][3] = planningSeance.seance[i].day
               this.semaineJours[1][x -8][0][4] =   planningSeance.seance[i].room
-              this.semaineJours[1][x -8][0][5] =   planningSeance.seance[i].duration
+              this.semaineJours[1][x -8][0][5] =   planningSeance.seance[i].duree
               this.semaineJours[1][x -8][0][6] =  planningSeance.seance[i].quartDheure
               break;
               case '15':
@@ -965,7 +965,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                 this.semaineJours[1][x -8][1][2] =  planningSeance.seance[i].type
                 this.semaineJours[1][x -8][1][3] = planningSeance.seance[i].day
                 this.semaineJours[1][x -8][1][4] =   planningSeance.seance[i].room
-                this.semaineJours[1][x -8][1][5] =   planningSeance.seance[i].duration
+                this.semaineJours[1][x -8][1][5] =   planningSeance.seance[i].duree
                 this.semaineJours[1][x -8][1][6] =  planningSeance.seance[i].quartDheure
                 break;
                 case '30':
@@ -974,7 +974,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                   this.semaineJours[1][x -8][2][2] =  planningSeance.seance[i].type
                   this.semaineJours[1][x -8][2][3] = planningSeance.seance[i].day
                   this.semaineJours[1][x -8][2][4] =   planningSeance.seance[i].room
-                  this.semaineJours[1][x -8][2][5] =   planningSeance.seance[i].duration
+                  this.semaineJours[1][x -8][2][5] =   planningSeance.seance[i].duree
                   this.semaineJours[1][x -8][2][6] =  planningSeance.seance[i].quartDheure
                   break;
                   case '45':
@@ -983,7 +983,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                     this.semaineJours[1][x -8][3][2] =  planningSeance.seance[i].type
                     this.semaineJours[1][x -8][3][3] = planningSeance.seance[i].day
                     this.semaineJours[1][x -8][3][4] =   planningSeance.seance[i].room
-                    this.semaineJours[1][x -8][3][5] =   planningSeance.seance[i].duration
+                    this.semaineJours[1][x -8][3][5] =   planningSeance.seance[i].duree
                     this.semaineJours[1][x -8][3][6] =  planningSeance.seance[i].quartDheure
                     break;
           }
@@ -996,7 +996,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                 this.semaineJours[2][x -8][0][2] =  planningSeance.seance[i].type
                 this.semaineJours[2][x -8][0][3] = planningSeance.seance[i].day
                 this.semaineJours[2][x -8][0][4] =   planningSeance.seance[i].room
-                this.semaineJours[2][x -8][0][5] =   planningSeance.seance[i].duration
+                this.semaineJours[2][x -8][0][5] =   planningSeance.seance[i].duree
                 this.semaineJours[2][x -8][0][6] =  planningSeance.seance[i].quartDheure
                 break;
                 case '15':
@@ -1005,7 +1005,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                   this.semaineJours[2][x -8][1][2] =  planningSeance.seance[i].type
                   this.semaineJours[2][x -8][1][3] = planningSeance.seance[i].day
                   this.semaineJours[2][x -8][1][4] =   planningSeance.seance[i].room
-                  this.semaineJours[2][x -8][1][5] =   planningSeance.seance[i].duration
+                  this.semaineJours[2][x -8][1][5] =   planningSeance.seance[i].duree
                   this.semaineJours[2][x -8][1][6] =  planningSeance.seance[i].quartDheure
                   break;
                   case '30':
@@ -1014,7 +1014,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                     this.semaineJours[2][x -8][2][2] =  planningSeance.seance[i].type
                     this.semaineJours[2][x -8][2][3] = planningSeance.seance[i].day
                     this.semaineJours[2][x -8][2][4] =   planningSeance.seance[i].room
-                    this.semaineJours[2][x -8][2][5] =   planningSeance.seance[i].duration
+                    this.semaineJours[2][x -8][2][5] =   planningSeance.seance[i].duree
                     this.semaineJours[2][x -8][2][6] =  planningSeance.seance[i].quartDheure
                     break;
                     case '45':
@@ -1023,7 +1023,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                       this.semaineJours[2][x -8][3][2] =  planningSeance.seance[i].type
                       this.semaineJours[2][x -8][3][3] = planningSeance.seance[i].day
                       this.semaineJours[2][x -8][3][4] =   planningSeance.seance[i].room
-                      this.semaineJours[2][x -8][3][5] =   planningSeance.seance[i].duration
+                      this.semaineJours[2][x -8][3][5] =   planningSeance.seance[i].duree
                       this.semaineJours[2][x -8][3][6] =  planningSeance.seance[i].quartDheure
                       break;
 
@@ -1037,7 +1037,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                   this.semaineJours[3][x -8][0][2] =  planningSeance.seance[i].type
                   this.semaineJours[3][x -8][0][3] = planningSeance.seance[i].day
                   this.semaineJours[3][x -8][0][4] =   planningSeance.seance[i].room
-                  this.semaineJours[3][x -8][0][5] =   planningSeance.seance[i].duration
+                  this.semaineJours[3][x -8][0][5] =   planningSeance.seance[i].duree
                   this.semaineJours[3][x -8][0][6] =  planningSeance.seance[i].quartDheure
                   break;
                   case '15':
@@ -1046,7 +1046,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                     this.semaineJours[3][x -8][1][2] =  planningSeance.seance[i].type
                     this.semaineJours[3][x -8][1][3] = planningSeance.seance[i].day
                     this.semaineJours[3][x -8][1][4] =   planningSeance.seance[i].room
-                    this.semaineJours[3][x -8][1][5] =   planningSeance.seance[i].duration
+                    this.semaineJours[3][x -8][1][5] =   planningSeance.seance[i].duree
                     this.semaineJours[3][x -8][1][6] =  planningSeance.seance[i].quartDheure
                     break;
                     case '30':
@@ -1055,7 +1055,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                       this.semaineJours[3][x -8][2][2] =  planningSeance.seance[i].type
                       this.semaineJours[3][x -8][2][3] = planningSeance.seance[i].day
                       this.semaineJours[3][x -8][2][4] =   planningSeance.seance[i].room
-                      this.semaineJours[3][x -8][2][5] =   planningSeance.seance[i].duration
+                      this.semaineJours[3][x -8][2][5] =   planningSeance.seance[i].duree
                       this.semaineJours[3][x -8][2][6] =  planningSeance.seance[i].quartDheure
                       break;
                       case '45':
@@ -1064,7 +1064,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                         this.semaineJours[3][x -8][3][2] =  planningSeance.seance[i].type
                         this.semaineJours[3][x -8][3][3] = planningSeance.seance[i].day
                         this.semaineJours[3][x -8][3][4] =   planningSeance.seance[i].room
-                        this.semaineJours[3][x -8][3][5] =   planningSeance.seance[i].duration
+                        this.semaineJours[3][x -8][3][5] =   planningSeance.seance[i].duree
                         this.semaineJours[3][x -8][3][6] =  planningSeance.seance[i].quartDheure
                         break;
 
@@ -1078,7 +1078,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                     this.semaineJours[4][x -8][0][3] = planningSeance.seance[i].day
                     this.semaineJours[4][x -8][0][0] = planningSeance.seance[i].creneau[0]
                     this.semaineJours[4][x -8][0][4] =   planningSeance.seance[i].room
-                    this.semaineJours[4][x -8][0][5] =   planningSeance.seance[i].duration
+                    this.semaineJours[4][x -8][0][5] =   planningSeance.seance[i].duree
                     this.semaineJours[4][x -8][0][6] =  planningSeance.seance[i].quartDheure
                     break;
                     case '15':
@@ -1087,7 +1087,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                       this.semaineJours[4][x -8][1][2] =  planningSeance.seance[i].type
                       this.semaineJours[4][x -8][1][3] = planningSeance.seance[i].day
                       this.semaineJours[4][x -8][1][4] =   planningSeance.seance[i].room
-                      this.semaineJours[4][x -8][1][5] =   planningSeance.seance[i].duration
+                      this.semaineJours[4][x -8][1][5] =   planningSeance.seance[i].duree
                       this.semaineJours[4][x -8][1][6] =  planningSeance.seance[i].quartDheure
                       break;
                       case '30':
@@ -1096,7 +1096,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                         this.semaineJours[4][x -8][2][2] =  planningSeance.seance[i].type
                         this.semaineJours[4][x -8][2][3] = planningSeance.seance[i].day
                         this.semaineJours[4][x -8][2][4] =   planningSeance.seance[i].room
-                        this.semaineJours[4][x -8][2][5] =   planningSeance.seance[i].duration
+                        this.semaineJours[4][x -8][2][5] =   planningSeance.seance[i].duree
                         this.semaineJours[4][x -8][2][6] =  planningSeance.seance[i].quartDheure
                         break;
                         case '45':
@@ -1105,7 +1105,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                           this.semaineJours[4][x -8][3][2] =  planningSeance.seance[i].type
                           this.semaineJours[4][x -8][3][3] = planningSeance.seance[i].day
                           this.semaineJours[4][x -8][3][4] =   planningSeance.seance[i].room
-                          this.semaineJours[4][x -8][3][5] =   planningSeance.seance[i].duration
+                          this.semaineJours[4][x -8][3][5] =   planningSeance.seance[i].duree
                           this.semaineJours[4][x -8][3][6] =  planningSeance.seance[i].quartDheure
                           break;
 
@@ -1119,7 +1119,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                       this.semaineJours[5][x -8][0][2] =  planningSeance.seance[i].type
                       this.semaineJours[5][x -8][0][3] = planningSeance.seance[i].day
                       this.semaineJours[5][x -8][0][4] =   planningSeance.seance[i].room
-                      this.semaineJours[5][x -8][0][5] =   planningSeance.seance[i].duration
+                      this.semaineJours[5][x -8][0][5] =   planningSeance.seance[i].duree
                       this.semaineJours[5][x -8][0][6] =  planningSeance.seance[i].quartDheure
                       break;
                       case '15':
@@ -1128,7 +1128,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                         this.semaineJours[5][x -8][1][2] =  planningSeance.seance[i].type
                         this.semaineJours[5][x -8][1][3] = planningSeance.seance[i].day
                         this.semaineJours[5][x -8][1][4] =   planningSeance.seance[i].room
-                        this.semaineJours[5][x -8][1][5] =   planningSeance.seance[i].duration
+                        this.semaineJours[5][x -8][1][5] =   planningSeance.seance[i].duree
                         this.semaineJours[5][x -8][1][6] =  planningSeance.seance[i].quartDheure
                         break;
                         case '30':
@@ -1137,7 +1137,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                           this.semaineJours[5][x -8][2][2] =  planningSeance.seance[i].type
                           this.semaineJours[5][x -8][2][3] = planningSeance.seance[i].day
                           this.semaineJours[5][x -8][2][4] =   planningSeance.seance[i].room
-                          this.semaineJours[5][x -8][2][5] =   planningSeance.seance[i].duration
+                          this.semaineJours[5][x -8][2][5] =   planningSeance.seance[i].duree
                           this.semaineJours[5][x -8][2][6] =  planningSeance.seance[i].quartDheure
                           break;
                           case '45':
@@ -1146,7 +1146,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                             this.semaineJours[5][x -8][3][2] =  planningSeance.seance[i].type
                             this.semaineJours[5][x -8][3][3] = planningSeance.seance[i].day
                             this.semaineJours[5][x -8][3][4] =   planningSeance.seance[i].room
-                            this.semaineJours[5][x -8][3][5] =   planningSeance.seance[i].duration
+                            this.semaineJours[5][x -8][3][5] =   planningSeance.seance[i].duree
                             this.semaineJours[5][x -8][3][6] =  planningSeance.seance[i].quartDheure
                             break;
 
@@ -1160,7 +1160,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                         this.semaineJours[6][x -8][0][2] =  planningSeance.seance[i].type
                         this.semaineJours[6][x -8][0][3] = planningSeance.seance[i].day
                         this.semaineJours[6][x -8][0][4] =   planningSeance.seance[i].room
-                        this.semaineJours[6][x -8][0][5] =   planningSeance.seance[i].duration
+                        this.semaineJours[6][x -8][0][5] =   planningSeance.seance[i].duree
                         this.semaineJours[6][x -8][0][6] =  planningSeance.seance[i].quartDheure
                         break;
                         case '15':
@@ -1169,7 +1169,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                           this.semaineJours[6][x -8][1][2] =  planningSeance.seance[i].type
                           this.semaineJours[6][x -8][1][3] = planningSeance.seance[i].day
                           this.semaineJours[6][x -8][1][4] =   planningSeance.seance[i].room
-                          this.semaineJours[6][x -8][1][5] =   planningSeance.seance[i].duration
+                          this.semaineJours[6][x -8][1][5] =   planningSeance.seance[i].duree
                           this.semaineJours[6][x -8][1][6] =  planningSeance.seance[i].quartDheure
                           break;
                           case '30':
@@ -1178,7 +1178,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                             this.semaineJours[6][x -8][2][2] =  planningSeance.seance[i].type
                             this.semaineJours[6][x -8][2][3] = planningSeance.seance[i].day
                             this.semaineJours[6][x -8][2][4] =   planningSeance.seance[i].room
-                            this.semaineJours[6][x -8][2][5] =   planningSeance.seance[i].duration
+                            this.semaineJours[6][x -8][2][5] =   planningSeance.seance[i].duree
                             this.semaineJours[6][x -8][2][6] =  planningSeance.seance[i].quartDheure
                             break;
                             case '45':
@@ -1187,7 +1187,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                               this.semaineJours[6][x -8][3][2] =  planningSeance.seance[i].type
                               this.semaineJours[6][x -8][3][3] = planningSeance.seance[i].day
                               this.semaineJours[6][x -8][3][4] =   planningSeance.seance[i].room
-                              this.semaineJours[6][x -8][3][5] =   planningSeance.seance[i].duration
+                              this.semaineJours[6][x -8][3][5] =   planningSeance.seance[i].duree
                               this.semaineJours[6][x -8][3][6] =  planningSeance.seance[i].quartDheure
                               break;
 

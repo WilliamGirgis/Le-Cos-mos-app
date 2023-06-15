@@ -172,11 +172,17 @@ justify-items: center;
 
 
   // For making the with of the mat-menus auto
-.mat-menu-panel {
+  .displayerChange   {
 
-  max-width: none ;
-}
-.mat-menu-content:not(:empty) {
-  padding-top: 0;
-   padding-bottom: 0px;
-}
+    &.mat-menu-panel {
+      max-width: none ;
+    }
+
+  }
+  .displayerChange {
+
+     &.mat-menu-content:not(:empty) {
+      padding-top: 0;
+      padding-bottom: 0px;
+    }
+  }

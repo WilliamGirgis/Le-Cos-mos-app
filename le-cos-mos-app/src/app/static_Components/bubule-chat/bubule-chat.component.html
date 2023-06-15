@@ -1,7 +1,9 @@
-<div (click)=" this.isWindowOpen = !this.isWindowOpen" [style]="{'width': isWindowOpen ? '100%' : '0%'}" id="blur">
-  </div>
 <div
-
+  (click)="this.isWindowOpen = !this.isWindowOpen"
+  [style]="{ width: isWindowOpen ? '100%' : '0%' }"
+  id="blur"
+></div>
+<div
   (click)="isWindowOpen = !isWindowOpen"
   class="bubleChatOutline"
   id="wrapper"
@@ -22,7 +24,7 @@
   <div id="leftWrp">
     <div id="three-buttons" *ngIf="isWindowOpen">
       <a
-        (click)="discussionTypeView = 'global';globalIndex = 0"
+        (click)="discussionTypeView = 'global'; globalIndex = 0"
         [style]="{
           'background-color':
             discussionTypeView == 'global' ? 'var(--dblue-them-color)' : ''
@@ -31,7 +33,8 @@
       >
         <svg
           [style]="{
-            fill: discussionTypeView == 'global' ? 'var(--white-them-color)' : ''
+            fill:
+              discussionTypeView == 'global' ? 'var(--white-them-color)' : ''
           }"
           id="img1"
           xmlns="http://www.w3.org/2000/svg"
@@ -47,7 +50,7 @@
         </svg>
       </a>
       <a
-        (click)="discussionTypeView = 'private';globalIndex = 0"
+        (click)="discussionTypeView = 'private'; globalIndex = 0"
         [style]="{
           'background-color':
             discussionTypeView == 'private' ? 'var(--dblue-them-color)' : ''
@@ -56,7 +59,8 @@
       >
         <svg
           [style]="{
-            fill: discussionTypeView == 'private' ? 'var(--white-them-color)' : ''
+            fill:
+              discussionTypeView == 'private' ? 'var(--white-them-color)' : ''
           }"
           id="img2"
           xmlns="http://www.w3.org/2000/svg"
@@ -96,102 +100,179 @@
             <mat-label>Nom du group</mat-label>
             <input #groupName matInput />
           </mat-form-field>
-          <button (click)="createDiscussionGroup(groupName.value)" style="border: 1px solid var(--dblue-them-color)" mat-button>
+          <button
+            (click)="createDiscussionGroup(groupName.value)"
+            style="border: 1px solid var(--dblue-them-color)"
+            mat-button
+          >
             Créer le group {{ groupName.value }}
           </button>
         </mat-menu>
       </a>
-      <a (click)="setPagination()" [matMenuTriggerFor]="menu2" title="Rechercher un utilisateur">
+      <a
+        (click)="setPagination()"
+        [matMenuTriggerFor]="menu2"
+        title="Rechercher un utilisateur"
+      >
         <svg
-         id="img4"
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        fill="currentColor"
-        class="bi bi-person-fill-add"
-        viewBox="0 0 16 16">
-          <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z"/>
+          id="img4"
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-person-fill-add"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z"
+          />
         </svg>
 
-        <mat-menu  #menu2 matMenu="menu">
-<h3 style="text-align: center;">Liste des utilisateurs</h3>
-<div style="margin:auto;width:fit-content">
-          <mat-form-field style="text-align: center;margin:auto" (click)="$event.stopPropagation()" [floatLabel]="'always'" id="search">
-            <input matInput (keyup)="applyFilter($event)" #input>
-            <mat-label>Rechercher un utilisateur</mat-label>
-          </mat-form-field>
-        </div>
-          <table (click)="$event.stopPropagation()" style="width:100%"  [ngClass]="'form'" mat-table
-          [dataSource]="dataSource!" multiTemplateDataRows
-          class="mat-elevation-z8">
+        <mat-menu class="displayerChange" #menu2 matMenu="menu">
+          <h3 style="text-align: center">Liste des utilisateurs</h3>
+          <div style="margin: auto; width: fit-content">
+            <mat-form-field
+              style="text-align: center; margin: auto"
+              (click)="$event.stopPropagation()"
+              [floatLabel]="'always'"
+              id="search"
+            >
+              <input matInput (keyup)="applyFilter($event)" #input />
+              <mat-label>Rechercher un utilisateur</mat-label>
+            </mat-form-field>
+          </div>
+          <table
+            (click)="$event.stopPropagation()"
+            style="width: 100%"
+            [ngClass]="'form'"
+            mat-table
+            [dataSource]="dataSource!"
+            multiTemplateDataRows
+            class="mat-elevation-z8"
+          >
+            <ng-container matColumnDef="firstname">
+              <td
+                fxLayoutAlign="center center"
+                fxFlex="100"
+                style="text-align: center"
+                mat-cell
+                *matCellDef="let element"
+              >
+                {{ element.firstname }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="lastname">
+              <td
+                fxLayoutAlign="center center"
+                fxFlex="100"
+                style="text-align: center"
+                mat-cell
+                *matCellDef="let element"
+              >
+                {{ element.lastname }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="type">
+              <td
+                fxLayoutAlign="center center"
+                fxFlex="100"
+                style="text-align: center"
+                mat-cell
+                *matCellDef="let element"
+              >
+                ({{ element.userType }})
+              </td>
+            </ng-container>
 
-     <ng-container matColumnDef="firstname">
+            <ng-container matColumnDef="button">
+              <td
+                fxLayoutAlign="center center"
+                fxFlex="100"
+                style="text-align: center"
+                mat-cell
+                *matCellDef="let element"
+              >
+                <button
+                  (click)="globalIndex = privateDiscussionList.length;createSingleDiscussion(element._id)"
+                  mat-button
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-chat-fill"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z"
+                    />
+                  </svg>
+                </button>
+              </td>
+            </ng-container>
 
-       <td fxLayoutAlign="center center" fxFlex="100" style="text-align: center;"   mat-cell *matCellDef="let element">
-         {{element.firstname}}
-       </td>
+            <tr
+              mat-row
+              *matRowDef="let element; columns: columnsToDisplayUser"
+              class="example-element-row"
+              [class.example-expanded-row]="expandedElement === element"
+            ></tr>
+          </table>
 
-     </ng-container>
-     <ng-container matColumnDef="lastname">
-
-       <td fxLayoutAlign="center center" fxFlex="100" style="text-align: center;"   mat-cell *matCellDef="let element">
-         {{element.lastname}}
-       </td>
-
-     </ng-container>
-     <ng-container matColumnDef="type">
-
-      <td fxLayoutAlign="center center" fxFlex="100" style="text-align: center;"   mat-cell *matCellDef="let element">
-        ({{element.userType}})
-
-      </td>
-
-    </ng-container>
-
-    <ng-container matColumnDef="button">
-
-      <td fxLayoutAlign="center center" fxFlex="100" style="text-align: center;"   mat-cell *matCellDef="let element">
-        <button (click)="createSingleDiscussion(element._id)"   mat-button
-        ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16">
-          <path d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z"/>
-        </svg></button>
-      </td>
-
-    </ng-container>
-
-
-     <tr mat-row *matRowDef="let element; columns: columnsToDisplayUser;"
-         class="example-element-row"
-         [class.example-expanded-row]="expandedElement === element"
-         >
-
-     </tr>
-
-   </table>
-
-   <mat-paginator style="min-width:max-content;width:50%" (click)="$event.stopPropagation()"   [pageSizeOptions]="[5, 10]"
-showFirstLastButtons
-aria-label="Page">
-</mat-paginator>
+          <mat-paginator
+            style="min-width: max-content; width: 50%"
+            (click)="$event.stopPropagation()"
+            [pageSizeOptions]="[5, 10]"
+            showFirstLastButtons
+            aria-label="Page"
+          >
+          </mat-paginator>
         </mat-menu>
       </a>
     </div>
 
     <div id="discussion-dg">
       <div
-      (click)="getMessageList(discussion._id!,'click');globalIndex = i"
-      *ngFor="let discussion of (discussionTypeView == 'global' ? globalDiscussionList : privateDiscussionList);index as i"
+        (click)=" globalIndex = i;getMessageList(discussion._id!, 'click');"
+        *ngFor="
+          let discussion of discussionTypeView == 'global'
+            ? globalDiscussionList
+            : privateDiscussionList;
+          index as i
+        "
         [style]="{
           'background-color':
-          discussion._id! == selectedDiscussion ? 'var(--dblue-them-color)' : '',
-          color:
-          discussion._id! == selectedDiscussion ? 'var(--white-them-color)' : ''
+            discussion._id! == selectedDiscussion
+              ? 'var(--dblue-them-color)'
+              : '',
+          'color':
+            discussion._id! == selectedDiscussion
+              ? 'var(--white-them-color)'
+              : ''
         }"
-
       >
-        {{ discussion ? discussion.name : 'null' }}
+
+          {{ discussion && (discussion.user_list.length != 2) ? discussion.name : null }}
+
+        <div         [style]="{
+          'background-color':
+            discussion._id! == selectedDiscussion
+              ? 'var(--dblue-them-color)'
+              : '',
+          'color':
+            discussion._id! == selectedDiscussion
+              ? 'var(--white-them-color)'
+              : ''
+        }"
+         *ngIf="discussion.user_list.length == 2">
+            {{ user_id == discussion.user_list[0]._id && discussion.user_list.length == 2 ? discussion.user_list[1].firstname + ' ' + discussion.user_list[1].lastname : discussion.user_list[0].firstname + ' ' + discussion.user_list[0].lastname }}
+        </div>
         <label style="font-size: 75%; text-align: right; width: 25%"
-          >{{ discussion ? discussion.user_list.length : 'null' }} user(s)</label
+          >{{
+            discussion ? discussion.user_list.length : "null"
+          }}
+          user(s)</label
         >
       </div>
     </div>
@@ -199,69 +280,79 @@ aria-label="Page">
 
   <div id="rightWrp">
     <div id="title">
-      <label>{{ selectedDiscussionName }} | {{messageList.length}} Messages affichés</label>
+      <label
+        >{{ selectedDiscussionName }} | {{ messageList.length }} Messages
+        affichés</label
+      >
     </div>
-    <div  id="messageWrapper">
-      <img (click)="isScrollLocked = !isScrollLocked" *ngIf="isScrollLocked" id="lock" src="../../../assets/images/lock-fill.svg">
-      <img (click)="isScrollLocked = !isScrollLocked" *ngIf="!isScrollLocked" id="unlock" src="../../../assets/images/unlock-fill.svg">
-      <div (scroll)="onScrollMessageList()" id="messageList" >
-
-        <div style="margin-top: 3vh;margin-bottom: 3vh;"
-          [class]="message.user_id ==  user_id ? 'yours' : 'his'"
-          *ngFor="let message of messageList;index as i"
+    <div id="messageWrapper">
+      <img
+        (click)="isScrollLocked = !isScrollLocked"
+        *ngIf="isScrollLocked"
+        id="lock"
+        src="../../../assets/images/lock-fill.svg"
+      />
+      <img
+        (click)="isScrollLocked = !isScrollLocked"
+        *ngIf="!isScrollLocked"
+        id="unlock"
+        src="../../../assets/images/unlock-fill.svg"
+      />
+      <div (scroll)="onScrollMessageList()" id="messageList">
+        <div
+          style="margin-top: 3vh; margin-bottom: 3vh"
+          [class]="message.user_id == user_id ? 'yours' : 'his'"
+          *ngFor="let message of messageList; index as i"
         >
-
-          <div  id="labels-wrapper">
+          <div id="labels-wrapper">
             <svg
-            *ngIf="!message.user_id"
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-person-fill"
-            viewBox="0 0 16 16"
-          >
-            <path
-              d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
-            />
-          </svg>
-          <img *ngIf="message.user_id" id="img2" [src]="imgFile[this.profilePictureList.indexOf(message.user_id)]" [class]="message.user_id ==  user_id ? 'yoursImg' : 'hisImg'">
-            <label
-              >{{  message.emiter
-              }}{{ " " + message.date }} :</label
+              *ngIf="!message.user_id"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-person-fill"
+              viewBox="0 0 16 16"
             >
-
+              <path
+                d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
+              />
+            </svg>
+            <img
+              *ngIf="message.user_id"
+              id="img2"
+              [src]="imgFile[this.profilePictureList.indexOf(message.user_id)]"
+              [class]="message.user_id == user_id ? 'yoursImg' : 'hisImg'"
+            />
+            <label>{{ message.emiter }}{{ " " + message.date }} :</label>
           </div>
 
+          <div style="display: grid">
+            <label id="msg" style="height: max-content">{{
+              message.message
+            }}</label>
+            <span
+              id="messageFileName"
+              *ngFor="let filename of message.filesName"
+            >
+              <label [matMenuTriggerFor]="menu">
+                {{ filename }}
 
-          <div style="display:grid">
-            <label id="msg" style="height: max-content" >{{ message.message }}</label>
-            <span  id="messageFileName" *ngFor="let filename of message.filesName">
-             <label  [matMenuTriggerFor]="menu"> {{filename}}
-
-              <mat-menu   #menu="matMenu">
-
-                <button  (click)="downloadFile(filename)" mat-button>Télécharger le fichier</button>
-
-              </mat-menu>
-            </label>
-
+                <mat-menu #menu="matMenu">
+                  <button (click)="downloadFile(filename)" mat-button>
+                    Télécharger le fichier
+                  </button>
+                </mat-menu>
+              </label>
             </span>
-
           </div>
-
-
-
-
-
         </div>
-
       </div>
 
       <div *ngIf="isWindowOpen" class="messageSubWrp">
         <mat-form-field>
           <textarea
-          [value]="textAreaValue"
+            [value]="textAreaValue"
             #message
             id="messageInput"
             placeholder="Message"
@@ -270,29 +361,42 @@ aria-label="Page">
         </mat-form-field>
 
         <div id="queueWrapper">
-
-          <span id="fileName" style="font-size:60%;min-width:max-content" *ngFor="let file of uploader.queue;index as i">
-            {{file._file.name || "No file uploaded yet."}}
-            <img id="trash-file" height="25px" width="15px" (click)="uploader.removeFromQueue(uploader.queue[i])" src="../../../assets/images/trash3-fill.svg">
+          <span
+            id="fileName"
+            style="font-size: 60%; min-width: max-content"
+            *ngFor="let file of uploader.queue; index as i"
+          >
+            {{ file._file.name || "No file uploaded yet." }}
+            <img
+              id="trash-file"
+              height="25px"
+              width="15px"
+              (click)="uploader.removeFromQueue(uploader.queue[i])"
+              src="../../../assets/images/trash3-fill.svg"
+            />
           </span>
-
         </div>
 
-        <button style="cursor: pointer;" mat-mini-fab color="primary"
-
-        >   <mat-icon>attach_file</mat-icon>
-        <input
-        type="file"
-        id="fileUpload"
-        ng2FileSelect
-        accept=".pdf,.jpg,.png,.jpeg,.ppt,.xls,.docx"
-        [uploader]="uploader!"
-        multiple
-        />
+        <button style="cursor: pointer" mat-mini-fab color="primary">
+          <mat-icon>attach_file</mat-icon>
+          <input
+            type="file"
+            id="fileUpload"
+            ng2FileSelect
+            accept=".pdf,.jpg,.png,.jpeg,.ppt,.xls,.docx"
+            [uploader]="uploader!"
+            multiple
+          />
         </button>
         <button
-        [disabled]="message.value == '' && uploader.queue.length == 0"
-        [style]="{'opacity': message.value == '' && (uploader.queue.length == 0) ? '0.4' : '1','background-color':message.value == '' ? 'var(--white-them-color)':'','color':message.value == '' ? 'var(--dblue-them-color)':'' }"
+          [disabled]="message.value == '' && uploader.queue.length == 0"
+          [style]="{
+            opacity:
+              message.value == '' && uploader.queue.length == 0 ? '0.4' : '1',
+            'background-color':
+              message.value == '' ? 'var(--white-them-color)' : '',
+            color: message.value == '' ? 'var(--dblue-them-color)' : ''
+          }"
           (click)="sendMessage(message.value); message.value = ''"
           mat-button
         >
