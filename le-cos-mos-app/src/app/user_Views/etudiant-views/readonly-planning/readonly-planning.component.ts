@@ -114,7 +114,57 @@ export class ReadonlyPlanningComponent implements OnInit {
        now -= 24 * 60 * 60 * 1000; // Roll back 1 day ago
     }
     let dateInSevenDays = new Date(now + (6*24 * 60 * 60 * 1000)) // The next monday
-   let parsedDateInSevenDays = dateInSevenDays.toDateString().split(' ')
+    let tuesday = new Date(now + (1*24 * 60 * 60 * 1000)) // The next monday
+    let wendnesday = new Date(now + (2*24 * 60 * 60 * 1000)) // The next monday
+    let thirsday = new Date(now + (3*24 * 60 * 60 * 1000)) // The next monday
+    let friday = new Date(now + (4*24 * 60 * 60 * 1000)) // The next monday
+    let saturday = new Date(now + (5*24 * 60 * 60 * 1000)) // The next monday
+
+    let parsedTuesday = tuesday.toDateString().split(' ')
+    let parsedTuesdayYear = parsedTuesday[3]
+    let parsedTuesdayDay = parsedTuesday[2]
+    let parsedTuesdayMonth = this.switchDateMonth(parsedTuesday[1])
+    let tuesdayClean = parsedTuesdayDay + '/' + parsedTuesdayMonth + '/' + parsedTuesdayYear
+    this.daysToDates[2] = tuesdayClean
+
+    let parsedwendnesday = wendnesday.toDateString().split(' ')
+    let parsedwendnesdayYear = parsedwendnesday[3]
+    let parsedwendnesdayDay = parsedwendnesday[2]
+    let parsedwendnesdayMonth = this.switchDateMonth(parsedwendnesday[1])
+    let wendnesdayClean = parsedwendnesdayDay + '/' + parsedwendnesdayMonth + '/' + parsedwendnesdayYear
+    this.daysToDates[3] = wendnesdayClean
+
+
+    let parsedthirsday = thirsday.toDateString().split(' ')
+    let parsedthirsdayYear = parsedthirsday[3]
+    let parsedthirsdayDay = parsedthirsday[2]
+    let parsedthirsdayMonth = this.switchDateMonth(parsedthirsday[1])
+    let thirsdayClean = parsedthirsdayDay + '/' + parsedthirsdayMonth + '/' + parsedthirsdayYear
+    this.daysToDates[4] = thirsdayClean
+
+    let parsedfriday = friday.toDateString().split(' ')
+    let parsedfridayYear = parsedfriday[3]
+    let parsedfridayDay = parsedfriday[2]
+    let parsedfridayMonth = this.switchDateMonth(parsedfriday[1])
+    let fridayClean = parsedfridayDay + '/' + parsedfridayMonth + '/' + parsedfridayYear
+    this.daysToDates[5] = fridayClean
+
+    let parsedsaturday = saturday.toDateString().split(' ')
+    let parsedsaturdayYear = parsedsaturday[3]
+    let parsedsaturdayDay = parsedsaturday[2]
+    let parsedsaturdayMonth = this.switchDateMonth(parsedsaturday[1])
+    let saturdayClean = parsedsaturdayDay + '/' + parsedsaturdayMonth + '/' + parsedsaturdayYear
+    this.daysToDates[6] = saturdayClean
+
+        let parsedSunday = dateInSevenDays.toDateString().split(' ')
+    let parsedSundayYear = parsedSunday[3]
+    let parsedSundayDay = parsedSunday[2]
+    let parsedSundayMonth = this.switchDateMonth(parsedSunday[1])
+    let sundayClean = parsedSundayDay + '/' + parsedSundayMonth + '/' + parsedSundayYear
+    this.daysToDates[7] = sundayClean
+
+
+    let parsedDateInSevenDays = dateInSevenDays.toDateString().split(' ')
    let parsedYearInSevenDays = parsedDateInSevenDays[3]
    let parsedDayInSevenDays = parsedDateInSevenDays[2]
    let parsedMonthInSevenDays = this.switchDateMonth(parsedDateInSevenDays[1])
@@ -125,7 +175,7 @@ export class ReadonlyPlanningComponent implements OnInit {
    let day = parsedDate[2]
    let month = this.switchDateMonth(parsedDate[1])
    this.week = day  + '/' + month + '/' + year
-
+   this.daysToDates[1] = this.week
 
   }
 
@@ -189,8 +239,28 @@ let temp = seperatedDate[1] + '/' + seperatedDate[0] + '/' + seperatedDate[2]
 let newDate = new Date(temp).getTime()
 let newDateNumber:Date = new Date(newDate)
 let newDateNumberInSevenDays:Date = new Date(newDateNumber.getTime() + (6 * 24 * 60 * 60 * 1000))
+
+let tuesday:Date = new Date(newDateNumber.getTime() + (1 * 24 * 60 * 60 * 1000))
+this.daysToDates[2] = tuesday.toLocaleDateString()
+
+let wendnesday:Date = new Date(newDateNumber.getTime() + (2 * 24 * 60 * 60 * 1000))
+this.daysToDates[3] = wendnesday.toLocaleDateString()
+
+let thirsday:Date = new Date(newDateNumber.getTime() + (3 * 24 * 60 * 60 * 1000))
+this.daysToDates[4] = thirsday.toLocaleDateString()
+
+let friday:Date = new Date(newDateNumber.getTime() + (4 * 24 * 60 * 60 * 1000))
+this.daysToDates[5] = friday.toLocaleDateString()
+
+let saturday:Date = new Date(newDateNumber.getTime() + (5 * 24 * 60 * 60 * 1000))
+this.daysToDates[6] = saturday.toLocaleDateString()
+
+
 this.week2 = newDateNumberInSevenDays.toLocaleDateString()
 this.week =  seperatedDate[0]  + '/' + seperatedDate[1] + '/' + seperatedDate[2]
+this.daysToDates[1] = this.week
+
+this.daysToDates[7] = newDateNumberInSevenDays.toLocaleDateString()
 this.getPlanning()
 }
 
@@ -202,8 +272,32 @@ previousMonDay() {
   let newDate = new Date(this.week).getTime()
   let newDateNumber:Date = new Date(newDate - (7 * 24 * 60 * 60 * 1000 * 0.95))
   let newDateNumberInSevenDays:Date = new Date(newDateNumber.getTime() + (7 * 24 * 60 * 60 * 1000))
+
+  let tuesday:Date = new Date(newDateNumber.getTime() + (1 * 24 * 60 * 60 * 1000))
+  this.daysToDates[2] = tuesday.toLocaleDateString()
+
+  let wendnesday:Date = new Date(newDateNumber.getTime() + (2 * 24 * 60 * 60 * 1000))
+  this.daysToDates[3] = wendnesday.toLocaleDateString()
+
+  let thirsday:Date = new Date(newDateNumber.getTime() + (3 * 24 * 60 * 60 * 1000))
+  this.daysToDates[4] = thirsday.toLocaleDateString()
+
+  let friday:Date = new Date(newDateNumber.getTime() + (4 * 24 * 60 * 60 * 1000))
+  this.daysToDates[5] = friday.toLocaleDateString()
+
+  let saturday:Date = new Date(newDateNumber.getTime() + (5 * 24 * 60 * 60 * 1000))
+  this.daysToDates[6] = saturday.toLocaleDateString()
+
+
+  let newDateNumberInOneDayDays:Date = new Date(newDateNumber.getTime() + (6 * 24 * 60 * 60 * 1000))
+
+
   this.week2 = newDateNumberInSevenDays.toLocaleDateString()
   this.week = newDateNumber.toLocaleDateString()
+  this.daysToDates[1] = this.week
+
+  this.daysToDates[7] = newDateNumberInOneDayDays.toLocaleDateString()
+
   this.getPlanning()
 }
 nextMonday() {
@@ -214,9 +308,31 @@ this.dateEnd = ''
  let newDate = new Date(this.week).getTime()
  let newDateNumber:Date = new Date(newDate + (7 * 24 * 60 * 60 * 1000))
  let newDateNumberInSevenDays:Date = new Date(newDateNumber.getTime() + (7 * 24 * 60 * 60 * 1000))
+
+ let tuesday:Date = new Date(newDateNumber.getTime() + (1 * 24 * 60 * 60 * 1000))
+ this.daysToDates[2] = tuesday.toLocaleDateString()
+
+ let wendnesday:Date = new Date(newDateNumber.getTime() + (2 * 24 * 60 * 60 * 1000))
+ this.daysToDates[3] = wendnesday.toLocaleDateString()
+
+ let thirsday:Date = new Date(newDateNumber.getTime() + (3 * 24 * 60 * 60 * 1000))
+ this.daysToDates[4] = thirsday.toLocaleDateString()
+
+ let friday:Date = new Date(newDateNumber.getTime() + (4 * 24 * 60 * 60 * 1000))
+ this.daysToDates[5] = friday.toLocaleDateString()
+
+ let saturday:Date = new Date(newDateNumber.getTime() + (5 * 24 * 60 * 60 * 1000))
+ this.daysToDates[6] = saturday.toLocaleDateString()
+
+
+ let newDateNumberInOneDayDays:Date = new Date(newDateNumber.getTime() + (6 * 24 * 60 * 60 * 1000))
+
  this.week2 = newDateNumberInSevenDays.toLocaleDateString()
  this.week = newDateNumber.toLocaleDateString()
 
+ this.daysToDates[1] = this.week
+
+ this.daysToDates[7] = newDateNumberInOneDayDays.toLocaleDateString()
  this.getPlanning()
 }
 
@@ -237,6 +353,8 @@ this.dateEnd = ''
     }
 
   }
+
+  daysToDates:any = []
   menuCour = [
   {name:'Mathematique'},
   {name:'Physique Chimie'},

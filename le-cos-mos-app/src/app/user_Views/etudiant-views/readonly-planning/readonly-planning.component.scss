@@ -1,11 +1,10 @@
 
 
 #rightWrp {
-  margin-top: -7vh;
   width: 100%;
- height: max-content;
-
-
+ min-height: max-content;
+ height: 75vh;
+ margin-top: -5vh;
   #validateBtnWrp {
     width: 60vw;
     display: inline-flex;
@@ -90,8 +89,8 @@ border-bottom-width:2px ;
 
 
 .header-row {
-  height: 5vh;
-
+  height: 2.5vh;
+font-size: 80%;
 
 }
 
@@ -102,9 +101,10 @@ label {
 // To change the height of the mat-form-field, increase the font size of children elements, and reduce font size of the container 'datePicker'
 .datePicker {
   min-width: max-content;
-  margin-top: -10vh;
-  font-size: 7px;
+  margin-top: -4vh;
+  font-size: 3px;
   color: var(--dblue-them-color);
+  margin-bottom: 2vh;
   mat-date-range-input {
     color: var(--dblue-them-color);
     font-size: 12px;
@@ -115,7 +115,7 @@ label {
     color: var(--dblue-them-color);
 
     margin-left: 7px;
-    font-size: 175%;
+    font-size: 500%;
   }
 
   input {
@@ -225,8 +225,8 @@ label {
 
 
 tr {
-  // transition: 200ms ease-in-out;
-  // &:hover {
+  transition: 200ms ease-in-out;
+  &:hover {
     td {
 
         border-bottom-width: 1px;
@@ -236,18 +236,18 @@ tr {
     label {
       display: initial;
     }
-  // }
+  }
   &.row {
-    height: 5vh; // Statick height of rows (lines : 8h ; 9h ; 10h ... : 21h)
-    max-height: 5vh;
+    height: 4vh; // Statick height of rows (lines : 8h ; 9h ; 10h ... : 21h)
+    max-height: 4vh;
 
-    // &:hover {
-        height: 15vh;
-        max-height: 15vh;
+    &:hover {
+        height: 12vh;
+        max-height: 12vh;
         #quartDheureList {
 display: flex;
             }
-    // }
+    }
   }
 }
 

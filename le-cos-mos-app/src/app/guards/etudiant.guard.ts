@@ -25,7 +25,7 @@ return this.checkAdmin()
               reject(null)
             }
 
-          }),catchError((e) =>{
+          }),catchError((e:any) =>{
             reject(null)
             return e
           })).subscribe((result) =>{

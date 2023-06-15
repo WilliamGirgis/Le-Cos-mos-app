@@ -27,7 +27,8 @@ export class MessagerieViewComponent implements OnInit {
 
     this.dialog.afterAllClosed.pipe(map((data) => {
       this.getGlobalDiscussionList()
-      this.getPrivateDiscussionList() })).subscribe(res => { })
+      // this.getPrivateDiscussionList()
+     })).subscribe(res => { })
   }
 
   openSaveUserPostForm() {
@@ -52,7 +53,7 @@ export class MessagerieViewComponent implements OnInit {
 
 
         this.getGlobalDiscussionList()
-        this.getPrivateDiscussionList()
+        // this.getPrivateDiscussionList()
 
       })).subscribe((res) => {
 
@@ -71,7 +72,7 @@ export class MessagerieViewComponent implements OnInit {
     return this.http.post(this.createPrivateGroupeDiscussionRoute, { name: groupName,discussionType:this.discussionTypeView, responseType: 'text' },{params:querParam}).pipe(map( (data) => {
 
       this.getGlobalDiscussionList()
-      this.getPrivateDiscussionList()
+      // this.getPrivateDiscussionList()
     })).subscribe((res) => {
 
     })
@@ -94,17 +95,17 @@ export class MessagerieViewComponent implements OnInit {
 
 }
 
-  getPrivateDiscussionList() {
-    let params = new HttpParams().set('_id',localStorage.getItem('user-id')!)
-    this.http.get(this.getPrivateDiscussionListRoute, {params:params, responseType: 'text' }).pipe(map(async (data) => {
+//   getPrivateDiscussionList() {
+//     let params = new HttpParams().set('_id',localStorage.getItem('user-id')!)
+//     this.http.get(this.getPrivateDiscussionListRoute, {params:params, responseType: 'text' }).pipe(map(async (data) => {
 
-      if (JSON.parse(data).length == 0) {
-        return
-      }
-      this.privateDiscussionList = JSON.parse(data)
-    })).subscribe(res => { })
+//       if (JSON.parse(data).length == 0) {
+//         return
+//       }
+//       this.privateDiscussionList = JSON.parse(data)
+//     })).subscribe(res => { })
 
-}
+// }
 
   /*Select discussion related method */
   discussionTypeView:string = 'global'
@@ -124,7 +125,7 @@ let discussionId = this.discussionTypeView == 'global' ? this.globalDiscussionLi
     return this.http.post(this.delUserUrlRoute, { user: user, discussionId: discussionId, responseType: 'text' }).pipe(map(async (data) => {
 
       this.getGlobalDiscussionList()
-      this.getPrivateDiscussionList()
+      // this.getPrivateDiscussionList()
 
     })).subscribe((res) => {
 
@@ -143,7 +144,7 @@ let discussionId = this.discussionTypeView == 'global' ? this.globalDiscussionLi
 
 
       this.getGlobalDiscussionList()
-      this.getPrivateDiscussionList()
+      // this.getPrivateDiscussionList()
 
     })).subscribe((res) => {
 
@@ -156,7 +157,7 @@ let discussionId = this.discussionTypeView == 'global' ? this.globalDiscussionLi
   ngOnInit(): void {
 
     this.getGlobalDiscussionList()
-    this.getPrivateDiscussionList()
+    // this.getPrivateDiscussionList()
   }
 
 }

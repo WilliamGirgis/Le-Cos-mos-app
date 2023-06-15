@@ -2,9 +2,7 @@
 
 
     <div fxLayout="column" fxFlex="100" fxLayoutAlign="center start" id="rightWrp">
-      <p> Planning
-        {{ replaceUnderScore(groupLink!) }}
-      </p>
+
       <div fxFlex="10" id="validateBtnWrp">
 
         <span>
@@ -62,7 +60,7 @@
           src="../../../../../assets/images/check-lg.svg"
         />
       </div>
-      <div id="borderTableWrp" fxLayoutAlign="end center" fxFill>
+      <div id="borderTableWrp" fxLayoutAlign="end start" fxFill>
         <table
           fxFlex="100"
           mat-table
@@ -92,7 +90,9 @@
                   </div>
                 </td>
               </div>
-              <th *matHeaderCellDef>{{ column }}</th>
+              <th *matHeaderCellDef>{{ column }}
+                <div *ngIf="day > 0">{{daysToDates[day]}}</div>
+              </th>
 
               <td
                 (mouseleave)="isOut = !isOut"
