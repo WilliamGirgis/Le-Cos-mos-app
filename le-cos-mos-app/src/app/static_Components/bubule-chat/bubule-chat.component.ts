@@ -181,19 +181,19 @@ export class BubuleChatComponent implements OnInit {
   dataSource?:MatTableDataSource<any> = new MatTableDataSource(this.userList)// Si le tableau de production des utilisateurs n'est pas définit on affiche le test
   readonly getUserListRoute = "http://localhost:4200/user/users/id"
   getAllUser() {
-const params = new HttpParams().set('id','').set('_id',this.user_id)
-    this.http.get(this.getUserListRoute,{params:params}).pipe(map((data:any) =>{
+    const params = new HttpParams().set('id','').set('_id',this.user_id)
+        this.http.get(this.getUserListRoute,{params:params}).pipe(map((data:any) =>{
 
-      this.userList = data
-      this.dataSource = new MatTableDataSource(this.userList)
-      this.dataSource.paginator = this.paginator.toArray()[0];
-      this.dataSource.sort = this.sort.toArray()[0];
+          this.userList = data
+          this.dataSource = new MatTableDataSource(this.userList)
+          this.dataSource.paginator = this.paginator.toArray()[0];
+          this.dataSource.sort = this.sort.toArray()[0];
 
-    })).subscribe((resulting) =>{
+        })).subscribe((resulting) =>{
 
-    })
+        })
 
-  }
+      }
   columnsToDisplayUser = [ 'firstname', 'lastname','type','button'];
 
   applyFilter(event: Event) {
@@ -394,8 +394,6 @@ const params = new HttpParams().set('id','').set('_id',this.user_id)
     }
 
     if(alreadyExist) {
-
-      console.log("EXIST !")
       this.globalIndex = index
       this.selectedDiscussion = this.privateDiscussionList[index]._id!
       this.selectedDiscussionName = this.privateDiscussionList[index].user_list[0]._id == this.user_id ? this.privateDiscussionList[index].user_list[1].firstname + ' ' + this.privateDiscussionList[index].user_list[1].lastname! : this.privateDiscussionList[index].user_list[0].firstname + ' ' + this.privateDiscussionList[index].user_list[0].lastname!

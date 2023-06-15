@@ -1,5 +1,5 @@
 import { trigger, transition, style, animate,query } from '@angular/animations';
-import { Component, EventEmitter, Input, NgZone, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, NgZone, OnChanges, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, RouterOutlet } from '@angular/router';
 import { LogoutDialogComponentComponent } from './logout-dialog-component/logout-dialog-component.component';
@@ -20,13 +20,12 @@ import { SaveRouteService } from 'src/app/services/save-route.service';
         animate('500ms ease-in-out', style({ opacity: 1 }))// Fin de l'animation à l'entrer
       ], { optional: true })
     ]),
-  ])],
-  providers: [SaveRouteService]
-  })
+  ])]
+})
 
 export class HandlerViewComponent implements OnInit {
   hotCount:number = 0
-
+  @Output() inputBblChat?:boolean
   isWindowOpen?:boolean = false
   pingChild() {
 
@@ -55,12 +54,12 @@ export class HandlerViewComponent implements OnInit {
 
   }
 
-  ping:EventEmitter<any> = new EventEmitter()
   onViewChanges(e:Event) {
-this.user_type = localStorage.getItem('user-type')
-this.lname  = localStorage.getItem('lname')
-this.fname  = localStorage.getItem('fname')
+    this.user_type = localStorage.getItem('user-type')
+    this.lname  = localStorage.getItem('lname')
+    this.fname  = localStorage.getItem('fname')
 this.savedRouteService.saveRoute(this.router.url.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))
+console.log(this.savedRouteService.savedRoute)
   }
 
   prepareRoute(outlet: RouterOutlet) {
@@ -75,11 +74,9 @@ logout() {
 user_type = localStorage.getItem('user-type')
 lname  = localStorage.getItem('lname')
 fname  = localStorage.getItem('fname')
-
     ngOnInit(): void {
     // this.router.navigate(['admin/supports/UE/Block santé']); // Navigue vers la vue 'accueil' par default
     // this.router.navigate(['admin/supports/sante/UE1 Chimie/cm/list']); // Navigue vers la vue 'accueil' par default
-    // this.router.navigate(['/admin/examens/list']); // Navigue vers la vue 'accueil' par default
 //Composition de la matière_I
   }
 

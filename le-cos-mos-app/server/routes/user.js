@@ -343,7 +343,7 @@ router.get("/etudiant/check", (req, res) => {
       return res.status(404).send("NO")
     }
   }).catch((e) =>{
-    console.log(e)
+    return res.status(400).send()
   })
   })
 
