@@ -4,7 +4,6 @@
   width: 100%;
  min-height: max-content;
  height: 75vh;
- margin-top: -5vh;
   #validateBtnWrp {
     width: 60vw;
     display: inline-flex;
@@ -141,8 +140,8 @@ label {
 
 #t-00 {
   width: 100%;
-  min-height: calc(15vh / 4);
-height: 25%;
+  min-height: calc(13.5vh / 4);
+  height: 25%;
   max-height:  max-content;
   cursor: pointer;
 
@@ -152,7 +151,7 @@ height: 25%;
 }
 #t-15 {
   width: 100%;
-  min-height: calc(15vh / 4);
+  min-height: calc(13.5vh / 4);
 height: 25%;
   max-height:  max-content;
 
@@ -163,7 +162,7 @@ height: 25%;
 #t-30 {
   cursor: pointer;
   width: 100%;
-  min-height: calc(15vh / 4);
+  min-height: calc(13.5vh / 4);
 height: 25%;
   max-height:  max-content;
 
@@ -174,7 +173,7 @@ height: 25%;
 #t-45 {
  cursor: pointer;
   width: 100%;
-  min-height: calc(15vh / 4);
+  min-height: calc(13.5vh / 4);
 height: 25%;
   max-height: max-content;
 
@@ -203,7 +202,7 @@ border-top-width: 0;
 border-right-width: 0;
 border-bottom-width: 0 ;
 width: 10%;
-height: 5vh; // Required to trigger animation
+height: 4vh; // Required to trigger animation
   overflow: visible;
   cursor: pointer;
   background-color: rgb(212, 240, 253);
@@ -238,12 +237,12 @@ tr {
     }
   }
   &.row {
-    height: 4vh; // Statick height of rows (lines : 8h ; 9h ; 10h ... : 21h)
-    max-height: 4vh;
+    height: 4.5vh; // Statick height of rows (lines : 8h ; 9h ; 10h ... : 21h)
+    max-height: 4.5vh;
 
     &:hover {
-        height: 12vh;
-        max-height: 12vh;
+        height: 13.5vh;
+        max-height: 13.5vh;
         #quartDheureList {
 display: flex;
             }
@@ -278,16 +277,17 @@ margin: auto;
   display: none;
 align-content: space-around;
 div {
+  font-size: 90%;
   z-index: 3;
 &:first-of-type {
-  text-shadow: black -1px -1px 2px;
+  text-shadow: black -0px -1px 2px;
   margin-top: -1vh;
 }
 &:last-of-type {
-  text-shadow: black -1px -1px 2px;
+  text-shadow: black -0px -1px 2px;
   margin-bottom: -3vh;
 }
-text-shadow: black -1px -1px 2px;
+text-shadow: black -0px -1px 2px;
   height: 27%;
   align-self: center;
 }
