@@ -255,7 +255,7 @@
 
           {{ discussion && (discussion.user_list.length != 2) ? discussion.name : null }}
 
-        <div         [style]="{
+        <span         [style]="{
           'background-color':
             discussion._id! == selectedDiscussion
               ? 'var(--dblue-them-color)'
@@ -267,7 +267,7 @@
         }"
          *ngIf="discussion.user_list.length == 2">
             {{ user_id == discussion.user_list[0]._id && discussion.user_list.length == 2 ? discussion.user_list[1].firstname + ' ' + discussion.user_list[1].lastname : discussion.user_list[0].firstname + ' ' + discussion.user_list[0].lastname }}
-        </div>
+      </span>
         <label style="font-size: 75%; text-align: right; width: 25%"
           >{{
             discussion ? discussion.user_list.length : "null"
