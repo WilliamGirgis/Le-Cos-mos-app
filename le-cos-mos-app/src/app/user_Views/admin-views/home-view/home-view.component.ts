@@ -102,7 +102,6 @@ this.getPublication()
      this.http
       .get(this.getImagesURL, { responseType: 'blob',params:querParam})
       .pipe(map((data) =>{
-        console.log(data)
                         // Les données renvoyer par le back-end sont sous forme Blob
                         const img  = new File([data!], id! ); // On transform le Blob en fichier
                         const fr = new FileReader(); // On li le fichier et stock le nouveau format
