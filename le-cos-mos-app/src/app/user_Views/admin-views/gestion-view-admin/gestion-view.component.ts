@@ -29,6 +29,7 @@ export class GestionViewComponent implements OnInit,AfterViewInit {
   noUser?:boolean = false
   expandedElement: any;
   userType?: string;
+  userIsSpectral?:boolean
   successMsgSaved?:string
 isSuccess?:boolean
 user_IDList:string [] = []
@@ -52,7 +53,7 @@ modifyUser(newFname:string,newLname:string,newEmail:string,id:number) {
 
         //let user = this.userList[id - 1].email! // Uncomment to set test mode
   //let user = this.userListTest[id - 1]! // Comment to unset test mode
-  let newUser:User = {ID:id,userType:this.userType,firstname:newFname,lastname:newLname,email:newEmail,_id:this.user_IDList[id-1]}
+  let newUser:User = {ID:id,userType:this.userType,firstname:newFname,lastname:newLname,email:newEmail,_id:this.user_IDList[id-1],isSpectral:this.userIsSpectral}
   if(!window.confirm("Are you sure you wanna modify the user n°" + id  +  '?')) {
     return
       }
@@ -117,6 +118,11 @@ if(this.view == 'User') {
     this.userType = userType
   }
 
+  setUserIsSpectral(isSpetral:any) {
+
+    this.userIsSpectral = isSpetral
+  }
+
   areTextAreasEditable?:boolean = false
   setModifyView() {
 
@@ -169,7 +175,7 @@ if(this.view == 'User') {
          var parsed = JSON.parse(data) // Transformation en json, puis placement dans la var "parsed"
          for(var i = 0;i < parsed.length;i++) {
          //this.userList.push(JSON.parse({ID:parsed[i].id,firstname:parsed[i].firstname,lastname:parsed[i].lastname,email:parsed[i].email}))
-       let usertemp:User ={ID:i+ 1,userType:parsed[i].userType,firstname:parsed[i].firstname,lastname:parsed[i].lastname,email:parsed[i].email}
+       let usertemp:User ={ID:i+ 1,userType:parsed[i].userType,firstname:parsed[i].firstname,lastname:parsed[i].lastname,email:parsed[i].email,isSpectral:parsed[i].isSpectral}
         this.userList.push(usertemp)
         this.user_IDList.push(parsed[i]._id)
       }

@@ -23,7 +23,7 @@
     <button  (click)="setModifyView();expandedElement = areTextAreasEditable == false ? null : element;userType = element.userType" class="modifyUser" mat-button ><img width="20px" height="20px" src="../../../../assets/images/pencil-fill.svg">
     </button>
 
-    <button [style]="{'border': expandedElement == element ? '1px solid var(--dblue-them-color)' : 'none'}"  (click)="expandedElement = expandedElement === element ? null : element;setUserType(element.userType)" class="info" mat-button ><img width="20px" height="20px" src="../../../../assets/images/info-circle.svg">
+    <button [style]="{'border': expandedElement == element ? '1px solid var(--dblue-them-color)' : 'none'}"  (click)="expandedElement = expandedElement === element ? null : element;setUserType(element.userType);setUserIsSpectral(element.isSpectral)" class="info" mat-button ><img width="20px" height="20px" src="../../../../assets/images/info-circle.svg">
     </button>
     </td>
 
@@ -58,13 +58,18 @@
       <div class="example-element-detail"
            [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
         <div class="example-element-diagram">
-          <div class="t-area-wrp">Prénom : <textarea [style]="'resize:none'" matInput #fname readonly>{{element.firstname}}</textarea></div>
-          <div class="t-area-wrp">Nom : <textarea [style]="'resize:none'" matInput #lname readonly>{{element.lastname}}</textarea></div>
-          <div class="t-area-wrp">Email : <textarea [style]="'resize:none'" matInput #email readonly>{{element.email}}</textarea></div>
-          <div class="t-area-wrp">Type d'utilisateur : {{userType}}</div>
+          <div style="min-width: max-content;" class="t-area-wrp">Prénom : <textarea [style]="'resize:none'" matInput #fname readonly>{{element.firstname}}</textarea></div>
+          <div style="min-width: max-content;" class="t-area-wrp">Nom : <textarea [style]="'resize:none'" matInput #lname readonly>{{element.lastname}}</textarea></div>
+          <div style="min-width: max-content;" class="t-area-wrp">Email : <textarea [style]="'resize:none'" matInput #email readonly>{{element.email}}</textarea></div>
+          <div style="min-width: max-content;" class="t-area-wrp">Type d'utilisateur : {{userType}}</div>
           <mat-radio-group *ngIf="areTextAreasEditable" [(ngModel)]="userType"  aria-label="Type d'utilisateur">
             <mat-radio-button name="Etudiant"  value="Etudiant">Etudiant</mat-radio-button>
             <mat-radio-button name="Enseignant" value="Enseignant">Enseignant</mat-radio-button>
+          </mat-radio-group>
+          <div style="margin:2vh auto 0 1vw;min-width: max-content;" class="t-area-wrp">Compte activé ? : {{!userIsSpectral ? 'oui' : 'non'}}</div>
+          <mat-radio-group *ngIf="areTextAreasEditable" [(ngModel)]="userIsSpectral"  aria-label="Compte activé ?">
+            <mat-radio-button name="false"  [value]="true">non</mat-radio-button>
+            <mat-radio-button name="true" [value]="false">oui</mat-radio-button>
           </mat-radio-group>
           <span id="success">{{successMsgSaved}}</span>
         <div id="btn-grp">
@@ -157,6 +162,7 @@
             <mat-radio-button name="Etudiant"  value="Etudiant">Etudiant</mat-radio-button>
             <mat-radio-button name="Enseignant" value="Enseignant">Enseignant</mat-radio-button>
           </mat-radio-group>
+
           <span id="success">{{successMsgSaved}}</span>
         <div id="btn-grp">
         <button *ngIf="areTextAreasEditable" (click)="setModifyView()" mat-button>Annuler</button>

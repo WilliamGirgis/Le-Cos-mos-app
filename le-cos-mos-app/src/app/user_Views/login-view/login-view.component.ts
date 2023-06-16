@@ -97,8 +97,8 @@ export class LoginViewComponent implements OnInit {
                 default:
                   break
           }
-          }),catchError(async (res: any) => {
-            
+          }),catchError(async (res) => {
+console.log("res = " + res)
             // Handle the error here
             return await new Promise((resolve,reject) =>{
               if(res.error == "noUser") {
@@ -107,11 +107,17 @@ export class LoginViewComponent implements OnInit {
                   this.errorMessage = undefined
                   resolve(null)
                 },5000)
+              } else if(res.error == "accountNotActivated") {
+                this.errorMessage = "Votre compte n'a pas encore été validé par l'administration"
+                setTimeout(()=>{
+                  this.errorMessage = undefined
+                  resolve(null)
+                },5000)
               } else {
                 this.errorMessage = "Une erreur inconnue s'est produite"
                 setTimeout(()=>{
                   this.errorMessage = undefined
-                  resolve(null)
+                  reject(null)
                 },5000)
               }
 

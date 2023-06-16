@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn,
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/internal/operators/map';
 import { formErrors, errorMessages } from '../../interface&classe/interfaces';
+import { catchError } from 'rxjs';
 
 @Component({
   selector: 'app-inscription-view',
@@ -99,17 +100,42 @@ this.subscribeForm.get('confirmPsw')!.updateValueAndValidity()// Nécessaire pou
     }
   }
 
+  message?:string
+  success?:boolean
   register() {
     let email = this.subscribeForm.get('email')!.value
     let firstname = this.subscribeForm.get('firstname')!.value
     let lastname = this.subscribeForm.get('lastname')!.value
     let password = this.subscribeForm.get('password')!.value
     let userType = 'Etudiant' // valeur par défault
-    let user = {userType:userType,email: email.toLowerCase(),firstname:firstname,lastname:lastname,password:password,planningNameGroupBelonging:[],groupsNameDiscussionBelonging:[]};
+    let user = {userType:userType,email: email.toLowerCase(),firstname:firstname,lastname:lastname,password:password,planningNameGroupBelonging:[],groupsNameDiscussionBelonging:[],isSpectral:true};
     return this.http
       .post(this.registerUserURL, user)
       .pipe(
         map((data) => {
+          this.success = true
+          this.message = "Votre demande d'inscription a bel et bien été envoyé. Un mail de confirmation vous a été envoyé"
+
+          setTimeout(() => {
+            this.message = undefined
+            this.success = undefined
+          },5000)
+        }),catchError(async (e) =>{
+          this.success = false
+          this.message = "Une erreur s'est produite, veuillez réessayer"
+          return await new Promise((resolve,reject) =>{
+
+            setTimeout(() => {
+              this.message = undefined
+              this.success = undefined
+              resolve(null)
+            },5000)
+          }).then((resolved) =>{
+            return e
+          })
+
+
+
         })
       )
       .subscribe((result) => {});

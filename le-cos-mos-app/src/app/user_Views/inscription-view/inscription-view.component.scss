@@ -1,17 +1,17 @@
 #wrapper {
-    width: 75vw;
-    background-color: var(--blue-them-color);
-    border-radius: 10px;
+  width: 75vw;
+  background-color: var(--blue-them-color);
+  border-radius: 10px;
 }
 
 
 
 // Coté droit
 #rightSide {
-    display: flex;
-    height: 90vh;
-    width: 50%;
-    min-width: 50%;
+  display: flex;
+  height: 90vh;
+  width: 50%;
+  min-width: 50%;
 justify-content: flex-start;
 border-radius: 0px 10px 10px 0px;
 background-color: var(--blue-them-color);
@@ -20,28 +20,28 @@ background-position: 90% 0%;
 background-size: 135% 135%;
 
 h1 {
-    color: var(--white-them-color) ;
-    max-width: 100%;
-    align-self: left;
-    margin-left: 50px;
-    font-size: 250%;
-    margin-bottom: 0;
-    margin-top: 20px;
+  color: var(--white-them-color) ;
+  max-width: 100%;
+  align-self: left;
+  margin-left: 50px;
+  font-size: 250%;
+  margin-bottom: 0;
+  margin-top: 20px;
 
 }
 
 h2 {
-    margin-left: 50px;
-    color: var(--white-them-color) ;
-    font-weight: bold;
+  margin-left: 50px;
+  color: var(--white-them-color) ;
+  font-weight: bold;
 }
 
 #redirect-login-btn {
-    display: flex;
-    background-color: var(--white-them-color)  ;
-    width: 15vw; //Ne doit pas dépasser 35vw (width du #rightSide)
-    height: 40px;
-    min-width: fit-content;
+  display: flex;
+  background-color: var(--white-them-color)  ;
+  width: 15vw; //Ne doit pas dépasser 35vw (width du #rightSide)
+  height: 40px;
+  min-width: fit-content;
 color: var(--blue-them-color)  ;
 font-size: 125%;
 border-radius: 25px;
@@ -50,130 +50,130 @@ margin-right: 35px;
 justify-content: center;
 align-self: flex-end;
 &::after {
-    position: absolute;
-    width: 0vw;
-    height: 2px;
-    content: " ";
-    background-color: var(--blue-them-color);
+  position: absolute;
+  width: 0vw;
+  height: 2px;
+  content: " ";
+  background-color: var(--blue-them-color);
 bottom: 7px;
 transition:  ease-in-out 200ms;
 
 }
 
 &:hover {
-    &::after {
-        width:  70%;
-    }
-}
+  &::after {
+      width:  70%;
   }
+}
+}
 }
 
 
 
 // Coté gauche
 #leftSide {
-    width: 50%;
-    min-width: 50%;
-    height: 90vh;
-    display: flex;
-    align-items: center;
-    justify-items: flex-start;
-    background-color: var(--white-them-color);
-    border-radius: 10px 0px 0px 10px;
-    color: var(--blue-them-color);
-    justify-content: flex-start;
-    h1 {
+  width: 50%;
+  min-width: 50%;
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-items: flex-start;
+  background-color: var(--white-them-color);
+  border-radius: 10px 0px 0px 10px;
+  color: var(--blue-them-color);
+  justify-content: flex-start;
+  h1 {
 font-size: 250%;
 margin-bottom: 0;
 margin-top: 20px;
-    }
-
-    mat-label {
-        color: var(--blue-them-color);
-        background-color: transparent;
-padding: 0 7px 0 7px;
-    }
-
-    #register-button {
-        background-color:var(--blue-them-color);
-        color: var(--white-them-color);;
-        border-radius: 25px;
-        align-self: center;
-        font-size: 150%;
-        min-width: fit-content;
-        width: 60%;
-        height: 40px;
-
-        margin-top: 5vh;
-    }
   }
 
-  #copyright {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: var(--blue-them-color);
-    margin: 0 auto auto auto;
-    font-size: 100%;
-    letter-spacing: 2px;
+  mat-label {
+      color: var(--blue-them-color);
+      background-color: transparent;
+padding: 0 7px 0 7px;
+  }
 
-    :first-child {
-        margin: 0 0 5px 0;
-     }
+  #register-button {
+      background-color:var(--blue-them-color);
+      color: var(--white-them-color);;
+      border-radius: 25px;
+      align-self: center;
+      font-size: 150%;
+      min-width: fit-content;
+      width: 60%;
+      height: 40px;
 
-     :last-child {
-        margin: 0 0 0 0;
-     }
+      margin-top: 2vh;
+  }
+}
+
+#copyright {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--blue-them-color);
+  margin: 0 auto auto auto;
+  font-size: 100%;
+  letter-spacing: 2px;
+
+  :first-child {
+      margin: 0 0 5px 0;
+   }
+
+   :last-child {
+      margin: 0 0 0 0;
+   }
 
 }
 
-  form {
-    margin: auto;
-    align-items: center;
+form {
+  margin: auto;
+  align-items: center;
 width: 80%;
 letter-spacing: 2px;
+}
+
+#mff-psw {
+  display: flex;
+  width: 100%;
+  position: absolute;
+  justify-content: flex-end;
+  top: 0;
   }
 
-  #mff-psw {
-    display: flex;
-    width: 100%;
-    position: absolute;
-    justify-content: flex-end;
-    top: 0;
-    }
+
+  // Global styles
+
+  mat-error {
+    min-width: max-content;
+    letter-spacing: 1.1px;
+    color: var(--blue-them-color);
+  }
 
 
-    // Global styles
+  .mat-form-field-outline-end {
+    border: var(--outline-input-width) solid; // Placer le "!important" pour forcer le changement de la bordure
+    border-left: 0 ;
+    color: var(--blue-them-color);
+  }
+  .mat-form-field-outline-start {
+    border: var(--outline-input-width) solid;  // Placer le "!important" pour forcer le changement de la bordure
+    border-right: 0 ;
+    color: var(--blue-them-color);
+  }
+  .mat-form-field-outline-gap {
+    border: var(--outline-input-width) solid  ;  // Placer le "!important" pour forcer le changement de la bordure
+    border-right: 0 ;
+    border-left: 0 ;
+    color:var(--blue-them-color);
 
-    mat-error {
-      min-width: max-content;
-      letter-spacing: 1.1px;
-      color: var(--blue-them-color);
-    }
-
-
-    .mat-form-field-outline-end {
-      border: var(--outline-input-width) solid; // Placer le "!important" pour forcer le changement de la bordure
-      border-left: 0 ;
-      color: var(--blue-them-color);
-    }
-    .mat-form-field-outline-start {
-      border: var(--outline-input-width) solid;  // Placer le "!important" pour forcer le changement de la bordure
-      border-right: 0 ;
-      color: var(--blue-them-color);
-    }
-    .mat-form-field-outline-gap {
-      border: var(--outline-input-width) solid  ;  // Placer le "!important" pour forcer le changement de la bordure
-      border-right: 0 ;
-      border-left: 0 ;
-      color:var(--blue-them-color);
-
-    }
+  }
 
 
-    /*.ng-invalid:not(mat-form-field-appearance-outline)  {
-      border-left: 1px solid #a94442;
-    }*/
+  /*.ng-invalid:not(mat-form-field-appearance-outline)  {
+    border-left: 1px solid #a94442;
+  }*/
 
 
 

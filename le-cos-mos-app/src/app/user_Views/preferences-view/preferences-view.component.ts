@@ -3,13 +3,13 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { SaveRouteService } from '../../services/save-route.service'
 import { FileItem, FileUploader } from 'ng2-file-upload';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { map } from 'rxjs';
+import { catchError, map } from 'rxjs';
 @Component({
   selector: 'app-preferences-view',
   templateUrl: './preferences-view.component.html',
   styleUrls: ['./preferences-view.component.scss']
 })
-export class PreferencesViewComponent implements OnInit {
+export class PreferencesViewComponent implements OnInit,AfterViewInit {
 
   constructor(private http:HttpClient,private savedRouteService: SaveRouteService) {
     this.downloadProfilPicture()
@@ -61,6 +61,9 @@ export class PreferencesViewComponent implements OnInit {
       });
     }
 
+  }
+  ngAfterViewInit(): void {
+this.email = this.getMail()
   }
 
   imgTouched?:boolean = false
@@ -127,10 +130,29 @@ let params:HttpParams = new HttpParams().set('_id',localStorage.getItem('user-id
   pswEditable?:boolean = false
   successMsgSaved?:string
 
+  readonly getMailRoute: string = `http://localhost:4200/user/user/profil/mail`
+  getMail():any  {
 
+    const param = new HttpParams().set('_id',localStorage.getItem('user-id')!)
+
+      this.http.get(this.getMailRoute,{params:param,responseType:'text'}).pipe(map((data) =>{
+this.email = data
+      }),catchError((e:any) =>{
+        return e
+      })).subscribe((res) =>{
+
+      })
+
+  }
+
+  fname:string = localStorage.getItem('fname')!
+  lname:string = localStorage.getItem('lname')!
+  email?:string
   routeToNavBack?: string = this.savedRouteService.savedRoute
 
   ngOnInit(): void {
+
+    this.getMail()
 
 
   }

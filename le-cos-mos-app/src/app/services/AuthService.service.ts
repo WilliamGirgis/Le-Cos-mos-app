@@ -40,8 +40,6 @@ import { LogSaveService } from './log.save.service';
             res.body.userType
           );
           this.logService.saveLog("Connexion").subscribe(() => {})
-        }),catchError((e) =>{
-          return e
         })
       )
     }

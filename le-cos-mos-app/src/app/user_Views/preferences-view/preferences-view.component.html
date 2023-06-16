@@ -10,19 +10,15 @@
   <form class="outline-preferences">
     <mat-form-field>
       <mat-label>Prénom</mat-label>
-<input value="Jean" [readonly]="true" type="text" matInput>
+<input [value]="fname" [readonly]="true" type="text" matInput>
     </mat-form-field>
       <mat-form-field>
         <mat-label>Nom</mat-label>
-  <input value="Marc" [readonly]="true" type="text" matInput>
+  <input [value]="lname" [readonly]="true" type="text" matInput>
       </mat-form-field>
         <mat-form-field>
-          <mat-label>Téléphone</mat-label>
-    <input value="0760650912" [readonly]="true" type="tel" matInput>
-        </mat-form-field>
-        <mat-form-field>
           <mat-label>Email</mat-label>
-          <input value="WillyleBgdu67@gmail.com" [readonly]="true" type="email" matInput>
+          <input [value]="email" [readonly]="true" type="email" matInput>
               </mat-form-field>
 
               <mat-form-field id="mff-mdp" [floatLabel]="'always'">

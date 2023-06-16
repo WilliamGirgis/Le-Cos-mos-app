@@ -15,6 +15,10 @@ mongoose.connect(url,{useNewUrlParser:true,useUnifiedTopology:true}).then(()=>{
 // Definir la table User ici
 const userSchema = new mongoose.Schema({
 
+  isSpectral:{
+    type:Boolean,
+    required:true
+  },
   userType :{
       type: String,
       required:true

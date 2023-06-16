@@ -73,6 +73,7 @@ router.post("/users", async (req, res) => {
         let user = {firstname:body.firstname,lastname:body.lastname,role:body.userType,email:body.email}
 
         await Planning.updateOne({groupName:'Tronc Commun Class A'},{$push:{user_list:user}}).then((group) => {
+          res.status(200).send()
 
         })
       }
@@ -95,6 +96,9 @@ router.post("/users/login", (req, res) => {
   User.findByCredentials(email, password).then((user) => {
     if(!user) {
       return res.status(404).send("noUser");
+    }
+    if(user.isSpectral) {
+      return res.status(404).send("accountNotActivated");
     }
     return user
       .createSessions()
@@ -138,7 +142,7 @@ router.get("/users/id",authenticate, (req, res) => {
       users2.forEach((user) => {
 
 if(user._id != _id) {
-  users.push({userType:user.userType,firstname:user.firstname,lastname:user.lastname,email:user.email,_id:user._id,planningNameGroupBelonging:user.planningNameGroupBelonging,groupsNameDiscussionBelonging:user.groupsNameDiscussionBelonging});
+  users.push({userType:user.userType,firstname:user.firstname,lastname:user.lastname,email:user.email,_id:user._id,planningNameGroupBelonging:user.planningNameGroupBelonging,groupsNameDiscussionBelonging:user.groupsNameDiscussionBelonging,isSpectral:user.isSpectral});
 
 }
 
@@ -155,7 +159,7 @@ if(user._id != _id) {
     .then((users2) => {
       users2.forEach((user) => {
         if(user.id !== 'Admin') {
-          users.push({userType:user.userType,firstname:user.firstname,lastname:user.lastname,email:user.email,_id:user._id});
+          users.push({userType:user.userType,firstname:user.firstname,lastname:user.lastname,email:user.email,_id:user._id,isSpectral:user.isSpectral});
         }
       });
       return res.status(200).send(users);
@@ -194,7 +198,7 @@ router.post("/users/modify",authenticate, (req, res) => {
   let id = req.body._id;
     User.findOneAndUpdate(
       { _id: id },
-      { $set: {userType:newUser.userType,email:newUser.email,firstname:newUser.firstname,lastname:newUser.lastname } }
+      { $set: {userType:newUser.userType,email:newUser.email,firstname:newUser.firstname,lastname:newUser.lastname,isSpectral:newUser.isSpectral } }
     ).then((user) => {
       return res.status(200).send();
     });
@@ -360,6 +364,16 @@ router.get("/etudiant/check", (req, res) => {
       return res.status(400).send()
     })
     })
+
+    router.get("/user/profil/mail", (req, res) => {
+      let user_id = req.query._id
+      User.findOne({_id:user_id}).then((user) =>{
+        console.log(user.email)
+        return res.status(200).send(user.email)
+      }).catch((e) =>{
+        return res.status(400).send()
+      })
+      })
 
 
 module.exports = router;
