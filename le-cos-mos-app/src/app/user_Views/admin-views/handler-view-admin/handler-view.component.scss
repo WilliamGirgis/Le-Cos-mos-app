@@ -74,19 +74,22 @@
 
   transition: 350ms ease-in-out;
   position: relative;
-  display: block;
-  &::after {
-    border-radius: 21px;
-   animation: appear 350ms ease-in-out both;
-    display: block;
-    content: " ";
-    width: 0;
-    position: relative;
-    height: 5px;
-    background-color: var(--blue-them-color);
-    bottom: 0;
-    z-index: 12;
-  }
+
+
+    &::after {
+      border-radius: 21px;
+     animation: appear 350ms ease-in-out both;
+      display: block;
+      content: " ";
+      width: 0;
+      position: absolute;
+      height: 5px;
+      background-color: var(--blue-them-color);
+      bottom: 3px;
+      z-index: 12;
+    }
+
+
 }
 
 
@@ -180,7 +183,7 @@ height: 100%;
 
 
       transition: 250ms ease-in-out;
-border-radius: 0 0 7px 0;
+border-radius: 0 0 0 0;
       flex-direction: column;
       justify-content: center;
   position: fixed;
@@ -207,6 +210,25 @@ display: none !important;
   }
 
 
+  #logout {
+
+    img {
+    height: 9vw;
+    }
+
+  }
+  #power {
+
+    img {
+      height: 9vw;
+      }
+  }
+  #chat {
+
+    :first-child {
+      height: 9vw;
+      }
+  }
 
 
   #top-but-set {
@@ -230,7 +252,7 @@ background-color: rgb(255, 255, 255,0.95);
 border: 1px solid var(--blue-them-color);
 border-left: 0;
 border-top: 0;
-border-radius: 0 0 7px 7px;
+border-radius: 0 0 7px 0;
   }
 
   #white-window {
