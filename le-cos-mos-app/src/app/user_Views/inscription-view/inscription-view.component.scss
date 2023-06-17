@@ -5,6 +5,12 @@
 }
 
 
+#mat-lab-phone {
+  display: none;
+}
+#redirect-login-btn2 {
+  display: none;
+}
 
 // Coté droit
 #rightSide {
@@ -92,6 +98,7 @@ margin-top: 20px;
       color: var(--blue-them-color);
       background-color: transparent;
 padding: 0 7px 0 7px;
+
   }
 
   #register-button {
@@ -152,31 +159,127 @@ letter-spacing: 2px;
   }
 
 
-  .mat-form-field-outline-end {
-    border: var(--outline-input-width) solid; // Placer le "!important" pour forcer le changement de la bordure
-    border-left: 0 ;
-    color: var(--blue-them-color);
-  }
-  .mat-form-field-outline-start {
-    border: var(--outline-input-width) solid;  // Placer le "!important" pour forcer le changement de la bordure
-    border-right: 0 ;
-    color: var(--blue-them-color);
-  }
-  .mat-form-field-outline-gap {
-    border: var(--outline-input-width) solid  ;  // Placer le "!important" pour forcer le changement de la bordure
-    border-right: 0 ;
-    border-left: 0 ;
-    color:var(--blue-them-color);
+
+
+
+
+  @media only screen and (max-width: 640px) {
+
+
+
+    #rightSide {
+
+      button {
+        display: none;
+      }
+      h1 {
+        display: none;
+      }
+      #redirect-login-btn {
+        display: none;
+      }
+
+display: none;
 
   }
 
+  #leftSide {
+    width: 100%;
+    min-width: 100%;
+    height: 100vh;
+    border-radius: 0;
+    background-color: var(--blue-them-color);
+    color:var(--white-them-color);
 
-  /*.ng-invalid:not(mat-form-field-appearance-outline)  {
-    border-left: 1px solid #a94442;
-  }*/
+    mat-label {
+    color: var(--white-them-color);
+    }
+
+    #register-button {
+      background-color:var(--white-them-color);
+      color: var(--blue-them-color);
+      font-size: 140%;
+      height: 30px;
+      margin-top: 2vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+  }
+
+  h1 {
+    font-size: 175%;
+    margin: 1vh auto 2vh auto;
+  }
+  }
+
+
+
+  #wrapper {
+    border-radius: 0;
+    width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    display: flex;
+    background-color: var(--blue-them-color);
+    color:var(--white-them-color)
+  }
+
+  #title {
+    display: none;
+  }
+  mat-label {
+  color:var(--white-them-color)
+
+  }
+  input {
+  color:var(--white-them-color)
+  }
+  mat-error {
+    color:var(--white-them-color)
+  }
+
+
+  #mat-lab-phone {
+    display: initial;
+    color:var(--white-them-color);
+    font-size: 90%;
+
+  }
+  #redirect-login-btn2 {
+    display: initial;
+background-color: var(--white-them-color);
+color:var(--blue-them-color)
+  }
+
+  #copyright {
+    color: var(--white-them-color);
+    margin: 15px auto 2vh auto;
+text-align: center;
+font-size: 65%;
+
+    :first-child {
+        margin: 0 0 0 0;
+
+     }
+
+     :last-child {
+        margin: 10px 0 0 0;
+     }
+
+  }
 
 
 
 
+    }
+
+  @media only screen and (min-width:641px) and (max-width: 1007px)   {
+
+  }
+
+  @media only screen and (min-width:1008px)  {
+
+  }
 
 

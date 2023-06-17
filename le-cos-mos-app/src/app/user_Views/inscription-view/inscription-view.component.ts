@@ -103,6 +103,7 @@ this.subscribeForm.get('confirmPsw')!.updateValueAndValidity()// Nécessaire pou
   message?:string
   success?:boolean
   register() {
+    console.log("register triggere !")
     let email = this.subscribeForm.get('email')!.value
     let firstname = this.subscribeForm.get('firstname')!.value
     let lastname = this.subscribeForm.get('lastname')!.value

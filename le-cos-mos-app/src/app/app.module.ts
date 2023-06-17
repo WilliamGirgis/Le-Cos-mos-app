@@ -114,7 +114,7 @@ const routes: Routes = [
     path: 'admin',
     component: HandlerViewComponent,
     data: { animation: 'Register' },
-    canActivate: [ AdminguardGuard]
+    canActivate: [ ] // AdminguardGuard
     ,
     children: [
       {

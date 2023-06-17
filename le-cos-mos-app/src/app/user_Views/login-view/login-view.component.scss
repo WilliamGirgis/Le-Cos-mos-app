@@ -9,8 +9,17 @@ mat-error {
  color: var(--blue-them-color);
 }
 
-
+#logo2 {
+  display: none;
+}
 //Block de droite
+
+#notRegistered-phone {
+  display: none;
+}
+#redirect-register-btn-phone {
+display: none;
+}
 
 
 #login-button {
@@ -108,9 +117,7 @@ text-align: center;
 background-color: transparent;
 padding: 0 7px 0 7px;
   }
-  mat-form-field {
-    height: 10px;
-  }
+
 
 
 
@@ -133,7 +140,7 @@ align-self: center;
   #leftSide {
     width: 50%;
     min-width: 50%;
-    height: 90vh;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-items: center;
@@ -208,10 +215,94 @@ letter-spacing: 2px;
    }
 
 
-   @media (max-width: 480px) {
+   //https://www.browserstack.com/guide/ideal-screen-sizes-for-responsive-design
+   @media only screen and (max-width: 640px) {
+
+
+  #rightSide {
+    display: flex;
+    align-items: center;
+    justify-items: flex-start;
+    height: 100vh;
+    min-width: 100vw;
+justify-content: flex-start;
+border-radius: 0 0 0 0;
+background-color: var(--blue-them-color);
+button {
+background-color: var(--white-them-color);
+color: var(--blue-them-color);
+}
+
+h1 {
+  margin:3vh auto 7vh auto;
+    color: var(--white-them-color);
+    font-size: 150%;
+    font-weight: 20px;
 
   }
 
-  @media (max-width: 980px) {
+  #logo {
+    display: none;
+  }
+  #logo2 {
+    align-self: center;
+    margin-top: 15px;
+    display: initial;
+  }
+
+}
+
+#leftSide {
+  width: 0;
+  min-width: 0%;
+  display: none;
+}
+
+#wrapper {
+  border-radius: 10px;
+  width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+  display: flex;
+  background-color: var(--blue-them-color);
+}
+
+#title {
+  display: none;
+}
+mat-label {
+color:var(--white-them-color)
+}
+input {
+color:var(--white-them-color)
+}
+mat-error {
+  color:var(--white-them-color)
+}
+#notRegistered-phone {
+  display: initial;
+  margin-top: 3vh;
+}
+#redirect-register-btn-phone {
+display: initial;
+margin-top: 3vh;
+}
+
+
+  #oublier {
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 120%;
+    margin: 0 auto 0 auto;
+  }
 
   }
+
+  @media only screen and (min-width:641px) and (max-width: 1007px)   {
+
+  }
+
+  @media only screen and (min-width:1008px)  {
+
+  }
+

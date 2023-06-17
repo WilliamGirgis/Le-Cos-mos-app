@@ -54,6 +54,7 @@ export class HandlerViewComponent implements OnInit {
 
   }
 
+  isMenuOn?:boolean = false
   onViewChanges(e:Event) {
     this.user_type = localStorage.getItem('user-type')
     this.lname  = localStorage.getItem('lname')

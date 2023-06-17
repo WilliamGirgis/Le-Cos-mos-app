@@ -5,6 +5,7 @@
 // Modification du theme de l'applcation en modifiant les variables ci-dessous
 :root{
   --blue-them-color:rgb(91, 171, 210);
+  --blue-transparent-them-color:rgb(91, 171, 210,0.85);
   --light-blue-them-color:#CEE6F1;
   --white-them-color:white;
   --outline-input-width:1px;
@@ -69,6 +70,19 @@ justify-items: center;
 .form-register .mat-form-field-outline-gap  {
   color:var(--blue-them-color);
 
+}
+
+@media only screen and (max-width: 640px) {
+  .form-register .mat-form-field-outline-end {
+    color: var(--white-them-color);
+  }
+  .form-register .mat-form-field-outline-start  {
+    color: var(--white-them-color);
+  }
+  .form-register .mat-form-field-outline-gap  {
+    color:var(--white-them-color);
+
+  }
 }
 
 

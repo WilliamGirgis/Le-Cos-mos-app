@@ -197,7 +197,19 @@ export class BubuleChatComponent implements OnInit {
   readonly getPrivateDiscussionListRoute = 'http://localhost:4200/chat/discussion/private'
 
   privateDiscussionList: Discussion[] = [{
-    name: '', discussionType: '', user_list: [
+    name: 'Discussion 1', discussionType: '', user_list: [
+      {_id:'',email:'',firstname:'Stephane',ID:'',lastname:'Christophe'},
+      {_id:'',email:'',firstname:'Adam',ID:'',lastname:'Jean'}
+    ]
+  },{
+    name: 'Discussion 2', discussionType: '', user_list: [
+      {_id:'',email:'',firstname:'Stephane',ID:'',lastname:'Christophe'},
+      {_id:'',email:'',firstname:'Adam',ID:'',lastname:'Jean'}
+    ]
+  },{
+    name: 'Discussion 2', discussionType: '', user_list: [
+      {_id:'',email:'',firstname:'Stephane',ID:'',lastname:'Christophe'},
+      {_id:'',email:'',firstname:'Adam',ID:'',lastname:'Jean'}
     ]
   }]
   getPrivateDiscussionList() {
