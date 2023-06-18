@@ -39,6 +39,7 @@ color: var(--white-them-color);
 
 
 .blocks {
+  font-family: Open Sans, sans-serif;
   border-radius: 10px;
   height: fit-content;
   width: 35vw;
@@ -47,6 +48,7 @@ color: var(--white-them-color);
 }
 
 #content {
+
 width: auto;
 }
 
@@ -137,7 +139,7 @@ img {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: var(--light-blue-them-color);
+  background: var(--blue-them-color);
   border-radius: 5px 5px 5px 5px;
 
 }
@@ -155,6 +157,95 @@ img {
 
 
 
+  @media only screen and (max-width: 640px) {
+
+#wrapper {
+
+  width: 100%;
+  height: 90%;
+align-self: center;
+margin: 8vh auto auto auto;
+text-align: center;
+
+display: flex;
+gap: 5vh;
+padding-right: 3vw;
+flex-direction: column;
+justify-items: center;
+align-items: center;
+}
+
+.blocks {
+  border: 3px solid var(--dblue-them-color);
+  border-right: none;
+  border-left: none;
+  border-radius: 0;
+  height: fit-content;
+  width: 100%;
+  display: unset;
+  margin: unset;
+margin-bottom: 5vh;
+}
+
+#data-wrp {
+  margin:3vh auto 2vh auto;
+}
+
+#content-block {
+  border-radius: 15px;
+//  border: 1px solid var(--blue-them-color);
+  justify-content: center;
+  margin: auto auto auto auto;
+min-width: 100%;
+  max-width: 100%;
+  height: 25vh;
+
+  min-height: max-content;
+  cursor: pointer;
+  display: -webkit-box;
+  overflow: hidden;
+    -webkit-line-clamp: 11;
+    -webkit-box-orient: vertical;
+    display: flex;
+    flex-direction: column;
+text-align: center;
+  &:hover {
+    filter: blur(0.9px);
+  }
+  transition: 0.2s ease-in-out;
+
+
+    p {
+      word-wrap: break-word; // https://stackoverflow.com/questions/20565201/how-to-make-the-long-text-to-fit-inside-a-small-div
+      max-width: 100%;
+      display: block;
+      flex-direction: column;
+      height: 31vh;
+      min-width: 17.5vw;
+      padding: 0 ;
+   margin: auto auto auto auto;
+   overflow: hidden;
+   font-size: 75%;
+    }
+
+  #imgWrp {
+min-width: 100%;
+max-width: 100%;
+
+img {
+  width: 100%;
+}
+  }
+}
+  }
 
 
 
+
+
+  /*
+        <div *ngIf="loaded" id="imgWrp">
+      <img *ngIf="publication.title != undefined && publication.extension != 'pdf' && publication.extension != undefined && imgFile[i] != undefined" id="uploadedImage" [src]="imgFile[i]">
+      <pdf-viewer [zoom]="0.6" [fit-to-page]="true" id="uploadedImage" [original-size]="true" style="width: 100%;height: 100%;" [render-text]="false" *ngIf="publication.extension == 'pdf' && imgFile[i] != undefined" [src]="imgFile[i]"></pdf-viewer>
+    </div>
+    */

@@ -434,7 +434,14 @@ opacity: 0.3;
 }
 
 
+@media only screen and (max-width: 640px) {
 
+  #bubleChat {
+    position: relative;
+    width: 5vw;
+
+    }
+}
 
 
 

@@ -14,6 +14,7 @@ export class HomeViewEtudiantComponent implements OnInit {
 
   loaded?:boolean
   publicationList: PublicationModel[] = [];
+  publicationListTest:PublicationModel[] = [{date:'25/02/1997',description:'Description',title:'New Title'},{date:'25/02/1997',description:'Description',title:'New Title'},{date:'25/02/1997',description:'Description DescriptionDescription Description Description Description Description Description Description Description Description Description Description Description',title:'New Title'}]
   constructor(private http:HttpClient,public dialog:MatDialog) { }
 
   openPublicationView(publication:PublicationModel,img_id?:string) {

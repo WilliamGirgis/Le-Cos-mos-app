@@ -27,7 +27,7 @@ export class HomeViewComponent implements OnInit {
 
   }
   publicationList: PublicationModel[] = [];
-  publicationListTest:PublicationModel[] = []
+  publicationListTest:PublicationModel[] = [{date:'25/02/1997',description:'Description',title:'New Title'},{date:'25/02/1997',description:'Description',title:'New Title'},{date:'25/02/1997',description:'Description DescriptionDescription Description Description Description Description Description Description Description Description Description Description Description',title:'New Title'}]
 
 
   openSavePostForm() {

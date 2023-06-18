@@ -85,7 +85,7 @@
       position: absolute;
       height: 5px;
       background-color: var(--blue-them-color);
-      bottom: 3px;
+      bottom: -3px;
       z-index: 12;
     }
 
@@ -195,7 +195,6 @@ border-radius: 0 0 0 0;
       background-color: var(--blue-them-color);
       top: 0;
   overflow: hidden;
-
   mat-list-item {
 display: none !important;
 
@@ -223,12 +222,7 @@ display: none !important;
       height: 9vw;
       }
   }
-  #chat {
 
-    :first-child {
-      height: 9vw;
-      }
-  }
 
 
   #top-but-set {
@@ -250,10 +244,17 @@ width: 47vw;
 
 background-color: rgb(255, 255, 255,0.95);
 border: 1px solid var(--blue-them-color);
-border-left: 0;
 border-top: 0;
 border-radius: 0 0 7px 0;
   }
+
+  .preferences-link {
+    &::after {
+      bottom: 3px;
+    }
+  }
+
+
 
   #white-window {
     background-color: var(--white-them-color);
