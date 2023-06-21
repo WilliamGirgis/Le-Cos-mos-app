@@ -304,7 +304,6 @@ this.getPlanning()
 
       let duree  = event.container.data[5]
       let groupId:string = Math.random().toString(36).substring(0,10);
-      console.log(duree)
       switch(duree) {
         case '25':
           switch(this.creneauIndex) {
@@ -922,6 +921,7 @@ this.getPlanning()
           this.semaineJours[i][j][x][4] = ''
           this.semaineJours[i][j][x][5] = ''
            this.semaineJours[i][j][x][6] = ''
+           this.semaineJours[i][j][x][7] = ''
         }
 
       }

@@ -394,11 +394,6 @@ this.dateEnd = ''
     this.containerIndex = i
   }
 
-
-  replaceUnderScore(string:string):string {
-
-    return string.replace(/_/g, ' ')
-  }
   groupList?:any [] = []
 
 
@@ -587,6 +582,8 @@ this.dateEnd = ''
           this.semaineJours[i][j][x][4] = ''
           this.semaineJours[i][j][x][5] = ''
            this.semaineJours[i][j][x][6] = ''
+           this.semaineJours[i][j][x][7] = ''
+
         }
 
       }
@@ -993,11 +990,11 @@ for(let index = 0; index < this.dayList.length;index++) {
 // console.log(this.dayList[index])
 temp.push({heure:this.dayList[index][0],
   day:this.dayList[index][3],
-  type:this.dayList[index][1],
-  matiere:this.dayList[index][2],
-  duree:this.dayList[index][5],
-  enseignant:this.dayList[index][4],
-  creneau:this.dayList[index][6],
+  matiere:this.dayList[index][1],
+  type:this.dayList[index][2],
+  creneau:this.dayList[index][5],
+  room:this.dayList[index][4],
+  duree:this.dayList[index][6],
   groupId:this.dayList[index][7]
 })
 
@@ -1006,24 +1003,11 @@ temp.push({heure:this.dayList[index][0],
 
 
 const uniqueAuthors2 = [...new Map(temp.map(v => [v.groupId, v])).values()]
-console.log(uniqueAuthors2)
 this.dayList = uniqueAuthors2
 
   }
 
 
-checkEquality(element:[],element2:[]):boolean {
-
-  if(!element) {
-    return false
-  }
-  console.log(element)
-  console.log(element2)
-if(element == element2) {
-  return true
-}
-  return false
-}
   getDuration(duration:string) {
 
     switch(duration ) {
@@ -1040,105 +1024,7 @@ if(element == element2) {
     }
   }
 
-
-  getHeight(duration:string) {
-    switch(duration ) {
-      case '25':
-        return '25%'
-        case '50':
-          return '50%'
-          case '75':
-            return '75%'
-            case '100':
-              return '100%'
-              default:
-                return ''
-    }
-  }
-
-  getOverFlowedBackgroundColor(day:string[][]) {
-    let overflowedType = day[this.heureIndex][2]
-    switch(day[this.heureIndex - 1][5] ) {
-      case '25':
-        return 'overflow-0min'
-        case '50':
-          if(day[this.heureIndex - 1][6] == '45') {
-            return this.getBackgroundColor(overflowedType)
-          } else {
-            return 'overflow-0min'
-          }
-          case '75':
-            if(day[this.heureIndex - 1][6] == '45') {
-              return this.getBackgroundColor(overflowedType)
-            } else if(day[this.heureIndex][6] == '30') {
-              return this.getBackgroundColor(overflowedType)
-            } else {
-              return 'overflow-0min'
-            }
-            case '100':
-              if(day[this.heureIndex - 1][6] == '45') {
-                return this.getBackgroundColor(overflowedType)
-              } else if(day[this.heureIndex - 1][6] == '30') {
-                return this.getBackgroundColor(overflowedType)
-              } else if(day[this.heureIndex - 1][6] == '15') {
-                return this.getBackgroundColor(overflowedType)
-              } else {
-                return 'overflow-0min'
-              }
-              default:
-                return 'overflow-0min'
-    }
-  }
-
   // SeanceListAvailabe related method //
-  getHeightSeanceAvailableButton(duration:string) {
-
-    switch(duration ) {
-      case '25':
-        return '3vh'
-        case '50':
-          return '4vh'
-          case '75':
-            return '6vh'
-            case '100':
-              return '7vh'
-              default:
-                return ''
-    }
-
-  }
-
-  getWidth(duration:string) {
-
-    switch(duration ) {
-      case '25':
-        return '40%'
-        case '50':
-          return '50%'
-          case '75':
-            return '65%'
-            case '100':
-              return '70%'
-              default:
-                return ''
-    }
-
-  }
-  getFontSize(duration:string) {
-
-    switch(duration ) {
-      case '25':
-        return '50%'
-        case '50':
-          return '60%'
-          case '75':
-            return '70%'
-            case '100':
-              return '80%'
-              default:
-                return ''
-    }
-  }
 
   selectedIndex?:number
   ngOnInit(): void {

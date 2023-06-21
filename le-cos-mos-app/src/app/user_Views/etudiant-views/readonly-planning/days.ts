@@ -5,7 +5,7 @@ day?:string
 type?:string
 matiere?:string
 duree?:string
-enseignant?:string
+room?:string
 creneau?:string
 groupId!:string
 }
