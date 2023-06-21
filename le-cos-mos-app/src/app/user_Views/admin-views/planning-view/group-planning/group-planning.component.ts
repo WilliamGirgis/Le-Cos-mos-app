@@ -303,6 +303,7 @@ this.getPlanning()
       }
 
       let duree  = event.container.data[5]
+      let groupId:string = Math.random().toString(36).substring(0,10);
       console.log(duree)
       switch(duree) {
         case '25':
@@ -314,6 +315,7 @@ this.getPlanning()
               this.semaineJours[this.dayIndex!][this.heureIndex!][0][4] = event.container.data[4]
               this.semaineJours[this.dayIndex!][this.heureIndex!][0][5] = event.container.data[5]
               this.semaineJours[this.dayIndex!][this.heureIndex!][0][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
+              this.semaineJours[this.dayIndex!][this.heureIndex!][0][7] = groupId
               break;
               case 1:
                 this.touched = true
@@ -322,6 +324,7 @@ this.getPlanning()
                 this.semaineJours[this.dayIndex!][this.heureIndex!][1][4] = event.container.data[4]
                 this.semaineJours[this.dayIndex!][this.heureIndex!][1][5] = event.container.data[5]
                 this.semaineJours[this.dayIndex!][this.heureIndex!][1][6] =  '15' // Valeur par défaut si aucun élément n'est sélectionner
+                this.semaineJours[this.dayIndex!][this.heureIndex!][1][7] = groupId
                 break;
                 case 2:
                   this.touched = true
@@ -330,6 +333,7 @@ this.getPlanning()
                   this.semaineJours[this.dayIndex!][this.heureIndex!][2][4] = event.container.data[4]
                   this.semaineJours[this.dayIndex!][this.heureIndex!][2][5] = event.container.data[5]
                   this.semaineJours[this.dayIndex!][this.heureIndex!][2][6] =  '30' // Valeur par défaut si aucun élément n'est sélectionner
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][7] = groupId
                   break;
                   case 3:
                     this.touched = true
@@ -338,6 +342,7 @@ this.getPlanning()
                     this.semaineJours[this.dayIndex!][this.heureIndex!][3][4] = event.container.data[4]
                     this.semaineJours[this.dayIndex!][this.heureIndex!][3][5] = event.container.data[5]
                     this.semaineJours[this.dayIndex!][this.heureIndex!][3][6] =  '45' // Valeur par défaut si aucun élément n'est sélectionner
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][7] = groupId
                     break;
 
           }
@@ -352,12 +357,14 @@ this.getPlanning()
               this.semaineJours[this.dayIndex!][this.heureIndex!][0][4] = event.container.data[4]
               this.semaineJours[this.dayIndex!][this.heureIndex!][0][5] = event.container.data[5]
               this.semaineJours[this.dayIndex!][this.heureIndex!][0][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
+              this.semaineJours[this.dayIndex!][this.heureIndex!][0][7] = groupId
 
               this.semaineJours[this.dayIndex!][this.heureIndex!][1][1] = event.container.data[2]
               this.semaineJours[this.dayIndex!][this.heureIndex!][1][2] = event.container.data[1]
               this.semaineJours[this.dayIndex!][this.heureIndex!][1][4] = event.container.data[4]
               this.semaineJours[this.dayIndex!][this.heureIndex!][1][5] = event.container.data[5]
               this.semaineJours[this.dayIndex!][this.heureIndex!][1][6] =  '15' // Valeur par défaut si aucun élément n'est sélectionner
+              this.semaineJours[this.dayIndex!][this.heureIndex!][1][7] = groupId
               break;
               case 1:
                 this.touched = true
@@ -366,12 +373,14 @@ this.getPlanning()
                 this.semaineJours[this.dayIndex!][this.heureIndex!][1][4] = event.container.data[4]
                 this.semaineJours[this.dayIndex!][this.heureIndex!][1][5] = event.container.data[5]
                 this.semaineJours[this.dayIndex!][this.heureIndex!][1][6] =  '15' // Valeur par défaut si aucun élément n'est sélectionner
+                this.semaineJours[this.dayIndex!][this.heureIndex!][1][7] = groupId
 
                 this.semaineJours[this.dayIndex!][this.heureIndex!][2][1] = event.container.data[2]
                 this.semaineJours[this.dayIndex!][this.heureIndex!][2][2] = event.container.data[1]
                 this.semaineJours[this.dayIndex!][this.heureIndex!][2][4] = event.container.data[4]
                 this.semaineJours[this.dayIndex!][this.heureIndex!][2][5] = event.container.data[5]
                 this.semaineJours[this.dayIndex!][this.heureIndex!][2][6] =  '30' // Valeur par défaut si aucun élément n'est sélectionner
+                this.semaineJours[this.dayIndex!][this.heureIndex!][2][7] = groupId
                 break;
                 case 2:
                   this.touched = true
@@ -380,12 +389,14 @@ this.getPlanning()
                   this.semaineJours[this.dayIndex!][this.heureIndex!][2][4] = event.container.data[4]
                   this.semaineJours[this.dayIndex!][this.heureIndex!][2][5] = event.container.data[5]
                   this.semaineJours[this.dayIndex!][this.heureIndex!][2][6] =  '30' // Valeur par défaut si aucun élément n'est sélectionner
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][7] = groupId
 
                   this.semaineJours[this.dayIndex!][this.heureIndex!][3][1] = event.container.data[2]
                   this.semaineJours[this.dayIndex!][this.heureIndex!][3][2] = event.container.data[1]
                   this.semaineJours[this.dayIndex!][this.heureIndex!][3][4] = event.container.data[4]
                   this.semaineJours[this.dayIndex!][this.heureIndex!][3][5] = event.container.data[5]
                   this.semaineJours[this.dayIndex!][this.heureIndex!][3][6] =  '45' // Valeur par défaut si aucun élément n'est sélectionner
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][7] = groupId
                   break;
                   case 3:
                     this.touched = true
@@ -394,13 +405,14 @@ this.getPlanning()
                     this.semaineJours[this.dayIndex!][this.heureIndex!][3][4] = event.container.data[4]
                     this.semaineJours[this.dayIndex!][this.heureIndex!][3][5] = event.container.data[5]
                     this.semaineJours[this.dayIndex!][this.heureIndex!][3][6] =  '45' // Valeur par défaut si aucun élément n'est sélectionner
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][7] = groupId
 
                     this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][1] = event.container.data[2]
                     this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][2] = event.container.data[1]
                     this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][4] = event.container.data[4]
                     this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][5] = event.container.data[5]
                     this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
-
+                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][7] = groupId
 
                     break;
 
@@ -415,19 +427,24 @@ this.getPlanning()
                 this.semaineJours[this.dayIndex!][this.heureIndex!][0][4] = event.container.data[4]
                 this.semaineJours[this.dayIndex!][this.heureIndex!][0][5] = event.container.data[5]
                 this.semaineJours[this.dayIndex!][this.heureIndex!][0][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
+                this.semaineJours[this.dayIndex!][this.heureIndex!][0][7] = groupId
+
 
                 this.semaineJours[this.dayIndex!][this.heureIndex!][1][1] = event.container.data[2]
                 this.semaineJours[this.dayIndex!][this.heureIndex!][1][2] = event.container.data[1]
                 this.semaineJours[this.dayIndex!][this.heureIndex!][1][4] = event.container.data[4]
                 this.semaineJours[this.dayIndex!][this.heureIndex!][1][5] = event.container.data[5]
                 this.semaineJours[this.dayIndex!][this.heureIndex!][1][6] =  '15' // Valeur par défaut si aucun élément n'est sélectionner
+                this.semaineJours[this.dayIndex!][this.heureIndex!][1][7] = groupId
 
                 this.semaineJours[this.dayIndex!][this.heureIndex!][2][1] = event.container.data[2]
                 this.semaineJours[this.dayIndex!][this.heureIndex!][2][2] = event.container.data[1]
                 this.semaineJours[this.dayIndex!][this.heureIndex!][2][4] = event.container.data[4]
                 this.semaineJours[this.dayIndex!][this.heureIndex!][2][5] = event.container.data[5]
                 this.semaineJours[this.dayIndex!][this.heureIndex!][2][6] =  '30' // Valeur par défaut si aucun élément n'est sélectionner
-               break;
+                this.semaineJours[this.dayIndex!][this.heureIndex!][2][7] = groupId
+
+                break;
                 case 1:
                   this.touched = true
                   this.semaineJours[this.dayIndex!][this.heureIndex!][1][1] = event.container.data[2]
@@ -435,18 +452,23 @@ this.getPlanning()
                   this.semaineJours[this.dayIndex!][this.heureIndex!][1][4] = event.container.data[4]
                   this.semaineJours[this.dayIndex!][this.heureIndex!][1][5] = event.container.data[5]
                   this.semaineJours[this.dayIndex!][this.heureIndex!][1][6] =  '15' // Valeur par défaut si aucun élément n'est sélectionner
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][1][7] = groupId
 
                   this.semaineJours[this.dayIndex!][this.heureIndex!][2][1] = event.container.data[2]
                   this.semaineJours[this.dayIndex!][this.heureIndex!][2][2] = event.container.data[1]
                   this.semaineJours[this.dayIndex!][this.heureIndex!][2][4] = event.container.data[4]
                   this.semaineJours[this.dayIndex!][this.heureIndex!][2][5] = event.container.data[5]
                   this.semaineJours[this.dayIndex!][this.heureIndex!][2][6] =  '30' // Valeur par défaut si aucun élément n'est sélectionner
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][7] = groupId
+
 
                   this.semaineJours[this.dayIndex!][this.heureIndex!][3][1] = event.container.data[2]
                   this.semaineJours[this.dayIndex!][this.heureIndex!][3][2] = event.container.data[1]
                   this.semaineJours[this.dayIndex!][this.heureIndex!][3][4] = event.container.data[4]
                   this.semaineJours[this.dayIndex!][this.heureIndex!][3][5] = event.container.data[5]
                   this.semaineJours[this.dayIndex!][this.heureIndex!][3][6] =  '45' // Valeur par défaut si aucun élément n'est sélectionner
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][7] = groupId
+
                   break;
                   case 2:
                     this.touched = true
@@ -455,18 +477,23 @@ this.getPlanning()
                     this.semaineJours[this.dayIndex!][this.heureIndex!][2][4] = event.container.data[4]
                     this.semaineJours[this.dayIndex!][this.heureIndex!][2][5] = event.container.data[5]
                     this.semaineJours[this.dayIndex!][this.heureIndex!][2][6] =  '30' // Valeur par défaut si aucun élément n'est sélectionner
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][2][7] = groupId
+
 
                     this.semaineJours[this.dayIndex!][this.heureIndex!][3][1] = event.container.data[2]
                     this.semaineJours[this.dayIndex!][this.heureIndex!][3][2] = event.container.data[1]
                     this.semaineJours[this.dayIndex!][this.heureIndex!][3][4] = event.container.data[4]
                     this.semaineJours[this.dayIndex!][this.heureIndex!][3][5] = event.container.data[5]
                     this.semaineJours[this.dayIndex!][this.heureIndex!][3][6] =  '45' // Valeur par défaut si aucun élément n'est sélectionner
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][7] = groupId
 
                     this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][1] = event.container.data[2]
                     this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][2] = event.container.data[1]
                     this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][4] = event.container.data[4]
                     this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][5] = event.container.data[5]
                     this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
+                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][7] = groupId
+
                     break;
                     case 3:
                       this.touched = true
@@ -475,18 +502,22 @@ this.getPlanning()
                       this.semaineJours[this.dayIndex!][this.heureIndex!][3][4] = event.container.data[4]
                       this.semaineJours[this.dayIndex!][this.heureIndex!][3][5] = event.container.data[5]
                       this.semaineJours[this.dayIndex!][this.heureIndex!][3][6] =  '45' // Valeur par défaut si aucun élément n'est sélectionner
+                      this.semaineJours[this.dayIndex!][this.heureIndex!][3][7] = groupId
 
                       this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][1] = event.container.data[2]
                       this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][2] = event.container.data[1]
                       this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][4] = event.container.data[4]
                       this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][5] = event.container.data[5]
                       this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
+                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][7] = groupId
 
                       this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][1] = event.container.data[2]
                       this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][2] = event.container.data[1]
                       this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][4] = event.container.data[4]
                       this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][5] = event.container.data[5]
                       this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][6] =  '15' // Valeur par défaut si aucun élément n'est sélectionner
+                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][7] = groupId
+
                       break;
             }
             break;
@@ -500,24 +531,29 @@ this.getPlanning()
                   this.semaineJours[this.dayIndex!][this.heureIndex!][0][4] = event.container.data[4]
                   this.semaineJours[this.dayIndex!][this.heureIndex!][0][5] = event.container.data[5]
                   this.semaineJours[this.dayIndex!][this.heureIndex!][0][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][0][7] = groupId
 
                   this.semaineJours[this.dayIndex!][this.heureIndex!][1][1] = event.container.data[2]
                   this.semaineJours[this.dayIndex!][this.heureIndex!][1][2] = event.container.data[1]
                   this.semaineJours[this.dayIndex!][this.heureIndex!][1][4] = event.container.data[4]
                   this.semaineJours[this.dayIndex!][this.heureIndex!][1][5] = event.container.data[5]
                   this.semaineJours[this.dayIndex!][this.heureIndex!][1][6] =  '15' // Valeur par défaut si aucun élément n'est sélectionner
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][1][7] = groupId
 
                   this.semaineJours[this.dayIndex!][this.heureIndex!][2][1] = event.container.data[2]
                   this.semaineJours[this.dayIndex!][this.heureIndex!][2][2] = event.container.data[1]
                   this.semaineJours[this.dayIndex!][this.heureIndex!][2][4] = event.container.data[4]
                   this.semaineJours[this.dayIndex!][this.heureIndex!][2][5] = event.container.data[5]
                   this.semaineJours[this.dayIndex!][this.heureIndex!][2][6] =  '30' // Valeur par défaut si aucun élément n'est sélectionner
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][7] = groupId
 
                   this.semaineJours[this.dayIndex!][this.heureIndex!][3][1] = event.container.data[2]
                   this.semaineJours[this.dayIndex!][this.heureIndex!][3][2] = event.container.data[1]
                   this.semaineJours[this.dayIndex!][this.heureIndex!][3][4] = event.container.data[4]
                   this.semaineJours[this.dayIndex!][this.heureIndex!][3][5] = event.container.data[5]
                   this.semaineJours[this.dayIndex!][this.heureIndex!][3][6] =  '45' // Valeur par défaut si aucun élément n'est sélectionner
+                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][7] = groupId
+
                   break;
                   case 1:
                     this.touched = true
@@ -527,12 +563,15 @@ this.getPlanning()
                     this.semaineJours[this.dayIndex!][this.heureIndex!][1][4] = event.container.data[4]
                     this.semaineJours[this.dayIndex!][this.heureIndex!][1][5] = event.container.data[5]
                     this.semaineJours[this.dayIndex!][this.heureIndex!][1][6] =  '15' // Valeur par défaut si aucun élément n'est sélectionner
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][1][7] = groupId
+
 
                     this.semaineJours[this.dayIndex!][this.heureIndex!][2][1] = event.container.data[2]
                     this.semaineJours[this.dayIndex!][this.heureIndex!][2][2] = event.container.data[1]
                     this.semaineJours[this.dayIndex!][this.heureIndex!][2][4] = event.container.data[4]
                     this.semaineJours[this.dayIndex!][this.heureIndex!][2][5] = event.container.data[5]
                     this.semaineJours[this.dayIndex!][this.heureIndex!][2][6] =  '30' // Valeur par défaut si aucun élément n'est sélectionner
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][2][7] = groupId
 
 
                     this.semaineJours[this.dayIndex!][this.heureIndex!][3][1] = event.container.data[2]
@@ -540,12 +579,14 @@ this.getPlanning()
                     this.semaineJours[this.dayIndex!][this.heureIndex!][3][4] = event.container.data[4]
                     this.semaineJours[this.dayIndex!][this.heureIndex!][3][5] = event.container.data[5]
                     this.semaineJours[this.dayIndex!][this.heureIndex!][3][6] =  '45' // Valeur par défaut si aucun élément n'est sélectionner
+                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][7] = groupId
 
                     this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][1] = event.container.data[2]
                     this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][2] = event.container.data[1]
                     this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][4] = event.container.data[4]
                     this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][5] = event.container.data[5]
                     this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
+                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][7] = groupId
 
                     break;
                     case 2:
@@ -555,18 +596,21 @@ this.getPlanning()
                       this.semaineJours[this.dayIndex!][this.heureIndex!][2][4] = event.container.data[4]
                       this.semaineJours[this.dayIndex!][this.heureIndex!][2][5] = event.container.data[5]
                       this.semaineJours[this.dayIndex!][this.heureIndex!][2][6] =  '30' // Valeur par défaut si aucun élément n'est sélectionner
+                      this.semaineJours[this.dayIndex!][this.heureIndex!][2][7] = groupId
 
                       this.semaineJours[this.dayIndex!][this.heureIndex!][3][1] = event.container.data[2]
                       this.semaineJours[this.dayIndex!][this.heureIndex!][3][2] = event.container.data[1]
                       this.semaineJours[this.dayIndex!][this.heureIndex!][3][4] = event.container.data[4]
                       this.semaineJours[this.dayIndex!][this.heureIndex!][3][5] = event.container.data[5]
                       this.semaineJours[this.dayIndex!][this.heureIndex!][3][6] =  '45' // Valeur par défaut si aucun élément n'est sélectionner
+                      this.semaineJours[this.dayIndex!][this.heureIndex!][3][7] = groupId
 
                       this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][1] = event.container.data[2]
                       this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][2] = event.container.data[1]
                       this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][4] = event.container.data[4]
                       this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][5] = event.container.data[5]
                       this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
+                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][7] = groupId
 
 
                       this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][1] = event.container.data[2]
@@ -574,6 +618,7 @@ this.getPlanning()
                       this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][4] = event.container.data[4]
                       this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][5] = event.container.data[5]
                       this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][6] =  '15' // Valeur par défaut si aucun élément n'est sélectionner
+                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][7] = groupId
 
                       break;
                       case 3:
@@ -583,24 +628,28 @@ this.getPlanning()
                         this.semaineJours[this.dayIndex!][this.heureIndex!][3][4] = event.container.data[4]
                         this.semaineJours[this.dayIndex!][this.heureIndex!][3][5] = event.container.data[5]
                         this.semaineJours[this.dayIndex!][this.heureIndex!][3][6] =  '45' // Valeur par défaut si aucun élément n'est sélectionner
+                        this.semaineJours[this.dayIndex!][this.heureIndex!][3][7] = groupId
 
                         this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][1] = event.container.data[2]
                         this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][2] = event.container.data[1]
                         this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][4] = event.container.data[4]
                         this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][5] = event.container.data[5]
                         this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
+                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][7] = groupId
 
                         this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][1] = event.container.data[2]
                         this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][2] = event.container.data[1]
                         this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][4] = event.container.data[4]
                         this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][5] = event.container.data[5]
                         this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][6] =  '15' // Valeur par défaut si aucun élément n'est sélectionner
+                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][7] = groupId
 
                         this.semaineJours[this.dayIndex!][this.heureIndex! + 1][2][1] = event.container.data[2]
                         this.semaineJours[this.dayIndex!][this.heureIndex! + 1][2][2] = event.container.data[1]
                         this.semaineJours[this.dayIndex!][this.heureIndex! + 1][2][4] = event.container.data[4]
                         this.semaineJours[this.dayIndex!][this.heureIndex! + 1][2][5] = event.container.data[5]
                         this.semaineJours[this.dayIndex!][this.heureIndex! + 1][2][6] =  '30' // Valeur par défaut si aucun élément n'est sélectionner
+                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][2][7] = groupId
 
                         break;
               }
@@ -916,6 +965,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
           this.semaineJours[0][x -8][0][4] =   planningSeance.seance[i].room
           this.semaineJours[0][x -8][0][5] =   planningSeance.seance[i].duree
           this.semaineJours[0][x -8][0][6] =  planningSeance.seance[i].quartDheure
+          this.semaineJours[0][x -8][0][7] =  planningSeance.seance[i].groupId
           break;
           case '15':
             this.semaineJours[0][x -8][1][0] = planningSeance.seance[i].creneau[0]
@@ -925,6 +975,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
             this.semaineJours[0][x -8][1][4] =   planningSeance.seance[i].room
             this.semaineJours[0][x -8][1][5] =   planningSeance.seance[i].duree
             this.semaineJours[0][x -8][1][6] =  planningSeance.seance[i].quartDheure
+            this.semaineJours[0][x -8][1][7] =  planningSeance.seance[i].groupId
             break;
             case '30':
               this.semaineJours[0][x -8][2][0] = planningSeance.seance[i].creneau[0]
@@ -934,6 +985,8 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
               this.semaineJours[0][x -8][2][4] =   planningSeance.seance[i].room
               this.semaineJours[0][x -8][2][5] =   planningSeance.seance[i].duree
               this.semaineJours[0][x -8][2][6] =  planningSeance.seance[i].quartDheure
+              this.semaineJours[0][x -8][2][7] =  planningSeance.seance[i].groupId
+
               break;
               case '45':
                 this.semaineJours[0][x -8][3][0] = planningSeance.seance[i].creneau[0]
@@ -943,6 +996,8 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                 this.semaineJours[0][x -8][3][4] =   planningSeance.seance[i].room
                 this.semaineJours[0][x -8][3][5] =   planningSeance.seance[i].duree
                 this.semaineJours[0][x -8][3][6] =  planningSeance.seance[i].quartDheure
+                this.semaineJours[0][x -8][3][7] =  planningSeance.seance[i].groupId
+
                 break;
 
       }
@@ -958,6 +1013,8 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
               this.semaineJours[1][x -8][0][4] =   planningSeance.seance[i].room
               this.semaineJours[1][x -8][0][5] =   planningSeance.seance[i].duree
               this.semaineJours[1][x -8][0][6] =  planningSeance.seance[i].quartDheure
+              this.semaineJours[1][x -8][0][7] =  planningSeance.seance[i].groupId
+
               break;
               case '15':
                 this.semaineJours[1][x -8][1][0] = planningSeance.seance[i].creneau[0]
@@ -967,6 +1024,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                 this.semaineJours[1][x -8][1][4] =   planningSeance.seance[i].room
                 this.semaineJours[1][x -8][1][5] =   planningSeance.seance[i].duree
                 this.semaineJours[1][x -8][1][6] =  planningSeance.seance[i].quartDheure
+                this.semaineJours[1][x -8][1][7] =  planningSeance.seance[i].groupId
                 break;
                 case '30':
                   this.semaineJours[1][x -8][2][0] = planningSeance.seance[i].creneau[0]
@@ -976,6 +1034,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                   this.semaineJours[1][x -8][2][4] =   planningSeance.seance[i].room
                   this.semaineJours[1][x -8][2][5] =   planningSeance.seance[i].duree
                   this.semaineJours[1][x -8][2][6] =  planningSeance.seance[i].quartDheure
+                  this.semaineJours[1][x -8][2][7] =  planningSeance.seance[i].groupId
                   break;
                   case '45':
                     this.semaineJours[1][x -8][3][0] = planningSeance.seance[i].creneau[0]
@@ -985,6 +1044,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                     this.semaineJours[1][x -8][3][4] =   planningSeance.seance[i].room
                     this.semaineJours[1][x -8][3][5] =   planningSeance.seance[i].duree
                     this.semaineJours[1][x -8][3][6] =  planningSeance.seance[i].quartDheure
+                    this.semaineJours[1][x -8][3][7] =  planningSeance.seance[i].groupId
                     break;
           }
         break;
@@ -998,6 +1058,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                 this.semaineJours[2][x -8][0][4] =   planningSeance.seance[i].room
                 this.semaineJours[2][x -8][0][5] =   planningSeance.seance[i].duree
                 this.semaineJours[2][x -8][0][6] =  planningSeance.seance[i].quartDheure
+                this.semaineJours[2][x -8][0][7] =  planningSeance.seance[i].groupId
                 break;
                 case '15':
                   this.semaineJours[2][x -8][1][0] = planningSeance.seance[i].creneau[0]
@@ -1007,6 +1068,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                   this.semaineJours[2][x -8][1][4] =   planningSeance.seance[i].room
                   this.semaineJours[2][x -8][1][5] =   planningSeance.seance[i].duree
                   this.semaineJours[2][x -8][1][6] =  planningSeance.seance[i].quartDheure
+                  this.semaineJours[2][x -8][1][7] =  planningSeance.seance[i].groupId
                   break;
                   case '30':
                     this.semaineJours[2][x -8][2][0] = planningSeance.seance[i].creneau[0]
@@ -1016,6 +1078,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                     this.semaineJours[2][x -8][2][4] =   planningSeance.seance[i].room
                     this.semaineJours[2][x -8][2][5] =   planningSeance.seance[i].duree
                     this.semaineJours[2][x -8][2][6] =  planningSeance.seance[i].quartDheure
+                    this.semaineJours[2][x -8][2][7] =  planningSeance.seance[i].groupId
                     break;
                     case '45':
                       this.semaineJours[2][x -8][3][0] = planningSeance.seance[i].creneau[0]
@@ -1025,6 +1088,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                       this.semaineJours[2][x -8][3][4] =   planningSeance.seance[i].room
                       this.semaineJours[2][x -8][3][5] =   planningSeance.seance[i].duree
                       this.semaineJours[2][x -8][3][6] =  planningSeance.seance[i].quartDheure
+                      this.semaineJours[2][x -8][3][7] =  planningSeance.seance[i].groupId
                       break;
 
             }
@@ -1039,6 +1103,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                   this.semaineJours[3][x -8][0][4] =   planningSeance.seance[i].room
                   this.semaineJours[3][x -8][0][5] =   planningSeance.seance[i].duree
                   this.semaineJours[3][x -8][0][6] =  planningSeance.seance[i].quartDheure
+                  this.semaineJours[3][x -8][0][7] =  planningSeance.seance[i].groupId
                   break;
                   case '15':
                     this.semaineJours[3][x -8][1][0] = planningSeance.seance[i].creneau[0]
@@ -1048,6 +1113,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                     this.semaineJours[3][x -8][1][4] =   planningSeance.seance[i].room
                     this.semaineJours[3][x -8][1][5] =   planningSeance.seance[i].duree
                     this.semaineJours[3][x -8][1][6] =  planningSeance.seance[i].quartDheure
+                    this.semaineJours[3][x -8][1][7] =  planningSeance.seance[i].groupId
                     break;
                     case '30':
                       this.semaineJours[3][x -8][2][0] = planningSeance.seance[i].creneau[0]
@@ -1057,6 +1123,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                       this.semaineJours[3][x -8][2][4] =   planningSeance.seance[i].room
                       this.semaineJours[3][x -8][2][5] =   planningSeance.seance[i].duree
                       this.semaineJours[3][x -8][2][6] =  planningSeance.seance[i].quartDheure
+                      this.semaineJours[3][x -8][2][7] =  planningSeance.seance[i].groupId
                       break;
                       case '45':
                         this.semaineJours[3][x -8][3][0] = planningSeance.seance[i].creneau[0]
@@ -1066,6 +1133,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                         this.semaineJours[3][x -8][3][4] =   planningSeance.seance[i].room
                         this.semaineJours[3][x -8][3][5] =   planningSeance.seance[i].duree
                         this.semaineJours[3][x -8][3][6] =  planningSeance.seance[i].quartDheure
+                        this.semaineJours[3][x -8][3][7] =  planningSeance.seance[i].groupId
                         break;
 
               }
@@ -1080,6 +1148,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                     this.semaineJours[4][x -8][0][4] =   planningSeance.seance[i].room
                     this.semaineJours[4][x -8][0][5] =   planningSeance.seance[i].duree
                     this.semaineJours[4][x -8][0][6] =  planningSeance.seance[i].quartDheure
+                    this.semaineJours[4][x -8][0][7] =  planningSeance.seance[i].groupId
                     break;
                     case '15':
                       this.semaineJours[4][x -8][1][0] = planningSeance.seance[i].creneau[0]
@@ -1089,6 +1158,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                       this.semaineJours[4][x -8][1][4] =   planningSeance.seance[i].room
                       this.semaineJours[4][x -8][1][5] =   planningSeance.seance[i].duree
                       this.semaineJours[4][x -8][1][6] =  planningSeance.seance[i].quartDheure
+                      this.semaineJours[4][x -8][1][7] =  planningSeance.seance[i].groupId
                       break;
                       case '30':
                         this.semaineJours[4][x -8][2][0] = planningSeance.seance[i].creneau[0]
@@ -1098,6 +1168,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                         this.semaineJours[4][x -8][2][4] =   planningSeance.seance[i].room
                         this.semaineJours[4][x -8][2][5] =   planningSeance.seance[i].duree
                         this.semaineJours[4][x -8][2][6] =  planningSeance.seance[i].quartDheure
+                        this.semaineJours[4][x -8][2][7] =  planningSeance.seance[i].groupId
                         break;
                         case '45':
                           this.semaineJours[4][x -8][3][0] = planningSeance.seance[i].creneau[0]
@@ -1107,6 +1178,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                           this.semaineJours[4][x -8][3][4] =   planningSeance.seance[i].room
                           this.semaineJours[4][x -8][3][5] =   planningSeance.seance[i].duree
                           this.semaineJours[4][x -8][3][6] =  planningSeance.seance[i].quartDheure
+                          this.semaineJours[4][x -8][3][7] =  planningSeance.seance[i].groupId
                           break;
 
                 }
@@ -1121,6 +1193,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                       this.semaineJours[5][x -8][0][4] =   planningSeance.seance[i].room
                       this.semaineJours[5][x -8][0][5] =   planningSeance.seance[i].duree
                       this.semaineJours[5][x -8][0][6] =  planningSeance.seance[i].quartDheure
+                      this.semaineJours[5][x -8][0][7] =  planningSeance.seance[i].groupId
                       break;
                       case '15':
                         this.semaineJours[5][x -8][1][0] = planningSeance.seance[i].creneau[0]
@@ -1130,6 +1203,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                         this.semaineJours[5][x -8][1][4] =   planningSeance.seance[i].room
                         this.semaineJours[5][x -8][1][5] =   planningSeance.seance[i].duree
                         this.semaineJours[5][x -8][1][6] =  planningSeance.seance[i].quartDheure
+                        this.semaineJours[5][x -8][1][7] =  planningSeance.seance[i].groupId
                         break;
                         case '30':
                           this.semaineJours[5][x -8][2][0] = planningSeance.seance[i].creneau[0]
@@ -1139,6 +1213,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                           this.semaineJours[5][x -8][2][4] =   planningSeance.seance[i].room
                           this.semaineJours[5][x -8][2][5] =   planningSeance.seance[i].duree
                           this.semaineJours[5][x -8][2][6] =  planningSeance.seance[i].quartDheure
+                          this.semaineJours[5][x -8][2][7] =  planningSeance.seance[i].groupId
                           break;
                           case '45':
                             this.semaineJours[5][x -8][3][0] = planningSeance.seance[i].creneau[0]
@@ -1148,6 +1223,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                             this.semaineJours[5][x -8][3][4] =   planningSeance.seance[i].room
                             this.semaineJours[5][x -8][3][5] =   planningSeance.seance[i].duree
                             this.semaineJours[5][x -8][3][6] =  planningSeance.seance[i].quartDheure
+                            this.semaineJours[5][x -8][3][7] =  planningSeance.seance[i].groupId
                             break;
 
                   }
@@ -1162,6 +1238,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                         this.semaineJours[6][x -8][0][4] =   planningSeance.seance[i].room
                         this.semaineJours[6][x -8][0][5] =   planningSeance.seance[i].duree
                         this.semaineJours[6][x -8][0][6] =  planningSeance.seance[i].quartDheure
+                        this.semaineJours[6][x -8][0][7] =  planningSeance.seance[i].groupId
                         break;
                         case '15':
                           this.semaineJours[6][x -8][1][0] = planningSeance.seance[i].creneau[0]
@@ -1171,6 +1248,8 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                           this.semaineJours[6][x -8][1][4] =   planningSeance.seance[i].room
                           this.semaineJours[6][x -8][1][5] =   planningSeance.seance[i].duree
                           this.semaineJours[6][x -8][1][6] =  planningSeance.seance[i].quartDheure
+                          this.semaineJours[6][x -8][1][7] =  planningSeance.seance[i].groupId
+
                           break;
                           case '30':
                             this.semaineJours[6][x -8][2][0] = planningSeance.seance[i].creneau[0]
@@ -1180,6 +1259,8 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                             this.semaineJours[6][x -8][2][4] =   planningSeance.seance[i].room
                             this.semaineJours[6][x -8][2][5] =   planningSeance.seance[i].duree
                             this.semaineJours[6][x -8][2][6] =  planningSeance.seance[i].quartDheure
+                            this.semaineJours[6][x -8][2][7] =  planningSeance.seance[i].groupId
+
                             break;
                             case '45':
                               this.semaineJours[6][x -8][3][0] = planningSeance.seance[i].creneau[0]
@@ -1189,6 +1270,8 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                               this.semaineJours[6][x -8][3][4] =   planningSeance.seance[i].room
                               this.semaineJours[6][x -8][3][5] =   planningSeance.seance[i].duree
                               this.semaineJours[6][x -8][3][6] =  planningSeance.seance[i].quartDheure
+                              this.semaineJours[6][x -8][3][7] =  planningSeance.seance[i].groupId
+
                               break;
 
                     }
@@ -1205,9 +1288,9 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
   getBackgroundColor(type:string) {
 
     if (type != undefined) {
-    if(type == 'Examen') {
+    if(type.toLowerCase() == 'examen') {
       return 'var(--white-them-color)'
-    } else if(type == 'Cour') {
+    } else if(type.toLowerCase() == 'cour') {
       return 'var(--dblue-them-color)'
     } else if(type.toLowerCase() == 'rdv') {
       return 'var(--blue-them-color)'

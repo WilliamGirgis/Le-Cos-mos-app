@@ -11,6 +11,7 @@ mongoose.connect('mongodb+srv://test:Samsam123@cluster0.pcin2.mongodb.net/myFirs
 // })
 const planningSchema = new mongoose.Schema({
 
+
    groupName: { // If type = Enseignant, groupName = Enseignant.first + Enseignant.lastname
     type:String,
     required:true,
@@ -62,7 +63,12 @@ type:{
         quartDheure : { // 00 | 15 | 30 | 45
           type:String,
           required:false
-        }
+        },
+        groupId: {
+          type:String,
+          required:true,
+          unique:true
+        },
       }
     ]
    }

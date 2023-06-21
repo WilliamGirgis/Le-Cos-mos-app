@@ -18,7 +18,6 @@
     <div fxLayout="row" id="top-but-set">
 
  <div id="chat"> <app-bubule-chat  (click)="pingChild()" [isWindowOpen]="isWindowOpen"  ></app-bubule-chat>
-
 </div>
    <div id="logout"><img (click)="logout()" style="cursor:pointer" id="power" width="30px" height="30px" src="../../../../assets/images/power.svg"></div>
    <div id="power" [routerLinkActiveOptions]="{ exact: false}" routerLinkActive="preferences-link" routerLink="./preferences" style="cursor:pointer">

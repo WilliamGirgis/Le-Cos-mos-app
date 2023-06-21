@@ -17,6 +17,8 @@ import { map } from 'rxjs';
 import {CdkDragDrop} from '@angular/cdk/drag-drop';
 import { DateAdapter } from '@angular/material/core';
 import { DateFilterFn, DateRange, MatDateRangeSelectionStrategy,MAT_DATE_RANGE_SELECTION_STRATEGY } from '@angular/material/datepicker';
+import { Days } from './days';
+
 //http://material.angular.io/components/datepicker/examples
 
 export class DateRangePickerOverviewExample {
@@ -409,331 +411,6 @@ this.dateEnd = ''
   isOut:boolean = true
   containerIndex:number = 0
   creneauIndex:number = 0
-  drop(event: CdkDragDrop<string[]>) {
-    if(this.isOnDrag && !this.isOut) {
-      this.menuTrigger?.openMenu()
-
-    }
-    this.isOnDrag = false
-    if (event.previousContainer === event.container) {
-      console.log("Previous container is equal to target ")
-      if(this.isOut) {
-        return
-      }
-
-      let duree  = event.container.data[5]
-      switch(duree) {
-        case '25':
-          switch(this.creneauIndex) {
-            case 0:
-              this.touched = true
-              this.semaineJours[this.dayIndex!][this.heureIndex!][0][1] = event.container.data[2]
-              this.semaineJours[this.dayIndex!][this.heureIndex!][0][2] = event.container.data[1]
-              this.semaineJours[this.dayIndex!][this.heureIndex!][0][4] = event.container.data[4]
-              this.semaineJours[this.dayIndex!][this.heureIndex!][0][5] = event.container.data[5]
-              this.semaineJours[this.dayIndex!][this.heureIndex!][0][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
-              break;
-              case 1:
-                this.touched = true
-                this.semaineJours[this.dayIndex!][this.heureIndex!][1][1] = event.container.data[2]
-                this.semaineJours[this.dayIndex!][this.heureIndex!][1][2] = event.container.data[1]
-                this.semaineJours[this.dayIndex!][this.heureIndex!][1][4] = event.container.data[4]
-                this.semaineJours[this.dayIndex!][this.heureIndex!][1][5] = event.container.data[5]
-                this.semaineJours[this.dayIndex!][this.heureIndex!][1][6] =  '15' // Valeur par défaut si aucun élément n'est sélectionner
-                break;
-                case 2:
-                  this.touched = true
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][1] = event.container.data[2]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][2] = event.container.data[1]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][4] = event.container.data[4]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][5] = event.container.data[5]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][6] =  '30' // Valeur par défaut si aucun élément n'est sélectionner
-                  break;
-                  case 3:
-                    this.touched = true
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][1] = event.container.data[2]
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][2] = event.container.data[1]
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][4] = event.container.data[4]
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][5] = event.container.data[5]
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][6] =  '45' // Valeur par défaut si aucun élément n'est sélectionner
-                    break;
-
-          }
-         break;
-         case '50':
-          switch(this.creneauIndex) {
-
-            case 0:
-              this.touched = true
-              this.semaineJours[this.dayIndex!][this.heureIndex!][0][1] = event.container.data[2]
-              this.semaineJours[this.dayIndex!][this.heureIndex!][0][2] = event.container.data[1]
-              this.semaineJours[this.dayIndex!][this.heureIndex!][0][4] = event.container.data[4]
-              this.semaineJours[this.dayIndex!][this.heureIndex!][0][5] = event.container.data[5]
-              this.semaineJours[this.dayIndex!][this.heureIndex!][0][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
-
-              this.semaineJours[this.dayIndex!][this.heureIndex!][1][1] = event.container.data[2]
-              this.semaineJours[this.dayIndex!][this.heureIndex!][1][2] = event.container.data[1]
-              this.semaineJours[this.dayIndex!][this.heureIndex!][1][4] = event.container.data[4]
-              this.semaineJours[this.dayIndex!][this.heureIndex!][1][5] = event.container.data[5]
-              this.semaineJours[this.dayIndex!][this.heureIndex!][1][6] =  '15' // Valeur par défaut si aucun élément n'est sélectionner
-              break;
-              case 1:
-                this.touched = true
-                this.semaineJours[this.dayIndex!][this.heureIndex!][1][1] = event.container.data[2]
-                this.semaineJours[this.dayIndex!][this.heureIndex!][1][2] = event.container.data[1]
-                this.semaineJours[this.dayIndex!][this.heureIndex!][1][4] = event.container.data[4]
-                this.semaineJours[this.dayIndex!][this.heureIndex!][1][5] = event.container.data[5]
-                this.semaineJours[this.dayIndex!][this.heureIndex!][1][6] =  '15' // Valeur par défaut si aucun élément n'est sélectionner
-
-                this.semaineJours[this.dayIndex!][this.heureIndex!][2][1] = event.container.data[2]
-                this.semaineJours[this.dayIndex!][this.heureIndex!][2][2] = event.container.data[1]
-                this.semaineJours[this.dayIndex!][this.heureIndex!][2][4] = event.container.data[4]
-                this.semaineJours[this.dayIndex!][this.heureIndex!][2][5] = event.container.data[5]
-                this.semaineJours[this.dayIndex!][this.heureIndex!][2][6] =  '30' // Valeur par défaut si aucun élément n'est sélectionner
-                break;
-                case 2:
-                  this.touched = true
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][1] = event.container.data[2]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][2] = event.container.data[1]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][4] = event.container.data[4]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][5] = event.container.data[5]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][6] =  '30' // Valeur par défaut si aucun élément n'est sélectionner
-
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][1] = event.container.data[2]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][2] = event.container.data[1]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][4] = event.container.data[4]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][5] = event.container.data[5]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][6] =  '45' // Valeur par défaut si aucun élément n'est sélectionner
-                  break;
-                  case 3:
-                    this.touched = true
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][1] = event.container.data[2]
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][2] = event.container.data[1]
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][4] = event.container.data[4]
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][5] = event.container.data[5]
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][6] =  '45' // Valeur par défaut si aucun élément n'est sélectionner
-
-                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][1] = event.container.data[2]
-                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][2] = event.container.data[1]
-                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][4] = event.container.data[4]
-                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][5] = event.container.data[5]
-                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
-
-
-                    break;
-
-          }
-          break;
-          case '75':
-            switch(this.creneauIndex) {
-              case 0:
-                this.touched = true
-                this.semaineJours[this.dayIndex!][this.heureIndex!][0][1] = event.container.data[2]
-                this.semaineJours[this.dayIndex!][this.heureIndex!][0][2] = event.container.data[1]
-                this.semaineJours[this.dayIndex!][this.heureIndex!][0][4] = event.container.data[4]
-                this.semaineJours[this.dayIndex!][this.heureIndex!][0][5] = event.container.data[5]
-                this.semaineJours[this.dayIndex!][this.heureIndex!][0][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
-
-                this.semaineJours[this.dayIndex!][this.heureIndex!][1][1] = event.container.data[2]
-                this.semaineJours[this.dayIndex!][this.heureIndex!][1][2] = event.container.data[1]
-                this.semaineJours[this.dayIndex!][this.heureIndex!][1][4] = event.container.data[4]
-                this.semaineJours[this.dayIndex!][this.heureIndex!][1][5] = event.container.data[5]
-                this.semaineJours[this.dayIndex!][this.heureIndex!][1][6] =  '15' // Valeur par défaut si aucun élément n'est sélectionner
-
-                this.semaineJours[this.dayIndex!][this.heureIndex!][2][1] = event.container.data[2]
-                this.semaineJours[this.dayIndex!][this.heureIndex!][2][2] = event.container.data[1]
-                this.semaineJours[this.dayIndex!][this.heureIndex!][2][4] = event.container.data[4]
-                this.semaineJours[this.dayIndex!][this.heureIndex!][2][5] = event.container.data[5]
-                this.semaineJours[this.dayIndex!][this.heureIndex!][2][6] =  '30' // Valeur par défaut si aucun élément n'est sélectionner
-               break;
-                case 1:
-                  this.touched = true
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][1][1] = event.container.data[2]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][1][2] = event.container.data[1]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][1][4] = event.container.data[4]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][1][5] = event.container.data[5]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][1][6] =  '15' // Valeur par défaut si aucun élément n'est sélectionner
-
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][1] = event.container.data[2]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][2] = event.container.data[1]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][4] = event.container.data[4]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][5] = event.container.data[5]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][6] =  '30' // Valeur par défaut si aucun élément n'est sélectionner
-
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][1] = event.container.data[2]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][2] = event.container.data[1]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][4] = event.container.data[4]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][5] = event.container.data[5]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][6] =  '45' // Valeur par défaut si aucun élément n'est sélectionner
-                  break;
-                  case 2:
-                    this.touched = true
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][2][1] = event.container.data[2]
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][2][2] = event.container.data[1]
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][2][4] = event.container.data[4]
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][2][5] = event.container.data[5]
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][2][6] =  '30' // Valeur par défaut si aucun élément n'est sélectionner
-
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][1] = event.container.data[2]
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][2] = event.container.data[1]
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][4] = event.container.data[4]
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][5] = event.container.data[5]
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][6] =  '45' // Valeur par défaut si aucun élément n'est sélectionner
-
-                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][1] = event.container.data[2]
-                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][2] = event.container.data[1]
-                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][4] = event.container.data[4]
-                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][5] = event.container.data[5]
-                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
-                    break;
-                    case 3:
-                      this.touched = true
-                      this.semaineJours[this.dayIndex!][this.heureIndex!][3][1] = event.container.data[2]
-                      this.semaineJours[this.dayIndex!][this.heureIndex!][3][2] = event.container.data[1]
-                      this.semaineJours[this.dayIndex!][this.heureIndex!][3][4] = event.container.data[4]
-                      this.semaineJours[this.dayIndex!][this.heureIndex!][3][5] = event.container.data[5]
-                      this.semaineJours[this.dayIndex!][this.heureIndex!][3][6] =  '45' // Valeur par défaut si aucun élément n'est sélectionner
-
-                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][1] = event.container.data[2]
-                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][2] = event.container.data[1]
-                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][4] = event.container.data[4]
-                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][5] = event.container.data[5]
-                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
-
-                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][1] = event.container.data[2]
-                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][2] = event.container.data[1]
-                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][4] = event.container.data[4]
-                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][5] = event.container.data[5]
-                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][6] =  '15' // Valeur par défaut si aucun élément n'est sélectionner
-                      break;
-            }
-            break;
-            case '100':
-              switch(this.creneauIndex) {
-
-                case 0:
-                  this.touched = true
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][0][1] = event.container.data[2]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][0][2] = event.container.data[1]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][0][4] = event.container.data[4]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][0][5] = event.container.data[5]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][0][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
-
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][1][1] = event.container.data[2]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][1][2] = event.container.data[1]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][1][4] = event.container.data[4]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][1][5] = event.container.data[5]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][1][6] =  '15' // Valeur par défaut si aucun élément n'est sélectionner
-
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][1] = event.container.data[2]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][2] = event.container.data[1]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][4] = event.container.data[4]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][5] = event.container.data[5]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][2][6] =  '30' // Valeur par défaut si aucun élément n'est sélectionner
-
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][1] = event.container.data[2]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][2] = event.container.data[1]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][4] = event.container.data[4]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][5] = event.container.data[5]
-                  this.semaineJours[this.dayIndex!][this.heureIndex!][3][6] =  '45' // Valeur par défaut si aucun élément n'est sélectionner
-                  break;
-                  case 1:
-                    this.touched = true
-
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][1][1] = event.container.data[2]
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][1][2] = event.container.data[1]
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][1][4] = event.container.data[4]
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][1][5] = event.container.data[5]
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][1][6] =  '15' // Valeur par défaut si aucun élément n'est sélectionner
-
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][2][1] = event.container.data[2]
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][2][2] = event.container.data[1]
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][2][4] = event.container.data[4]
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][2][5] = event.container.data[5]
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][2][6] =  '30' // Valeur par défaut si aucun élément n'est sélectionner
-
-
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][1] = event.container.data[2]
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][2] = event.container.data[1]
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][4] = event.container.data[4]
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][5] = event.container.data[5]
-                    this.semaineJours[this.dayIndex!][this.heureIndex!][3][6] =  '45' // Valeur par défaut si aucun élément n'est sélectionner
-
-                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][1] = event.container.data[2]
-                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][2] = event.container.data[1]
-                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][4] = event.container.data[4]
-                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][5] = event.container.data[5]
-                    this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
-
-                    break;
-                    case 2:
-                      this.touched = true
-                      this.semaineJours[this.dayIndex!][this.heureIndex!][2][1] = event.container.data[2]
-                      this.semaineJours[this.dayIndex!][this.heureIndex!][2][2] = event.container.data[1]
-                      this.semaineJours[this.dayIndex!][this.heureIndex!][2][4] = event.container.data[4]
-                      this.semaineJours[this.dayIndex!][this.heureIndex!][2][5] = event.container.data[5]
-                      this.semaineJours[this.dayIndex!][this.heureIndex!][2][6] =  '30' // Valeur par défaut si aucun élément n'est sélectionner
-
-                      this.semaineJours[this.dayIndex!][this.heureIndex!][3][1] = event.container.data[2]
-                      this.semaineJours[this.dayIndex!][this.heureIndex!][3][2] = event.container.data[1]
-                      this.semaineJours[this.dayIndex!][this.heureIndex!][3][4] = event.container.data[4]
-                      this.semaineJours[this.dayIndex!][this.heureIndex!][3][5] = event.container.data[5]
-                      this.semaineJours[this.dayIndex!][this.heureIndex!][3][6] =  '45' // Valeur par défaut si aucun élément n'est sélectionner
-
-                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][1] = event.container.data[2]
-                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][2] = event.container.data[1]
-                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][4] = event.container.data[4]
-                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][5] = event.container.data[5]
-                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
-
-
-                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][1] = event.container.data[2]
-                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][2] = event.container.data[1]
-                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][4] = event.container.data[4]
-                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][5] = event.container.data[5]
-                      this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][6] =  '15' // Valeur par défaut si aucun élément n'est sélectionner
-
-                      break;
-                      case 3:
-                        this.touched = true
-                        this.semaineJours[this.dayIndex!][this.heureIndex!][3][1] = event.container.data[2]
-                        this.semaineJours[this.dayIndex!][this.heureIndex!][3][2] = event.container.data[1]
-                        this.semaineJours[this.dayIndex!][this.heureIndex!][3][4] = event.container.data[4]
-                        this.semaineJours[this.dayIndex!][this.heureIndex!][3][5] = event.container.data[5]
-                        this.semaineJours[this.dayIndex!][this.heureIndex!][3][6] =  '45' // Valeur par défaut si aucun élément n'est sélectionner
-
-                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][1] = event.container.data[2]
-                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][2] = event.container.data[1]
-                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][4] = event.container.data[4]
-                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][5] = event.container.data[5]
-                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][0][6] =  '00' // Valeur par défaut si aucun élément n'est sélectionner
-
-                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][1] = event.container.data[2]
-                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][2] = event.container.data[1]
-                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][4] = event.container.data[4]
-                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][5] = event.container.data[5]
-                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][1][6] =  '15' // Valeur par défaut si aucun élément n'est sélectionner
-
-                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][2][1] = event.container.data[2]
-                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][2][2] = event.container.data[1]
-                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][2][4] = event.container.data[4]
-                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][2][5] = event.container.data[5]
-                        this.semaineJours[this.dayIndex!][this.heureIndex! + 1][2][6] =  '30' // Valeur par défaut si aucun élément n'est sélectionner
-
-                        break;
-              }
-              break;
-      }
-
-      // console.log(this.semaineJours[this.dayIndex!][this.heureIndex!][6])
-}
-  }
-
-
-
-
-
-
 
 
   getGroups(groupName:string) {
@@ -768,7 +445,7 @@ this.dateEnd = ''
      // chaque tableau dans le tableau correspond à un créneaux
           // L'ordre des jours n'a pas d'importance
             // Si plusieurs même élements sont présent dans le tableau (exemple un jour avec jeudi) alors les deux valeurs sont utilisées pour afficher la donné
-            // La taille des tableaux doivent être i['9h','','','lundi','','','']nférieur ou égale à 7 ( index commencent par 0 et fini par 6) sinon les données ne s'afficheront pas
+            // La taille des tableaux doivent être i['9h','','','lundi','','','','']nférieur ou égale à 7 ( index commencent par 0 et fini par 6) sinon les données ne s'afficheront pas
      // Chaque tableau correspond à un creaneaux avec creneaux_slot[0] = 8h00 et  creneaux_slot[11] = 21h00
 // Chaque element dans les tableaux correspondent à un jour dans la semaine avec creneaux_slot[x][0] = lundi et creneaux_slot[x][6] = dimanche
 
@@ -776,117 +453,117 @@ this.dateEnd = ''
 
 
   lundi:any[][][] = [
-    [['8h','','','lundi','','',''],['8h','','','lundi','','',''],['8h','','','lundi','','',''],['8h','','','lundi','','','']],
-    [['9h','','','lundi','','',''],['9h','','','lundi','','',''],['9h','','','lundi','','',''],['9h','','','lundi','','','']],
-    [['10h','','','lundi','','',''],['10h','','','lundi','','',''],['10h','','','lundi','','',''],['10h','','','lundi','','','']],
-    [['11h','','','lundi','','',''],['11h','','','lundi','','',''],['11h','','','lundi','','',''],['11h','','','lundi','','','']],
-    [['12h','','','lundi','','',''],['12h','','','lundi','','',''],['12h','','','lundi','','',''],['12h','','','lundi','','','']],
-    [['13h','','','lundi','','',''],['13h','','','lundi','','',''],['13h','','','lundi','','',''],['13h','','','lundi','','','']],
-    [['14h','','','lundi','','',''],['14h','','','lundi','','',''],['14h','','','lundi','','',''],['14h','','','lundi','','','']],
-    [['15h','','','lundi','','',''],['15h','','','lundi','','',''],['15h','','','lundi','','',''],['15h','','','lundi','','','']],
-    [['16h','','','lundi','','',''],['16h','','','lundi','','',''],['16h','','','lundi','','',''],['16h','','','lundi','','','']],
-    [['17h','','','lundi','','',''],['17h','','','lundi','','',''],['17h','','','lundi','','',''],['17h','','','lundi','','','']],
-    [['18h','','','lundi','','',''],['18h','','','lundi','','',''],['18h','','','lundi','','',''],['18h','','','lundi','','','']],
-    [['19h','','','lundi','','',''],['19h','','','lundi','','',''],['19h','','','lundi','','',''],['19h','','','lundi','','','']],
-    [['20h','','','lundi','','',''],['20h','','','lundi','','',''],['20h','','','lundi','','',''],['20h','','','lundi','','','']],
-    [['21h','','','lundi','','',''],['21h','','','lundi','','',''],['21h','','','lundi','','',''],['21h','','','lundi','','','']]
+    [['8h','','','lundi','','','',''],['8h','','','lundi','','','',''],['8h','','','lundi','','','',''],['8h','','','lundi','','','','']],
+    [['9h','','','lundi','','','',''],['9h','','','lundi','','','',''],['9h','','','lundi','','','',''],['9h','','','lundi','','','','']],
+    [['10h','','','lundi','','','',''],['10h','','','lundi','','','',''],['10h','','','lundi','','','',''],['10h','','','lundi','','','','']],
+    [['11h','','','lundi','','','',''],['11h','','','lundi','','','',''],['11h','','','lundi','','','',''],['11h','','','lundi','','','','']],
+    [['12h','','','lundi','','','',''],['12h','','','lundi','','','',''],['12h','','','lundi','','','',''],['12h','','','lundi','','','','']],
+    [['13h','','','lundi','','','',''],['13h','','','lundi','','','',''],['13h','','','lundi','','','',''],['13h','','','lundi','','','','']],
+    [['14h','','','lundi','','','',''],['14h','','','lundi','','','',''],['14h','','','lundi','','','',''],['14h','','','lundi','','','','']],
+    [['15h','','','lundi','','','',''],['15h','','','lundi','','','',''],['15h','','','lundi','','','',''],['15h','','','lundi','','','','']],
+    [['16h','','','lundi','','','',''],['16h','','','lundi','','','',''],['16h','','','lundi','','','',''],['16h','','','lundi','','','','']],
+    [['17h','','','lundi','','','',''],['17h','','','lundi','','','',''],['17h','','','lundi','','','',''],['17h','','','lundi','','','','']],
+    [['18h','','','lundi','','','',''],['18h','','','lundi','','','',''],['18h','','','lundi','','','',''],['18h','','','lundi','','','','']],
+    [['19h','','','lundi','','','',''],['19h','','','lundi','','','',''],['19h','','','lundi','','','',''],['19h','','','lundi','','','','']],
+    [['20h','','','lundi','','','',''],['20h','','','lundi','','','',''],['20h','','','lundi','','','',''],['20h','','','lundi','','','','']],
+    [['21h','','','lundi','','','',''],['21h','','','lundi','','','',''],['21h','','','lundi','','','',''],['21h','','','lundi','','','','']]
   ]
 
   mardi:any[][][] = [
-    [['8h','','','mardi','','',''],['8h','','','mardi','','',''],['8h','','','mardi','','',''],['8h','','','mardi','','','']],
-    [['9h','','','mardi','','',''],['9h','','','mardi','','',''],['9h','','','mardi','','',''],['9h','','','mardi','','','']],
-    [['10h','','','mardi','','',''],['10h','','','mardi','','',''],['10h','','','mardi','','',''],['10h','','','mardi','','','']],
-    [['11h','','','mardi','','',''],['11h','','','mardi','','',''],['11h','','','mardi','','',''],['11h','','','mardi','','','']],
-    [['12h','','','mardi','','',''],['12h','','','mardi','','',''],['12h','','','mardi','','',''],['12h','','','mardi','','','']],
-    [['13h','','','mardi','','',''],['13h','','','mardi','','',''],['13h','','','mardi','','',''],['13h','','','mardi','','','']],
-    [['14h','','','mardi','','',''],['14h','','','mardi','','',''],['14h','','','mardi','','',''],['14h','','','mardi','','','']],
-    [['15h','','','mardi','','',''],['15h','','','mardi','','',''],['15h','','','mardi','','',''],['15h','','','mardi','','','']],
-    [['16h','','','mardi','','',''],['16h','','','mardi','','',''],['16h','','','mardi','','',''],['16h','','','mardi','','','']],
-    [['17h','','','mardi','','',''],['17h','','','mardi','','',''],['17h','','','mardi','','',''],['17h','','','mardi','','','']],
-    [['18h','','','mardi','','',''],['18h','','','mardi','','',''],['18h','','','mardi','','',''],['18h','','','mardi','','','']],
-    [['19h','','','mardi','','',''],['19h','','','mardi','','',''],['19h','','','mardi','','',''],['19h','','','mardi','','','']],
-    [['20h','','','mardi','','',''],['20h','','','mardi','','',''],['20h','','','mardi','','',''],['20h','','','mardi','','','']],
-    [['21h','','','mardi','','',''],['21h','','','mardi','','',''],['21h','','','mardi','','',''],['21h','','','mardi','','','']]
+    [['8h','','','mardi','','','',''],['8h','','','mardi','','','',''],['8h','','','mardi','','','',''],['8h','','','mardi','','','','']],
+    [['9h','','','mardi','','','',''],['9h','','','mardi','','','',''],['9h','','','mardi','','','',''],['9h','','','mardi','','','','']],
+    [['10h','','','mardi','','','',''],['10h','','','mardi','','','',''],['10h','','','mardi','','','',''],['10h','','','mardi','','','','']],
+    [['11h','','','mardi','','','',''],['11h','','','mardi','','','',''],['11h','','','mardi','','','',''],['11h','','','mardi','','','','']],
+    [['12h','','','mardi','','','',''],['12h','','','mardi','','','',''],['12h','','','mardi','','','',''],['12h','','','mardi','','','','']],
+    [['13h','','','mardi','','','',''],['13h','','','mardi','','','',''],['13h','','','mardi','','','',''],['13h','','','mardi','','','','']],
+    [['14h','','','mardi','','','',''],['14h','','','mardi','','','',''],['14h','','','mardi','','','',''],['14h','','','mardi','','','','']],
+    [['15h','','','mardi','','','',''],['15h','','','mardi','','','',''],['15h','','','mardi','','','',''],['15h','','','mardi','','','','']],
+    [['16h','','','mardi','','','',''],['16h','','','mardi','','','',''],['16h','','','mardi','','','',''],['16h','','','mardi','','','','']],
+    [['17h','','','mardi','','','',''],['17h','','','mardi','','','',''],['17h','','','mardi','','','',''],['17h','','','mardi','','','','']],
+    [['18h','','','mardi','','','',''],['18h','','','mardi','','','',''],['18h','','','mardi','','','',''],['18h','','','mardi','','','','']],
+    [['19h','','','mardi','','','',''],['19h','','','mardi','','','',''],['19h','','','mardi','','','',''],['19h','','','mardi','','','','']],
+    [['20h','','','mardi','','','',''],['20h','','','mardi','','','',''],['20h','','','mardi','','','',''],['20h','','','mardi','','','','']],
+    [['21h','','','mardi','','','',''],['21h','','','mardi','','','',''],['21h','','','mardi','','','',''],['21h','','','mardi','','','','']]
   ]
   mercredi:any[][][] = [
-    [['8h','','','mercredi','','',''],['8h','','','mercredi','','',''],['8h','','','mercredi','','',''],['8h','','','mercredi','','','']],
-    [['9h','','','mercredi','','',''],['9h','','','mercredi','','',''],['9h','','','mercredi','','',''],['9h','','','mercredi','','','']],
-    [['10h','','','mercredi','','',''],['10h','','','mercredi','','',''],['10h','','','mercredi','','',''],['10h','','','mercredi','','','']],
-    [['11h','','','mercredi','','',''],['11h','','','mercredi','','',''],['11h','','','mercredi','','',''],['11h','','','mercredi','','','']],
-    [['12h','','','mercredi','','',''],['12h','','','mercredi','','',''],['12h','','','mercredi','','',''],['12h','','','mercredi','','','']],
-    [['13h','','','mercredi','','',''],['13h','','','mercredi','','',''],['13h','','','mercredi','','',''],['13h','','','mercredi','','','']],
-    [['14h','','','mercredi','','',''],['14h','','','mercredi','','',''],['14h','','','mercredi','','',''],['14h','','','mercredi','','','']],
-    [['15h','','','mercredi','','',''],['15h','','','mercredi','','',''],['15h','','','mercredi','','',''],['15h','','','mercredi','','','']],
-    [['16h','','','mercredi','','',''],['16h','','','mercredi','','',''],['16h','','','mercredi','','',''],['16h','','','mercredi','','','']],
-    [['17h','','','mercredi','','',''],['17h','','','mercredi','','',''],['17h','','','mercredi','','',''],['17h','','','mercredi','','','']],
-    [['18h','','','mercredi','','',''],['18h','','','mercredi','','',''],['18h','','','mercredi','','',''],['18h','','','mercredi','','','']],
-    [['19h','','','mercredi','','',''],['19h','','','mercredi','','',''],['19h','','','mercredi','','',''],['19h','','','mercredi','','','']],
-    [['20h','','','mercredi','','',''],['20h','','','mercredi','','',''],['20h','','','mercredi','','',''],['20h','','','mercredi','','','']],
-    [['21h','','','mercredi','','',''],['21h','','','mercredi','','',''],['21h','','','mercredi','','',''],['21h','','','mercredi','','','']]
+    [['8h','','','mercredi','','','',''],['8h','','','mercredi','','','',''],['8h','','','mercredi','','','',''],['8h','','','mercredi','','','','']],
+    [['9h','','','mercredi','','','',''],['9h','','','mercredi','','','',''],['9h','','','mercredi','','','',''],['9h','','','mercredi','','','','']],
+    [['10h','','','mercredi','','','',''],['10h','','','mercredi','','','',''],['10h','','','mercredi','','','',''],['10h','','','mercredi','','','','']],
+    [['11h','','','mercredi','','','',''],['11h','','','mercredi','','','',''],['11h','','','mercredi','','','',''],['11h','','','mercredi','','','','']],
+    [['12h','','','mercredi','','','',''],['12h','','','mercredi','','','',''],['12h','','','mercredi','','','',''],['12h','','','mercredi','','','','']],
+    [['13h','','','mercredi','','','',''],['13h','','','mercredi','','','',''],['13h','','','mercredi','','','',''],['13h','','','mercredi','','','','']],
+    [['14h','','','mercredi','','','',''],['14h','','','mercredi','','','',''],['14h','','','mercredi','','','',''],['14h','','','mercredi','','','','']],
+    [['15h','','','mercredi','','','',''],['15h','','','mercredi','','','',''],['15h','','','mercredi','','','',''],['15h','','','mercredi','','','','']],
+    [['16h','','','mercredi','','','',''],['16h','','','mercredi','','','',''],['16h','','','mercredi','','','',''],['16h','','','mercredi','','','','']],
+    [['17h','','','mercredi','','','',''],['17h','','','mercredi','','','',''],['17h','','','mercredi','','','',''],['17h','','','mercredi','','','','']],
+    [['18h','','','mercredi','','','',''],['18h','','','mercredi','','','',''],['18h','','','mercredi','','','',''],['18h','','','mercredi','','','','']],
+    [['19h','','','mercredi','','','',''],['19h','','','mercredi','','','',''],['19h','','','mercredi','','','',''],['19h','','','mercredi','','','','']],
+    [['20h','','','mercredi','','','',''],['20h','','','mercredi','','','',''],['20h','','','mercredi','','','',''],['20h','','','mercredi','','','','']],
+    [['21h','','','mercredi','','','',''],['21h','','','mercredi','','','',''],['21h','','','mercredi','','','',''],['21h','','','mercredi','','','','']]
   ]
   jeudi:any[][][] = [
-    [['8h','','','jeudi','','',''],['8h','','','jeudi','','',''],['8h','','','jeudi','','',''],['8h','','','jeudi','','','']],
-    [['9h','','','jeudi','','',''],['9h','','','jeudi','','',''],['9h','','','jeudi','','',''],['9h','','','jeudi','','','']],
-    [['10h','','','jeudi','','',''],['10h','','','jeudi','','',''],['10h','','','jeudi','','',''],['10h','','','jeudi','','','']],
-    [['11h','','','jeudi','','',''],['11h','','','jeudi','','',''],['11h','','','jeudi','','',''],['11h','','','jeudi','','','']],
-    [['12h','','','jeudi','','',''],['12h','','','jeudi','','',''],['12h','','','jeudi','','',''],['12h','','','jeudi','','','']],
-    [['13h','','','jeudi','','',''],['13h','','','jeudi','','',''],['13h','','','jeudi','','',''],['13h','','','jeudi','','','']],
-    [['14h','','','jeudi','','',''],['14h','','','jeudi','','',''],['14h','','','jeudi','','',''],['14h','','','jeudi','','','']],
-    [['15h','','','jeudi','','',''],['15h','','','jeudi','','',''],['15h','','','jeudi','','',''],['15h','','','jeudi','','','']],
-    [['16h','','','jeudi','','',''],['16h','','','jeudi','','',''],['16h','','','jeudi','','',''],['16h','','','jeudi','','','']],
-    [['17h','','','jeudi','','',''],['17h','','','jeudi','','',''],['17h','','','jeudi','','',''],['17h','','','jeudi','','','']],
-    [['18h','','','jeudi','','',''],['18h','','','jeudi','','',''],['18h','','','jeudi','','',''],['18h','','','jeudi','','','']],
-    [['19h','','','jeudi','','',''],['19h','','','jeudi','','',''],['19h','','','jeudi','','',''],['19h','','','jeudi','','','']],
-    [['20h','','','jeudi','','',''],['20h','','','jeudi','','',''],['20h','','','jeudi','','',''],['20h','','','jeudi','','','']],
-    [['21h','','','jeudi','','',''],['21h','','','jeudi','','',''],['21h','','','jeudi','','',''],['21h','','','jeudi','','','']]
+    [['8h','','','jeudi','','','',''],['8h','','','jeudi','','','',''],['8h','','','jeudi','','','',''],['8h','','','jeudi','','','','']],
+    [['9h','','','jeudi','','','',''],['9h','','','jeudi','','','',''],['9h','','','jeudi','','','',''],['9h','','','jeudi','','','','']],
+    [['10h','','','jeudi','','','',''],['10h','','','jeudi','','','',''],['10h','','','jeudi','','','',''],['10h','','','jeudi','','','','']],
+    [['11h','','','jeudi','','','',''],['11h','','','jeudi','','','',''],['11h','','','jeudi','','','',''],['11h','','','jeudi','','','','']],
+    [['12h','','','jeudi','','','',''],['12h','','','jeudi','','','',''],['12h','','','jeudi','','','',''],['12h','','','jeudi','','','','']],
+    [['13h','','','jeudi','','','',''],['13h','','','jeudi','','','',''],['13h','','','jeudi','','','',''],['13h','','','jeudi','','','','']],
+    [['14h','','','jeudi','','','',''],['14h','','','jeudi','','','',''],['14h','','','jeudi','','','',''],['14h','','','jeudi','','','','']],
+    [['15h','','','jeudi','','','',''],['15h','','','jeudi','','','',''],['15h','','','jeudi','','','',''],['15h','','','jeudi','','','','']],
+    [['16h','','','jeudi','','','',''],['16h','','','jeudi','','','',''],['16h','','','jeudi','','','',''],['16h','','','jeudi','','','','']],
+    [['17h','','','jeudi','','','',''],['17h','','','jeudi','','','',''],['17h','','','jeudi','','','',''],['17h','','','jeudi','','','','']],
+    [['18h','','','jeudi','','','',''],['18h','','','jeudi','','','',''],['18h','','','jeudi','','','',''],['18h','','','jeudi','','','','']],
+    [['19h','','','jeudi','','','',''],['19h','','','jeudi','','','',''],['19h','','','jeudi','','','',''],['19h','','','jeudi','','','','']],
+    [['20h','','','jeudi','','','',''],['20h','','','jeudi','','','',''],['20h','','','jeudi','','','',''],['20h','','','jeudi','','','','']],
+    [['21h','','','jeudi','','','',''],['21h','','','jeudi','','','',''],['21h','','','jeudi','','','',''],['21h','','','jeudi','','','','']]
   ]
   vendredi:any[][][] = [
-    [['8h','','','vendredi','','',''],['8h','','','vendredi','','',''],['8h','','','vendredi','','',''],['8h','','','vendredi','','','']],
-    [['9h','','','vendredi','','',''],['9h','','','vendredi','','',''],['9h','','','vendredi','','',''],['9h','','','vendredi','','','']],
-    [['10h','','','vendredi','','',''],['10h','','','vendredi','','',''],['10h','','','vendredi','','',''],['10h','','','vendredi','','','']],
-    [['11h','','','vendredi','','',''],['11h','','','vendredi','','',''],['11h','','','vendredi','','',''],['11h','','','vendredi','','','']],
-    [['12h','','','vendredi','','',''],['12h','','','vendredi','','',''],['12h','','','vendredi','','',''],['12h','','','vendredi','','','']],
-    [['13h','','','vendredi','','',''],['13h','','','vendredi','','',''],['13h','','','vendredi','','',''],['13h','','','vendredi','','','']],
-    [['14h','','','vendredi','','',''],['14h','','','vendredi','','',''],['14h','','','vendredi','','',''],['14h','','','vendredi','','','']],
-    [['15h','','','vendredi','','',''],['15h','','','vendredi','','',''],['15h','','','vendredi','','',''],['15h','','','vendredi','','','']],
-    [['16h','','','vendredi','','',''],['16h','','','vendredi','','',''],['16h','','','vendredi','','',''],['16h','','','vendredi','','','']],
-    [['17h','','','vendredi','','',''],['17h','','','vendredi','','',''],['17h','','','vendredi','','',''],['17h','','','vendredi','','','']],
-    [['18h','','','vendredi','','',''],['18h','','','vendredi','','',''],['18h','','','vendredi','','',''],['18h','','','vendredi','','','']],
-    [['19h','','','vendredi','','',''],['19h','','','vendredi','','',''],['19h','','','vendredi','','',''],['19h','','','vendredi','','','']],
-    [['20h','','','vendredi','','',''],['20h','','','vendredi','','',''],['20h','','','vendredi','','',''],['20h','','','vendredi','','','']],
-    [['21h','','','vendredi','','',''],['21h','','','vendredi','','',''],['21h','','','vendredi','','',''],['21h','','','vendredi','','','']]
+    [['8h','','','vendredi','','','',''],['8h','','','vendredi','','','',''],['8h','','','vendredi','','','',''],['8h','','','vendredi','','','','']],
+    [['9h','','','vendredi','','','',''],['9h','','','vendredi','','','',''],['9h','','','vendredi','','','',''],['9h','','','vendredi','','','','']],
+    [['10h','','','vendredi','','','',''],['10h','','','vendredi','','','',''],['10h','','','vendredi','','','',''],['10h','','','vendredi','','','','']],
+    [['11h','','','vendredi','','','',''],['11h','','','vendredi','','','',''],['11h','','','vendredi','','','',''],['11h','','','vendredi','','','','']],
+    [['12h','','','vendredi','','','',''],['12h','','','vendredi','','','',''],['12h','','','vendredi','','','',''],['12h','','','vendredi','','','','']],
+    [['13h','','','vendredi','','','',''],['13h','','','vendredi','','','',''],['13h','','','vendredi','','','',''],['13h','','','vendredi','','','','']],
+    [['14h','','','vendredi','','','',''],['14h','','','vendredi','','','',''],['14h','','','vendredi','','','',''],['14h','','','vendredi','','','','']],
+    [['15h','','','vendredi','','','',''],['15h','','','vendredi','','','',''],['15h','','','vendredi','','','',''],['15h','','','vendredi','','','','']],
+    [['16h','','','vendredi','','','',''],['16h','','','vendredi','','','',''],['16h','','','vendredi','','','',''],['16h','','','vendredi','','','','']],
+    [['17h','','','vendredi','','','',''],['17h','','','vendredi','','','',''],['17h','','','vendredi','','','',''],['17h','','','vendredi','','','','']],
+    [['18h','','','vendredi','','','',''],['18h','','','vendredi','','','',''],['18h','','','vendredi','','','',''],['18h','','','vendredi','','','','']],
+    [['19h','','','vendredi','','','',''],['19h','','','vendredi','','','',''],['19h','','','vendredi','','','',''],['19h','','','vendredi','','','','']],
+    [['20h','','','vendredi','','','',''],['20h','','','vendredi','','','',''],['20h','','','vendredi','','','',''],['20h','','','vendredi','','','','']],
+    [['21h','','','vendredi','','','',''],['21h','','','vendredi','','','',''],['21h','','','vendredi','','','',''],['21h','','','vendredi','','','','']]
   ]
   samedi:any[][][] = [
-    [['8h','','','samedi','','',''],['8h','','','samedi','','',''],['8h','','','samedi','','',''],['8h','','','samedi','','','']],
-    [['9h','','','samedi','','',''],['9h','','','samedi','','',''],['9h','','','samedi','','',''],['9h','','','samedi','','','']],
-    [['10h','','','samedi','','',''],['10h','','','samedi','','',''],['10h','','','samedi','','',''],['10h','','','samedi','','','']],
-    [['11h','','','samedi','','',''],['11h','','','samedi','','',''],['11h','','','samedi','','',''],['11h','','','samedi','','','']],
-    [['12h','','','samedi','','',''],['12h','','','samedi','','',''],['12h','','','samedi','','',''],['12h','','','samedi','','','']],
-    [['13h','','','samedi','','',''],['13h','','','samedi','','',''],['13h','','','samedi','','',''],['13h','','','samedi','','','']],
-    [['14h','','','samedi','','',''],['14h','','','samedi','','',''],['14h','','','samedi','','',''],['14h','','','samedi','','','']],
-    [['15h','','','samedi','','',''],['15h','','','samedi','','',''],['15h','','','samedi','','',''],['15h','','','samedi','','','']],
-    [['16h','','','samedi','','',''],['16h','','','samedi','','',''],['16h','','','samedi','','',''],['16h','','','samedi','','','']],
-    [['17h','','','samedi','','',''],['17h','','','samedi','','',''],['17h','','','samedi','','',''],['17h','','','samedi','','','']],
-    [['18h','','','samedi','','',''],['18h','','','samedi','','',''],['18h','','','samedi','','',''],['18h','','','samedi','','','']],
-    [['19h','','','samedi','','',''],['19h','','','samedi','','',''],['19h','','','samedi','','',''],['19h','','','samedi','','','']],
-    [['20h','','','samedi','','',''],['20h','','','samedi','','',''],['20h','','','samedi','','',''],['20h','','','samedi','','','']],
-    [['21h','','','samedi','','',''],['21h','','','samedi','','',''],['21h','','','samedi','','',''],['21h','','','samedi','','','']]
+    [['8h','','','samedi','','','',''],['8h','','','samedi','','','',''],['8h','','','samedi','','','',''],['8h','','','samedi','','','','']],
+    [['9h','','','samedi','','','',''],['9h','','','samedi','','','',''],['9h','','','samedi','','','',''],['9h','','','samedi','','','','']],
+    [['10h','','','samedi','','','',''],['10h','','','samedi','','','',''],['10h','','','samedi','','','',''],['10h','','','samedi','','','','']],
+    [['11h','','','samedi','','','',''],['11h','','','samedi','','','',''],['11h','','','samedi','','','',''],['11h','','','samedi','','','','']],
+    [['12h','','','samedi','','','',''],['12h','','','samedi','','','',''],['12h','','','samedi','','','',''],['12h','','','samedi','','','','']],
+    [['13h','','','samedi','','','',''],['13h','','','samedi','','','',''],['13h','','','samedi','','','',''],['13h','','','samedi','','','','']],
+    [['14h','','','samedi','','','',''],['14h','','','samedi','','','',''],['14h','','','samedi','','','',''],['14h','','','samedi','','','','']],
+    [['15h','','','samedi','','','',''],['15h','','','samedi','','','',''],['15h','','','samedi','','','',''],['15h','','','samedi','','','','']],
+    [['16h','','','samedi','','','',''],['16h','','','samedi','','','',''],['16h','','','samedi','','','',''],['16h','','','samedi','','','','']],
+    [['17h','','','samedi','','','',''],['17h','','','samedi','','','',''],['17h','','','samedi','','','',''],['17h','','','samedi','','','','']],
+    [['18h','','','samedi','','','',''],['18h','','','samedi','','','',''],['18h','','','samedi','','','',''],['18h','','','samedi','','','','']],
+    [['19h','','','samedi','','','',''],['19h','','','samedi','','','',''],['19h','','','samedi','','','',''],['19h','','','samedi','','','','']],
+    [['20h','','','samedi','','','',''],['20h','','','samedi','','','',''],['20h','','','samedi','','','',''],['20h','','','samedi','','','','']],
+    [['21h','','','samedi','','','',''],['21h','','','samedi','','','',''],['21h','','','samedi','','','',''],['21h','','','samedi','','','','']]
   ]
   dimanche:any[][][] = [
-    [['8h','','','dimanche','','',''],['8h','','','dimanche','','',''],['8h','','','dimanche','','',''],['8h','','','dimanche','','','']],
-    [['9h','','','dimanche','','',''],['9h','','','dimanche','','',''],['9h','','','dimanche','','',''],['9h','','','dimanche','','','']],
-    [['10h','','','dimanche','','',''],['10h','','','dimanche','','',''],['10h','','','dimanche','','',''],['10h','','','dimanche','','','']],
-    [['11h','','','dimanche','','',''],['11h','','','dimanche','','',''],['11h','','','dimanche','','',''],['11h','','','dimanche','','','']],
-    [['12h','','','dimanche','','',''],['12h','','','dimanche','','',''],['12h','','','dimanche','','',''],['12h','','','dimanche','','','']],
-    [['13h','','','dimanche','','',''],['13h','','','dimanche','','',''],['13h','','','dimanche','','',''],['13h','','','dimanche','','','']],
-    [['14h','','','dimanche','','',''],['14h','','','dimanche','','',''],['14h','','','dimanche','','',''],['14h','','','dimanche','','','']],
-    [['15h','','','dimanche','','',''],['15h','','','dimanche','','',''],['15h','','','dimanche','','',''],['15h','','','dimanche','','','']],
-    [['16h','','','dimanche','','',''],['16h','','','dimanche','','',''],['16h','','','dimanche','','',''],['16h','','','dimanche','','','']],
-    [['17h','','','dimanche','','',''],['17h','','','dimanche','','',''],['17h','','','dimanche','','',''],['17h','','','dimanche','','','']],
-    [['18h','','','dimanche','','',''],['18h','','','dimanche','','',''],['18h','','','dimanche','','',''],['18h','','','dimanche','','','']],
-    [['19h','','','dimanche','','',''],['19h','','','dimanche','','',''],['19h','','','dimanche','','',''],['19h','','','dimanche','','','']],
-    [['20h','','','dimanche','','',''],['20h','','','dimanche','','',''],['20h','','','dimanche','','',''],['20h','','','dimanche','','','']],
-    [['21h','','','dimanche','','',''],['21h','','','dimanche','','',''],['21h','','','dimanche','','',''],['21h','','','dimanche','','','']]
+    [['8h','','','dimanche','','','',''],['8h','','','dimanche','','','',''],['8h','','','dimanche','','','',''],['8h','','','dimanche','','','','']],
+    [['9h','','','dimanche','','','',''],['9h','','','dimanche','','','',''],['9h','','','dimanche','','','',''],['9h','','','dimanche','','','','']],
+    [['10h','','','dimanche','','','',''],['10h','','','dimanche','','','',''],['10h','','','dimanche','','','',''],['10h','','','dimanche','','','','']],
+    [['11h','','','dimanche','','','',''],['11h','','','dimanche','','','',''],['11h','','','dimanche','','','',''],['11h','','','dimanche','','','','']],
+    [['12h','','','dimanche','','','',''],['12h','','','dimanche','','','',''],['12h','','','dimanche','','','',''],['12h','','','dimanche','','','','']],
+    [['13h','','','dimanche','','','',''],['13h','','','dimanche','','','',''],['13h','','','dimanche','','','',''],['13h','','','dimanche','','','','']],
+    [['14h','','','dimanche','','','',''],['14h','','','dimanche','','','',''],['14h','','','dimanche','','','',''],['14h','','','dimanche','','','','']],
+    [['15h','','','dimanche','','','',''],['15h','','','dimanche','','','',''],['15h','','','dimanche','','','',''],['15h','','','dimanche','','','','']],
+    [['16h','','','dimanche','','','',''],['16h','','','dimanche','','','',''],['16h','','','dimanche','','','',''],['16h','','','dimanche','','','','']],
+    [['17h','','','dimanche','','','',''],['17h','','','dimanche','','','',''],['17h','','','dimanche','','','',''],['17h','','','dimanche','','','','']],
+    [['18h','','','dimanche','','','',''],['18h','','','dimanche','','','',''],['18h','','','dimanche','','','',''],['18h','','','dimanche','','','','']],
+    [['19h','','','dimanche','','','',''],['19h','','','dimanche','','','',''],['19h','','','dimanche','','','',''],['19h','','','dimanche','','','','']],
+    [['20h','','','dimanche','','','',''],['20h','','','dimanche','','','',''],['20h','','','dimanche','','','',''],['20h','','','dimanche','','','','']],
+    [['21h','','','dimanche','','','',''],['21h','','','dimanche','','','',''],['21h','','','dimanche','','','',''],['21h','','','dimanche','','','','']]
   ]
 
   semaineJours:any[][][][] = [
@@ -932,6 +609,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
     return
   }
 
+
   console.log(planningSeance)
   for(let i = 0; i < planningSeance.seance.length;i++) {
 
@@ -952,6 +630,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
           this.semaineJours[0][x -8][0][4] =   planningSeance.seance[i].room
           this.semaineJours[0][x -8][0][5] =   planningSeance.seance[i].duree
           this.semaineJours[0][x -8][0][6] =  planningSeance.seance[i].quartDheure
+          this.semaineJours[0][x -8][0][7] =  planningSeance.seance[i].groupId
           break;
           case '15':
             this.semaineJours[0][x -8][1][0] = planningSeance.seance[i].creneau[0]
@@ -961,6 +640,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
             this.semaineJours[0][x -8][1][4] =   planningSeance.seance[i].room
             this.semaineJours[0][x -8][1][5] =   planningSeance.seance[i].duree
             this.semaineJours[0][x -8][1][6] =  planningSeance.seance[i].quartDheure
+            this.semaineJours[0][x -8][1][7] =  planningSeance.seance[i].groupId
             break;
             case '30':
               this.semaineJours[0][x -8][2][0] = planningSeance.seance[i].creneau[0]
@@ -970,6 +650,8 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
               this.semaineJours[0][x -8][2][4] =   planningSeance.seance[i].room
               this.semaineJours[0][x -8][2][5] =   planningSeance.seance[i].duree
               this.semaineJours[0][x -8][2][6] =  planningSeance.seance[i].quartDheure
+              this.semaineJours[0][x -8][2][7] =  planningSeance.seance[i].groupId
+
               break;
               case '45':
                 this.semaineJours[0][x -8][3][0] = planningSeance.seance[i].creneau[0]
@@ -979,6 +661,8 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                 this.semaineJours[0][x -8][3][4] =   planningSeance.seance[i].room
                 this.semaineJours[0][x -8][3][5] =   planningSeance.seance[i].duree
                 this.semaineJours[0][x -8][3][6] =  planningSeance.seance[i].quartDheure
+                this.semaineJours[0][x -8][3][7] =  planningSeance.seance[i].groupId
+
                 break;
 
       }
@@ -994,6 +678,8 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
               this.semaineJours[1][x -8][0][4] =   planningSeance.seance[i].room
               this.semaineJours[1][x -8][0][5] =   planningSeance.seance[i].duree
               this.semaineJours[1][x -8][0][6] =  planningSeance.seance[i].quartDheure
+              this.semaineJours[1][x -8][0][7] =  planningSeance.seance[i].groupId
+
               break;
               case '15':
                 this.semaineJours[1][x -8][1][0] = planningSeance.seance[i].creneau[0]
@@ -1003,6 +689,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                 this.semaineJours[1][x -8][1][4] =   planningSeance.seance[i].room
                 this.semaineJours[1][x -8][1][5] =   planningSeance.seance[i].duree
                 this.semaineJours[1][x -8][1][6] =  planningSeance.seance[i].quartDheure
+                this.semaineJours[1][x -8][1][7] =  planningSeance.seance[i].groupId
                 break;
                 case '30':
                   this.semaineJours[1][x -8][2][0] = planningSeance.seance[i].creneau[0]
@@ -1012,6 +699,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                   this.semaineJours[1][x -8][2][4] =   planningSeance.seance[i].room
                   this.semaineJours[1][x -8][2][5] =   planningSeance.seance[i].duree
                   this.semaineJours[1][x -8][2][6] =  planningSeance.seance[i].quartDheure
+                  this.semaineJours[1][x -8][2][7] =  planningSeance.seance[i].groupId
                   break;
                   case '45':
                     this.semaineJours[1][x -8][3][0] = planningSeance.seance[i].creneau[0]
@@ -1021,6 +709,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                     this.semaineJours[1][x -8][3][4] =   planningSeance.seance[i].room
                     this.semaineJours[1][x -8][3][5] =   planningSeance.seance[i].duree
                     this.semaineJours[1][x -8][3][6] =  planningSeance.seance[i].quartDheure
+                    this.semaineJours[1][x -8][3][7] =  planningSeance.seance[i].groupId
                     break;
           }
         break;
@@ -1034,6 +723,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                 this.semaineJours[2][x -8][0][4] =   planningSeance.seance[i].room
                 this.semaineJours[2][x -8][0][5] =   planningSeance.seance[i].duree
                 this.semaineJours[2][x -8][0][6] =  planningSeance.seance[i].quartDheure
+                this.semaineJours[2][x -8][0][7] =  planningSeance.seance[i].groupId
                 break;
                 case '15':
                   this.semaineJours[2][x -8][1][0] = planningSeance.seance[i].creneau[0]
@@ -1043,6 +733,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                   this.semaineJours[2][x -8][1][4] =   planningSeance.seance[i].room
                   this.semaineJours[2][x -8][1][5] =   planningSeance.seance[i].duree
                   this.semaineJours[2][x -8][1][6] =  planningSeance.seance[i].quartDheure
+                  this.semaineJours[2][x -8][1][7] =  planningSeance.seance[i].groupId
                   break;
                   case '30':
                     this.semaineJours[2][x -8][2][0] = planningSeance.seance[i].creneau[0]
@@ -1052,6 +743,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                     this.semaineJours[2][x -8][2][4] =   planningSeance.seance[i].room
                     this.semaineJours[2][x -8][2][5] =   planningSeance.seance[i].duree
                     this.semaineJours[2][x -8][2][6] =  planningSeance.seance[i].quartDheure
+                    this.semaineJours[2][x -8][2][7] =  planningSeance.seance[i].groupId
                     break;
                     case '45':
                       this.semaineJours[2][x -8][3][0] = planningSeance.seance[i].creneau[0]
@@ -1061,6 +753,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                       this.semaineJours[2][x -8][3][4] =   planningSeance.seance[i].room
                       this.semaineJours[2][x -8][3][5] =   planningSeance.seance[i].duree
                       this.semaineJours[2][x -8][3][6] =  planningSeance.seance[i].quartDheure
+                      this.semaineJours[2][x -8][3][7] =  planningSeance.seance[i].groupId
                       break;
 
             }
@@ -1075,6 +768,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                   this.semaineJours[3][x -8][0][4] =   planningSeance.seance[i].room
                   this.semaineJours[3][x -8][0][5] =   planningSeance.seance[i].duree
                   this.semaineJours[3][x -8][0][6] =  planningSeance.seance[i].quartDheure
+                  this.semaineJours[3][x -8][0][7] =  planningSeance.seance[i].groupId
                   break;
                   case '15':
                     this.semaineJours[3][x -8][1][0] = planningSeance.seance[i].creneau[0]
@@ -1084,6 +778,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                     this.semaineJours[3][x -8][1][4] =   planningSeance.seance[i].room
                     this.semaineJours[3][x -8][1][5] =   planningSeance.seance[i].duree
                     this.semaineJours[3][x -8][1][6] =  planningSeance.seance[i].quartDheure
+                    this.semaineJours[3][x -8][1][7] =  planningSeance.seance[i].groupId
                     break;
                     case '30':
                       this.semaineJours[3][x -8][2][0] = planningSeance.seance[i].creneau[0]
@@ -1093,6 +788,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                       this.semaineJours[3][x -8][2][4] =   planningSeance.seance[i].room
                       this.semaineJours[3][x -8][2][5] =   planningSeance.seance[i].duree
                       this.semaineJours[3][x -8][2][6] =  planningSeance.seance[i].quartDheure
+                      this.semaineJours[3][x -8][2][7] =  planningSeance.seance[i].groupId
                       break;
                       case '45':
                         this.semaineJours[3][x -8][3][0] = planningSeance.seance[i].creneau[0]
@@ -1102,6 +798,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                         this.semaineJours[3][x -8][3][4] =   planningSeance.seance[i].room
                         this.semaineJours[3][x -8][3][5] =   planningSeance.seance[i].duree
                         this.semaineJours[3][x -8][3][6] =  planningSeance.seance[i].quartDheure
+                        this.semaineJours[3][x -8][3][7] =  planningSeance.seance[i].groupId
                         break;
 
               }
@@ -1116,6 +813,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                     this.semaineJours[4][x -8][0][4] =   planningSeance.seance[i].room
                     this.semaineJours[4][x -8][0][5] =   planningSeance.seance[i].duree
                     this.semaineJours[4][x -8][0][6] =  planningSeance.seance[i].quartDheure
+                    this.semaineJours[4][x -8][0][7] =  planningSeance.seance[i].groupId
                     break;
                     case '15':
                       this.semaineJours[4][x -8][1][0] = planningSeance.seance[i].creneau[0]
@@ -1125,6 +823,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                       this.semaineJours[4][x -8][1][4] =   planningSeance.seance[i].room
                       this.semaineJours[4][x -8][1][5] =   planningSeance.seance[i].duree
                       this.semaineJours[4][x -8][1][6] =  planningSeance.seance[i].quartDheure
+                      this.semaineJours[4][x -8][1][7] =  planningSeance.seance[i].groupId
                       break;
                       case '30':
                         this.semaineJours[4][x -8][2][0] = planningSeance.seance[i].creneau[0]
@@ -1134,6 +833,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                         this.semaineJours[4][x -8][2][4] =   planningSeance.seance[i].room
                         this.semaineJours[4][x -8][2][5] =   planningSeance.seance[i].duree
                         this.semaineJours[4][x -8][2][6] =  planningSeance.seance[i].quartDheure
+                        this.semaineJours[4][x -8][2][7] =  planningSeance.seance[i].groupId
                         break;
                         case '45':
                           this.semaineJours[4][x -8][3][0] = planningSeance.seance[i].creneau[0]
@@ -1143,6 +843,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                           this.semaineJours[4][x -8][3][4] =   planningSeance.seance[i].room
                           this.semaineJours[4][x -8][3][5] =   planningSeance.seance[i].duree
                           this.semaineJours[4][x -8][3][6] =  planningSeance.seance[i].quartDheure
+                          this.semaineJours[4][x -8][3][7] =  planningSeance.seance[i].groupId
                           break;
 
                 }
@@ -1157,6 +858,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                       this.semaineJours[5][x -8][0][4] =   planningSeance.seance[i].room
                       this.semaineJours[5][x -8][0][5] =   planningSeance.seance[i].duree
                       this.semaineJours[5][x -8][0][6] =  planningSeance.seance[i].quartDheure
+                      this.semaineJours[5][x -8][0][7] =  planningSeance.seance[i].groupId
                       break;
                       case '15':
                         this.semaineJours[5][x -8][1][0] = planningSeance.seance[i].creneau[0]
@@ -1166,6 +868,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                         this.semaineJours[5][x -8][1][4] =   planningSeance.seance[i].room
                         this.semaineJours[5][x -8][1][5] =   planningSeance.seance[i].duree
                         this.semaineJours[5][x -8][1][6] =  planningSeance.seance[i].quartDheure
+                        this.semaineJours[5][x -8][1][7] =  planningSeance.seance[i].groupId
                         break;
                         case '30':
                           this.semaineJours[5][x -8][2][0] = planningSeance.seance[i].creneau[0]
@@ -1175,6 +878,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                           this.semaineJours[5][x -8][2][4] =   planningSeance.seance[i].room
                           this.semaineJours[5][x -8][2][5] =   planningSeance.seance[i].duree
                           this.semaineJours[5][x -8][2][6] =  planningSeance.seance[i].quartDheure
+                          this.semaineJours[5][x -8][2][7] =  planningSeance.seance[i].groupId
                           break;
                           case '45':
                             this.semaineJours[5][x -8][3][0] = planningSeance.seance[i].creneau[0]
@@ -1184,6 +888,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                             this.semaineJours[5][x -8][3][4] =   planningSeance.seance[i].room
                             this.semaineJours[5][x -8][3][5] =   planningSeance.seance[i].duree
                             this.semaineJours[5][x -8][3][6] =  planningSeance.seance[i].quartDheure
+                            this.semaineJours[5][x -8][3][7] =  planningSeance.seance[i].groupId
                             break;
 
                   }
@@ -1198,6 +903,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                         this.semaineJours[6][x -8][0][4] =   planningSeance.seance[i].room
                         this.semaineJours[6][x -8][0][5] =   planningSeance.seance[i].duree
                         this.semaineJours[6][x -8][0][6] =  planningSeance.seance[i].quartDheure
+                        this.semaineJours[6][x -8][0][7] =  planningSeance.seance[i].groupId
                         break;
                         case '15':
                           this.semaineJours[6][x -8][1][0] = planningSeance.seance[i].creneau[0]
@@ -1207,6 +913,8 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                           this.semaineJours[6][x -8][1][4] =   planningSeance.seance[i].room
                           this.semaineJours[6][x -8][1][5] =   planningSeance.seance[i].duree
                           this.semaineJours[6][x -8][1][6] =  planningSeance.seance[i].quartDheure
+                          this.semaineJours[6][x -8][1][7] =  planningSeance.seance[i].groupId
+
                           break;
                           case '30':
                             this.semaineJours[6][x -8][2][0] = planningSeance.seance[i].creneau[0]
@@ -1216,6 +924,8 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                             this.semaineJours[6][x -8][2][4] =   planningSeance.seance[i].room
                             this.semaineJours[6][x -8][2][5] =   planningSeance.seance[i].duree
                             this.semaineJours[6][x -8][2][6] =  planningSeance.seance[i].quartDheure
+                            this.semaineJours[6][x -8][2][7] =  planningSeance.seance[i].groupId
+
                             break;
                             case '45':
                               this.semaineJours[6][x -8][3][0] = planningSeance.seance[i].creneau[0]
@@ -1225,6 +935,8 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                               this.semaineJours[6][x -8][3][4] =   planningSeance.seance[i].room
                               this.semaineJours[6][x -8][3][5] =   planningSeance.seance[i].duree
                               this.semaineJours[6][x -8][3][6] =  planningSeance.seance[i].quartDheure
+                              this.semaineJours[6][x -8][3][7] =  planningSeance.seance[i].groupId
+
                               break;
 
                     }
@@ -1262,7 +974,56 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
      }
 
   }
+  dayList:any = []
+  tr() {
+    this.dayList = []
+for(let dayOfTheWeek = 0; dayOfTheWeek < this.semaineJours.length;dayOfTheWeek++) {
+  for(let creneauxJours = 0;creneauxJours < this.semaineJours[dayOfTheWeek].length;creneauxJours++) {
+    for(let slot = 0;slot < this.semaineJours[dayOfTheWeek][creneauxJours].length;slot++) {
+      if(this.semaineJours[dayOfTheWeek][creneauxJours][slot][6]) {
+        this.dayList.push(this.semaineJours[dayOfTheWeek][creneauxJours][slot])
+      }
+    }
+  }
 
+}
+
+let temp:Days [] = []
+for(let index = 0; index < this.dayList.length;index++) {
+// console.log(this.dayList[index])
+temp.push({heure:this.dayList[index][0],
+  day:this.dayList[index][3],
+  type:this.dayList[index][1],
+  matiere:this.dayList[index][2],
+  duree:this.dayList[index][5],
+  enseignant:this.dayList[index][4],
+  creneau:this.dayList[index][6],
+  groupId:this.dayList[index][7]
+})
+
+}
+
+
+
+const uniqueAuthors2 = [...new Map(temp.map(v => [v.groupId, v])).values()]
+console.log(uniqueAuthors2)
+this.dayList = uniqueAuthors2
+
+  }
+
+
+checkEquality(element:[],element2:[]):boolean {
+
+  if(!element) {
+    return false
+  }
+  console.log(element)
+  console.log(element2)
+if(element == element2) {
+  return true
+}
+  return false
+}
   getDuration(duration:string) {
 
     switch(duration ) {
@@ -1278,6 +1039,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                 return ''
     }
   }
+
 
   getHeight(duration:string) {
     switch(duration ) {
@@ -1377,6 +1139,8 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
                 return ''
     }
   }
+
+  selectedIndex?:number
   ngOnInit(): void {
     this.getFirstMondayOfTheWeek()
   }

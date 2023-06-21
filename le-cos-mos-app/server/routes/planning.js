@@ -52,11 +52,16 @@ router.post("/set", async function (req, res, next) {
   var owner = req.body.planningOwner
   var week = req.body.week
   let transformedarray = []
+
   for (let i = 0; i < planning.length; i++) { // Les 7 jours
+
     for (let j = 0; j < planning[i].length; j++) { // Les 12 creneaux dans chaque jour
+      // console.log(planning[i][j])
       for(let x = 0; x < 4; x++) {
         if (planning[i][j][x][1] != '' && planning[i][j][x][2] != '') {
-          transformedarray.push({ creneau: planning[i][j][x][0], matiere: planning[i][j][x][1], type: planning[i][j][x][2], day: planning[i][j][x][3], room: planning[i][j][x][4],duree: planning[i][j][x][5],quartDheure: planning[i][j][x][6] })
+
+          transformedarray.push({ creneau: planning[i][j][x][0], matiere: planning[i][j][x][1], type: planning[i][j][x][2], day: planning[i][j][x][3], room: planning[i][j][x][4],duree: planning[i][j][x][5],quartDheure: planning[i][j][x][6],groupId:planning[i][j][x][7] })
+
         }
       }
     }
@@ -64,7 +69,7 @@ router.post("/set", async function (req, res, next) {
 
   await Planning.findOne({ groupName: owner }).then(async (group) => {
     if(group == null) {
-console.log("The group doesn't exist")
+
 let plan = new Planning({groupName:owner,istronCommun:false,type:'user',week:[{weekDate:week,seance:[]}],user_list:[]})
 plan.save().then(async (resulting) =>{
   for (let i = 0; i < plan.week.length; i++) {
@@ -89,11 +94,11 @@ plan.save().then(async (resulting) =>{
       for (let i = 0; i < group.week.length; i++) {
         // If the week already exists, we change it's seance list and then save the changes
         if (group.week[i].weekDate == week) {
+          group.week[i].seance = transformedarray
+          // for (let j = 0; j < transformedarray.length;j++) {
+          //    // La transformation de l'attribut 'creneau' en tableau se fait ici.
 
-          for (let j = 0; j < transformedarray.length;j++) {
-            group.week[i].seance[j] = transformedarray[j] // La transformation de l'attribut 'creneau' en tableau se fait ici.
-
-          }
+          // }
           await group.save();
           return res.status(200).send("Seance Updated ! ")
 
