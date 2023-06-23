@@ -67,7 +67,9 @@ export class ListContentDisplayerComponent implements OnInit, AfterViewInit {
   // ngAfterViewChecked(): void {
   //   this.getFileList()
   // }
+  isAdmin?:boolean = localStorage.getItem('user-type') == 'admin'
   ngAfterViewInit(): void {
+    this.isAdmin = localStorage.getItem('user-type') == 'admin'
     this.getFileList()
   }
 

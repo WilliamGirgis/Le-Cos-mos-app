@@ -667,6 +667,8 @@ this.getPlanning()
     this.semaineJours[day][heure][this.creneauIndex][4] = '' // La salle
     this.semaineJours[day][heure][this.creneauIndex][5] = '' // La durée
     this.semaineJours[day][heure][this.creneauIndex][6] = '' // Le creneau
+    this.semaineJours[day][heure][this.creneauIndex][7] = '' // Le creneau
+
       }
 
   async getSeanceItems() {

@@ -154,5 +154,50 @@ cursor: pointer;
 
 @media only screen and (max-width: 640px) {
 
+  #wrapper {
+      flex-direction: column;
 
+    }
+    #top-wrp {
+      display: flex;
+      margin-top: 12vw;
+      margin-bottom: 3vh;
+      flex-direction: row;
+      height: fit-content;
+      width: 57%;
+      justify-content: space-between;
+    }
+
+    form {
+      width: 90%;
+    }
+
+    #userIconWrp {
+      margin: 2vh auto auto auto;
+        height: 75%;
+        min-height: fit-content;
+        display: flex;
+        flex-direction: column;
+        width: fit-content;
+        color: var(--blue-them-color);
+        text-align: center;
+
+        #personCircle {
+          height: 35vh;
+        }
+      #pencil {
+        height: 7vh;
+        width: fit-content;
+        justify-self: right;
+        margin: 3vh 0 1vh auto;
+        overflow: hidden;
+      cursor: pointer;
+      }
+
+
+      #custom {
+        height: 34vh;
+        width: 35vw;
+      }
+      }
 }

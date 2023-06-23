@@ -28,7 +28,7 @@
                 <button (click)="pswEditable = !pswEditable;psw.value = '*******'" mat-button id="psw"><img  src="../../../assets/images/pencil-fill.svg"></button>
                </div>
               </mat-form-field>
-              <div style="display: flex;gap:10vw;align-items: center;">
+              <div style="display: flex;gap:10vw;align-items: center;justify-content:center">
                <div id="successMsg">
                 <span>{{successMsgSaved}}</span>
                 <button id="save" (click)="saveModifications( psw.value)" [disabled]="imgTouched || this.pswTouched ? false : true" mat-button>Comfirmer les changements</button>
@@ -49,8 +49,8 @@
     <img *ngIf="!imgFile && !isLoading" id="personCircle"  src="../../../assets/images/person-circle.svg">
     <mat-spinner *ngIf="isLoading" id="custom" ></mat-spinner>
     <img *ngIf="imgFile && !isLoading" id="custom"  [src]="imgFile">
-    <h2>William Girgis</h2>
-    <h3>Administrateur</h3>
+    <h2>{{fname + ' ' + lname}}</h2>
+    <h3>{{userType}}</h3>
     </div>
 
 </div>

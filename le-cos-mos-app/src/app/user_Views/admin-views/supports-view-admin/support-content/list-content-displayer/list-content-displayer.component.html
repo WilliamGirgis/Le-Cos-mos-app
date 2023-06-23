@@ -1,4 +1,4 @@
-<app-router-top [contentList]="contentList" [parentFolderNames]="routerFolder" [contentType]="contentType" [courName]="cour_name" [selectedFolder]="selectedFolder.name"></app-router-top>
+<app-router-top *ngIf="isAdmin" [contentList]="contentList" [parentFolderNames]="routerFolder" [contentType]="contentType" [courName]="cour_name" [selectedFolder]="selectedFolder.name"></app-router-top>
 <div id="routerFolderWrapper">
   <div [style]="{'font-weight': selectedFolder.name == route.name ? 'bold' : null}" id="folderFor" *ngFor="let route of folderTree!;index as i" >
     <img *ngIf="i >= 1" id="arrowFolderRouter"  src="../../../../../../assets/images/arrow-right.svg">

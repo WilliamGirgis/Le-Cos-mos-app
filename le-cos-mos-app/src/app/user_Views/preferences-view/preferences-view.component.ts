@@ -147,6 +147,7 @@ this.email = data
 
   fname:string = localStorage.getItem('fname')!
   lname:string = localStorage.getItem('lname')!
+  userType?:string = localStorage.getItem('user-type')!
   email?:string
   routeToNavBack?: string = this.savedRouteService.savedRoute
 
