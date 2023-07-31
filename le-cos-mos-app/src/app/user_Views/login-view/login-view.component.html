@@ -37,7 +37,7 @@
               <mat-icon style="font-size:150%;"   (click)="psw.value = ''">close</mat-icon>
             </button>
 
-            <button matSuffix *ngIf="psw.value.length > 0"   mat-icon-button aria-label="Clear password">
+            <button type="button" matSuffix *ngIf="psw.value.length > 0"   mat-icon-button aria-label="Clear password">
               <mat-icon *ngIf="psw.value.length > 0" style="font-size:150%;align-self: center;cursor:pointer" (click)="showHidePassword()" >remove_red_eye</mat-icon>
 
 </button>

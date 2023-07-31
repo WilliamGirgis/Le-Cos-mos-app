@@ -3,7 +3,7 @@
   <div (click)="navigateBack()" id="img-hover">
     <img  src="../../../../assets/images/arrow-left.svg">
   </div>
-  <div id="top-btn-wrp">
+  <div *ngIf="isAdmin" id="top-btn-wrp">
     <button  id="add"  (click)=" !(isDetails != 'list') ? openAddItemDialog() : null"  mat-button>{{ isDetails != 'list' ? 'Modifier' : 'Ajouter'}}</button>
     <button id="del" *ngIf="!(isDetails != 'list')" mat-button>Tout supprimer</button>
     <button (click)="openAddFolderItemDialog()" *ngIf="!(isDetails != 'list')" mat-button><img src="../../../../../assets/images/folder-plus.svg"></button>

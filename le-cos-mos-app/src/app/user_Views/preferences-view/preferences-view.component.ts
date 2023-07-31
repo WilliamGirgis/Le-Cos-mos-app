@@ -14,6 +14,7 @@ export class PreferencesViewComponent implements OnInit,AfterViewInit {
   constructor(private http:HttpClient,private savedRouteService: SaveRouteService) {
     this.downloadProfilPicture()
     this.uploader.onCompleteAll = () => {
+
       this.imgTouched = false
       this.uploader.clearQueue()
       this.downloadProfilPicture()
@@ -31,6 +32,7 @@ export class PreferencesViewComponent implements OnInit,AfterViewInit {
       let tempFile = file.rawFile
       this.imgFile = tempFile
       let img = new File([file.rawFile], file.name); // On transform le Blob en fichier
+      this.savedFile = new FileItem(this.uploader, img,{})
       let fr = new FileReader(); // On li le fichier et stock le nouveau format
       fr.readAsDataURL(img)
       fr.onloadend = () => {
@@ -39,14 +41,14 @@ export class PreferencesViewComponent implements OnInit,AfterViewInit {
       }
 
       // On sauvgarde le fichier à uploader.
-      this.savedFile = new File([file.rawFile],file.name)
+
 
 
 
     }
     this.uploader.onAfterAddingFile = (file) => {
 
-
+      this.savedFile = file
 
 
 
@@ -67,7 +69,7 @@ this.email = this.getMail()
   }
 
   imgTouched?:boolean = false
-  savedFile?:File
+  savedFile?:FileItem
   readonly downloadFileRoute: string = `http://localhost:4200/user/user/profil/file/get`
 
   isLoading:boolean = false
@@ -110,7 +112,7 @@ let params:HttpParams = new HttpParams().set('_id',localStorage.getItem('user-id
 
      if(this.imgTouched) {
       this.uploader.options.queueLimit = 1
-      this.uploader.addToQueue([this.savedFile!])
+      this.uploader.addToQueue([this.savedFile!._file])
        this.uploader.uploadAll()
      }
 

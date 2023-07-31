@@ -69,6 +69,14 @@ type:{
           required:true,
           unique:true
         },
+        displayType: {
+          type:Boolean,
+          required:false
+        },
+        isLast: {
+          type:Boolean,
+          required:false
+        }
       }
     ]
    }

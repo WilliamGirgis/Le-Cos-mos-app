@@ -11,7 +11,8 @@ export class EnseignantGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-return this.checkAdmin()
+return true
+this.checkAdmin()
   }
 
   readonly checkAdminUrl = 'http://localhost:4200/user/enseignant/check'

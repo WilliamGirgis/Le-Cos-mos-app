@@ -1,4 +1,4 @@
-import { AfterContentChecked, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterContentChecked, AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddItemDialogComponent } from './add-item-dialog/add-item-dialog.component';
@@ -10,7 +10,7 @@ import { FileDescription } from 'src/app/shared/file_description';
   templateUrl: './router-top.component.html',
   styleUrls: ['./router-top.component.scss']
 })
-export class RouterTopComponent implements OnInit,AfterContentChecked {
+export class RouterTopComponent implements OnInit,AfterContentChecked,AfterViewInit {
 
 
 
@@ -19,6 +19,13 @@ export class RouterTopComponent implements OnInit,AfterContentChecked {
       this.dialogClosedPing.emit()
 
     })
+  }
+  isAdmin?:boolean = localStorage.getItem('user-type') == 'admin'
+
+  ngAfterViewInit(): void {
+
+    this.isAdmin = localStorage.getItem('user-type') == 'admin'
+
   }
 
 

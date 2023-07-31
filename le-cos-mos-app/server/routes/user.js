@@ -253,7 +253,7 @@ const upload_profil_file = multer({ storage: profil_file_storage }).single("file
 router.post("/user/profil/file/save", (req, res) => {
 
   let _id = req.headers._id
-console.log(_id)
+
   req.additionalData = {
     _id: _id,
     // Add more additional data fields as needed
@@ -263,27 +263,35 @@ console.log(_id)
     const bucket = new GridFSBucket(dbg, { bucketName: 'profil_bucket.fs' });
     bucket.delete(deletedFileId).then((res) => {
       // File successfully deleted from the GridFS bucket
-      return res.status(200).send();
-    }).catch((e) => {
-      if (e) {
-        // To make sure the client request getFiles() again.
-        // "File not found for id 646a849c5aea81a3d4a74519" Was triggered, even though the chuks were all deleted
-        return res.status(200).send();
-      }
-    });
-    return res.status(200).send()
-  }).catch((e) => {
-    return res.status(200).send(e)
-  })
 
   upload_profil_file(req, res, async function (err) {
 
+
     if (err) {
-
+      return res.status(400).send();
     } else {
-
+      return res.status(200).send();
     }
   })
+
+    }).catch((e) => {
+        return res.status(400).send();
+
+    });
+
+
+  }).catch((e) => {
+    upload_profil_file(req, res, async function (err) {
+
+
+      if (err) {
+        return res.status(400).send();
+      } else {
+        return res.status(200).send();
+      }
+    })
+  })
+
 });
 
 router.get("/user/profil/file/get",authenticate, (req, res) => {
@@ -309,7 +317,6 @@ const bcrypt = require("bcryptjs");
 router.post("/user/profil/psw/modify",authenticate, (req, res) => {
   let id = req.body._id
 let newPsw = req.body.newPsw
-console.log(id)
 bcrypt.genSalt(10, (err, salt) => {
   bcrypt.hash(newPsw, salt, (err, hash) => {
     newPsw = hash;
@@ -343,7 +350,6 @@ router.get("/etudiant/check", (req, res) => {
     return res.status(404).send()
   }
   User.findOne({_id:user_id}).then((user) =>{
-    console.log(user)
     if(user.userType.toLowerCase() == 'etudiant') {
   return res.status(200).send("OK")
     } else {
@@ -359,7 +365,6 @@ router.get("/etudiant/check", (req, res) => {
     if(!user_id) {
       return res.status(404).send()
     }
-    console.log(user_id)
     User.findOne({_id:user_id}).then((user) =>{
       if(user.userType.toLowerCase() == 'enseignant') {
     return res.status(200).send("OK")
@@ -377,7 +382,7 @@ router.get("/etudiant/check", (req, res) => {
         return res.status(404).send()
       }
       User.findOne({_id:user_id}).then((user) =>{
-        console.log(user.email)
+
         return res.status(200).send(user.email)
       }).catch((e) =>{
         return res.status(400).send()

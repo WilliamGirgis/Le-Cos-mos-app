@@ -60,7 +60,8 @@ router.post("/set", async function (req, res, next) {
       for(let x = 0; x < 4; x++) {
         if (planning[i][j][x][1] != '' && planning[i][j][x][2] != '') {
 
-          transformedarray.push({ creneau: planning[i][j][x][0], matiere: planning[i][j][x][1], type: planning[i][j][x][2], day: planning[i][j][x][3], room: planning[i][j][x][4],duree: planning[i][j][x][5],quartDheure: planning[i][j][x][6],groupId:planning[i][j][x][7] })
+          transformedarray.push({ creneau: planning[i][j][x][0], matiere: planning[i][j][x][1], type: planning[i][j][x][2], day: planning[i][j][x][3], room: planning[i][j][x][4],duree: planning[i][j][x][5],quartDheure: planning[i][j][x][6],groupId:planning[i][j][x][7],displayType:planning[i][j][x][8] | false, isLast:planning[i][j][x][9] | false })
+
 
         }
       }

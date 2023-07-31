@@ -301,8 +301,13 @@
                 >
                   <div
                   [matMenuTriggerFor]="menu"
-                    (mouseenter)="creneauIndex = 0"
+                    (mouseenter)="selectedSeanceGroupId = semaineJours[0][i][0][7] ; creneauIndex = 0"
+
                     [style]="{
+'border-right':selectedSeanceGroupId == semaineJours[0][i][0][7] && semaineJours[0][i][0][2]   ? '1px solid black' : '',
+'border-left':selectedSeanceGroupId == semaineJours[0][i][0][7] && semaineJours[0][i][0][2] ? '1px solid black' : '',
+'border-bottom':selectedSeanceGroupId == semaineJours[0][i][0][7] && semaineJours[0][i][0][9] && semaineJours[0][i][0][2]  ? '1px solid black' : '',
+'border-top':selectedSeanceGroupId == semaineJours[0][i][0][7] && semaineJours[0][i][0][8] && semaineJours[0][i][0][2]   ? '1px solid black' : '',
                       'background-color':
                         semaineJours[0][i][0][6] == '00'
                           ? getBackgroundColor(semaineJours[0][i][0][2])
@@ -312,8 +317,8 @@
                     }"
                     id="t-00"
                     *ngIf="(isOnDrag && (heureIndex == i)) || semaineJours[0][i][0][2] || semaineJours[0][i][1][2] || semaineJours[0][i][2][2] || semaineJours[0][i][3][2]"
-                  >
-                    <label> {{ semaineJours[0][i][0][2] }}</label>
+                    >
+                    <label *ngIf="semaineJours[0][i][0][8]"> {{ semaineJours[0][i][0][2] }}</label>
 
                     <mat-menu
                       style="cursor: pointer; text-align: center"
@@ -353,7 +358,7 @@
                         }}</mat-label
                       >
                       <button
-                        (click)="deleteItemFromCalendar(0, i)"
+                      (click)="deleteItemFromCalendar(semaineJours[0][i][0][7])"
                         class="deleteElement"
                         mat-button
                       >
@@ -364,8 +369,12 @@
 
                   <div
                   [matMenuTriggerFor]="menu"
-                    (mouseenter)="creneauIndex = 1"
+                    (mouseenter)="selectedSeanceGroupId = semaineJours[0][i][1][7] ; creneauIndex = 1"
                     [style]="{
+                      'border-right':selectedSeanceGroupId == semaineJours[0][i][1][7] && semaineJours[0][i][1][2]  ? '1px solid black' : '',
+'border-left':selectedSeanceGroupId == semaineJours[0][i][1][7] && semaineJours[0][i][1][2]  ? '1px solid black' : '',
+'border-bottom':selectedSeanceGroupId == semaineJours[0][i][1][7] && semaineJours[0][i][1][9] && semaineJours[0][i][1][2]  ? '1px solid black' : '',
+'border-top':selectedSeanceGroupId == semaineJours[0][i][1][7] && semaineJours[0][i][1][8] && semaineJours[0][i][1][2]  ? '1px solid black' : '',
                       'background-color':
                         semaineJours[0][i][1][6] == '15' ||
                         (semaineJours[0][i][1][6] == '00' &&
@@ -379,7 +388,7 @@
                     *ngIf="(isOnDrag && (heureIndex == i)) || semaineJours[0][i][0][2] || semaineJours[0][i][1][2] || semaineJours[0][i][2][2] || semaineJours[0][i][3][2]"
 
                   >
-                    <label> {{ semaineJours[0][i][1][2] }}</label>
+                    <label *ngIf="semaineJours[0][i][1][8]"> {{ semaineJours[0][i][1][2] }}</label>
 
                     <mat-menu
                       style="cursor: pointer; text-align: center"
@@ -419,7 +428,7 @@
                         }}</mat-label
                       >
                       <button
-                        (click)="deleteItemFromCalendar(0, i)"
+                        (click)="deleteItemFromCalendar(semaineJours[0][i][1][7])"
                         class="deleteElement"
                         mat-button
                       >
@@ -430,8 +439,12 @@
 
                   <div
                   [matMenuTriggerFor]="menu"
-                    (mouseenter)="creneauIndex = 2"
+                    (mouseenter)="selectedSeanceGroupId = semaineJours[0][i][2][7] ; creneauIndex = 2"
                     [style]="{
+                      'border-right':selectedSeanceGroupId == semaineJours[0][i][2][7] && semaineJours[0][i][2][2]  ? '1px solid black' : '',
+'border-left':selectedSeanceGroupId == semaineJours[0][i][2][7] && semaineJours[0][i][2][2]  ? '1px solid black' : '',
+'border-bottom':selectedSeanceGroupId == semaineJours[0][i][2][7] && semaineJours[0][i][2][9] && semaineJours[0][i][2][2]  ? '1px solid black' : '',
+'border-top':selectedSeanceGroupId == semaineJours[0][i][2][7] && semaineJours[0][i][2][8] && semaineJours[0][i][2][2]  ? '1px solid black' : '',
                       'background-color':
                         semaineJours[0][i][2][6] == '30' ||
                         (semaineJours[0][i][2][6] == '15' &&
@@ -448,7 +461,7 @@
                     *ngIf="(isOnDrag && (heureIndex == i)) || semaineJours[0][i][0][2] || semaineJours[0][i][1][2] || semaineJours[0][i][2][2] || semaineJours[0][i][3][2]"
 
                   >
-                    <label> {{ semaineJours[0][i][2][2] }}</label>
+                    <label *ngIf="semaineJours[0][i][2][8]"> {{ semaineJours[0][i][2][2] }}</label>
 
                     <mat-menu
                       style="cursor: pointer; text-align: center"
@@ -488,7 +501,7 @@
                         }}</mat-label
                       >
                       <button
-                        (click)="deleteItemFromCalendar(0, i)"
+                      (click)="deleteItemFromCalendar(semaineJours[0][i][2][7])"
                         class="deleteElement"
                         mat-button
                       >
@@ -499,8 +512,12 @@
 
                   <div
                   [matMenuTriggerFor]="menu"
-                    (mouseenter)="creneauIndex = 3"
+                    (mouseenter)="selectedSeanceGroupId = semaineJours[0][i][3][7] ; creneauIndex = 3"
                     [style]="{
+                      'border-right':selectedSeanceGroupId == semaineJours[0][i][3][7] && semaineJours[0][i][3][2]  ? '1px solid black' : '',
+                      'border-left':selectedSeanceGroupId == semaineJours[0][i][3][7] && semaineJours[0][i][3][2]   ? '1px solid black' : '',
+                      'border-bottom':selectedSeanceGroupId == semaineJours[0][i][3][7] && semaineJours[0][i][3][9] && semaineJours[0][i][3][2]   ? '1px solid black' : '',
+                      'border-top':selectedSeanceGroupId == semaineJours[0][i][3][7] && semaineJours[0][i][3][8] && semaineJours[0][i][3][2]   ? '1px solid black' : '',
                       'background-color':
                         (semaineJours[0][i][3][6] == '30' &&
                           semaineJours[0][i][3][5] != '25') ||
@@ -520,7 +537,7 @@
                     *ngIf="(isOnDrag && (heureIndex == i)) || semaineJours[0][i][0][2] || semaineJours[0][i][1][2] || semaineJours[0][i][2][2] || semaineJours[0][i][3][2]"
 
                   >
-                    <label> {{ semaineJours[0][i][3][2] }}</label>
+                    <label *ngIf="semaineJours[0][i][3][8]"> {{ semaineJours[0][i][3][2] }}</label>
 
                     <mat-menu
                       style="cursor: pointer; text-align: center"
@@ -560,7 +577,7 @@
                         }}</mat-label
                       >
                       <button
-                        (click)="deleteItemFromCalendar(0, i)"
+                      (click)="deleteItemFromCalendar(semaineJours[0][i][3][7])"
                         class="deleteElement"
                         mat-button
                       >
@@ -577,9 +594,14 @@
                   "
                 >
                   <div
+                  [ngClass]="{'activated' : selectedSeanceGroupId == semaineJours[1][i][0][7] || semaineJours[1][i][0][2],'activatedLast' : semaineJours[1][i][0][9],'activatedFirst' : semaineJours[1][i][0][8]}"
                   [matMenuTriggerFor]="menu"
-                    (mouseenter)="creneauIndex = 0"
+                    (mouseenter)="selectedSeanceGroupId = semaineJours[1][i][0][7] ; creneauIndex = 0"
                     [style]="{
+                      'border-right':selectedSeanceGroupId == semaineJours[1][i][0][7] && semaineJours[1][i][0][2]   ? '1px solid black' : '',
+                      'border-left':selectedSeanceGroupId == semaineJours[1][i][0][7] && semaineJours[1][i][0][2]    ? '1px solid black' : '',
+                      'border-bottom':selectedSeanceGroupId == semaineJours[1][i][0][7] && semaineJours[1][i][0][9] && semaineJours[1][i][0][2]    ? '1px solid black' : '',
+                      'border-top':selectedSeanceGroupId == semaineJours[1][i][0][7] && semaineJours[1][i][0][8] && semaineJours[1][i][0][2]    ? '1px solid black' : '',
                       'background-color':
                         semaineJours[1][i][0][6] == '00'
                           ? getBackgroundColor(semaineJours[1][i][0][2])
@@ -591,7 +613,7 @@
                     *ngIf="(isOnDrag && (heureIndex == i)) || semaineJours[1][i][0][2] || semaineJours[1][i][1][2] || semaineJours[1][i][2][2] || semaineJours[1][i][3][2]"
 
                   >
-                    <label> {{ semaineJours[1][i][0][2] }}</label>
+                    <label *ngIf="semaineJours[1][i][0][8]"> {{ semaineJours[1][i][0][2] }}</label>
                     <mat-menu
                       style="cursor: pointer; text-align: center"
                       #menu="matMenu"
@@ -630,7 +652,7 @@
                         }}</mat-label
                       >
                       <button
-                        (click)="deleteItemFromCalendar(1, i)"
+                      (click)="deleteItemFromCalendar(semaineJours[1][i][0][7])"
                         class="deleteElement"
                         mat-button
                       >
@@ -641,8 +663,12 @@
 
                   <div
                   [matMenuTriggerFor]="menu"
-                    (mouseenter)="creneauIndex = 1"
+                    (mouseenter)="selectedSeanceGroupId = semaineJours[1][i][1][7] ; creneauIndex = 1"
                     [style]="{
+                      'border-right':selectedSeanceGroupId == semaineJours[1][i][1][7] && semaineJours[1][i][1][2]  ? '1px solid black' : '',
+                      'border-left':selectedSeanceGroupId == semaineJours[1][i][1][7] && semaineJours[1][i][1][2]   ? '1px solid black' : '',
+                      'border-bottom':selectedSeanceGroupId == semaineJours[1][i][1][7] && semaineJours[1][i][1][9] && semaineJours[1][i][1][2]  ? '1px solid black' : '',
+                      'border-top':selectedSeanceGroupId == semaineJours[1][i][1][7] && semaineJours[1][i][1][8] && semaineJours[1][i][1][2]  ? '1px solid black' : '',
                       'background-color':
                         semaineJours[1][i][1][6] == '15' ||
                         (semaineJours[1][i][1][6] == '00' &&
@@ -656,7 +682,7 @@
                     *ngIf="(isOnDrag && (heureIndex == i)) || semaineJours[1][i][0][2] || semaineJours[1][i][1][2] || semaineJours[1][i][2][2] || semaineJours[1][i][3][2]"
 
                   >
-                    <label> {{ semaineJours[1][i][1][2] }}</label>
+                    <label *ngIf="semaineJours[1][i][1][8]"> {{ semaineJours[1][i][1][2] }}</label>
                     <mat-menu
                       style="cursor: pointer; text-align: center"
                       #menu="matMenu"
@@ -695,7 +721,7 @@
                         }}</mat-label
                       >
                       <button
-                        (click)="deleteItemFromCalendar(1, i)"
+                      (click)="deleteItemFromCalendar(semaineJours[1][i][1][7])"
                         class="deleteElement"
                         mat-button
                       >
@@ -705,8 +731,12 @@
                   </div>
                   <div
                   [matMenuTriggerFor]="menu"
-                    (mouseenter)="creneauIndex = 2"
+                    (mouseenter)="selectedSeanceGroupId = semaineJours[1][i][2][7] ; creneauIndex = 2"
                     [style]="{
+                      'border-right':selectedSeanceGroupId == semaineJours[1][i][2][7] && semaineJours[1][i][2][2]  ? '1px solid black' : '',
+                      'border-left':selectedSeanceGroupId == semaineJours[1][i][2][7] && semaineJours[1][i][2][2]  ? '1px solid black' : '',
+                      'border-bottom':selectedSeanceGroupId == semaineJours[1][i][2][7] && semaineJours[1][i][2][9] && semaineJours[1][i][2][2]  ? '1px solid black' : '',
+                      'border-top':selectedSeanceGroupId == semaineJours[1][i][2][7] && semaineJours[1][i][2][8] && semaineJours[1][i][2][2]  ? '1px solid black' : '',
                       'background-color':
                         semaineJours[1][i][2][6] == '30' ||
                         (semaineJours[1][i][2][6] == '15' &&
@@ -723,7 +753,7 @@
                     *ngIf="(isOnDrag && (heureIndex == i)) || semaineJours[1][i][0][2] || semaineJours[1][i][1][2] || semaineJours[1][i][2][2] || semaineJours[1][i][3][2]"
 
                   >
-                    <label> {{ semaineJours[1][i][2][2] }}</label>
+                    <label *ngIf="semaineJours[1][i][2][8]"> {{ semaineJours[1][i][2][2] }}</label>
                     <mat-menu
                       style="cursor: pointer; text-align: center"
                       #menu="matMenu"
@@ -762,7 +792,7 @@
                         }}</mat-label
                       >
                       <button
-                        (click)="deleteItemFromCalendar(1, i)"
+                      (click)="deleteItemFromCalendar(semaineJours[1][i][2][7])"
                         class="deleteElement"
                         mat-button
                       >
@@ -772,8 +802,12 @@
                   </div>
                   <div
                   [matMenuTriggerFor]="menu"
-                    (mouseenter)="creneauIndex = 3"
+                    (mouseenter)="selectedSeanceGroupId = semaineJours[1][i][3][7] ; creneauIndex = 3"
                     [style]="{
+                      'border-right':selectedSeanceGroupId == semaineJours[1][i][3][7] && semaineJours[1][i][3][2]  ? '1px solid black' : '',
+                      'border-left':selectedSeanceGroupId == semaineJours[1][i][3][7]  && semaineJours[1][i][3][2]  ? '1px solid black' : '',
+                      'border-bottom':selectedSeanceGroupId == semaineJours[1][i][3][7] && semaineJours[1][i][3][9] && semaineJours[1][i][3][2]  ? '1px solid black' : '',
+                      'border-top':selectedSeanceGroupId == semaineJours[1][i][3][7] && semaineJours[1][i][3][8] && semaineJours[1][i][3][2]  ? '1px solid black' : '',
                       'background-color':
                         (semaineJours[1][i][3][6] == '30' &&
                           semaineJours[1][i][3][5] != '25') ||
@@ -793,7 +827,7 @@
                     *ngIf="(isOnDrag && (heureIndex == i)) || semaineJours[1][i][0][2] || semaineJours[1][i][1][2] || semaineJours[1][i][2][2] || semaineJours[1][i][3][2]"
 
                   >
-                    <label> {{ semaineJours[1][i][3][2] }}</label>
+                    <label *ngIf="semaineJours[1][i][3][8]"> {{ semaineJours[1][i][3][2] }}</label>
                     <mat-menu
                       style="cursor: pointer; text-align: center"
                       #menu="matMenu"
@@ -833,7 +867,7 @@
                       >
 
                       <button
-                        (click)="deleteItemFromCalendar(1, i)"
+                      (click)="deleteItemFromCalendar(semaineJours[1][i][3][7])"
                         class="deleteElement"
                         mat-button
                       >
@@ -851,8 +885,12 @@
                 >
                   <div
                   [matMenuTriggerFor]="menu"
-                    (mouseenter)="creneauIndex = 0"
+                    (mouseenter)="selectedSeanceGroupId = semaineJours[2][i][0][7] ; creneauIndex = 0"
                     [style]="{
+                      'border-right':selectedSeanceGroupId == semaineJours[2][i][0][7] && semaineJours[2][i][0][2]  ? '1px solid black' : '',
+                      'border-left':selectedSeanceGroupId == semaineJours[2][i][0][7] && semaineJours[2][i][0][2]   ? '1px solid black' : '',
+                      'border-bottom':selectedSeanceGroupId == semaineJours[2][i][0][7] && semaineJours[2][i][0][9] && semaineJours[2][i][0][2]   ? '1px solid black' : '',
+                      'border-top':selectedSeanceGroupId == semaineJours[2][i][0][7] && semaineJours[2][i][0][8] && semaineJours[2][i][0][2]   ? '1px solid black' : '',
                       'background-color':
                         semaineJours[2][i][0][6] == '00'
                           ? getBackgroundColor(semaineJours[2][i][0][2])
@@ -864,7 +902,7 @@
                     *ngIf="(isOnDrag && (heureIndex == i)) || semaineJours[2][i][0][2] || semaineJours[2][i][1][2] || semaineJours[2][i][2][2] || semaineJours[2][i][3][2]"
 
                   >
-                    <label> {{ semaineJours[2][i][0][2] }}</label>
+                    <label *ngIf="semaineJours[2][i][0][8]"> {{ semaineJours[2][i][0][2] }}</label>
                     <mat-menu
                       style="cursor: pointer; text-align: center"
                       #menu="matMenu"
@@ -903,7 +941,7 @@
                         }}</mat-label
                       >
                       <button
-                        (click)="deleteItemFromCalendar(2, i)"
+                      (click)="deleteItemFromCalendar(semaineJours[2][i][0][7])"
                         class="deleteElement"
                         mat-button
                       >
@@ -913,8 +951,12 @@
                   </div>
                   <div
                   [matMenuTriggerFor]="menu"
-                    (mouseenter)="creneauIndex = 1"
+                    (mouseenter)="selectedSeanceGroupId = semaineJours[2][i][1][7] ; creneauIndex = 1"
                     [style]="{
+                      'border-right':selectedSeanceGroupId == semaineJours[2][i][1][7] && semaineJours[2][i][1][2]   ? '1px solid black' : '',
+                      'border-left':selectedSeanceGroupId == semaineJours[2][i][1][7] && semaineJours[2][i][1][2]  ? '1px solid black' : '',
+                      'border-bottom':selectedSeanceGroupId == semaineJours[2][i][1][7] && semaineJours[2][i][1][9] && semaineJours[2][i][1][2]  ? '1px solid black' : '',
+                      'border-top':selectedSeanceGroupId == semaineJours[2][i][1][7] && semaineJours[2][i][1][8] && semaineJours[2][i][1][2]  ? '1px solid black' : '',
                       'background-color':
                         semaineJours[2][i][1][6] == '15' ||
                         (semaineJours[2][i][1][6] == '00' &&
@@ -928,7 +970,7 @@
                     *ngIf="(isOnDrag && (heureIndex == i)) || semaineJours[2][i][0][2] || semaineJours[2][i][1][2] || semaineJours[2][i][2][2] || semaineJours[2][i][3][2]"
 
                   >
-                    <label> {{ semaineJours[2][i][1][2] }}</label>
+                    <label *ngIf="semaineJours[2][i][1][8]"> {{ semaineJours[2][i][1][2] }}</label>
                     <mat-menu
                       style="cursor: pointer; text-align: center"
                       #menu="matMenu"
@@ -967,7 +1009,7 @@
                         }}</mat-label
                       >
                       <button
-                        (click)="deleteItemFromCalendar(2, i)"
+                      (click)="deleteItemFromCalendar(semaineJours[2][i][1][7])"
                         class="deleteElement"
                         mat-button
                       >
@@ -977,8 +1019,12 @@
                   </div>
                   <div
                   [matMenuTriggerFor]="menu"
-                    (mouseenter)="creneauIndex = 2"
+                    (mouseenter)="selectedSeanceGroupId = semaineJours[2][i][2][7] ; creneauIndex = 2"
                     [style]="{
+                      'border-right':selectedSeanceGroupId == semaineJours[2][i][2][7]  && semaineJours[2][i][2][2]  ? '1px solid black' : '',
+                      'border-left':selectedSeanceGroupId == semaineJours[2][i][2][7]  && semaineJours[2][i][2][2] ? '1px solid black' : '',
+                      'border-bottom':selectedSeanceGroupId == semaineJours[2][i][2][7] && semaineJours[2][i][2][9]  && semaineJours[2][i][2][2] ? '1px solid black' : '',
+                      'border-top':selectedSeanceGroupId == semaineJours[2][i][2][7] && semaineJours[2][i][2][8] && semaineJours[2][i][2][2] ? '1px solid black' : '',
                       'background-color':
                         semaineJours[2][i][2][6] == '30' ||
                         (semaineJours[2][i][2][6] == '15' &&
@@ -995,7 +1041,7 @@
                     *ngIf="(isOnDrag && (heureIndex == i)) || semaineJours[2][i][0][2] || semaineJours[2][i][1][2] || semaineJours[2][i][2][2] || semaineJours[2][i][3][2]"
 
                   >
-                    <label> {{ semaineJours[2][i][2][2] }}</label>
+                    <label *ngIf="semaineJours[2][i][2][8]"> {{ semaineJours[2][i][2][2] }}</label>
                     <mat-menu
                       style="cursor: pointer; text-align: center"
                       #menu="matMenu"
@@ -1034,7 +1080,7 @@
                         }}</mat-label
                       >
                       <button
-                        (click)="deleteItemFromCalendar(2, i)"
+                      (click)="deleteItemFromCalendar(semaineJours[2][i][2][7])"
                         class="deleteElement"
                         mat-button
                       >
@@ -1044,8 +1090,12 @@
                   </div>
                   <div
                   [matMenuTriggerFor]="menu"
-                    (mouseenter)="creneauIndex = 3"
+                    (mouseenter)="selectedSeanceGroupId = semaineJours[2][i][3][7] ; creneauIndex = 3"
                     [style]="{
+                      'border-right':selectedSeanceGroupId == semaineJours[2][i][3][7] && semaineJours[2][i][3][2]  ? '1px solid black' : '',
+                      'border-left':selectedSeanceGroupId == semaineJours[2][i][3][7] && semaineJours[2][i][3][2]  ? '1px solid black' : '',
+                      'border-bottom':selectedSeanceGroupId == semaineJours[2][i][3][7] && semaineJours[2][i][3][9] && semaineJours[2][i][3][2]  ? '1px solid black' : '',
+                      'border-top':selectedSeanceGroupId == semaineJours[2][i][3][7] && semaineJours[2][i][3][8] && semaineJours[2][i][3][2] ? '1px solid black' : '',
                       'background-color':
                         (semaineJours[2][i][3][6] == '30' &&
                           semaineJours[2][i][3][5] != '25') ||
@@ -1065,7 +1115,7 @@
                     *ngIf="(isOnDrag && (heureIndex == i)) || semaineJours[2][i][0][2] || semaineJours[2][i][1][2] || semaineJours[2][i][2][2] || semaineJours[2][i][3][2]"
 
                   >
-                    <label> {{ semaineJours[2][i][3][2] }}</label>
+                    <label *ngIf="semaineJours[2][i][3][8]"> {{ semaineJours[2][i][3][2] }}</label>
                     <mat-menu
                       style="cursor: pointer; text-align: center"
                       #menu="matMenu"
@@ -1104,7 +1154,7 @@
                         }}</mat-label
                       >
                       <button
-                        (click)="deleteItemFromCalendar(2, i)"
+                      (click)="deleteItemFromCalendar(semaineJours[2][i][3][7])"
                         class="deleteElement"
                         mat-button
                       >
@@ -1122,8 +1172,12 @@
                 >
                   <div
                   [matMenuTriggerFor]="menu"
-                    (mouseenter)="creneauIndex = 0"
+                    (mouseenter)="selectedSeanceGroupId = semaineJours[3][i][0][7] ; creneauIndex = 0"
                     [style]="{
+                      'border-right':selectedSeanceGroupId == semaineJours[3][i][0][7] && semaineJours[3][i][0][2] ? '1px solid black' : '',
+                      'border-left':selectedSeanceGroupId == semaineJours[3][i][0][7]  && semaineJours[3][i][0][2] ? '1px solid black' : '',
+                      'border-bottom':selectedSeanceGroupId == semaineJours[3][i][0][7] && semaineJours[3][i][0][9]  && semaineJours[3][i][0][2] ? '1px solid black' : '',
+                      'border-top':selectedSeanceGroupId == semaineJours[3][i][0][7] && semaineJours[3][i][0][8]  && semaineJours[3][i][0][2] ? '1px solid black' : '',
                       'background-color':
                         semaineJours[3][i][0][6] == '00'
                           ? getBackgroundColor(semaineJours[3][i][0][2])
@@ -1134,7 +1188,7 @@
                     id="t-00"
                     *ngIf="(isOnDrag && (heureIndex == i)) || semaineJours[3][i][0][2] || semaineJours[3][i][1][2] || semaineJours[3][i][2][2] || semaineJours[3][i][3][2]"
                   >
-                    <label> {{ semaineJours[3][i][0][2] }}</label>
+                    <label *ngIf="semaineJours[3][i][0][8]"> {{ semaineJours[3][i][0][2] }}</label>
                     <mat-menu
                       style="cursor: pointer; text-align: center"
                       #menu="matMenu"
@@ -1173,7 +1227,7 @@
                         }}</mat-label
                       >
                       <button
-                        (click)="deleteItemFromCalendar(3, i)"
+                      (click)="deleteItemFromCalendar(semaineJours[3][i][0][7])"
                         class="deleteElement"
                         mat-button
                       >
@@ -1183,8 +1237,12 @@
                   </div>
                   <div
                   [matMenuTriggerFor]="menu"
-                    (mouseenter)="creneauIndex = 1"
+                    (mouseenter)="selectedSeanceGroupId = semaineJours[3][i][1][7] ; creneauIndex = 1"
                     [style]="{
+                      'border-right':selectedSeanceGroupId == semaineJours[3][i][1][7]  && semaineJours[3][i][1][2]  ? '1px solid black' : '',
+                      'border-left':selectedSeanceGroupId == semaineJours[3][i][1][7] && semaineJours[3][i][1][2]  ? '1px solid black' : '',
+                      'border-bottom':selectedSeanceGroupId == semaineJours[3][i][1][7] && semaineJours[3][i][1][9] && semaineJours[3][i][1][2]  ? '1px solid black' : '',
+                      'border-top':selectedSeanceGroupId == semaineJours[3][i][1][7] && semaineJours[3][i][1][8] && semaineJours[3][i][1][2]  ? '1px solid black' : '',
                       'background-color':
                         semaineJours[3][i][1][6] == '15' ||
                         (semaineJours[3][i][1][6] == '00' &&
@@ -1197,7 +1255,7 @@
                     id="t-15"
                     *ngIf="(isOnDrag && (heureIndex == i)) || semaineJours[3][i][0][2] || semaineJours[3][i][1][2] || semaineJours[3][i][2][2] || semaineJours[3][i][3][2]"
                   >
-                    <label> {{ semaineJours[3][i][1][2] }}</label>
+                    <label *ngIf="semaineJours[3][i][1][8]"> {{ semaineJours[3][i][1][2] }}</label>
                     <mat-menu
                       style="cursor: pointer; text-align: center"
                       #menu="matMenu"
@@ -1236,7 +1294,7 @@
                         }}</mat-label
                       >
                       <button
-                        (click)="deleteItemFromCalendar(3, i)"
+                      (click)="deleteItemFromCalendar(semaineJours[3][i][1][7])"
                         class="deleteElement"
                         mat-button
                       >
@@ -1246,8 +1304,12 @@
                   </div>
                   <div
                   [matMenuTriggerFor]="menu"
-                    (mouseenter)="creneauIndex = 2"
+                    (mouseenter)="selectedSeanceGroupId = semaineJours[3][i][2][7] ; creneauIndex = 2"
                     [style]="{
+                      'border-right':selectedSeanceGroupId == semaineJours[3][i][2][7] && semaineJours[3][i][2][2]  ? '1px solid black' : '',
+                      'border-left':selectedSeanceGroupId == semaineJours[3][i][2][7] && semaineJours[3][i][2][2]   ? '1px solid black' : '',
+                      'border-bottom':selectedSeanceGroupId == semaineJours[3][i][2][7] && semaineJours[3][i][2][9] && semaineJours[3][i][2][2]   ? '1px solid black' : '',
+                      'border-top':selectedSeanceGroupId == semaineJours[3][i][2][7] && semaineJours[3][i][2][8] && semaineJours[3][i][2][2]   ? '1px solid black' : '',
                       'background-color':
                         semaineJours[3][i][2][6] == '30' ||
                         (semaineJours[3][i][2][6] == '15' &&
@@ -1264,7 +1326,7 @@
                     *ngIf="(isOnDrag && (heureIndex == i)) || semaineJours[3][i][0][2] || semaineJours[3][i][1][2] || semaineJours[3][i][2][2] || semaineJours[3][i][3][2]"
 
                   >
-                    <label> {{ semaineJours[3][i][2][2] }}</label>
+                    <label *ngIf="semaineJours[3][i][2][8]"> {{ semaineJours[3][i][2][2] }}</label>
                     <mat-menu
                       style="cursor: pointer; text-align: center"
                       #menu="matMenu"
@@ -1303,7 +1365,7 @@
                         }}</mat-label
                       >
                       <button
-                        (click)="deleteItemFromCalendar(3, i)"
+                      (click)="deleteItemFromCalendar(semaineJours[3][i][2][7])"
                         class="deleteElement"
                         mat-button
                       >
@@ -1313,8 +1375,12 @@
                   </div>
                   <div
                   [matMenuTriggerFor]="menu"
-                    (mouseenter)="creneauIndex = 3"
+                    (mouseenter)="selectedSeanceGroupId = semaineJours[3][i][3][7] ; creneauIndex = 3"
                     [style]="{
+                      'border-right':selectedSeanceGroupId == semaineJours[3][i][3][7]  && semaineJours[3][i][3][2]  ? '1px solid black' : '',
+                      'border-left':selectedSeanceGroupId == semaineJours[3][i][3][7]  && semaineJours[3][i][3][2] ? '1px solid black' : '',
+                      'border-bottom':selectedSeanceGroupId == semaineJours[3][i][3][7] && semaineJours[3][i][3][9] && semaineJours[3][i][3][2] ? '1px solid black' : '',
+                      'border-top':selectedSeanceGroupId == semaineJours[3][i][3][7] && semaineJours[3][i][3][8]  && semaineJours[3][i][3][2] ? '1px solid black' : '',
                       'background-color':
                         (semaineJours[3][i][3][6] == '30' &&
                           semaineJours[3][i][3][5] != '25') ||
@@ -1334,7 +1400,7 @@
                     *ngIf="(isOnDrag && (heureIndex == i)) || semaineJours[3][i][0][2] || semaineJours[3][i][1][2] || semaineJours[3][i][2][2] || semaineJours[3][i][3][2]"
 
                   >
-                    <label> {{ semaineJours[3][i][3][2] }}</label>
+                    <label *ngIf="semaineJours[3][i][3][8]"> {{ semaineJours[3][i][3][2] }}</label>
                     <mat-menu
                       style="cursor: pointer; text-align: center"
                       #menu="matMenu"
@@ -1373,7 +1439,7 @@
                         }}</mat-label
                       >
                       <button
-                        (click)="deleteItemFromCalendar(3, i)"
+                      (click)="deleteItemFromCalendar(semaineJours[3][i][3][7])"
                         class="deleteElement"
                         mat-button
                       >
@@ -1391,8 +1457,12 @@
                 >
                   <div
                   [matMenuTriggerFor]="menu"
-                    (mouseenter)="creneauIndex = 0"
+                    (mouseenter)="selectedSeanceGroupId = semaineJours[4][i][0][7] ; creneauIndex = 0"
                     [style]="{
+                      'border-right':selectedSeanceGroupId == semaineJours[4][i][0][7] && semaineJours[4][i][0][2] ? '1px solid black' : '',
+                      'border-left':selectedSeanceGroupId == semaineJours[4][i][0][7] && semaineJours[4][i][0][2]  ? '1px solid black' : '',
+                      'border-bottom':selectedSeanceGroupId == semaineJours[4][i][0][7] && semaineJours[4][i][0][9]  && semaineJours[4][i][0][2] ? '1px solid black' : '',
+                      'border-top':selectedSeanceGroupId == semaineJours[4][i][0][7] && semaineJours[4][i][0][8] && semaineJours[4][i][0][2] ? '1px solid black' : '',
                       'background-color':
                         semaineJours[4][i][0][6] == '00'
                           ? getBackgroundColor(semaineJours[4][i][0][2])
@@ -1404,7 +1474,7 @@
                     *ngIf="(isOnDrag && (heureIndex == i)) || semaineJours[4][i][0][2] || semaineJours[4][i][1][2] || semaineJours[4][i][2][2] || semaineJours[4][i][3][2]"
 
                   >
-                    <label> {{ semaineJours[4][i][0][2] }}</label>
+                    <label *ngIf="semaineJours[4][i][0][8]"> {{ semaineJours[4][i][0][2] }}</label>
                     <mat-menu
                       style="cursor: pointer; text-align: center"
                       #menu="matMenu"
@@ -1443,7 +1513,7 @@
                         }}</mat-label
                       >
                       <button
-                        (click)="deleteItemFromCalendar(4, i)"
+                      (click)="deleteItemFromCalendar(semaineJours[4][i][0][7])"
                         class="deleteElement"
                         mat-button
                       >
@@ -1453,8 +1523,12 @@
                   </div>
                   <div
                   [matMenuTriggerFor]="menu"
-                    (mouseenter)="creneauIndex = 1"
+                    (mouseenter)="selectedSeanceGroupId = semaineJours[4][i][1][7] ; creneauIndex = 1"
                     [style]="{
+                      'border-right':selectedSeanceGroupId == semaineJours[4][i][1][7] && semaineJours[4][i][1][2] ? '1px solid black' : '',
+                      'border-left':selectedSeanceGroupId == semaineJours[4][i][1][7] && semaineJours[4][i][1][2]  ? '1px solid black' : '',
+                      'border-bottom':selectedSeanceGroupId == semaineJours[4][i][1][7] && semaineJours[4][i][1][9] && semaineJours[4][i][1][2]  ? '1px solid black' : '',
+                      'border-top':selectedSeanceGroupId == semaineJours[4][i][1][7] && semaineJours[4][i][1][8] && semaineJours[4][i][1][2]  ? '1px solid black' : '',
                       'background-color':
                         semaineJours[4][i][1][6] == '15' ||
                         (semaineJours[4][i][1][6] == '00' &&
@@ -1468,7 +1542,7 @@
                     *ngIf="(isOnDrag && (heureIndex == i)) || semaineJours[4][i][0][2] || semaineJours[4][i][1][2] || semaineJours[4][i][2][2] || semaineJours[4][i][3][2]"
 
                   >
-                    <label> {{ semaineJours[4][i][1][2] }}</label>
+                    <label *ngIf="semaineJours[4][i][1][8]"> {{ semaineJours[4][i][1][2] }}</label>
                     <mat-menu
                       style="cursor: pointer; text-align: center"
                       #menu="matMenu"
@@ -1507,7 +1581,7 @@
                         }}</mat-label
                       >
                       <button
-                        (click)="deleteItemFromCalendar(4, i)"
+                      (click)="deleteItemFromCalendar(semaineJours[4][i][1][7])"
                         class="deleteElement"
                         mat-button
                       >
@@ -1517,8 +1591,12 @@
                   </div>
                   <div
                   [matMenuTriggerFor]="menu"
-                    (mouseenter)="creneauIndex = 2"
+                    (mouseenter)="selectedSeanceGroupId = semaineJours[4][i][2][7] ; creneauIndex = 2"
                     [style]="{
+                      'border-right':selectedSeanceGroupId == semaineJours[4][i][2][7] && semaineJours[4][i][2][2]  ? '1px solid black' : '',
+                      'border-left':selectedSeanceGroupId == semaineJours[4][i][2][7] && semaineJours[4][i][2][2] ? '1px solid black' : '',
+                      'border-bottom':selectedSeanceGroupId == semaineJours[4][i][2][7] && semaineJours[4][i][2][9] && semaineJours[4][i][2][2] ? '1px solid black' : '',
+                      'border-top':selectedSeanceGroupId == semaineJours[4][i][2][7] && semaineJours[4][i][2][8] && semaineJours[4][i][2][2] ? '1px solid black' : '',
                       'background-color':
                         semaineJours[4][i][2][6] == '30' ||
                         (semaineJours[4][i][2][6] == '15' &&
@@ -1535,7 +1613,7 @@
                     *ngIf="(isOnDrag && (heureIndex == i)) || semaineJours[4][i][0][2] || semaineJours[4][i][1][2] || semaineJours[4][i][2][2] || semaineJours[4][i][3][2]"
 
                   >
-                    <label> {{ semaineJours[4][i][2][2] }}</label>
+                    <label *ngIf="semaineJours[4][i][2][8]"> {{ semaineJours[4][i][2][2] }}</label>
                     <mat-menu
                       style="cursor: pointer; text-align: center"
                       #menu="matMenu"
@@ -1574,7 +1652,7 @@
                         }}</mat-label
                       >
                       <button
-                        (click)="deleteItemFromCalendar(4, i)"
+                      (click)="deleteItemFromCalendar(semaineJours[4][i][2][7])"
                         class="deleteElement"
                         mat-button
                       >
@@ -1584,8 +1662,12 @@
                   </div>
                   <div
                   [matMenuTriggerFor]="menu"
-                    (mouseenter)="creneauIndex = 3"
+                    (mouseenter)="selectedSeanceGroupId = semaineJours[4][i][3][7] ; creneauIndex = 3"
                     [style]="{
+                      'border-right':selectedSeanceGroupId == semaineJours[4][i][3][7] && semaineJours[4][i][3][2] ? '1px solid black' : '',
+                      'border-left':selectedSeanceGroupId == semaineJours[4][i][3][7] && semaineJours[4][i][3][2] ? '1px solid black' : '',
+                      'border-bottom':selectedSeanceGroupId == semaineJours[4][i][3][7] && semaineJours[4][i][3][9] && semaineJours[4][i][3][2] ? '1px solid black' : '',
+                      'border-top':selectedSeanceGroupId == semaineJours[4][i][3][7] && semaineJours[4][i][3][8] && semaineJours[4][i][3][2] ? '1px solid black' : '',
                       'background-color':
                         (semaineJours[4][i][3][6] == '30' &&
                           semaineJours[4][i][3][5] != '25') ||
@@ -1605,7 +1687,7 @@
                     *ngIf="(isOnDrag && (heureIndex == i)) || semaineJours[4][i][0][2] || semaineJours[4][i][1][2] || semaineJours[4][i][2][2] || semaineJours[4][i][3][2]"
 
                   >
-                    <label> {{ semaineJours[4][i][3][2] }}</label>
+                    <label *ngIf="semaineJours[4][i][3][8]"> {{ semaineJours[4][i][3][2] }}</label>
                     <mat-menu
                       style="cursor: pointer; text-align: center"
                       #menu="matMenu"
@@ -1644,7 +1726,7 @@
                         }}</mat-label
                       >
                       <button
-                        (click)="deleteItemFromCalendar(4, i)"
+                      (click)="deleteItemFromCalendar(semaineJours[4][i][3][7])"
                         class="deleteElement"
                         mat-button
                       >
@@ -1662,8 +1744,12 @@
                 >
                   <div
                   [matMenuTriggerFor]="menu"
-                    (mouseenter)="creneauIndex = 0"
+                    (mouseenter)="selectedSeanceGroupId = semaineJours[5][i][0][7] ; creneauIndex = 0"
                     [style]="{
+                      'border-right':selectedSeanceGroupId == semaineJours[5][i][0][7] && semaineJours[5][i][0][2] ? '1px solid black' : '',
+                      'border-left':selectedSeanceGroupId == semaineJours[5][i][0][7] && semaineJours[5][i][0][2]  ? '1px solid black' : '',
+                      'border-bottom':selectedSeanceGroupId == semaineJours[5][i][0][7] && semaineJours[5][i][0][9] && semaineJours[5][i][0][2]  ? '1px solid black' : '',
+                      'border-top':selectedSeanceGroupId == semaineJours[5][i][0][7] && semaineJours[5][i][0][8] && semaineJours[5][i][0][2]  ? '1px solid black' : '',
                       'background-color':
                         semaineJours[5][i][0][6] == '00'
                           ? getBackgroundColor(semaineJours[5][i][0][2])
@@ -1675,7 +1761,7 @@
                     *ngIf="(isOnDrag && (heureIndex == i)) || semaineJours[5][i][0][2] || semaineJours[5][i][1][2] || semaineJours[5][i][2][2] || semaineJours[5][i][3][2]"
 
                   >
-                    <label> {{ semaineJours[5][i][0][2] }}</label>
+                    <label *ngIf="semaineJours[5][i][0][8]"> {{ semaineJours[5][i][0][2] }}</label>
                     <mat-menu
                       style="cursor: pointer; text-align: center"
                       #menu="matMenu"
@@ -1714,7 +1800,7 @@
                         }}</mat-label
                       >
                       <button
-                        (click)="deleteItemFromCalendar(5, i)"
+                      (click)="deleteItemFromCalendar(semaineJours[5][i][0][7])"
                         class="deleteElement"
                         mat-button
                       >
@@ -1724,8 +1810,12 @@
                   </div>
                   <div
                   [matMenuTriggerFor]="menu"
-                    (mouseenter)="creneauIndex = 1"
+                    (mouseenter)="selectedSeanceGroupId = semaineJours[5][i][1][7] ; creneauIndex = 1"
                     [style]="{
+                      'border-right':selectedSeanceGroupId == semaineJours[5][i][1][7]  && semaineJours[5][i][1][2] ? '1px solid black' : '',
+                      'border-left':selectedSeanceGroupId == semaineJours[5][i][1][7] && semaineJours[5][i][1][2] ? '1px solid black' : '',
+                      'border-bottom':selectedSeanceGroupId == semaineJours[5][i][1][7] && semaineJours[5][i][1][9] && semaineJours[5][i][1][2]  ? '1px solid black' : '',
+                      'border-top':selectedSeanceGroupId == semaineJours[5][i][1][7] && semaineJours[5][i][1][8] && semaineJours[5][i][1][2] ? '1px solid black' : '',
                       'background-color':
                         semaineJours[5][i][1][6] == '15' ||
                         (semaineJours[5][i][1][6] == '00' &&
@@ -1739,7 +1829,7 @@
                     *ngIf="(isOnDrag && (heureIndex == i)) || semaineJours[5][i][0][2] || semaineJours[5][i][1][2] || semaineJours[5][i][2][2] || semaineJours[5][i][3][2]"
 
                   >
-                    <label> {{ semaineJours[5][i][1][2] }}</label>
+                    <label *ngIf="semaineJours[5][i][1][8]"> {{ semaineJours[5][i][1][2] }}</label>
                     <mat-menu
                       style="cursor: pointer; text-align: center"
                       #menu="matMenu"
@@ -1778,7 +1868,7 @@
                         }}</mat-label
                       >
                       <button
-                        (click)="deleteItemFromCalendar(5, i)"
+                      (click)="deleteItemFromCalendar(semaineJours[5][i][1][7])"
                         class="deleteElement"
                         mat-button
                       >
@@ -1788,8 +1878,12 @@
                   </div>
                   <div
                   [matMenuTriggerFor]="menu"
-                    (mouseenter)="creneauIndex = 2"
+                    (mouseenter)="selectedSeanceGroupId = semaineJours[5][i][2][7] ; creneauIndex = 2"
                     [style]="{
+                      'border-right':selectedSeanceGroupId == semaineJours[5][i][2][7] && semaineJours[5][i][2][2] ? '1px solid black' : '',
+                      'border-left':selectedSeanceGroupId == semaineJours[5][i][2][7] && semaineJours[5][i][2][2] ? '1px solid black' : '',
+                      'border-bottom':selectedSeanceGroupId == semaineJours[5][i][2][7] && semaineJours[5][i][2][9] && semaineJours[5][i][2][2] ? '1px solid black' : '',
+                      'border-top':selectedSeanceGroupId == semaineJours[5][i][2][7] && semaineJours[5][i][2][8] && semaineJours[5][i][2][2] ? '1px solid black' : '',
                       'background-color':
                         semaineJours[5][i][2][6] == '30' ||
                         (semaineJours[5][i][2][6] == '15' &&
@@ -1806,7 +1900,7 @@
                     *ngIf="(isOnDrag && (heureIndex == i)) || semaineJours[5][i][0][2] || semaineJours[5][i][1][2] || semaineJours[5][i][2][2] || semaineJours[5][i][3][2]"
 
                   >
-                    <label> {{ semaineJours[5][i][2][2] }}</label>
+                    <label *ngIf="semaineJours[5][i][2][8]"> {{ semaineJours[5][i][2][2] }}</label>
                     <mat-menu
                       style="cursor: pointer; text-align: center"
                       #menu="matMenu"
@@ -1845,7 +1939,7 @@
                         }}</mat-label
                       >
                       <button
-                        (click)="deleteItemFromCalendar(5, i)"
+                      (click)="deleteItemFromCalendar(semaineJours[5][i][2][7])"
                         class="deleteElement"
                         mat-button
                       >
@@ -1855,8 +1949,12 @@
                   </div>
                   <div
                   [matMenuTriggerFor]="menu"
-                    (mouseenter)="creneauIndex = 3"
+                    (mouseenter)="selectedSeanceGroupId = semaineJours[5][i][3][7] ; creneauIndex = 3"
                     [style]="{
+                      'border-right':selectedSeanceGroupId == semaineJours[5][i][3][7] && semaineJours[5][i][3][2] ? '1px solid black' : '',
+                      'border-left':selectedSeanceGroupId == semaineJours[5][i][3][7] && semaineJours[5][i][3][2]  ? '1px solid black' : '',
+                      'border-bottom':selectedSeanceGroupId == semaineJours[5][i][3][7] && semaineJours[5][i][3][9] && semaineJours[5][i][3][2]  ? '1px solid black' : '',
+                      'border-top':selectedSeanceGroupId == semaineJours[5][i][3][7] && semaineJours[5][i][3][8] && semaineJours[5][i][3][2] ? '1px solid black' : '',
                       'background-color':
                         (semaineJours[5][i][3][6] == '30' &&
                           semaineJours[5][i][3][5] != '25') ||
@@ -1876,7 +1974,7 @@
                     *ngIf="(isOnDrag && (heureIndex == i)) || semaineJours[5][i][0][2] || semaineJours[5][i][1][2] || semaineJours[5][i][2][2] || semaineJours[5][i][3][2]"
 
                   >
-                    <label> {{ semaineJours[5][i][3][2] }}</label>
+                    <label *ngIf="semaineJours[5][i][3][8]"> {{ semaineJours[5][i][3][2] }}</label>
                     <mat-menu
                       style="cursor: pointer; text-align: center"
                       #menu="matMenu"
@@ -1915,7 +2013,7 @@
                         }}</mat-label
                       >
                       <button
-                        (click)="deleteItemFromCalendar(5, i)"
+                      (click)="deleteItemFromCalendar(semaineJours[5][i][3][7])"
                         class="deleteElement"
                         mat-button
                       >
@@ -1932,8 +2030,12 @@
                 >
                   <div
                   [matMenuTriggerFor]="menu"
-                    (mouseenter)="creneauIndex = 0"
+                    (mouseenter)="selectedSeanceGroupId = semaineJours[6][i][0][7] ; creneauIndex = 0"
                     [style]="{
+                      'border-right':selectedSeanceGroupId == semaineJours[6][i][0][7]  && semaineJours[6][i][0][2] ? '1px solid black' : '',
+                      'border-left':selectedSeanceGroupId == semaineJours[6][i][0][7] && semaineJours[6][i][0][2]  ? '1px solid black' : '',
+                      'border-bottom':selectedSeanceGroupId == semaineJours[6][i][0][7] && semaineJours[6][i][0][9]  && semaineJours[6][i][0][2] ? '1px solid black' : '',
+                      'border-top':selectedSeanceGroupId == semaineJours[6][i][0][7] && semaineJours[6][i][0][8]  && semaineJours[6][i][0][2] ? '1px solid black' : '',
                       'background-color':
                         semaineJours[6][i][0][6] == '00'
                           ? getBackgroundColor(semaineJours[6][i][0][2])
@@ -1945,7 +2047,7 @@
                     *ngIf="(isOnDrag && (heureIndex == i)) || semaineJours[6][i][0][2] || semaineJours[6][i][1][2] || semaineJours[6][i][2][2] || semaineJours[6][i][3][2]"
 
                   >
-                    <label> {{ semaineJours[6][i][0][2] }}</label>
+                    <label *ngIf="semaineJours[6][i][0][8]"> {{ semaineJours[6][i][0][2] }}</label>
 
                     <mat-menu
                       style="cursor: pointer; text-align: center"
@@ -1985,7 +2087,7 @@
                         }}</mat-label
                       >
                       <button
-                        (click)="deleteItemFromCalendar(6, i)"
+                      (click)="deleteItemFromCalendar(semaineJours[6][i][0][7])"
                         class="deleteElement"
                         mat-button
                       >
@@ -1995,8 +2097,12 @@
                   </div>
                   <div
                   [matMenuTriggerFor]="menu"
-                    (mouseenter)="creneauIndex = 1"
+                    (mouseenter)="selectedSeanceGroupId = semaineJours[6][i][1][7] ; creneauIndex = 1"
                     [style]="{
+                      'border-right':selectedSeanceGroupId == semaineJours[6][i][1][7]  && semaineJours[6][i][1][2] ? '1px solid black' : '',
+                      'border-left':selectedSeanceGroupId == semaineJours[6][i][1][7] && semaineJours[6][i][1][2] ? '1px solid black' : '',
+                      'border-bottom':selectedSeanceGroupId == semaineJours[6][i][1][7] && semaineJours[6][i][1][9] && semaineJours[6][i][1][2] ? '1px solid black' : '',
+                      'border-top':selectedSeanceGroupId == semaineJours[6][i][1][7] && semaineJours[6][i][1][8] && semaineJours[6][i][1][2] ? '1px solid black' : '',
                       'background-color':
                         semaineJours[6][i][1][6] == '15' ||
                         (semaineJours[6][i][1][6] == '00' &&
@@ -2010,7 +2116,7 @@
                     *ngIf="(isOnDrag && (heureIndex == i)) || semaineJours[6][i][0][2] || semaineJours[6][i][1][2] || semaineJours[6][i][2][2] || semaineJours[6][i][3][2]"
 
                   >
-                    <label> {{ semaineJours[6][i][1][2] }}</label>
+                    <label *ngIf="semaineJours[6][i][1][8]"> {{ semaineJours[6][i][1][2] }}</label>
 
                     <mat-menu
                       style="cursor: pointer; text-align: center"
@@ -2050,7 +2156,7 @@
                         }}</mat-label
                       >
                       <button
-                        (click)="deleteItemFromCalendar(6, i)"
+                      (click)="deleteItemFromCalendar(semaineJours[6][i][1][7])"
                         class="deleteElement"
                         mat-button
                       >
@@ -2060,8 +2166,12 @@
                   </div>
                   <div
                   [matMenuTriggerFor]="menu"
-                    (mouseenter)="creneauIndex = 2"
+                    (mouseenter)="selectedSeanceGroupId = semaineJours[6][i][2][7] ; creneauIndex = 2"
                     [style]="{
+                      'border-right':selectedSeanceGroupId == semaineJours[6][i][2][7] && semaineJours[6][i][2][2] ? '1px solid black' : '',
+                      'border-left':selectedSeanceGroupId == semaineJours[6][i][2][7] && semaineJours[6][i][2][2] ? '1px solid black' : '',
+                      'border-bottom':selectedSeanceGroupId == semaineJours[6][i][2][7] && semaineJours[6][i][2][9] && semaineJours[6][i][2][2] ? '1px solid black' : '',
+                      'border-top':selectedSeanceGroupId == semaineJours[6][i][2][7] && semaineJours[6][i][2][8] && semaineJours[6][i][2][2] ? '1px solid black' : '',
                       'background-color':
                         semaineJours[6][i][2][6] == '30' ||
                         (semaineJours[6][i][2][6] == '15' &&
@@ -2078,7 +2188,7 @@
                     *ngIf="(isOnDrag && (heureIndex == i)) || semaineJours[6][i][0][2] || semaineJours[6][i][1][2] || semaineJours[6][i][2][2] || semaineJours[6][i][3][2]"
 
                   >
-                    <label> {{ semaineJours[6][i][2][2] }}</label>
+                    <label *ngIf="semaineJours[6][i][2][8]"> {{ semaineJours[6][i][2][2] }}</label>
 
                     <mat-menu
                       style="cursor: pointer; text-align: center"
@@ -2118,7 +2228,7 @@
                         }}</mat-label
                       >
                       <button
-                        (click)="deleteItemFromCalendar(6, i)"
+                      (click)="deleteItemFromCalendar(semaineJours[6][i][2][7])"
                         class="deleteElement"
                         mat-button
                       >
@@ -2128,8 +2238,12 @@
                   </div>
                   <div
                   [matMenuTriggerFor]="menu"
-                    (mouseenter)="creneauIndex = 3"
+                    (mouseenter)="selectedSeanceGroupId = semaineJours[6][i][3][7] ; creneauIndex = 3"
                     [style]="{
+                      'border-right':selectedSeanceGroupId == semaineJours[6][i][3][7] && semaineJours[6][i][3][2] ? '1px solid black' : '',
+                      'border-left':selectedSeanceGroupId == semaineJours[6][i][3][7] && semaineJours[6][i][3][2] ? '1px solid black' : '',
+                      'border-bottom':selectedSeanceGroupId == semaineJours[6][i][3][7] && semaineJours[6][i][3][9] && semaineJours[6][i][3][2] ? '1px solid black' : '',
+                      'border-top':selectedSeanceGroupId == semaineJours[6][i][3][7] && semaineJours[6][i][3][8] && semaineJours[6][i][3][2] ? '1px solid black' : '',
                       'background-color':
                         (semaineJours[6][i][3][6] == '30' &&
                           semaineJours[6][i][3][5] != '25') ||
@@ -2149,7 +2263,7 @@
                     *ngIf="(isOnDrag && (heureIndex == i)) || semaineJours[6][i][0][2] || semaineJours[6][i][1][2] || semaineJours[6][i][2][2] || semaineJours[6][i][3][2]"
 
                   >
-                    <label> {{ semaineJours[6][i][3][2] }}</label>
+                    <label *ngIf="semaineJours[6][i][3][8]"> {{ semaineJours[6][i][3][2] }}</label>
 
                     <mat-menu
                       style="cursor: pointer; text-align: center"
@@ -2189,7 +2303,7 @@
                         }}</mat-label
                       >
                       <button
-                        (click)="deleteItemFromCalendar(6, i)"
+                      (click)="deleteItemFromCalendar(semaineJours[6][i][3][7])"
                         class="deleteElement"
                         mat-button
                       >
