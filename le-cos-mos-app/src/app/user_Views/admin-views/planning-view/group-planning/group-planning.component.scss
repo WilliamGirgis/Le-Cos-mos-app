@@ -44,7 +44,7 @@
 
 #rightWrp {
   width: 75%;
- height: max-content;
+  height: max-content;
 
 
   #validateBtnWrp {
@@ -92,16 +92,17 @@
   width: 70%;
   border-radius: 15px;
   text-align: center;
-min-height: 35px;
+  min-height: 35px;
 
 }
+
 #buttonAvailableContent {
   display: flex;
   min-height: max-content;
-padding: 0;
-justify-content: center;
-align-content: baseline;
-align-items: baseline;
+  padding: 0;
+  justify-content: center;
+  align-content: baseline;
+  align-items: baseline;
 
   :first-child {
     display: flex;
@@ -164,7 +165,8 @@ span {
   justify-content: center;
   column-gap: 1vw;
   color: var(--dblue-them-color);
-transform: scale(0.8);
+  transform: scale(0.8);
+
   img {
     transition: 200ms ease-in-out;
     margin-right: auto;
@@ -194,7 +196,7 @@ th {
   color: var(--white-them-color);
   background-color: var(--blue-them-color);
   border: 1px solid var(--white-them-color);
-border-bottom-width:2px ;
+  border-bottom-width: 2px;
   font-weight: bold;
 
   &:first-of-type {
@@ -233,12 +235,14 @@ label {
   margin-top: -10vh;
   font-size: 7px;
   color: var(--dblue-them-color);
+
   mat-date-range-input {
     color: var(--dblue-them-color);
     font-size: 12px;
     margin: auto auto auto 0.5vw;
     justify-self: center;
   }
+
   mat-label {
     color: var(--dblue-them-color);
 
@@ -270,33 +274,36 @@ label {
 #t-00 {
   width: 100%;
   min-height: calc(15vh / 4);
-height: 25%;
-  max-height:  max-content;
+  height: 25%;
+  max-height: max-content;
   cursor: pointer;
 
 
 }
+
 #t-15 {
   width: 100%;
   min-height: calc(15vh / 4);
-height: 25%;
-  max-height:  max-content;
+  height: 25%;
+  max-height: max-content;
 
 }
+
 #t-30 {
   cursor: pointer;
   width: 100%;
   min-height: calc(15vh / 4);
-height: 25%;
-  max-height:  max-content;
+  height: 25%;
+  max-height: max-content;
 
 
 }
+
 #t-45 {
- cursor: pointer;
+  cursor: pointer;
   width: 100%;
   min-height: calc(15vh / 4);
-height: 25%;
+  height: 25%;
   max-height: max-content;
 
 
@@ -308,68 +315,730 @@ height: 25%;
   z-index: 3;
   height: 100%; // Very important // To change for expandable
 
-div {
-  label {
-    font-size: 70%;
+  div {
+    label {
+      font-size: 70%;
+    }
   }
 }
-  }
 
-  td {
-    color: var(--white-them-color);
-    text-align: center;
-    min-width: fit-content;
+td {
+  color: var(--white-them-color);
+  text-align: center;
+  min-width: fit-content;
   border: 0px solid rgb(200, 215, 223);
   border-top-width: 0;
   border-right-width: 0;
-  border-bottom-width: 0 ;
+  border-bottom-width: 0;
   width: 10%;
   height: 4vh; // Required to trigger animation
-    overflow: visible;
-    cursor: pointer;
-    background-color: rgb(212, 240, 253);
+  overflow: visible;
+  cursor: pointer;
+  background-color: rgb(212, 240, 253);
   margin: 0;
-    &:first-of-type {
-      border-left: 0;
-      font-size: 90%;
-      background-color: var(--blue-them-color);
-      font-weight: bold;
-      width: 5%;
-      min-width: max-content;
-    }
+
+  &:first-of-type {
+    border-left: 0;
+    font-size: 90%;
+    background-color: var(--blue-them-color);
+    font-weight: bold;
+    width: 5%;
+    min-width: max-content;
+  }
 
 
   label {
     display: none;
   }
-  }
+}
 
 
 tr {
+
+
   transition: 200ms ease-in-out;
+
   &:hover {
     td {
 
-        border-bottom-width: 2px;
-        border-top-width: 2px;
+      border-bottom-width: 2px;
+      border-top-width: 2px;
 
     }
+
     label {
       display: initial;
     }
   }
+
   &.row {
     height: 5vh; // Statick height of rows (lines : 8h ; 9h ; 10h ... : 21h)
     max-height: 5vh;
-
     &:hover {
-        height: 15vh;
-        max-height: 15vh;
-        #quartDheureList {
-display: flex;
-            }
+      #quartDheureList {
+        display: flex;
+      }
     }
   }
+}
+
+#activeRow-8h {
+
+  &:hover {
+    height: 15vh;
+    max-height: 15vh;
+
+
+    + #activeRow-9h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+        border-bottom-width: 0px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+  }
+
+}
+
+#activeRow-9h {
+
+  &:hover {
+    height: 15vh;
+    max-height: 15vh;
+
+    + #activeRow-8h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+        border-bottom-width: 0px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+
+    + #activeRow-10h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 2px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+  }
+
+}
+
+
+#activeRow-10h {
+
+  &:hover {
+    height: 15vh;
+    max-height: 15vh;
+
+    + #activeRow-9h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+        border-bottom-width: 0px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+
+    + #activeRow-11h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 2px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+  }
+
+}
+
+
+#activeRow-11h {
+
+  &:hover {
+    height: 15vh;
+    max-height: 15vh;
+
+    + #activeRow-10h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 0px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+
+    +#activeRow-12h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 2px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+  }
+
+}
+
+
+#activeRow-12h {
+
+  &:hover {
+    height: 15vh;
+    max-height: 15vh;
+
+    +#activeRow-11h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+        border-bottom-width: 0px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+
+      border-top-width: 2px;
+    }
+
+    +#activeRow-13h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 2px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+  }
+
+}
+
+
+#activeRow-13h {
+
+  &:hover {
+    height: 15vh;
+    max-height: 15vh;
+
+    +#activeRow-12h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+        border-bottom-width: 0px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+
+    +#activeRow-14h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 2px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+  }
+
+}
+
+#activeRow-14h {
+
+  &:hover {
+    height: 15vh;
+    max-height: 15vh;
+
+    +#activeRow-15h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 0px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+
+    +#activeRow-13h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 2px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+  }
+
+}
+
+#activeRow-15h {
+
+  &:hover {
+    height: 15vh;
+    max-height: 15vh;
+
+    +#activeRow-16h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 2px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+
+    +#activeRow-14h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 0px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+  }
+
+}
+
+#activeRow-16h {
+
+  &:hover {
+    height: 15vh;
+    max-height: 15vh;
+
+    +#activeRow-15h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 0px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+
+    +#activeRow-17h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 2px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+  }
+
+}
+
+#activeRow-17h {
+
+  &:hover {
+    height: 15vh;
+    max-height: 15vh;
+
+    +#activeRow-16h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+        border-bottom-width: 0px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+
+    +#activeRow-15h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 2px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+
+
+  }
+
+}
+
+#activeRow-18h {
+
+  &:hover {
+    height: 15vh;
+    max-height: 15vh;
+
+    +#activeRow-17h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 0px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+
+    +#activeRow-19h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 2px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+  }
+
+}
+
+#activeRow-19h {
+
+  &:hover {
+    height: 15vh;
+    max-height: 15vh;
+    + #activeRow-18h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 0px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+
+    +#activeRow-20h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 2px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+  }
+
+}
+
+#activeRow-20h {
+
+  &:hover {
+    height: 15vh;
+    max-height: 15vh;
+
+    + #activeRow-19h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 0px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+
+    + #activeRow-21h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 2px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+  }
+
+}
+
+#activeRow-21h {
+
+  &:hover {
+    height: 15vh;
+    max-height: 15vh;
+
+    + #activeRow-20h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 0px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+  }
+
 }
 
 
@@ -382,10 +1051,10 @@ display: flex;
 }
 
 #headerheure {
-margin: auto;
-  width:fit-content;
+  margin: auto;
+  width: fit-content;
   height: fit-content;
-  text-shadow:  0;
+  text-shadow: 0;
 }
 
 #quartDheureList {
@@ -394,24 +1063,28 @@ margin: auto;
   list-style: none;
   font-size: 75%;
   flex-direction: column;
-  width:fit-content;
+  width: fit-content;
   height: 100%;
   display: none;
-align-content: space-between;
-div {
-  z-index: 3;
-&:first-of-type {
-  text-shadow: black -1px -1px 2px;
-  margin-top: -1vh;
-}
-&:last-of-type {
-  text-shadow: black -1px -1px 2px;
-  margin-bottom: -3vh;
-}
-text-shadow: black -1px -1px 2px;
-  height: 100%;
-  align-self: center;
-}
+  align-content: space-between;
+
+  div {
+    z-index: 3;
+
+    &:first-of-type {
+      text-shadow: black -1px -1px 2px;
+      margin-top: -1vh;
+    }
+
+    &:last-of-type {
+      text-shadow: black -1px -1px 2px;
+      margin-bottom: -3vh;
+    }
+
+    text-shadow: black -1px -1px 2px;
+    height: 100%;
+    align-self: center;
+  }
 
 }
 

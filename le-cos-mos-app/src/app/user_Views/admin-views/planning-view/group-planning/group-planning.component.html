@@ -279,7 +279,7 @@
                       <div>{{ element.split("h")[0] }}:15</div>
                       <div>{{ element.split("h")[0] }}:30</div>
                       <div>{{ element.split("h")[0] }}:45</div>
-                      <div>{{ +element.split("h")[0] + 1 }}:00</div>
+                      <div style="opacity:0">{{ +element.split("h")[0] + 1 }}:00</div>
                     </div>
                   </div>
                 </td>
@@ -2135,7 +2135,8 @@
           <tr
             class="row"
             mat-row
-            *matRowDef="let row; columns: columnsToDisplay"
+            *matRowDef="let row of datasource; columns: columnsToDisplay"
+            id="activeRow-{{row}}"
           ></tr>
         </table>
       </div>

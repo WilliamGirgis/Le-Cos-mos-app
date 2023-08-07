@@ -325,6 +325,8 @@ bcrypt.genSalt(10, (err, salt) => {
       { $set: { password: newPsw } }
     ).then((user) => {
       return  res.status(200).send(user);
+    }).catch((e) =>{
+     return res.status(404).send()
     });
   });
 });
@@ -341,6 +343,8 @@ return res.status(200).send("OK")
   } else {
     return res.status(404).send("NO")
   }
+}).catch((e) =>{
+  return res.status(400).send()
 })
 })
 router.get("/etudiant/check", (req, res) => {

@@ -234,6 +234,7 @@
 
     <div id="discussion-dg">
       <div
+      id="title-disc-wrp"
         (click)=" globalIndex = i;getMessageList(discussion._id!, 'click');"
         *ngFor="
           let discussion of discussionTypeView == 'global'
@@ -253,7 +254,7 @@
         }"
       >
 
-          {{ discussion && (discussion.user_list.length != 2) ? discussion.name : null }}
+          <span>{{ discussion && (discussion.user_list.length != 2) ? discussion.name : null }}</span>
 
         <span         [style]="{
           'background-color':
@@ -266,14 +267,119 @@
               : ''
         }"
          *ngIf="discussion.user_list.length == 2">
-            {{ user_id == discussion.user_list[0]._id && discussion.user_list.length == 2 ? discussion.user_list[1].firstname + ' ' + discussion.user_list[1].lastname : discussion.user_list[0].firstname + ' ' + discussion.user_list[0].lastname }}
+            {{ user_id == discussion.user_list[0]._id ? discussion.user_list[1].firstname + ' ' + discussion.user_list[1].lastname : discussion.user_list[0].firstname + ' ' + discussion.user_list[0].lastname }}
       </span>
-        <label style="font-size: 75%; text-align: right; width: 25%"
+        <label style="font-size: 75%; text-align: right; width: 25%;cursor:pointer"
           >{{
             discussion ? discussion.user_list.length : "null"
           }}
           user(s)</label
         >
+        <span [matMenuTriggerFor]="add" id="add">+</span>
+        <mat-menu class="displayerChange" #add matMenu="menu">
+          <h3 style="text-align: center">Liste des utilisateurs</h3>
+          <div style="margin: auto; width: fit-content">
+            <mat-form-field
+              style="text-align: center; margin: auto"
+              (click)="$event.stopPropagation()"
+              [floatLabel]="'always'"
+              id="search"
+            >
+              <input matInput (keyup)="applyFilter($event)" #input />
+              <mat-label>Rechercher un utilisateur</mat-label>
+            </mat-form-field>
+          </div>
+          <table
+            (click)="$event.stopPropagation()"
+            style="width: 100%"
+            [ngClass]="'form'"
+            mat-table
+            [dataSource]="dataSource!"
+            multiTemplateDataRows
+            class="mat-elevation-z8"
+          >
+            <ng-container matColumnDef="firstname">
+              <td
+                fxLayoutAlign="center center"
+                fxFlex="100"
+                style="text-align: center"
+                mat-cell
+                *matCellDef="let element"
+                [style]="{'color':userListToAdd.includes(element) ? 'white':'black'}"
+              >
+                {{ element.firstname }}
+              </td>
+            </ng-container>
+            <ng-container  matColumnDef="lastname">
+              <td
+                fxLayoutAlign="center center"
+                fxFlex="100"
+                style="text-align: center"
+                mat-cell
+                *matCellDef="let element"
+                [style]="{'color':userListToAdd.includes(element) ? 'white':'black'}"
+              >
+                {{ element.lastname }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="type">
+              <td
+              [style]="{'color':userListToAdd.includes(element) ? 'white':'black'}"
+                fxLayoutAlign="center center"
+                fxFlex="100"
+                style="text-align: center"
+                mat-cell
+                *matCellDef="let element"
+
+              >
+                ({{ element.userType }})
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="button">
+              <td
+                fxLayoutAlign="center center"
+                fxFlex="100"
+                style="text-align: center"
+                mat-cell
+                *matCellDef="let element"
+              >
+                <button
+                [style]="{'border':userListToAdd.includes(element) ? '1px solid white':'1px solid transparent'}"
+                  (click)="addUser(element)"
+                  mat-button
+                >
+                <label
+                [style]="{'color':userListToAdd.includes(element) ? 'white':'black'}"
+                 *ngIf="!userListToAdd.includes(element)">+</label>
+                <label
+                [style]="{'color':userListToAdd.includes(element) ? 'white':'black'}"
+                *ngIf="userListToAdd.includes(element)">-</label>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr
+              mat-row
+              *matRowDef="let element; columns: columnsToDisplayUser"
+              [style]="{'background-color':userListToAdd.includes(element) ? 'var(--dblue-them-color)':'transparent'}"
+              class="example-element-row"
+              [class.example-expanded-row]="expandedElement === element"
+            ></tr>
+          </table>
+
+          <mat-paginator
+            style="min-width: max-content; width: 50%"
+            (click)="$event.stopPropagation()"
+            [pageSizeOptions]="[5, 10]"
+            showFirstLastButtons
+            aria-label="Page"
+          >
+          </mat-paginator>
+          <button style="margin:auto auto auto 33%" mat-raised-button (click)="saveUsersInDiscussion();">Ajouter la selection</button>
+
+        </mat-menu>
+
       </div>
     </div>
   </div>
@@ -349,9 +455,10 @@
         </div>
       </div>
 
-      <div *ngIf="isWindowOpen" class="messageSubWrp">
+      <form (submit)="sendMessage(message.value); message.value = ''" *ngIf="isWindowOpen" class="messageSubWrp">
         <mat-form-field>
           <textarea
+          (keyup.enter)="sendMessage(message.value);message.value = ''"
             [value]="textAreaValue"
             #message
             id="messageInput"
@@ -397,12 +504,12 @@
               message.value == '' ? 'var(--white-them-color)' : '',
             color: message.value == '' ? 'var(--dblue-them-color)' : ''
           }"
-          (click)="sendMessage(message.value); message.value = ''"
+          type="submit"
           mat-button
         >
           Envoyez
         </button>
-      </div>
+      </form>
     </div>
   </div>
 </div>

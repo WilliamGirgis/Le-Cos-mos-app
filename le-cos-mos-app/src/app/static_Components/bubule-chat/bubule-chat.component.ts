@@ -85,6 +85,8 @@ export class BubuleChatComponent implements OnInit {
     this.chatService?.getMessage().pipe(map((data) => {
 
       let discussionList = this.discussionTypeView == 'global' ? this.globalDiscussionList : this.privateDiscussionList
+     this.getGlobalDiscussionList()
+     this.getPrivateDiscussionList()
       this.getMessageList(discussionList[this.globalIndex]._id!)
       this.hotCount++
       this.getHotCounts()
@@ -141,7 +143,7 @@ export class BubuleChatComponent implements OnInit {
   // Get global discussion list
   readonly getGlobalDiscussionListRoute = 'http://localhost:4200/chat/discussion/global'
   globalDiscussionList: Discussion[] = [{
-    name: '', discussionType: '', user_list: [
+    name: 'Test', discussionType: 'gobal ', user_list: [
     ]
   }]
   getGlobalDiscussionList() {
@@ -153,9 +155,6 @@ export class BubuleChatComponent implements OnInit {
         if (JSON.parse(data).length == 0) {
         }
         this.globalDiscussionList = JSON.parse(data)
-        this.selectedDiscussionName = this.globalDiscussionList[0].name
-        this.getMessageList(this.globalDiscussionList[0]._id!)
-
       }),catchError(async (e:any) =>{
         return e
       })).subscribe(res => { })
@@ -224,7 +223,7 @@ export class BubuleChatComponent implements OnInit {
         this.selectedDiscussionName = this.privateDiscussionList[this.privateDiscussionList.length - 1].user_list[0]._id == this.user_id ? this.privateDiscussionList[this.privateDiscussionList.length - 1].user_list[1].firstname + ' ' + this.privateDiscussionList[this.privateDiscussionList.length - 1].user_list[1].lastname! : this.privateDiscussionList[this.privateDiscussionList.length - 1].user_list[0].firstname + ' ' + this.privateDiscussionList[this.privateDiscussionList.length - 1].user_list[0].lastname!
       this.selectedDiscussion = this.privateDiscussionList[this.privateDiscussionList.length - 1]._id!
       } else {
-        this.selectedDiscussionName = this.privateDiscussionList[0].name
+return
       }
 
     }),catchError(async (e:any) =>{
@@ -249,7 +248,7 @@ export class BubuleChatComponent implements OnInit {
   // Get message list (paramater : discussion_name)
   readonly getMessageListRoute = 'http://localhost:4200/chat/discussion/message/list'
   readonly getProfilPicturesListRoute = 'http://localhost:4200/chat/discussion/message/profilPicture/list'
-  messageList: Message[] = []
+  messageList: Message[] = [{date:'25-02-1997',emiter:'Samuel Becker',message:'Test message',filesName:[],user_id:'123'},{date:'25-02-1997',emiter:'Samuel Becker',message:'Test message',filesName:[],user_id:'124'},{date:'25-02-1997',emiter:'Samuel Becker',message:'Test message',filesName:[],user_id:'123'}]
   profilePictureList: any = []
   imgFile: any = [] // This array is used as a cache : For every new profilPicture loaded, we put it insind. Then, for every message, we get the data from imgFile at the index of the message.user_list occurence in that
   async getProfilePicture(parsedData: any []) {
@@ -280,6 +279,32 @@ export class BubuleChatComponent implements OnInit {
 
   }
 
+  readonly saveUsersUrl = 'http://localhost:4200/chat/discussion/combine/create'
+  saveUsersInDiscussion() {
+
+
+
+    const param = new HttpParams().set('_id',this.selectedDiscussion)
+this.http.post(this.saveUsersUrl,this.userListToAdd,{params:param}).pipe(map((data) =>{
+  this.getPrivateDiscussionList()
+
+})).subscribe((res) =>{
+
+})
+
+  }
+
+  userListToAdd:User [] = []
+  addUser(user:User) {
+    if(this.userListToAdd.includes(user)) {
+      this.userListToAdd.splice(this.userListToAdd.indexOf(user),1)
+    } else {
+      this.userListToAdd.push(user)
+    }
+    console.log(this.userListToAdd)
+
+  }
+
   readonly createPrivateGroupeDiscussionRoute = "http://localhost:4200/chat/discussion/create"
   createDiscussionGroup(groupName:string) {
     const querParam = new HttpParams().set('_id', localStorage.getItem('user-id')!);
@@ -302,7 +327,7 @@ export class BubuleChatComponent implements OnInit {
     }
     this.selectedDiscussion = item;
     const querParam = new HttpParams().set('discussionId', this.selectedDiscussion!).set('message_list_length', this.message_limit);
-    this.messageList = []
+
     await new Promise((resolve, reject) => {
 
 
@@ -316,6 +341,7 @@ export class BubuleChatComponent implements OnInit {
             this.selectedDiscussionName = this.globalDiscussionList[this.globalIndex].name
 
           } else {
+            this.messageList = []
             if(this.privateDiscussionList[this.globalIndex].user_list.length == 2) {
               this.selectedDiscussionName = this.privateDiscussionList[this.globalIndex].user_list[0]._id != this.user_id ? this.privateDiscussionList[this.globalIndex].user_list[0].firstname + ' ' + this.privateDiscussionList[this.globalIndex].user_list[0].lastname! : this.privateDiscussionList[this.globalIndex].user_list[1].firstname + ' ' + this.privateDiscussionList[this.globalIndex].user_list[1].lastname!
             } else {

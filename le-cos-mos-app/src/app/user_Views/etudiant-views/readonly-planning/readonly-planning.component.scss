@@ -251,6 +251,666 @@ display: flex;
 }
 
 
+#activeRow-8h {
+
+  &:hover {
+    height: 15vh;
+    max-height: 15vh;
+
+
+    + #activeRow-9h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+        border-bottom-width: 0px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+  }
+
+}
+
+#activeRow-9h {
+
+  &:hover {
+    height: 15vh;
+    max-height: 15vh;
+
+    + #activeRow-8h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+        border-bottom-width: 0px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+
+    + #activeRow-10h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 2px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+  }
+
+}
+
+
+#activeRow-10h {
+
+  &:hover {
+    height: 15vh;
+    max-height: 15vh;
+
+    + #activeRow-9h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+        border-bottom-width: 0px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+
+    + #activeRow-11h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 2px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+  }
+
+}
+
+
+#activeRow-11h {
+
+  &:hover {
+    height: 15vh;
+    max-height: 15vh;
+
+    + #activeRow-10h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 0px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+
+    +#activeRow-12h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 2px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+  }
+
+}
+
+
+#activeRow-12h {
+
+  &:hover {
+    height: 15vh;
+    max-height: 15vh;
+
+    +#activeRow-11h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+        border-bottom-width: 0px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+
+      border-top-width: 2px;
+    }
+
+    +#activeRow-13h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 2px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+  }
+
+}
+
+
+#activeRow-13h {
+
+  &:hover {
+    height: 15vh;
+    max-height: 15vh;
+
+    +#activeRow-12h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+        border-bottom-width: 0px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+
+    +#activeRow-14h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 2px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+  }
+
+}
+
+#activeRow-14h {
+
+  &:hover {
+    height: 15vh;
+    max-height: 15vh;
+
+    +#activeRow-15h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 0px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+
+    +#activeRow-13h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 2px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+  }
+
+}
+
+#activeRow-15h {
+
+  &:hover {
+    height: 15vh;
+    max-height: 15vh;
+
+    +#activeRow-16h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 2px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+
+    +#activeRow-14h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 0px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+  }
+
+}
+
+#activeRow-16h {
+
+  &:hover {
+    height: 15vh;
+    max-height: 15vh;
+
+    +#activeRow-15h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 0px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+
+    +#activeRow-17h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 2px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+  }
+
+}
+
+#activeRow-17h {
+
+  &:hover {
+    height: 15vh;
+    max-height: 15vh;
+
+    +#activeRow-16h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+        border-bottom-width: 0px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+
+    +#activeRow-15h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 2px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+
+
+  }
+
+}
+
+#activeRow-18h {
+
+  &:hover {
+    height: 15vh;
+    max-height: 15vh;
+
+    +#activeRow-17h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 0px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+
+    +#activeRow-19h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 2px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+  }
+
+}
+
+#activeRow-19h {
+
+  &:hover {
+    height: 15vh;
+    max-height: 15vh;
+    + #activeRow-18h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 0px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+
+    +#activeRow-20h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 2px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+  }
+
+}
+
+#activeRow-20h {
+
+  &:hover {
+    height: 15vh;
+    max-height: 15vh;
+
+    + #activeRow-19h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 0px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+
+    + #activeRow-21h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 2px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+  }
+
+}
+
+#activeRow-21h {
+
+  &:hover {
+    height: 15vh;
+    max-height: 15vh;
+
+    + #activeRow-20h {
+      height: 15vh !important;
+      max-height: 15vh !important;
+
+
+      #quartDheureList {
+        display: flex;
+      }
+
+      td {
+
+        border-bottom-width: 0px;
+        border-top-width: 2px;
+
+      }
+
+      label {
+        display: initial;
+      }
+    }
+  }
+
+}
+
+
 #headerContentWrp {
   overflow: visible;
   display: flex;

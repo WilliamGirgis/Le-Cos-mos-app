@@ -236,6 +236,23 @@ const delDiscussion = router.post("/discussion/del",authenticate, async function
   return res.status(200).send()
   })
 
+  const createCombinedDiscussion = router.post("/discussion/combine/create",authenticate, async function (req, res, next) {
+
+    let user_list = req.body;
+    let discusionId = req.query._id
+      Group.findByIdAndUpdate(  { _id: discusionId },
+        { $push: { user_list: { $each: user_list } } }).then((group) =>{
+
+          return res.status(200).send()
+
+      }).catch((e) =>{
+        console.log(e)
+        return res.status(500).send()
+      })
+
+
+
+  })
   const createDiscussion = router.post("/discussion/create",authenticate, async function (req, res, next) {
 
     let body = req.body;
