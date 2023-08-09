@@ -241,7 +241,7 @@ const delDiscussion = router.post("/discussion/del",authenticate, async function
     let user_list = req.body;
     let discusionId = req.query._id
       Group.findByIdAndUpdate(  { _id: discusionId },
-        { $push: { user_list: { $each: user_list } } }).then((group) =>{
+        { $addToSet: { user_list: { $each: user_list } } }).then((group) =>{ // Replace $addToSet by push for pushing all users without condition. $addToSet for unique user only.
 
           return res.status(200).send()
 
@@ -257,6 +257,7 @@ const delDiscussion = router.post("/discussion/del",authenticate, async function
 
     let body = req.body;
     let user_id = req.query._id
+    let isDual = req.query.isDual
     let name = body.name
 
     if((name == ' ') || (name == '') || (body.length == 0)) {
@@ -264,7 +265,7 @@ const delDiscussion = router.post("/discussion/del",authenticate, async function
     }
     let discussionType = body.discussionType
 
-    let newDiscussion = new Group({name:name,discussionType:discussionType})
+    let newDiscussion = new Group({name:name,discussionType:discussionType,isDual:isDual})
 
 
     const response = await newDiscussion.save().then((resulting) =>{
@@ -290,10 +291,11 @@ const delDiscussion = router.post("/discussion/del",authenticate, async function
 
       let selectedUser_id = req.body.selectedUser_id
       let _id = req.body._id
+      let isDual = req.body.isDual
 
       User.findOne({_id:_id}).then((creator) =>{
        User.findOne({_id:selectedUser_id}).then((selected)=>{
-        let newGroup = new Group({discussionType:'private',user_list:[creator,selected],name:`${creator._id}-${selected._id}`,message_list:[]})
+        let newGroup = new Group({discussionType:'private',user_list:[creator,selected],name:`${creator._id}-${selected._id}`,message_list:[],isDual:isDual})
         newGroup.save().then((group) =>{
         creator.groupsNameDiscussionBelonging.push({discussionId:group._id,discussionName:group.name})
         creator.save().then((creator) =>{

@@ -60,6 +60,11 @@ message_list: [
 
   }
 ]
+,
+isDual: {
+  type:Boolean,
+  required:true
+}
 
 })
 

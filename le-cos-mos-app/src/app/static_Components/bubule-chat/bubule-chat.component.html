@@ -110,7 +110,7 @@
         </mat-menu>
       </a>
       <a
-        (click)="setPagination()"
+        (click)="setPagination();onMenuOpened2()"
         [matMenuTriggerFor]="menu2"
         title="Rechercher un utilisateur"
       >
@@ -128,7 +128,7 @@
           />
         </svg>
 
-        <mat-menu class="displayerChange" #menu2 matMenu="menu">
+        <mat-menu   #menu2="matMenu" class="displayerChange"  matMenu="menu">
           <h3 style="text-align: center">Liste des utilisateurs</h3>
           <div style="margin: auto; width: fit-content">
             <mat-form-field
@@ -254,7 +254,7 @@
         }"
       >
 
-          <span>{{ discussion && (discussion.user_list.length != 2) ? discussion.name : null }}</span>
+          <span>{{ !discussion.isDual ? discussion.name : null }}</span>
 
         <span         [style]="{
           'background-color':
@@ -266,17 +266,17 @@
               ? 'var(--white-them-color)'
               : ''
         }"
-         *ngIf="discussion.user_list.length == 2">
+         *ngIf="discussion.isDual">
             {{ user_id == discussion.user_list[0]._id ? discussion.user_list[1].firstname + ' ' + discussion.user_list[1].lastname : discussion.user_list[0].firstname + ' ' + discussion.user_list[0].lastname }}
       </span>
-        <label style="font-size: 75%; text-align: right; width: 25%;cursor:pointer"
+        <label style="font-size: 75%; text-align: right;cursor:pointer"
           >{{
             discussion ? discussion.user_list.length : "null"
           }}
           user(s)</label
         >
-        <span [matMenuTriggerFor]="add" id="add">+</span>
-        <mat-menu class="displayerChange" #add matMenu="menu">
+        <span (click)="onMenuOpened(i)" *ngIf="!discussion.isDual && discussion.discussionType == 'private'" [matMenuTriggerFor]="add" id="add">+</span>
+        <mat-menu   class="displayerChange" #add="matMenu" matMenu="menu">
           <h3 style="text-align: center">Liste des utilisateurs</h3>
           <div style="margin: auto; width: fit-content">
             <mat-form-field
@@ -294,7 +294,7 @@
             style="width: 100%"
             [ngClass]="'form'"
             mat-table
-            [dataSource]="dataSource!"
+            [dataSource]="dataSource2!"
             multiTemplateDataRows
             class="mat-elevation-z8"
           >

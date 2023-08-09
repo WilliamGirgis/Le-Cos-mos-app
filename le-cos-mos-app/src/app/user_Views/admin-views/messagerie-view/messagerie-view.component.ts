@@ -67,7 +67,7 @@ export class MessagerieViewComponent implements OnInit {
 
   readonly createPrivateGroupeDiscussionRoute = "http://localhost:4200/chat/discussion/create"
   createDiscussionGroup(groupName:string) {
-    const querParam = new HttpParams().set('_id', localStorage.getItem('user-id')!);
+    const querParam = new HttpParams().set('_id', localStorage.getItem('user-id')!).set('isDual',false);
 
     return this.http.post(this.createPrivateGroupeDiscussionRoute, { name: groupName,discussionType:this.discussionTypeView, responseType: 'text' },{params:querParam}).pipe(map( (data) => {
 
@@ -81,8 +81,8 @@ export class MessagerieViewComponent implements OnInit {
   // Get related discussion
   readonly getGlobalDiscussionListRoute = 'http://localhost:4200/chat/discussion/global'
   readonly getPrivateDiscussionListRoute = 'http://localhost:4200/chat/discussion/private'
-  globalDiscussionList: Discussion[] =  [{user_list:[],name:'',_id:'',discussionType:''}]
-  privateDiscussionList: Discussion[] =  [{user_list:[],name:'',_id:'',discussionType:''}]
+  globalDiscussionList: Discussion[] =  []
+  privateDiscussionList: Discussion[] =  []
   // Get global discussion list
   getGlobalDiscussionList() {
     let params = new HttpParams().set('_id',localStorage.getItem('user-id')!)

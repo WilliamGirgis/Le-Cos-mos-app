@@ -398,8 +398,8 @@ tr {
       }
 
       td {
-        border-bottom-width: 0px;
-        border-top-width: 2px;
+        border-bottom-width: 2px;
+        border-top-width: 1px;
 
       }
 
@@ -417,25 +417,6 @@ tr {
     height: 15vh;
     max-height: 15vh;
 
-    + #activeRow-8h {
-      height: 15vh !important;
-      max-height: 15vh !important;
-
-      #quartDheureList {
-        display: flex;
-      }
-
-      td {
-        border-bottom-width: 0px;
-        border-top-width: 2px;
-
-      }
-
-      label {
-        display: initial;
-      }
-    }
-
     + #activeRow-10h {
       height: 15vh !important;
       max-height: 15vh !important;
@@ -447,7 +428,6 @@ tr {
       td {
 
         border-bottom-width: 2px;
-        border-top-width: 2px;
 
       }
 
@@ -466,24 +446,6 @@ tr {
     height: 15vh;
     max-height: 15vh;
 
-    + #activeRow-9h {
-      height: 15vh !important;
-      max-height: 15vh !important;
-      #quartDheureList {
-        display: flex;
-      }
-
-      td {
-        border-bottom-width: 0px;
-        border-top-width: 2px;
-
-      }
-
-      label {
-        display: initial;
-      }
-    }
-
     + #activeRow-11h {
       height: 15vh !important;
       max-height: 15vh !important;
@@ -494,7 +456,7 @@ tr {
       td {
 
         border-bottom-width: 2px;
-        border-top-width: 2px;
+
 
       }
 
@@ -513,26 +475,6 @@ tr {
     height: 15vh;
     max-height: 15vh;
 
-    + #activeRow-10h {
-      height: 15vh !important;
-      max-height: 15vh !important;
-
-      #quartDheureList {
-        display: flex;
-      }
-
-      td {
-
-        border-bottom-width: 0px;
-        border-top-width: 2px;
-
-      }
-
-      label {
-        display: initial;
-      }
-    }
-
     +#activeRow-12h {
       height: 15vh !important;
       max-height: 15vh !important;
@@ -544,7 +486,7 @@ tr {
       td {
 
         border-bottom-width: 2px;
-        border-top-width: 2px;
+
 
       }
 
@@ -563,26 +505,6 @@ tr {
     height: 15vh;
     max-height: 15vh;
 
-    +#activeRow-11h {
-      height: 15vh !important;
-      max-height: 15vh !important;
-      #quartDheureList {
-        display: flex;
-      }
-
-      td {
-        border-bottom-width: 0px;
-        border-top-width: 2px;
-
-      }
-
-      label {
-        display: initial;
-      }
-
-      border-top-width: 2px;
-    }
-
     +#activeRow-13h {
       height: 15vh !important;
       max-height: 15vh !important;
@@ -595,7 +517,7 @@ tr {
       td {
 
         border-bottom-width: 2px;
-        border-top-width: 2px;
+
 
       }
 
@@ -614,24 +536,6 @@ tr {
     height: 15vh;
     max-height: 15vh;
 
-    +#activeRow-12h {
-      height: 15vh !important;
-      max-height: 15vh !important;
-      #quartDheureList {
-        display: flex;
-      }
-
-      td {
-        border-bottom-width: 0px;
-        border-top-width: 2px;
-
-      }
-
-      label {
-        display: initial;
-      }
-    }
-
     +#activeRow-14h {
       height: 15vh !important;
       max-height: 15vh !important;
@@ -644,7 +548,7 @@ tr {
       td {
 
         border-bottom-width: 2px;
-        border-top-width: 2px;
+
 
       }
 
@@ -672,29 +576,7 @@ tr {
 
       td {
 
-        border-bottom-width: 0px;
-        border-top-width: 2px;
-
-      }
-
-      label {
-        display: initial;
-      }
-    }
-
-    +#activeRow-13h {
-      height: 15vh !important;
-      max-height: 15vh !important;
-
-
-      #quartDheureList {
-        display: flex;
-      }
-
-      td {
-
         border-bottom-width: 2px;
-        border-top-width: 2px;
 
       }
 
@@ -702,6 +584,7 @@ tr {
         display: initial;
       }
     }
+
   }
 
 }
@@ -724,7 +607,7 @@ tr {
       td {
 
         border-bottom-width: 2px;
-        border-top-width: 2px;
+
 
       }
 
@@ -733,26 +616,6 @@ tr {
       }
     }
 
-    +#activeRow-14h {
-      height: 15vh !important;
-      max-height: 15vh !important;
-
-
-      #quartDheureList {
-        display: flex;
-      }
-
-      td {
-
-        border-bottom-width: 0px;
-        border-top-width: 2px;
-
-      }
-
-      label {
-        display: initial;
-      }
-    }
   }
 
 }
@@ -762,27 +625,6 @@ tr {
   &:hover {
     height: 15vh;
     max-height: 15vh;
-
-    +#activeRow-15h {
-      height: 15vh !important;
-      max-height: 15vh !important;
-
-
-      #quartDheureList {
-        display: flex;
-      }
-
-      td {
-
-        border-bottom-width: 0px;
-        border-top-width: 2px;
-
-      }
-
-      label {
-        display: initial;
-      }
-    }
 
     +#activeRow-17h {
       height: 15vh !important;
@@ -796,7 +638,7 @@ tr {
       td {
 
         border-bottom-width: 2px;
-        border-top-width: 2px;
+
 
       }
 
@@ -814,7 +656,7 @@ tr {
     height: 15vh;
     max-height: 15vh;
 
-    +#activeRow-16h {
+    +#activeRow-18h {
       height: 15vh !important;
       max-height: 15vh !important;
 
@@ -824,28 +666,8 @@ tr {
       }
 
       td {
-        border-bottom-width: 0px;
-        border-top-width: 2px;
-
-      }
-
-      label {
-        display: initial;
-      }
-    }
-
-    +#activeRow-15h {
-      height: 15vh !important;
-      max-height: 15vh !important;
-
-      #quartDheureList {
-        display: flex;
-      }
-
-      td {
-
         border-bottom-width: 2px;
-        border-top-width: 2px;
+
 
       }
 
@@ -853,7 +675,6 @@ tr {
         display: initial;
       }
     }
-
 
   }
 
@@ -864,27 +685,6 @@ tr {
   &:hover {
     height: 15vh;
     max-height: 15vh;
-
-    +#activeRow-17h {
-      height: 15vh !important;
-      max-height: 15vh !important;
-
-
-      #quartDheureList {
-        display: flex;
-      }
-
-      td {
-
-        border-bottom-width: 0px;
-        border-top-width: 2px;
-
-      }
-
-      label {
-        display: initial;
-      }
-    }
 
     +#activeRow-19h {
       height: 15vh !important;
@@ -898,7 +698,7 @@ tr {
       td {
 
         border-bottom-width: 2px;
-        border-top-width: 2px;
+
 
       }
 
@@ -915,26 +715,7 @@ tr {
   &:hover {
     height: 15vh;
     max-height: 15vh;
-    + #activeRow-18h {
-      height: 15vh !important;
-      max-height: 15vh !important;
 
-
-      #quartDheureList {
-        display: flex;
-      }
-
-      td {
-
-        border-bottom-width: 0px;
-        border-top-width: 2px;
-
-      }
-
-      label {
-        display: initial;
-      }
-    }
 
     +#activeRow-20h {
       height: 15vh !important;
@@ -948,7 +729,7 @@ tr {
       td {
 
         border-bottom-width: 2px;
-        border-top-width: 2px;
+
 
       }
 
@@ -966,26 +747,6 @@ tr {
     height: 15vh;
     max-height: 15vh;
 
-    + #activeRow-19h {
-      height: 15vh !important;
-      max-height: 15vh !important;
-
-
-      #quartDheureList {
-        display: flex;
-      }
-
-      td {
-
-        border-bottom-width: 0px;
-        border-top-width: 2px;
-
-      }
-
-      label {
-        display: initial;
-      }
-    }
 
     + #activeRow-21h {
       height: 15vh !important;
@@ -999,7 +760,7 @@ tr {
       td {
 
         border-bottom-width: 2px;
-        border-top-width: 2px;
+
 
       }
 
@@ -1016,27 +777,6 @@ tr {
   &:hover {
     height: 15vh;
     max-height: 15vh;
-
-    + #activeRow-20h {
-      height: 15vh !important;
-      max-height: 15vh !important;
-
-
-      #quartDheureList {
-        display: flex;
-      }
-
-      td {
-
-        border-bottom-width: 0px;
-        border-top-width: 2px;
-
-      }
-
-      label {
-        display: initial;
-      }
-    }
   }
 
 }

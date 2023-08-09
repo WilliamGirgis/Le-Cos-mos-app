@@ -7,7 +7,7 @@
 
 <textarea readonly class="addGroup" name="groups" #text>{{group.name}}</textarea>
 
-      <button (click)="delDiscussionGroup(group._id!)"  mat-button><img  width="25px" height="25px" src="../../../../assets/images/trash3-fill.svg"></button>
+      <button (click)="group ? delDiscussionGroup(group._id!) : null"  mat-button><img  width="25px" height="25px" src="../../../../assets/images/trash3-fill.svg"></button>
 <button (click)="suppressReadOnly(i,text.value)" mat-button><img  src="../../../../assets/images/pencil-fill.svg"></button>
 
     </mat-card>
@@ -30,7 +30,7 @@
 <div id="rightWrp">
   <div id="rightSide">
 
-    <mat-card class="user-card" *ngFor="let user of globalDiscussionList[globalIndex].user_list">
+    <mat-card class="user-card" *ngFor="let user of globalDiscussionList[globalIndex] ? globalDiscussionList[globalIndex].user_list : null">
       <mat-label>{{user.firstname}}</mat-label>
       <button (click)="deletUser(user)"  mat-button><img width="20vw" height="100%" src="../../../../assets/images/trash3-fill.svg"></button>
     </mat-card>

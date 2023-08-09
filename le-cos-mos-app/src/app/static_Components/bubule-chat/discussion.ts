@@ -7,5 +7,6 @@ export class Discussion {
   ]
   discussionType?:string
   _id?:string
+  isDual!:boolean
 
 }

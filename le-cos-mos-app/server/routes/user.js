@@ -5,7 +5,7 @@ const router = express.Router();
 
 const User = require("./user.model");
 const Planning = require("./planning.model")
-
+const Group = require("./chat.group.model");
 /* MIDLLEWARE */
 
 
@@ -200,6 +200,7 @@ router.post("/users/modify",authenticate, (req, res) => {
       { _id: id },
       { $set: {userType:newUser.userType,email:newUser.email,firstname:newUser.firstname,lastname:newUser.lastname,isSpectral:newUser.isSpectral } }
     ).then((user) => {
+
       return res.status(200).send();
     });
 });

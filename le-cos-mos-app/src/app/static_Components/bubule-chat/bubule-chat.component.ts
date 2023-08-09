@@ -11,6 +11,7 @@ import { User } from 'src/app/shared/user';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 const endpointUploadFile = "http://localhost:4200/chat/discussion/message/file/save"
 
@@ -142,10 +143,7 @@ export class BubuleChatComponent implements OnInit {
 
   // Get global discussion list
   readonly getGlobalDiscussionListRoute = 'http://localhost:4200/chat/discussion/global'
-  globalDiscussionList: Discussion[] = [{
-    name: 'Test', discussionType: 'gobal ', user_list: [
-    ]
-  }]
+  globalDiscussionList: Discussion[] = []
   getGlobalDiscussionList() {
 
     let params = new HttpParams().set('_id',localStorage.getItem('user-id')!)
@@ -163,12 +161,17 @@ export class BubuleChatComponent implements OnInit {
 
 
   }
+  @ViewChild('add') menuTrigger!: MatMenuTrigger;
+  @ViewChild('menu2') menuTrigger2!: MatMenuTrigger;
+
   @ViewChildren(MatPaginator) paginator = new QueryList<MatPaginator>();
   @ViewChildren(MatSort) sort = new QueryList<MatSort>();
   userType?: string;
   userList: User[] = [];
   expandedElement: any;
   dataSource?:MatTableDataSource<any> = new MatTableDataSource(this.userList)// Si le tableau de production des utilisateurs n'est pas définit on affiche le test
+  dataSource2?:MatTableDataSource<any> = new MatTableDataSource(this.userList)// Si le tableau de production des utilisateurs n'est pas définit on affiche le test
+
   readonly getUserListRoute = "http://localhost:4200/user/users/id"
   getAllUser() {
     const params = new HttpParams().set('id','').set('_id',this.user_id)
@@ -195,22 +198,7 @@ export class BubuleChatComponent implements OnInit {
   // Get private discussion list
   readonly getPrivateDiscussionListRoute = 'http://localhost:4200/chat/discussion/private'
 
-  privateDiscussionList: Discussion[] = [{
-    name: 'Discussion 1', discussionType: '', user_list: [
-      {_id:'',email:'',firstname:'Stephane',ID:'',lastname:'Christophe'},
-      {_id:'',email:'',firstname:'Adam',ID:'',lastname:'Jean'}
-    ]
-  },{
-    name: 'Discussion 2', discussionType: '', user_list: [
-      {_id:'',email:'',firstname:'Stephane',ID:'',lastname:'Christophe'},
-      {_id:'',email:'',firstname:'Adam',ID:'',lastname:'Jean'}
-    ]
-  },{
-    name: 'Discussion 2', discussionType: '', user_list: [
-      {_id:'',email:'',firstname:'Stephane',ID:'',lastname:'Christophe'},
-      {_id:'',email:'',firstname:'Adam',ID:'',lastname:'Jean'}
-    ]
-  }]
+  privateDiscussionList: Discussion[] = []
   getPrivateDiscussionList() {
     let params = new HttpParams().set('_id',localStorage.getItem('user-id')!)
     this.http.get(this.getPrivateDiscussionListRoute, {params:params, responseType: 'text' }).pipe(map(async (data) => {
@@ -279,11 +267,23 @@ return
 
   }
 
+  onMenuOpened2() {
+
+    this.dataSource = new MatTableDataSource(this.userList)
+    this.dataSource.paginator = this.paginator.toArray()[0];
+    this.dataSource.sort = this.sort.toArray()[0];
+  }
+  filteredUserList:any [] = []
+  onMenuOpened(index:number) {
+    this.userListToAdd = []
+
+    this.dataSource2 = new MatTableDataSource(this.userList)
+    this.dataSource2!.paginator = this.paginator.toArray()[index + 1];
+    this.dataSource2!.sort = this.sort.toArray()[index + 1]; // index + 1 since the first paginator is the one for the table containing the list of all users, we start at the second element index
+
+  }
   readonly saveUsersUrl = 'http://localhost:4200/chat/discussion/combine/create'
   saveUsersInDiscussion() {
-
-
-
     const param = new HttpParams().set('_id',this.selectedDiscussion)
 this.http.post(this.saveUsersUrl,this.userListToAdd,{params:param}).pipe(map((data) =>{
   this.getPrivateDiscussionList()
@@ -301,13 +301,12 @@ this.http.post(this.saveUsersUrl,this.userListToAdd,{params:param}).pipe(map((da
     } else {
       this.userListToAdd.push(user)
     }
-    console.log(this.userListToAdd)
 
   }
 
   readonly createPrivateGroupeDiscussionRoute = "http://localhost:4200/chat/discussion/create"
   createDiscussionGroup(groupName:string) {
-    const querParam = new HttpParams().set('_id', localStorage.getItem('user-id')!);
+    const querParam = new HttpParams().set('_id', localStorage.getItem('user-id')!).set('isDual',false);
     return this.http.post(this.createPrivateGroupeDiscussionRoute, { name: groupName,discussionType:'private', responseType: 'text' },{params:querParam}).pipe(map( (data) => {
       this.getPrivateDiscussionList()
     })).subscribe((res) => {
@@ -436,7 +435,8 @@ this.http.post(this.saveUsersUrl,this.userListToAdd,{params:param}).pipe(map((da
 
     let body = {
       _id:localStorage.getItem('user-id')!,
-      selectedUser_id:selectedUser_id
+      selectedUser_id:selectedUser_id,
+      isDual:true
     }
     this.http.post(this.createSingleDiscussionRoute,body).pipe(map((data)=> {
 
