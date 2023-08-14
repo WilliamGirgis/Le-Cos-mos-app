@@ -1773,22 +1773,23 @@ matColumnDef="{{ column }}"
 </table>
 
   <div id="planning-phone-wrp">
-    <div (click)="tr();selectedIndex == i ? selectedIndex = undefined : selectedIndex = i" [id]="selectedIndex == i ? 'weekLarge' : 'weekSmale'" [style]="{'background-color': i % 2 == 0 ? 'var(--light-blue-them-color)' : '','border': i % 2 == 1 ? '1px solid var(--dblue-them-color)' : ''}"  *ngFor="let weeks of semaineJours;index as i">
+    <div (click)="tr();selectedIndex == i ? selectedIndex = undefined : selectedIndex = i" [id]="selectedIndex == i ? 'weekLarge' : 'weekSmale'" [style]="{'background-color': i % 2 == 0 ? 'var(--light-blue-them-color)' : '','border': i % 2 == 1 ? '1px solid var(--dblue-them-color)' : ''}"  *ngFor="let day of semaineJours;index as i">
 <!--{{week | json}}-->
 
        {{semaineJours[i][0][0][3]}}
 
-      <div [style]="{'display': !semaineJours[i][y][3][6] && !semaineJours[i][y][2][6] && !semaineJours[i][y][1][6] && !semaineJours[i][y][0][6] ? 'none':''}"  *ngFor="let days of weeks;index as y">
+      <div   *ngFor="let creneau of day;index as y">
+        <div [style]="{'display': !slot[8] ? 'none':'initial','margin-bottom' : !slot[8] ? '1vh' : '0'}"  id="available"   *ngFor="let slot of creneau;index as z">
+          <div [style]="{'display': !slot[8] ? 'none':'initial'}" >
 
-        <div id="available"   *ngFor="let day of dayList;index as z">
-             <div id="whiteWrp" *ngIf="day.day == semaineJours[i][0][0][3]">
-              <p>Commence à {{day.heure }}{{day.duree == '00' ? '00' : day.duree == '15' ? '15' : day.duree == '30' ? '30' : '45'}}                  </p>
-              <p>Pour une durée de {{day.creneau == '25' ? '15 minutes ' : day.creneau == '50' ? '30 minutes ': day.creneau == '75' ? '45 minutes ': '1 heure'}}</p>
-              <p>Matiere : {{day.matiere}}</p>
-              <p>Type de séance : {{day.type}}</p>
-              <p>Salle : {{day.room}}</p>
-             </div>
-
+            <div  id="whiteWrp">
+             <p>Commence à {{slot[0] }}{{slot[6] == '00' ? '00' : slot[6] == '15' ? '15' : slot[6] == '30' ? '30' : '45'}}                  </p>
+             <p>Pour une durée de {{slot[5] == '25' ? '15 minutes ' : slot[5] == '50' ? '30 minutes ': slot[5] == '75' ? '45 minutes ': '1 heure'}}</p>
+             <p>Matiere : {{slot[1]}}</p>
+             <p>Type de séance : {{slot[2]}}</p>
+             <p>Salle : {{slot[4]}}</p>
+            </div>
+          </div>
         </div>
       </div>
 

@@ -26,7 +26,7 @@ import { SaveRouteService } from 'src/app/services/save-route.service';
 export class HandlerViewComponent implements OnInit {
   hotCount:number = 0
   @Output() inputBblChat?:boolean
-  isWindowOpen?:boolean = false
+  isWindowOpen?:boolean = true
   pingChild() {
 
  if(!this.isWindowOpen) {

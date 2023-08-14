@@ -3,13 +3,6 @@
   <div routerLink=".." id="img-hover">
     <img id="arrow"  src="../../../../assets/images/arrow-left.svg">
   </div>
-  <mat-card>
-
-   <h2>{{documentTitle}}</h2>
-   <h3>Chapitre {{documentChapter}}</h3>
-
-  </mat-card>
-
 
 
   <img id="uploadedImage" *ngIf="imgFile != undefined && imgExtension != 'pdf'" [src]="imgFile">

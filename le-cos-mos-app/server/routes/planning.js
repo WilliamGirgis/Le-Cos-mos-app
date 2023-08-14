@@ -167,6 +167,83 @@ const getPlanning = router.get("/group/planning",/*authenticate,*/ async functio
   })
 })
 
+const getMergedPlanning = router.get("/group/planning/merged",/*authenticate,*/ async function (req, res, next) {
+  let _id = req.query._id
+  let groupName1
+  let groupName2
+  let weekSelected = req.query.week
+  let g2 = []
+  let g1 = []
+  let mergedPlanning = []
+
+  User.findOne({_id}).then(async (user) =>{
+
+    groupName1 = user.planningNameGroupBelonging[0]
+    groupName2 = user.planningNameGroupBelonging[1]
+
+
+      new Promise((resolve,reject) =>{
+         Planning.findOne({ groupName: groupName1 }).then(async (group1) => {
+
+          if(group1 == undefined) {
+            return res.status(400).send(['NOT FOUND'])
+          }
+        for (let i = 0; i < group1.week.length; i++) {
+          if (group1.week[i].weekDate == weekSelected) {
+            g1 = group1.week[i]
+            i = group1.week.length
+            resolve()
+
+          }
+        }
+        reject()
+      }).then((resolved) =>{
+         Planning.findOne({ groupName: groupName2 }).then(async (group2) => {
+
+          if(group2 == undefined) {
+             res.status(400)
+          }
+
+          for (let j = 0; j < group2.week.length; j++) {
+
+
+            if (group2.week[j].weekDate == weekSelected) {
+
+               g2 = group2.week[j]
+
+for(let i = 0; i < g1.seance.length;i++) {
+
+  mergedPlanning.push(g1.seance[i])
+}
+for(let i = 0; i < g2.seance.length;i++) {
+  mergedPlanning.push(g2.seance[i])
+}
+g1.seance = mergedPlanning
+               console.log(mergedPlanning)
+               return res.status(200).send(g1)
+        }
+      }
+
+        }).catch((e) =>{
+          res.status(400)
+        })
+      }).catch((rejected) =>{
+
+      })
+
+    }).catch((e) =>{
+      console.log(e)
+
+         res.status(400)
+    })
+
+  }).catch((e) =>{
+    console.log(e)
+    res.status(400)
+
+  })
+})
+
 router.post("/group/del", authenticate, async function (req, res, next) {
   let name = req.body.groupName
   fs.rmSync(publicationFolder + '/' + name + '.json', { recursive: true, force: true });

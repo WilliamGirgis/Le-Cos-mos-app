@@ -5,6 +5,7 @@ mat-row, mat-header-row, mat-footer-row, th.mat-header-cell, td.mat-cell, td.mat
 }
 
 #wrapper {
+  top: -7vh;
   margin: auto;
   display: flex;
   flex-direction: row;
@@ -244,26 +245,17 @@ height: fit-content;
 
 }
 
-.example-element-diagram {
-  display: flex;
-  flex-direction: column;
-  width: 70%;
-  min-width: max-content;
-  margin-top: 2vh;
-  margin-bottom: 2vh;
-  border-top: 1px solid var(--blue-them-color);
-  padding-top: 10px;
-}
+
 
 #btn-grp {
   color: var(--blue-them-color);
 margin-top: 20px;
 button {
+  width: 40%;
+  align-self: center;
 border: 1px solid var(--blue-them-color);
 font-size: 70%;
-&:first-of-type {
-  margin-right: 20px;
-}
+
 }
 }
 mat-radio-group {
@@ -276,17 +268,46 @@ mat-radio-group {
   }
 }
 
+.example-element-diagram {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  min-width: max-content;
+margin-bottom: 1vh;
+  border-top: 1px solid var(--blue-them-color);
+  padding-top: 10px;
+  gap: 2vh;
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+
+  }
+  #last{
+    flex-direction: row;
+    gap: 3vw;
+align-items: center;
+    span {
+      display: flex;
+
+      font-weight: normal;
+      font-size: 120%;
+    }
+  }
+
+}
 
 .t-area-wrp {
   width: 100%;
   min-width: max-content;
   display: flex;
   flex-direction: row;
+font-weight: bold;
   }
 
   textarea {
-    border: none;
-    outline: none;
+font-weight: normal;
     margin: 10px auto 10px auto;
     width: fit-content;
   }

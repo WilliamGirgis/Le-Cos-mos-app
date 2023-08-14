@@ -8,4 +8,5 @@ duree?:string
 room?:string
 creneau?:string
 groupId!:string
+displayType?:boolean
 }

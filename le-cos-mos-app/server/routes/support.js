@@ -194,6 +194,11 @@ const upload_planchage_file = multer({ storage: planchage_file_storage }).array(
 
 const downLoadFile = router.get('/file/download', authenticate, (req, res) => {
   let filename = req.query.filename.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+  // if(filename.split(/_/g).length <= 2) {
+  //   filename = req.query.filename.normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(/_/g)[0]
+  // } else {
+  //   filename = req.query.filename.normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(/_null|_Chapitre [1-9]?[1-9]/g)[0]
+  // }
   let contentType = req.query.contentType
 console.log(filename)
 
@@ -201,6 +206,7 @@ console.log(filename)
 
     case 'td':
       td_file_storage.db.collection('td_bucket.fs.files').findOne({ filename: filename.replace(/\’/, '\'') }).then((file) => {
+        console.log(file)
         if (file == undefined || file == null) {
           return res.status(404).send("File not found")
         } else {
@@ -648,7 +654,9 @@ const delFile = router.post("/file/del", async function (req, res, next) {
 
 const getFiles = router.get("/file", async function (req, res, next) {
   let cour_name = req.query.cour_name;
+  console.log(cour_name)
   let contentType = req.query.content_type
+  console.log(contentType)
   // let foldersName = req.query.foldersName
   // let selectedFolder = req.query.selectedFolder
   // let filename = req.query.file_name

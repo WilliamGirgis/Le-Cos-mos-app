@@ -22,7 +22,7 @@ import { MatSort } from '@angular/material/sort';
   ]
 })
 export class GestionViewComponent implements OnInit,AfterViewInit {
-  userListTest:User[] = [{ID:1,userType:'Etudiant',firstname:'test',lastname:'testL',email:'HEY'},{ID:2,userType:'Etudiant',firstname:'test',lastname:'testL',email:'HEY'},{ID:3,userType:'Etudiant',firstname:'test',lastname:'testL',email:'HEY'},{ID:4,userType:'Professeur',firstname:'test',lastname:'testL',email:'HEY'},{ID:5,userType:'Professeur',firstname:'test',lastname:'testL',email:'HEY'},{ID:6,userType:'Etudiant',firstname:'test',lastname:'testL',email:'HEY'},{ID:7,userType:'Etudiant',firstname:'test',lastname:'testL',email:'HEY'},{ID:8,userType:'Etudiant',firstname:'test',lastname:'testL',email:'HEY'},{ID:9,userType:'Etudiant',firstname:'test',lastname:'testL',email:'HEY'},{ID:10,userType:'Etudiant',firstname:'test',lastname:'testL',email:'HEY'},{ID:11,userType:'Etudiant',firstname:'test',lastname:'testL',email:'HEY'}]
+  userListTest:User[] = [{ID:1,userType:'Etudiant',firstname:'test',lastname:'testL',email:'HEY',planningNameGroupBelonging:['hey','hey2','hey3','hey4']},{ID:2,userType:'Etudiant',firstname:'test',lastname:'testL',email:'HEY'},{ID:3,userType:'Etudiant',firstname:'test',lastname:'testL',email:'HEY'},{ID:4,userType:'Professeur',firstname:'test',lastname:'testL',email:'HEY'},{ID:5,userType:'Professeur',firstname:'test',lastname:'testL',email:'HEY'},{ID:6,userType:'Etudiant',firstname:'test',lastname:'testL',email:'HEY'},{ID:7,userType:'Etudiant',firstname:'test',lastname:'testL',email:'HEY'},{ID:8,userType:'Etudiant',firstname:'test',lastname:'testL',email:'HEY'},{ID:9,userType:'Etudiant',firstname:'test',lastname:'testL',email:'HEY'},{ID:10,userType:'Etudiant',firstname:'test',lastname:'testL',email:'HEY'},{ID:11,userType:'Etudiant',firstname:'test',lastname:'testL',email:'HEY'}]
   userList: User[] = [];
   logList: Log[] = []
   logListTest: Log[] = [{ID:1,firstname:'Willy',lastname:'Girgis',date:'25/02',action:'A tout niquer'},{ID:2,firstname:'Willy',lastname:'Girgis',date:'25/02',action:'A tout niquer'},{ID:3,firstname:'Willy',lastname:'Girgis',date:'25/02',action:'A tout niquer'},{ID:4,firstname:'Willy',lastname:'Girgis',date:'25/02',action:'A tout niquer'},{ID:5,firstname:'Willy',lastname:'Girgis',date:'25/02',action:'A tout niquer'},{ID:6,firstname:'Willy',lastname:'Girgis',date:'25/02',action:'A tout niquer'},{ID:7,firstname:'Willy',lastname:'Girgis',date:'25/02',action:'A tout niquer'}]
@@ -175,7 +175,7 @@ if(this.view == 'User') {
          var parsed = JSON.parse(data) // Transformation en json, puis placement dans la var "parsed"
          for(var i = 0;i < parsed.length;i++) {
          //this.userList.push(JSON.parse({ID:parsed[i].id,firstname:parsed[i].firstname,lastname:parsed[i].lastname,email:parsed[i].email}))
-       let usertemp:User ={ID:i+ 1,userType:parsed[i].userType,firstname:parsed[i].firstname,lastname:parsed[i].lastname,email:parsed[i].email,isSpectral:parsed[i].isSpectral}
+       let usertemp:User ={ID:i+ 1,userType:parsed[i].userType,firstname:parsed[i].firstname,lastname:parsed[i].lastname,email:parsed[i].email,isSpectral:parsed[i].isSpectral,planningNameGroupBelonging:parsed[i].planningNameGroupBelonging}
         this.userList.push(usertemp)
         this.user_IDList.push(parsed[i]._id)
       }

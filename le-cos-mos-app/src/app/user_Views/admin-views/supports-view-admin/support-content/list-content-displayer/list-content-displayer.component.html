@@ -18,7 +18,7 @@
     <mat-menu #menu="matMenu">
       <button (click)="deleteDocument(i)"  mat-menu-item>Supprimer l'element</button>
     </mat-menu>
-        <div (click)="!item.document_list! ? null : getInToFolder(i)" [routerLink]="!item.document_list! ? item.name + '_' + item.chapter : null" id="header-wrp">
+        <div (click)="!item.document_list! ? null : getInToFolder(i)" [routerLink]="!item.document_list! ? item.name  : null" id="header-wrp">
           <h3 >{{item.name}}</h3>
           <h3 *ngIf="!item!.document_list">Chapitre {{item.chapter}}</h3>
 <img id="arrowD" src="../../../../../../assets/images/arrow-bar-down.svg">

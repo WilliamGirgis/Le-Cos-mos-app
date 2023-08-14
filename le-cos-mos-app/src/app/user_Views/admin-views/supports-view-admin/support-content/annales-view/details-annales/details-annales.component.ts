@@ -15,7 +15,7 @@ export class DetailsAnnalesComponent implements OnInit ,AfterViewInit {
   this.downloadFile()
   }
   imgFile:any
-  documentTitle?:string = decodeURIComponent(this.route.url.split(/\//g)[this.route.url.split(/\//g).length - 1]).split(/_/)[0]
+  documentTitle?:string = decodeURIComponent(this.route.url.split(/\//g)[this.route.url.split(/\//g).length - 1])
   documentChapter?:string = decodeURIComponent(this.route.url.split(/\//g)[this.route.url.split(/\//g).length - 1]).split(/_/)[1]
   imgExtension:any = this.documentTitle?.split(/\./g)[this.documentTitle?.split(/\./g).length - 1]
 

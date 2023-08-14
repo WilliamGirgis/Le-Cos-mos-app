@@ -6,5 +6,5 @@ export class User {
   email:string|undefined
   _id?:string
   isSpectral?:boolean
-
+  planningNameGroupBelonging?:string []
 }

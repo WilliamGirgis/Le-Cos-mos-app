@@ -61,16 +61,26 @@
           <div style="min-width: max-content;" class="t-area-wrp">Prénom : <textarea [style]="'resize:none'" matInput #fname readonly>{{element.firstname}}</textarea></div>
           <div style="min-width: max-content;" class="t-area-wrp">Nom : <textarea [style]="'resize:none'" matInput #lname readonly>{{element.lastname}}</textarea></div>
           <div style="min-width: max-content;" class="t-area-wrp">Email : <textarea [style]="'resize:none'" matInput #email readonly>{{element.email}}</textarea></div>
-          <div style="min-width: max-content;" class="t-area-wrp">Type d'utilisateur : {{userType}}</div>
+          <div style="min-width: max-content;" class="t-area-wrp">Type d'utilisateur : <span style="font-weight:normal">{{userType}}</span></div>
           <mat-radio-group *ngIf="areTextAreasEditable" [(ngModel)]="userType"  aria-label="Type d'utilisateur">
             <mat-radio-button name="Etudiant"  value="Etudiant">Etudiant</mat-radio-button>
             <mat-radio-button name="Enseignant" value="Enseignant">Enseignant</mat-radio-button>
           </mat-radio-group>
-          <div style="margin:2vh auto 0 1vw;min-width: max-content;" class="t-area-wrp">Compte activé ? : {{!userIsSpectral ? 'oui' : 'non'}}</div>
+          <div  class="t-area-wrp">Compte activé ? : <span style="font-weight:normal">{{!userIsSpectral ? 'oui' : 'non'}}</span></div>
           <mat-radio-group *ngIf="areTextAreasEditable" [(ngModel)]="userIsSpectral"  aria-label="Compte activé ?">
             <mat-radio-button name="false"  [value]="true">non</mat-radio-button>
             <mat-radio-button name="true" [value]="false">oui</mat-radio-button>
           </mat-radio-group>
+          <div id="last" class="t-area-wrp">
+            Classes d'apartenance:
+            <span *ngFor="let class of element.planningNameGroupBelonging;index as i">
+
+              <span>{{class}}</span>
+
+            </span>
+
+
+          </div>
           <span id="success">{{successMsgSaved}}</span>
         <div id="btn-grp">
         <button *ngIf="areTextAreasEditable" (click)="setModifyView()" mat-button>Annuler</button>
@@ -151,26 +161,6 @@
 
   <ng-container matColumnDef="expandedDetail">
     <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayUser.length + 1">
-      <div class="example-element-detail"
-           [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-        <div class="example-element-diagram">
-          <div class="t-area-wrp">Prénom : <textarea [style]="'resize:none'" matInput #fname readonly>{{element.firstname}}</textarea></div>
-          <div class="t-area-wrp">Nom : <textarea [style]="'resize:none'" matInput #lname readonly>{{element.lastname}}</textarea></div>
-          <div class="t-area-wrp">Email : <textarea [style]="'resize:none'" matInput #email readonly>{{element.email}}</textarea></div>
-          <div class="t-area-wrp">Type d'utilisateur : {{userType}}</div>
-          <mat-radio-group *ngIf="areTextAreasEditable" [(ngModel)]="userType"  aria-label="Type d'utilisateur">
-            <mat-radio-button name="Etudiant"  value="Etudiant">Etudiant</mat-radio-button>
-            <mat-radio-button name="Enseignant" value="Enseignant">Enseignant</mat-radio-button>
-          </mat-radio-group>
-
-          <span id="success">{{successMsgSaved}}</span>
-        <div id="btn-grp">
-        <button *ngIf="areTextAreasEditable" (click)="setModifyView()" mat-button>Annuler</button>
-        <button *ngIf="areTextAreasEditable" (click)="modifyUser(fname.value,lname.value,email.value,element.ID)" mat-button>Enregistrer les modifications</button>
-      </div>
-
-    </div>
-      </div>
     </td>
   </ng-container>
 

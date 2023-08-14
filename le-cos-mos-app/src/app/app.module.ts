@@ -516,7 +516,7 @@ const routes: Routes = [
       {
         path: 'gestion',
         component: GestionViewComponent,
-        canActivate:[AdminguardGuard],
+        // canActivate:[AdminguardGuard],
         data: { animation: 'Gestion' },
       }
     ]

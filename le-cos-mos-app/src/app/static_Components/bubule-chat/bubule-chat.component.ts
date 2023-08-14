@@ -65,6 +65,14 @@ export class BubuleChatComponent implements OnInit {
   filename?: string
   constructor(private http: HttpClient, private chatService: ChatService, private httpService: HttpService, private ngZone: NgZone) {
 
+    window.onresize = () =>{
+      if(window.screen.availWidth >= 640) {
+        document.getElementById('rightWrp')!.style.display = 'flex'
+
+      } else {
+
+      }
+    }
     this.uploader!.onCompleteAll = () => {
       // When the upload queue is completely done, we refresh the page to output it correctly
       this.filename = undefined
@@ -138,12 +146,18 @@ export class BubuleChatComponent implements OnInit {
   textAreaValue?: string = ''
 
 
-
+displayHideMessage() {
+if(  document.getElementById('rightWrp')!.style.display == 'flex') {
+  document.getElementById('rightWrp')!.style.display = 'none'
+} else {
+  document.getElementById('rightWrp')!.style.display = 'flex'
+}
+}
 
 
   // Get global discussion list
   readonly getGlobalDiscussionListRoute = 'http://localhost:4200/chat/discussion/global'
-  globalDiscussionList: Discussion[] = []
+  globalDiscussionList: Discussion[] = [{name:'test',user_list:[],discussionType:'private',_id:'',isDual:false}]
   getGlobalDiscussionList() {
 
     let params = new HttpParams().set('_id',localStorage.getItem('user-id')!)
@@ -182,9 +196,11 @@ export class BubuleChatComponent implements OnInit {
           this.dataSource.paginator = this.paginator.toArray()[0];
           this.dataSource.sort = this.sort.toArray()[0];
 
-        }),catchError((e) =>{
+        }),catchError(async (e:any) =>{
           return e
-        })).subscribe((resulting) =>{
+        })
+
+        ).subscribe((resulting) =>{
 
         })
 
@@ -226,6 +242,8 @@ return
     this.http.get(this.downloadFileRoute, { params: querParam, responseType: 'blob' }).pipe(map(async (data: any) => {
       saveAs(data, filename);
       return
+    }),catchError(async(e:any) =>{
+      return e
     })).subscribe((res) => {
 
     })
@@ -256,7 +274,10 @@ return
               // la donnée à afficher dans le parametre '[src]' de la balise image
               this.imgFile[i] = fr.result
             }
-          })).subscribe((res) =>{
+          }),catchError(async(e:any) =>{
+            return e
+          })
+          ).subscribe((res) =>{
 
           })
         }
@@ -288,6 +309,8 @@ return
 this.http.post(this.saveUsersUrl,this.userListToAdd,{params:param}).pipe(map((data) =>{
   this.getPrivateDiscussionList()
 
+}),catchError(async(e:any) =>{
+  return e
 })).subscribe((res) =>{
 
 })

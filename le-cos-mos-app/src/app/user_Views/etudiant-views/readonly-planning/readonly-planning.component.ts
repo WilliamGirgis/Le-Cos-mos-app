@@ -76,7 +76,7 @@ export class ReadonlyPlanningComponent implements OnInit {
   readonly setSeanceUrl = `http://localhost:4200/seance/add`
   readonly delSeanceUrl = `http://localhost:4200/seance/del`
   readonly savePlanningUrl = `http://localhost:4200/planning/set`
-  readonly getPlanningURL = `http://localhost:4200/planning/group/planning`
+  readonly getPlanningURL = `http://localhost:4200/planning/group/planning/merged`
 
 //http://material.angular.io/components/datepicker/examples
   //http://stackoverflow.com/questions/69322172/angular-material-date-range-date-filter-get-date-date-boolean-is-not-ass?rq=1
@@ -583,6 +583,8 @@ this.dateEnd = ''
           this.semaineJours[i][j][x][5] = ''
            this.semaineJours[i][j][x][6] = ''
            this.semaineJours[i][j][x][7] = ''
+           this.semaineJours[i][j][x][8] = ''
+           this.semaineJours[i][j][x][9] = ''
 
         }
 
@@ -593,7 +595,7 @@ this.dateEnd = ''
   isExpanded:boolean = false
   selectedSeanceGroupId:string = ''
   getPlanning() {
-    const querParam = new HttpParams().set('groupName', this.groupLink!).set('week',this.week);
+    const querParam = new HttpParams().set('_id', localStorage.getItem('user-id')!).set('week',this.week);
 this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(map((data) => {
 
 
@@ -1052,7 +1054,7 @@ this.http.get(this.getPlanningURL,{params:querParam,responseType:'text'}).pipe(m
 for(let dayOfTheWeek = 0; dayOfTheWeek < this.semaineJours.length;dayOfTheWeek++) {
   for(let creneauxJours = 0;creneauxJours < this.semaineJours[dayOfTheWeek].length;creneauxJours++) {
     for(let slot = 0;slot < this.semaineJours[dayOfTheWeek][creneauxJours].length;slot++) {
-      if(this.semaineJours[dayOfTheWeek][creneauxJours][slot][6]) {
+      if(this.semaineJours[dayOfTheWeek][creneauxJours][slot][8]) {
         this.dayList.push(this.semaineJours[dayOfTheWeek][creneauxJours][slot])
       }
     }
@@ -1060,6 +1062,7 @@ for(let dayOfTheWeek = 0; dayOfTheWeek < this.semaineJours.length;dayOfTheWeek++
 
 }
 
+console.log(this.dayList)
 let temp:Days [] = []
 for(let index = 0; index < this.dayList.length;index++) {
 // console.log(this.dayList[index])
@@ -1070,15 +1073,12 @@ temp.push({heure:this.dayList[index][0],
   creneau:this.dayList[index][5],
   room:this.dayList[index][4],
   duree:this.dayList[index][6],
-  groupId:this.dayList[index][7]
+  groupId:this.dayList[index][7],
+  displayType:this.dayList[index][8]
 })
 
 }
-
-
-
-const uniqueAuthors2 = [...new Map(temp.map(v => [v.groupId, v])).values()]
-this.dayList = uniqueAuthors2
+this.dayList = temp
 
 
   }
